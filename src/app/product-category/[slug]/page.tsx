@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { CategorySidebar, CategorySortBar, CategoryMobileBar } from "./CategoryFilters";
 import AddToCartButton from "@/app/shop/AddToCartButton";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const WC      = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 const PER_PAGE = 12;
