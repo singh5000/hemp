@@ -22,7 +22,7 @@ interface WCAddress {
   firstName: string; lastName: string; company: string;
   address1:  string; address2: string;
   city:      string; state:    string; postcode: string; country: string;
-  phone?:    string; email?:   string;
+  phone:     string; email:    string;
 }
 interface Customer {
   databaseId:  number;
@@ -231,7 +231,7 @@ const COUNTRIES_ADDR: [string, string][] = [
 function AddressesPanel({ customer, custLoading, userEmail }: { customer: Customer | null; custLoading: boolean; userEmail: string }) {
   const [editing,   setEditing]   = useState<"billing" | "shipping" | null>(null);
   const [billing,   setBilling]   = useState({ ...BLANK_ADDR });
-  const [shipping,  setShipping]  = useState({ ...BLANK_ADDR, phone: undefined as string | undefined, email: undefined as string | undefined });
+  const [shipping,  setShipping]  = useState({ ...BLANK_ADDR });
   const [busy,      setBusy]      = useState(false);
   const [err,       setErr]       = useState("");
   const [ok,        setOk]        = useState(false);
@@ -364,7 +364,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
           </div>
           {editing === "billing"
             ? <AddressForm type="billing" addr={billing} setAddr={a => setBilling(a)}/>
-            : <AddrDisplay addr={customer?.billing ?? null}/>
+            : <AddrDisplay addr={customer?.billing ? { ...customer.billing, phone: customer.billing.phone ?? "", email: customer.billing.email ?? "" } : null}/>
           }
         </div>
 
@@ -379,7 +379,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
           </div>
           {editing === "shipping"
             ? <AddressForm type="shipping" addr={shipping} setAddr={a => setShipping(a)}/>
-            : <AddrDisplay addr={customer?.shipping ?? null}/>
+            : <AddrDisplay addr={customer?.shipping ? { ...customer.shipping, phone: customer.shipping.phone ?? "", email: customer.shipping.email ?? "" } : null}/>
           }
         </div>
       </div>
@@ -628,7 +628,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                               <span className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${badgeClass}`}>
                                 {order.status?.replace(/_/g, " ")}
                               </span>
-                              <a href={`${WP_URL}/my-account/view-order/${order.databaseId}/`}
+                              <a href={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/my-account/view-order/${order.databaseId}/`}
                                 target="_blank" rel="noopener noreferrer"
                                 className="text-[#5a8c3a] text-xs font-bold hover:underline">
                                 View →
