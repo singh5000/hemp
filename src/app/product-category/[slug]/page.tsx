@@ -34,10 +34,10 @@ interface WCCategory { id: number; name: string; slug: string; count: number; de
 
 /* ── Fetchers ── */
 async function fetchCategory(slug: string): Promise<WCCategory | null> {
-  const res = await fetch(`${WC}/products/categories?slug=${slug}&per_page=1`, { cache: "no-store" });
+  const res = await fetch(`${WC}/products/categories?per_page=100`, { cache: "no-store" });
   if (!res.ok) return null;
   const data: WCCategory[] = await res.json();
-  return data[0] ?? null;
+  return data.find(c => c.slug === slug) ?? null;
 }
 
 async function fetchProducts(params: URLSearchParams): Promise<{ products: WCProduct[]; total: number; pages: number }> {
