@@ -34,14 +34,14 @@ interface WCCategory { id: number; name: string; slug: string; count: number; de
 
 /* ── Fetchers ── */
 async function fetchCategory(slug: string): Promise<WCCategory | null> {
-  const res = await fetch(`${WC}/products/categories?slug=${slug}&per_page=1`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${WC}/products/categories?slug=${slug}&per_page=1`, { cache: "no-store" });
   if (!res.ok) return null;
   const data: WCCategory[] = await res.json();
   return data[0] ?? null;
 }
 
 async function fetchProducts(params: URLSearchParams): Promise<{ products: WCProduct[]; total: number; pages: number }> {
-  const res = await fetch(`${WC}/products?${params.toString()}`, { next: { revalidate: 300 } });
+  const res = await fetch(`${WC}/products?${params.toString()}`, { cache: "no-store" });
   if (!res.ok) return { products: [], total: 0, pages: 1 };
   const products: WCProduct[] = await res.json();
   const total = parseInt(res.headers.get("X-WP-Total") ?? "0");
