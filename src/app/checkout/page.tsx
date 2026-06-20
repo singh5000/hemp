@@ -742,13 +742,15 @@ export default function CheckoutPage() {
                       const varAttrs = item.variation?.attributes?.nodes ?? [];
                       return (
                         <div key={item.key} className="flex items-center gap-3">
-                          <div className="relative w-14 h-14 bg-[#f8f6f3] rounded-lg overflow-hidden flex-shrink-0">
-                            {img?.sourceUrl
-                              ? <Image src={img.sourceUrl} alt={img.altText || item.product.name}
-                                  fill className="object-contain p-1" sizes="56px"/>
-                              : <div className="w-full h-full bg-gray-100"/>
-                            }
-                            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#5a8c3a] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                          <div className="relative w-14 h-14 flex-shrink-0">
+                            <div className="w-full h-full bg-[#f8f6f3] rounded-lg overflow-hidden">
+                              {img?.sourceUrl
+                                ? <Image src={img.sourceUrl} alt={img.altText || item.product.name}
+                                    fill className="object-contain p-1" sizes="56px"/>
+                                : <div className="w-full h-full bg-gray-100"/>
+                              }
+                            </div>
+                            <span className="absolute -top-1.5 -right-1.5 z-10 w-5 h-5 bg-[#5a8c3a] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                               {item.quantity}
                             </span>
                           </div>
