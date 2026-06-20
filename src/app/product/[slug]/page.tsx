@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import ProductGallery from "./ProductGallery";
 import ProductForm from "./ProductForm";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const WC = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 
