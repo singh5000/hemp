@@ -1,7 +1,62 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  allowedDevOrigins: ["http://localhost"],
+  images: {
+    dangerouslyAllowSVG: true,
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2592000,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes:  [16, 32, 64, 96, 128, 256, 384],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "hempandbarrel.com",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/hemp/wp-content/uploads/**",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        pathname: "/hemp/wp-content/uploads/**",
+      },
+    ],
+  },
+  async redirects() {
+    return [
+      // Policy page aliases
+      { source: "/returns",              destination: "/returns-exchanges",    permanent: true },
+      { source: "/return-policy",        destination: "/returns-exchanges",    permanent: true },
+      { source: "/refund-policy",        destination: "/returns-exchanges",    permanent: true },
+      { source: "/shipping",             destination: "/shipping-delivery",    permanent: true },
+      { source: "/terms",                destination: "/terms-conditions",     permanent: true },
+      { source: "/terms-and-conditions", destination: "/terms-conditions",     permanent: true },
+      { source: "/privacy",              destination: "/privacy-policy",       permanent: true },
+      { source: "/about",                destination: "/about-us",             permanent: true },
+      // Old WooCommerce category slug aliases
+      { source: "/product-category/cbd-gummies",    destination: "/product-category/edibles-gummies",    permanent: true },
+      { source: "/product-category/cbd-beverages",  destination: "/product-category/infused-beverages",  permanent: true },
+      { source: "/product-category/cbd-tincture",   destination: "/product-category/tinctures",          permanent: true },
+      { source: "/product-category/subscriptions",  destination: "/product-category/subitems",           permanent: true },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-XSS-Protection", value: "1; mode=block" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
