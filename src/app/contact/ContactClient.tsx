@@ -240,7 +240,7 @@ export default function ContactClient() {
 
                   <button
                     type="submit"
-                    disabled={status === "sending" || status === "sent"}
+                    disabled={status !== "idle" && status !== "error"}
                     className="w-full bg-[#5a8c3a] hover:bg-[#4a7a2e] disabled:opacity-70 text-white font-bold uppercase tracking-widest text-sm py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#5a8c3a]/30 flex items-center justify-center gap-3"
                   >
                     {status === "sending" ? (
