@@ -60,7 +60,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Search */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-3">Search Products</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
           <form onSubmit={submitSearch} className="flex gap-2">
             <div className="relative flex-1">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
@@ -73,11 +73,11 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder="Product name…"
-                className="w-full pl-8 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#5a8c3a] text-[#3d2b1f] placeholder:text-gray-400"
+                className="w-full pl-8 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
               />
             </div>
             <button type="submit"
-              className="bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white px-2.5 rounded-lg transition-colors flex-shrink-0">
+              className="bg-[#1A9248] hover:bg-[#148038] text-white px-2.5 rounded-lg transition-colors flex-shrink-0">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
               </svg>
@@ -96,11 +96,11 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Categories */}
         <div className={`p-4 ${brands.length > 0 ? "border-b border-gray-100" : ""}`}>
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-3">Category</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Category</p>
           <div className="space-y-0.5">
             <button onClick={() => setCategory("")}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all flex justify-between items-center ${
-                !activeCategory && !activeBrand ? "bg-[#5a8c3a] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#5a8c3a]"
+                !activeCategory && !activeBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
               }`}>
               <span>All Products</span>
               <span className={`text-xs font-normal ${!activeCategory && !activeBrand ? "text-white/70" : "text-gray-400"}`}>{totalCount}</span>
@@ -109,8 +109,8 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
               <button key={cat.id} onClick={() => setCategory(cat.slug)}
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all flex justify-between items-center ${
                   activeCategory === cat.slug
-                    ? "bg-[#5a8c3a] text-white"
-                    : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#5a8c3a]"
+                    ? "bg-[#1A9248] text-white"
+                    : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
                 }`}>
                 <span>{cat.name}</span>
                 <span className={`text-xs font-normal ${activeCategory === cat.slug ? "text-white/70" : "text-gray-400"}`}>{cat.count}</span>
@@ -122,14 +122,14 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
         {/* Brands */}
         {brands.length > 0 && (
           <div className="p-4 border-b border-gray-100">
-            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-3">Brands</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Brands</p>
             <div className="space-y-0.5">
               {brands.map((b) => (
                 <button key={b.id} onClick={() => setBrand(activeBrand === b.slug ? "" : b.slug)}
                   className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all flex justify-between items-center ${
                     activeBrand === b.slug
-                      ? "bg-[#5a8c3a] text-white"
-                      : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#5a8c3a]"
+                      ? "bg-[#1A9248] text-white"
+                      : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
                   }`}>
                   <span>{b.name}</span>
                   <span className={`text-xs font-normal ${activeBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
@@ -147,14 +147,14 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
             aria-pressed={activeInstock}
           >
             <div className="text-left">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a]">In Stock Only</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248]">In Stock Only</p>
               <p className="text-[10px] text-gray-400 mt-0.5 leading-snug">
                 {activeInstock ? "Hiding out of stock items" : "Showing all products"}
               </p>
             </div>
             {/* Toggle pill */}
             <div className={`relative flex-shrink-0 w-11 h-6 rounded-full transition-colors duration-300 ${
-              activeInstock ? "bg-[#5a8c3a]" : "bg-gray-200 group-hover:bg-gray-300"
+              activeInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
             }`}>
               <span className={`absolute top-[3px] left-[3px] w-[18px] h-[18px] bg-white rounded-full shadow-sm transition-transform duration-300 ${
                 activeInstock ? "translate-x-5" : "translate-x-0"
@@ -182,7 +182,7 @@ export function ShopSortBar({ total, shown }: { total: number; shown: number }) 
         <select
           value={`${active.orderby}|${active.order}`}
           onChange={(e) => { const [ob, or] = e.target.value.split("|"); setSort(ob, or); }}
-          className="appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#5a8c3a] cursor-pointer">
+          className="appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#1A9248] cursor-pointer">
           {SORT_OPTIONS.map(o => (
             <option key={`${o.orderby}|${o.order}`} value={`${o.orderby}|${o.order}`}>{o.label}</option>
           ))}
@@ -226,11 +226,11 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             placeholder="Search products…"
-            className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:border-[#5a8c3a] text-[#3d2b1f] placeholder:text-gray-400 bg-white"
+            className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400 bg-white"
           />
         </div>
         <button type="submit"
-          className="bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white px-4 rounded-full transition-colors text-sm font-bold">
+          className="bg-[#1A9248] hover:bg-[#148038] text-white px-4 rounded-full transition-colors text-sm font-bold">
           Go
         </button>
         {activeSearch && (
@@ -244,13 +244,13 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
       <div className="flex items-center gap-3">
         {/* Filter toggle */}
         <button onClick={() => setOpen(!open)}
-          className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-bold text-[#3d2b1f] hover:border-[#5a8c3a] transition-colors">
+          className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-bold text-[#3d2b1f] hover:border-[#1A9248] transition-colors">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
           </svg>
           Filters
-          {hasFilter && <span className="w-2 h-2 rounded-full bg-[#5a8c3a]" />}
+          {hasFilter && <span className="w-2 h-2 rounded-full bg-[#1A9248]" />}
         </button>
 
         {/* Sort */}
@@ -258,7 +258,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
           <select
             value={`${active.orderby}|${active.order}`}
             onChange={(e) => { const [ob, or] = e.target.value.split("|"); setSort(ob, or); }}
-            className="w-full appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#5a8c3a] cursor-pointer">
+            className="w-full appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#1A9248] cursor-pointer">
             {SORT_OPTIONS.map(o => (
               <option key={`${o.orderby}|${o.order}`} value={`${o.orderby}|${o.order}`}>{o.label}</option>
             ))}
@@ -292,12 +292,12 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
             <div className="grid grid-cols-2 gap-1">
               <button onClick={() => { setCategory(""); setOpen(false); }}
                 className={`text-left px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
-                  !activeCategory && !activeBrand ? "bg-[#5a8c3a] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
+                  !activeCategory && !activeBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
                 }`}>All Products</button>
               {categories.map(cat => (
                 <button key={cat.id} onClick={() => { setCategory(cat.slug); setOpen(false); }}
                   className={`text-left px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
-                    activeCategory === cat.slug ? "bg-[#5a8c3a] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
+                    activeCategory === cat.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
                   }`}>{cat.name}</button>
               ))}
             </div>
@@ -309,7 +309,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
               {brands.map(b => (
                 <button key={b.id} onClick={() => { setBrand(activeBrand === b.slug ? "" : b.slug); setOpen(false); }}
                   className={`text-left px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
-                    activeBrand === b.slug ? "bg-[#5a8c3a] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
+                    activeBrand === b.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
                   }`}>{b.name}</button>
               ))}
             </div>
@@ -324,7 +324,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
             >
               <span className="text-xs font-bold text-[#3d2b1f]">In Stock Only</span>
               <div className={`relative flex-shrink-0 w-10 h-5 rounded-full transition-colors duration-300 ${
-                activeInstock ? "bg-[#5a8c3a]" : "bg-gray-200 group-hover:bg-gray-300"
+                activeInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
               }`}>
                 <span className={`absolute top-[3px] left-[3px] w-[14px] h-[14px] bg-white rounded-full shadow-sm transition-transform duration-300 ${
                   activeInstock ? "translate-x-5" : "translate-x-0"

@@ -28,7 +28,7 @@ export default function TableOfContents({ headings }: { headings: Heading[] }) {
 
   return (
     <nav aria-label="Table of contents">
-      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-4">
+      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">
         Table of Contents
       </p>
       <ol className="space-y-1">
@@ -42,7 +42,7 @@ export default function TableOfContents({ headings }: { headings: Heading[] }) {
               }}
               className={`block text-sm py-1 leading-snug transition-all duration-150 border-l-2 pl-3 ${
                 active === h.id
-                  ? "border-[#5a8c3a] text-[#5a8c3a] font-semibold"
+                  ? "border-[#1A9248] text-[#1A9248] font-semibold"
                   : "border-transparent text-gray-500 hover:text-[#3d2b1f] hover:border-gray-300"
               }`}
             >

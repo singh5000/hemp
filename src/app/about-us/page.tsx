@@ -65,9 +65,9 @@ export default function AboutUsPage() {
       {/* ── Hero ── */}
       <section className="relative bg-[#2a1008] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -left-40 top-0 w-[600px] h-[600px] bg-[#5a8c3a]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-[#5a8c3a]/5 rounded-full blur-2xl pointer-events-none" />
+          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+        <div className="absolute -left-40 top-0 w-[600px] h-[600px] bg-[#1A9248]/8 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-[#1A9248]/5 rounded-full blur-2xl pointer-events-none" />
 
         <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-28 text-center">
           <nav className="flex items-center justify-center gap-2 text-white/40 text-sm mb-8">
@@ -76,12 +76,12 @@ export default function AboutUsPage() {
             <span className="text-white/60">About Us</span>
           </nav>
 
-          <div className="inline-flex items-center gap-2 bg-[#5a8c3a]/15 border border-[#5a8c3a]/30 text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.3em] px-4 py-2 rounded-full mb-6">
+          <div className="inline-flex items-center gap-2 bg-[#1A9248]/15 border border-[#1A9248]/30 text-[#1A9248] text-xs font-bold uppercase tracking-[0.3em] px-4 py-2 rounded-full mb-6">
             Est. 2019 · Pineville, NC
           </div>
 
           <h1 className="text-white text-5xl md:text-7xl font-bold leading-tight mb-6">
-            About <span className="text-[#5a8c3a]">Hemp &amp; Barrel</span>
+            About <span className="text-[#1A9248]">Hemp &amp; Barrel</span>
           </h1>
           <p className="text-white/50 text-lg md:text-xl max-w-[600px] mx-auto leading-relaxed">
             Charlotte NC's trusted CBD store. Premium, lab-tested hemp products for your everyday wellness.
@@ -104,7 +104,7 @@ export default function AboutUsPage() {
               />
               {/* Est badge */}
               <div className="absolute bottom-5 left-5 bg-[#2a1008]/90 backdrop-blur-sm rounded-2xl px-5 py-3">
-                <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-wider">Est.</p>
+                <p className="text-[#1A9248] text-xs font-bold uppercase tracking-wider">Est.</p>
                 <p className="text-white text-3xl font-bold leading-none">2019</p>
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function AboutUsPage() {
 
           {/* Text */}
           <div className="flex-1 min-w-0">
-            <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-4">Our Story</p>
+            <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-4">Our Story</p>
             <h2 className="text-[#2a1008] text-3xl md:text-4xl font-bold leading-tight mb-6">
               Born at a Farm in Lake Lure, NC
             </h2>
@@ -141,18 +141,18 @@ export default function AboutUsPage() {
                 gummies, honey, flower and vapes. In addition to that we also select hemp themed
                 beer and wine.
               </p>
-              <p className="text-[#5a8c3a] font-bold text-lg italic">
+              <p className="text-[#1A9248] font-bold text-lg italic">
                 "Hemping ain't easy" — but we are happy to be on this journey with you!
               </p>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop"
-                className="inline-flex items-center gap-2 bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors">
+                className="inline-flex items-center gap-2 bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors">
                 Shop Products
               </Link>
               <Link href="/contact"
-                className="inline-flex items-center gap-2 border-2 border-[#3d2b1f] hover:border-[#5a8c3a] hover:text-[#5a8c3a] text-[#3d2b1f] font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full transition-all">
+                className="inline-flex items-center gap-2 border-2 border-[#3d2b1f] hover:border-[#1A9248] hover:text-[#1A9248] text-[#3d2b1f] font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full transition-all">
                 Contact Us
               </Link>
             </div>
@@ -164,14 +164,14 @@ export default function AboutUsPage() {
       <section className="bg-[#f5f0eb] py-16">
         <div className="max-w-[1320px] mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-2">Why Hemp &amp; Barrel</p>
+            <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-2">Why Hemp &amp; Barrel</p>
             <h2 className="text-[#2a1008] text-3xl md:text-4xl font-bold">What Makes Us Different</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {PILLARS.map((p) => (
               <div key={p.title}
                 className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-[#5a8c3a]/10 text-[#5a8c3a] rounded-xl flex items-center justify-center mb-5">
+                <div className="w-12 h-12 bg-[#1A9248]/10 text-[#1A9248] rounded-xl flex items-center justify-center mb-5">
                   {p.icon}
                 </div>
                 <h3 className="text-[#2a1008] font-bold text-base mb-2">{p.title}</h3>
@@ -192,7 +192,7 @@ export default function AboutUsPage() {
             <Link key={ql.href} href={ql.href}
               className="group bg-[#2a1008] hover:bg-[#3d2b1f] rounded-2xl p-6 text-center transition-all hover:-translate-y-1 hover:shadow-xl">
               <span className="text-3xl block mb-3">{ql.icon}</span>
-              <p className="text-white font-bold text-sm uppercase tracking-wider group-hover:text-[#5a8c3a] transition-colors">
+              <p className="text-white font-bold text-sm uppercase tracking-wider group-hover:text-[#1A9248] transition-colors">
                 {ql.label}
               </p>
             </Link>
@@ -205,24 +205,24 @@ export default function AboutUsPage() {
         <div className="max-w-[1320px] mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-10 items-center justify-between">
             <div>
-              <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-3">Store Info</p>
+              <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Store Info</p>
               <h2 className="text-white text-3xl font-bold mb-5">Visit Us in Pineville</h2>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-3 text-white/70">
-                  <svg className="w-4 h-4 text-[#5a8c3a] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
                   800 N Polk Street, Pineville, NC 28134
                 </div>
-                <a href="tel:9803264367" className="flex items-center gap-3 text-white/70 hover:text-[#5a8c3a] transition-colors">
-                  <svg className="w-4 h-4 text-[#5a8c3a] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="tel:9803264367" className="flex items-center gap-3 text-white/70 hover:text-[#1A9248] transition-colors">
+                  <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                   </svg>
                   (980) 326-4367
                 </a>
                 <div className="flex items-center gap-3 text-white/70">
-                  <svg className="w-4 h-4 text-[#5a8c3a] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                   Mon–Sat: 10am – 8pm &nbsp;·&nbsp; Sun: 12pm – 4pm
@@ -230,7 +230,7 @@ export default function AboutUsPage() {
               </div>
             </div>
             <Link href="/contact"
-              className="flex-shrink-0 bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-colors">
+              className="flex-shrink-0 bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-colors">
               Get Directions
             </Link>
           </div>

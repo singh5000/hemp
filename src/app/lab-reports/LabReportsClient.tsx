@@ -87,7 +87,7 @@ const CAT_STYLE: Record<string, string> = {
   "Gummies":      "bg-pink-100  text-pink-700",
   "Hempettes":    "bg-orange-100 text-orange-700",
   "CBD Flower":   "bg-emerald-100 text-emerald-700",
-  "THCa Flower":  "bg-[#5a8c3a]/10 text-[#5a8c3a]",
+  "THCa Flower":  "bg-[#1A9248]/10 text-[#1A9248]",
 };
 
 const CATS: Category[] = ["All", "Gummies", "Hempettes", "CBD Flower", "THCa Flower"];
@@ -139,8 +139,8 @@ export default function LabReportsClient() {
                 onClick={() => setActiveCategory(cat)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 border ${
                   activeCategory === cat
-                    ? "bg-[#5a8c3a] text-white border-[#5a8c3a] shadow-md shadow-[#5a8c3a]/20"
-                    : "bg-white text-[#3d2b1f] border-gray-200 hover:border-[#5a8c3a] hover:text-[#5a8c3a]"
+                    ? "bg-[#1A9248] text-white border-[#1A9248] shadow-md shadow-[#1A9248]/20"
+                    : "bg-white text-[#3d2b1f] border-gray-200 hover:border-[#1A9248] hover:text-[#1A9248]"
                 }`}
               >
                 {cat}
@@ -163,7 +163,7 @@ export default function LabReportsClient() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search strains…"
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-gray-200 rounded-full focus:outline-none focus:border-[#5a8c3a] text-[#3d2b1f] placeholder:text-gray-400"
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-gray-200 rounded-full focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
             />
           </div>
         </div>
@@ -178,7 +178,7 @@ export default function LabReportsClient() {
           <div className="py-24 text-center">
             <p className="text-2xl text-gray-300 font-bold">No results found</p>
             <button onClick={() => { setSearch(""); setActiveCategory("All"); }}
-              className="mt-4 text-[#5a8c3a] text-sm font-bold hover:underline">Clear filters</button>
+              className="mt-4 text-[#1A9248] text-sm font-bold hover:underline">Clear filters</button>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -215,7 +215,7 @@ export default function LabReportsClient() {
                     <div className="flex gap-3 mb-4">
                       {report.thca && (
                         <div className="flex-1 bg-[#f5f0eb] rounded-xl px-3 py-2.5 text-center">
-                          <p className="text-[#5a8c3a] text-lg font-bold leading-none">{report.thca.toFixed(1)}%</p>
+                          <p className="text-[#1A9248] text-lg font-bold leading-none">{report.thca.toFixed(1)}%</p>
                           <p className="text-[#3d2b1f]/50 text-[10px] uppercase tracking-wider mt-1 font-semibold">THCa</p>
                         </div>
                       )}
@@ -239,7 +239,7 @@ export default function LabReportsClient() {
                       href={report.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors"
+                      className="flex items-center justify-center gap-2 w-full bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -265,7 +265,7 @@ export default function LabReportsClient() {
               { icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>, title: "Full Transparency",  desc: "Scan our QR codes in-store or check any COA here anytime." },
             ].map((item) => (
               <div key={item.title} className="flex flex-col items-center gap-3">
-                <div className="w-12 h-12 bg-[#5a8c3a]/10 text-[#5a8c3a] rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#1A9248]/10 text-[#1A9248] rounded-full flex items-center justify-center">
                   {item.icon}
                 </div>
                 <p className="font-bold text-[#2a1008] text-sm">{item.title}</p>

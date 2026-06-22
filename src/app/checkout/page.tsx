@@ -38,7 +38,7 @@ const COUNTRIES: [string, string][] = [
 ];
 const NMI_KEY  = process.env.NEXT_PUBLIC_NMI_TOKENIZATION_KEY ?? "";
 const NMI_PM: PM = { payment_method_id: "nmi", name: "Credit card (NMI)", description: "Pay with your credit card via NMI." };
-const inp = "w-full h-11 border border-gray-200 rounded-xl px-4 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#5a8c3a]/30 focus:border-[#5a8c3a] transition-all";
+const inp = "w-full h-11 border border-gray-200 rounded-xl px-4 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#1A9248]/30 focus:border-[#1A9248] transition-all";
 
 /* ── Field wrapper ── */
 function FL({ label, req, children }: { label: string; req?: boolean; children: React.ReactNode }) {
@@ -61,10 +61,10 @@ function NoticeBar({ icon, label, linkText, children }: {
     <div className="border border-[#d4e8c8] bg-[#f5faf2] rounded-xl overflow-hidden">
       <button type="button" onClick={() => setOpen(o => !o)}
         className="w-full flex items-center gap-3 px-5 py-3.5 text-left">
-        <span className="text-[#5a8c3a] flex-shrink-0">{icon}</span>
+        <span className="text-[#1A9248] flex-shrink-0">{icon}</span>
         <span className="text-sm text-[#3d2b1f]">
           {label}{" "}
-          <span className="text-[#5a8c3a] font-semibold hover:underline">{linkText}</span>
+          <span className="text-[#1A9248] font-semibold hover:underline">{linkText}</span>
         </span>
         <svg className={`w-4 h-4 text-gray-400 ml-auto transition-transform ${open ? "rotate-180" : ""}`}
           fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -374,14 +374,14 @@ export default function CheckoutPage() {
   /* ── Guards ── */
   if (cartLoading) return (
     <div className="min-h-[60vh] flex items-center justify-center">
-      <div className="w-8 h-8 border-4 border-[#5a8c3a] border-t-transparent rounded-full animate-spin"/>
+      <div className="w-8 h-8 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin"/>
     </div>
   );
 
   if (!cart || cart.isEmpty) return (
     <div className="max-w-[1320px] mx-auto px-4 py-24 text-center">
       <h1 className="text-3xl font-bold text-[#2a1008] mb-4">Your cart is empty</h1>
-      <Link href="/shop" className="inline-flex items-center gap-2 bg-[#5a8c3a] text-white font-bold text-sm px-6 py-3 rounded-full">
+      <Link href="/shop" className="inline-flex items-center gap-2 bg-[#1A9248] text-white font-bold text-sm px-6 py-3 rounded-full">
         Continue Shopping
       </Link>
     </div>
@@ -453,14 +453,14 @@ export default function CheckoutPage() {
                       <input type="text" value={couponCode} onChange={e => { setCouponCode(e.target.value); setCouponErr(""); }}
                         onKeyDown={e => e.key === "Enter" && handleCoupon(e as never)}
                         placeholder="Coupon code"
-                        className="flex-1 h-10 border border-gray-200 rounded-xl px-4 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#5a8c3a]/30 focus:border-[#5a8c3a] transition-all"/>
+                        className="flex-1 h-10 border border-gray-200 rounded-xl px-4 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#1A9248]/30 focus:border-[#1A9248] transition-all"/>
                       <button type="button" onClick={handleCoupon} disabled={couponBusy || !couponCode.trim()}
                         className="h-10 px-5 bg-[#3d2b1f] hover:bg-[#2a1008] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors whitespace-nowrap">
                         {couponBusy ? "Applying…" : "Apply Coupon"}
                       </button>
                     </div>
                     {couponErr && <p className="text-xs text-red-500 mt-2">{couponErr}</p>}
-                    {couponOk  && <p className="text-xs text-[#5a8c3a] font-semibold mt-2">Coupon applied!</p>}
+                    {couponOk  && <p className="text-xs text-[#1A9248] font-semibold mt-2">Coupon applied!</p>}
                   </NoticeBar>
                 </>
               )}
@@ -468,7 +468,7 @@ export default function CheckoutPage() {
               {/* ── Step 1: Billing Details ── */}
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
                 <h2 className="text-[#2a1008] font-bold text-base mb-5 flex items-center gap-2">
-                  <span className="w-6 h-6 bg-[#5a8c3a] text-white rounded-full text-xs font-bold flex items-center justify-center">1</span>
+                  <span className="w-6 h-6 bg-[#1A9248] text-white rounded-full text-xs font-bold flex items-center justify-center">1</span>
                   Billing Details
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -518,7 +518,7 @@ export default function CheckoutPage() {
                 {!user && (
                   <label className="flex items-center gap-2.5 cursor-pointer select-none mt-5 pt-4 border-t border-gray-100">
                     <input type="checkbox" checked={createAccount} onChange={e => setCreateAccount(e.target.checked)}
-                      className="w-4 h-4 rounded border-gray-300 accent-[#5a8c3a]"/>
+                      className="w-4 h-4 rounded border-gray-300 accent-[#1A9248]"/>
                     <span className="text-sm text-[#3d2b1f]">Create an account?</span>
                   </label>
                 )}
@@ -528,7 +528,7 @@ export default function CheckoutPage() {
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
                 <label className="flex items-center gap-3 cursor-pointer select-none">
                   <input type="checkbox" checked={diffShip} onChange={e => setDiffShip(e.target.checked)}
-                    className="w-4 h-4 rounded border-gray-300 accent-[#5a8c3a]"/>
+                    className="w-4 h-4 rounded border-gray-300 accent-[#1A9248]"/>
                   <span className="text-[#2a1008] font-bold text-base flex items-center gap-2">
                     <span className="w-6 h-6 bg-[#3d2b1f] text-white rounded-full text-xs font-bold flex items-center justify-center">2</span>
                     Ship to a different address?
@@ -558,13 +558,13 @@ export default function CheckoutPage() {
               {/* ── Step 3: Shipping Method ── */}
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
                 <h2 className="text-[#2a1008] font-bold text-base mb-5 flex items-center gap-2">
-                  <span className="w-6 h-6 bg-[#5a8c3a] text-white rounded-full text-xs font-bold flex items-center justify-center">3</span>
+                  <span className="w-6 h-6 bg-[#1A9248] text-white rounded-full text-xs font-bold flex items-center justify-center">3</span>
                   Shipping Method
                 </h2>
 
                 {ratesLoading ? (
                   <div className="flex items-center gap-2.5 text-gray-400 text-sm">
-                    <div className="w-4 h-4 border-2 border-[#5a8c3a]/40 border-t-[#5a8c3a] rounded-full animate-spin"/>
+                    <div className="w-4 h-4 border-2 border-[#1A9248]/40 border-t-[#1A9248] rounded-full animate-spin"/>
                     Calculating shipping rates for your address…
                   </div>
                 ) : ratesErr ? (
@@ -594,7 +594,7 @@ export default function CheckoutPage() {
                       <label key={rate.rateId}
                         className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                           selectedRateId === rate.rateId
-                            ? "border-[#5a8c3a] bg-[#f5faf2]"
+                            ? "border-[#1A9248] bg-[#f5faf2]"
                             : "border-gray-100 hover:border-gray-200 bg-white"
                         }`}>
                         <input
@@ -603,7 +603,7 @@ export default function CheckoutPage() {
                           value={rate.rateId}
                           checked={selectedRateId === rate.rateId}
                           onChange={() => handleSelectRate(pkg.packageId, rate.rateId)}
-                          className="accent-[#5a8c3a] flex-shrink-0"/>
+                          className="accent-[#1A9248] flex-shrink-0"/>
                         <span className="flex-1 text-sm font-semibold text-[#2a1008]">{rate.name}</span>
                         <span className="text-sm font-bold text-[#3d2b1f]">{rate.price}</span>
                       </label>
@@ -615,7 +615,7 @@ export default function CheckoutPage() {
               {/* ── Step 4: Payment Method ── */}
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
                 <h2 className="text-[#2a1008] font-bold text-base mb-5 flex items-center gap-2">
-                  <span className="w-6 h-6 bg-[#5a8c3a] text-white rounded-full text-xs font-bold flex items-center justify-center">4</span>
+                  <span className="w-6 h-6 bg-[#1A9248] text-white rounded-full text-xs font-bold flex items-center justify-center">4</span>
                   Payment Method
                 </h2>
 
@@ -629,10 +629,10 @@ export default function CheckoutPage() {
                     <p className="text-sm text-gray-500">
                       Could not load payment methods.{" "}
                       <button type="button" onClick={loadPaymentMethods}
-                        className="text-[#5a8c3a] font-bold hover:underline">Retry</button>
+                        className="text-[#1A9248] font-bold hover:underline">Retry</button>
                     </p>
                     <a href={`${WP_URL}/checkout`}
-                      className="inline-flex items-center gap-1.5 text-xs text-[#3d2b1f] hover:text-[#5a8c3a] font-medium transition-colors">
+                      className="inline-flex items-center gap-1.5 text-xs text-[#3d2b1f] hover:text-[#1A9248] font-medium transition-colors">
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                       </svg>
@@ -645,14 +645,14 @@ export default function CheckoutPage() {
                       <div key={method.payment_method_id}>
                         <label className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                           pm === method.payment_method_id
-                            ? "border-[#5a8c3a] bg-[#f5faf2]"
+                            ? "border-[#1A9248] bg-[#f5faf2]"
                             : "border-gray-100 hover:border-gray-200 bg-white"
                         }`}>
                           <input type="radio" name="payment_method"
                             value={method.payment_method_id}
                             checked={pm === method.payment_method_id}
                             onChange={() => setPm(method.payment_method_id)}
-                            className="mt-0.5 accent-[#5a8c3a]"/>
+                            className="mt-0.5 accent-[#1A9248]"/>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
                               <p className="text-[#2a1008] font-bold text-sm">{method.name}</p>
@@ -723,7 +723,7 @@ export default function CheckoutPage() {
                 </h2>
                 <textarea value={note} onChange={e => setNote(e.target.value)} rows={3}
                   placeholder="Notes about your order, e.g. special delivery instructions."
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#5a8c3a]/30 focus:border-[#5a8c3a] transition-all resize-none"/>
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#1A9248]/30 focus:border-[#1A9248] transition-all resize-none"/>
               </div>
             </div>
 
@@ -750,7 +750,7 @@ export default function CheckoutPage() {
                                 : <div className="w-full h-full bg-gray-100"/>
                               }
                             </div>
-                            <span className="absolute -top-1.5 -right-1.5 z-10 w-5 h-5 bg-[#5a8c3a] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                            <span className="absolute -top-1.5 -right-1.5 z-10 w-5 h-5 bg-[#1A9248] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                               {item.quantity}
                             </span>
                           </div>
@@ -774,7 +774,7 @@ export default function CheckoutPage() {
                       <span>Subtotal</span><span className="font-semibold">{cart.subtotal}</span>
                     </div>
                     {cart.discount && (
-                      <div className="flex justify-between text-sm text-[#5a8c3a]">
+                      <div className="flex justify-between text-sm text-[#1A9248]">
                         <span>Discount</span><span className="font-semibold">−{cart.discount}</span>
                       </div>
                     )}
@@ -804,16 +804,16 @@ export default function CheckoutPage() {
                   <p className="text-[11px] text-gray-400 leading-relaxed">
                     Your personal data will be used to process your order, support your experience throughout this
                     website, and for other purposes described in our{" "}
-                    <Link href="/privacy-policy" className="text-[#5a8c3a] hover:underline">privacy policy</Link>.
+                    <Link href="/privacy-policy" className="text-[#1A9248] hover:underline">privacy policy</Link>.
                   </p>
 
                   <label className="flex items-start gap-2.5 cursor-pointer select-none">
                     <input type="checkbox" checked={agreed} onChange={e => setAgreed(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[#5a8c3a] flex-shrink-0"/>
+                      className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[#1A9248] flex-shrink-0"/>
                     <span className="text-xs text-gray-500 leading-relaxed">
                       I have read and agree to the website{" "}
                       <Link href="/terms-conditions" target="_blank"
-                        className="text-[#5a8c3a] hover:underline font-medium">terms and conditions</Link>
+                        className="text-[#1A9248] hover:underline font-medium">terms and conditions</Link>
                       {" "}<span className="text-red-400">*</span>
                     </span>
                   </label>
@@ -824,7 +824,7 @@ export default function CheckoutPage() {
 
                   <button type="submit"
                     disabled={busy || pmLoading || (pms.length === 0) || (isNmi && !NMI_KEY)}
-                    className="w-full bg-[#5a8c3a] hover:bg-[#4a7a2e] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm uppercase tracking-wider py-4 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    className="w-full bg-[#1A9248] hover:bg-[#148038] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm uppercase tracking-wider py-4 rounded-xl transition-colors flex items-center justify-center gap-2">
                     {busy
                       ? <><div className="w-4 h-4 border-2 border-white/60 border-t-white rounded-full animate-spin"/>Processing…</>
                       : "Place Order"

@@ -78,12 +78,12 @@ export default function Header() {
         <nav className="hidden lg:flex items-center gap-7 flex-1">
           <button
             onClick={() => setShopOpen(!shopOpen)}
-            className="flex items-center gap-1.5 text-[#3d2b1f] hover:text-[#5a8c3a] font-semibold text-[15px] transition-colors"
+            className="flex items-center gap-1.5 text-[#3d2b1f] hover:text-[#1A9248] font-semibold text-[15px] transition-colors"
           >
             Shop Products
             <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? "rotate-180" : ""}`} />
           </button>
-          <Link href="/faqs" className="text-[#3d2b1f] hover:text-[#5a8c3a] font-semibold text-[15px] transition-colors">FAQs</Link>
+          <Link href="/faqs" className="text-[#3d2b1f] hover:text-[#1A9248] font-semibold text-[15px] transition-colors">FAQs</Link>
         </nav>
 
         {/* Center Logo */}
@@ -99,7 +99,7 @@ export default function Header() {
         {/* Right Nav */}
         <nav className="hidden lg:flex items-center gap-6 flex-1 justify-end">
           {RIGHT_NAV.map((item) => (
-            <Link key={item.label} href={item.href} className="text-[#3d2b1f] hover:text-[#5a8c3a] font-semibold text-[15px] transition-colors">
+            <Link key={item.label} href={item.href} className="text-[#3d2b1f] hover:text-[#1A9248] font-semibold text-[15px] transition-colors">
               {item.label}
             </Link>
           ))}
@@ -109,8 +109,8 @@ export default function Header() {
             {user ? (
               <>
                 <button onClick={() => setAccountOpen(v => !v)}
-                  className="flex items-center gap-2 text-[#3d2b1f] hover:text-[#5a8c3a] transition-colors">
-                  <span className="w-7 h-7 rounded-full bg-[#5a8c3a] text-white text-[11px] font-bold flex items-center justify-center">
+                  className="flex items-center gap-2 text-[#3d2b1f] hover:text-[#1A9248] transition-colors">
+                  <span className="w-7 h-7 rounded-full bg-[#1A9248] text-white text-[11px] font-bold flex items-center justify-center">
                     {user.name.charAt(0).toUpperCase()}
                   </span>
                   <span className="text-[15px] font-semibold max-w-[90px] truncate">{user.name.split(" ")[0]}</span>
@@ -141,21 +141,21 @@ export default function Header() {
                 )}
               </>
             ) : (
-              <Link href="/my-account" className="text-[#3d2b1f] hover:text-[#5a8c3a] font-semibold text-[15px] transition-colors">My Account</Link>
+              <Link href="/my-account" className="text-[#3d2b1f] hover:text-[#1A9248] font-semibold text-[15px] transition-colors">My Account</Link>
             )}
           </div>
 
           {/* Search */}
           <button aria-label="Search" onClick={() => setSearchOpen(o => !o)}
-            className="text-[#3d2b1f] hover:text-[#5a8c3a] transition-colors p-1">
+            className="text-[#3d2b1f] hover:text-[#1A9248] transition-colors p-1">
             <Search className="w-[22px] h-[22px]" strokeWidth={2} />
           </button>
 
           {/* Cart */}
-          <Link href="/cart" aria-label="Cart" className="relative text-[#3d2b1f] hover:text-[#5a8c3a] transition-colors p-1">
+          <Link href="/cart" aria-label="Cart" className="relative text-[#3d2b1f] hover:text-[#1A9248] transition-colors p-1">
             <ShoppingCart className="w-[22px] h-[22px]" strokeWidth={2} />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#5a8c3a] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center leading-none px-1">
+              <span className="absolute -top-1 -right-1 bg-[#1A9248] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center leading-none px-1">
                 {cartCount > 9 ? "9+" : cartCount}
               </span>
             )}
@@ -170,7 +170,7 @@ export default function Header() {
           <Link href="/cart" className="relative text-[#3d2b1f] p-1">
             <ShoppingCart className="w-5 h-5" />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#5a8c3a] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+              <span className="absolute -top-1 -right-1 bg-[#1A9248] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
                 {cartCount}
               </span>
             )}
@@ -185,15 +185,15 @@ export default function Header() {
       {shopOpen && (
         <>
           <div className="fixed inset-0 z-30 bg-black/20 backdrop-blur-[2px]" onClick={() => setShopOpen(false)} />
-          <div className="absolute top-full left-0 right-0 w-full bg-white border-t-2 border-[#5a8c3a] shadow-2xl z-40">
+          <div className="absolute top-full left-0 right-0 w-full bg-white border-t-2 border-[#1A9248] shadow-2xl z-40">
             <div className="max-w-[1320px] mx-auto px-4 py-6">
               <div className="flex items-center justify-between mb-5">
                 <div>
-                  <p className="text-[10px] text-[#5a8c3a] font-bold uppercase tracking-[0.3em] mb-0.5">Browse Categories</p>
+                  <p className="text-[10px] text-[#1A9248] font-bold uppercase tracking-[0.3em] mb-0.5">Browse Categories</p>
                   <h3 className="text-lg font-bold text-[#3d2b1f]">Shop Our Product Range</h3>
                 </div>
                 <Link href="/shop" onClick={() => setShopOpen(false)}
-                  className="flex items-center gap-1.5 text-sm font-semibold text-[#5a8c3a] hover:bg-[#5a8c3a] hover:text-white border border-[#5a8c3a] px-4 py-2 rounded-full transition-all">
+                  className="flex items-center gap-1.5 text-sm font-semibold text-[#1A9248] hover:bg-[#1A9248] hover:text-white border border-[#1A9248] px-4 py-2 rounded-full transition-all">
                   View All Products
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
@@ -217,7 +217,7 @@ export default function Header() {
                         Shop now <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
-                    <div className="absolute inset-0 rounded-xl ring-0 group-hover:ring-2 ring-[#5a8c3a] transition-all duration-200" />
+                    <div className="absolute inset-0 rounded-xl ring-0 group-hover:ring-2 ring-[#1A9248] transition-all duration-200" />
                   </Link>
                 ))}
               </div>
@@ -238,7 +238,7 @@ export default function Header() {
                   onChange={e => setSearchQ(e.target.value)} placeholder="Search products…"
                   className="flex-1 text-[#2a1008] text-lg outline-none placeholder-gray-300 bg-transparent" />
                 <button type="submit"
-                  className="bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-colors">
+                  className="bg-[#1A9248] hover:bg-[#148038] text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-colors">
                   Search
                 </button>
                 <button type="button" onClick={() => { setSearchOpen(false); setSearchQ(""); }}
@@ -280,7 +280,7 @@ export default function Header() {
                     </Link>
                   ))}
                   <Link href="/shop" onClick={() => { setMobileOpen(false); setMobileShopOpen(false); }}
-                    className="flex items-center justify-center gap-2 px-4 py-3.5 bg-[#5a8c3a] text-white font-bold text-sm">
+                    className="flex items-center justify-center gap-2 px-4 py-3.5 bg-[#1A9248] text-white font-bold text-sm">
                     View All Products <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -293,7 +293,7 @@ export default function Header() {
               { label: "CBD Blog", href: "/blog" },
             ].map((item) => (
               <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between py-3 text-[#3d2b1f] font-bold text-base border-b border-gray-100 hover:text-[#5a8c3a] transition-colors">
+                className="flex items-center justify-between py-3 text-[#3d2b1f] font-bold text-base border-b border-gray-100 hover:text-[#1A9248] transition-colors">
                 {item.label}
                 <ArrowRight className="w-4 h-4 text-gray-300" />
               </Link>
@@ -302,7 +302,7 @@ export default function Header() {
             {user ? (
               <div className="border-b border-gray-100 py-2">
                 <div className="flex items-center gap-3 py-3">
-                  <span className="w-9 h-9 rounded-full bg-[#5a8c3a] text-white text-sm font-bold flex items-center justify-center">
+                  <span className="w-9 h-9 rounded-full bg-[#1A9248] text-white text-sm font-bold flex items-center justify-center">
                     {user.name.charAt(0).toUpperCase()}
                   </span>
                   <div>
@@ -311,11 +311,11 @@ export default function Header() {
                   </div>
                 </div>
                 <Link href="/my-account" onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2.5 py-2.5 pl-12 text-sm text-[#3d2b1f] font-medium hover:text-[#5a8c3a] transition-colors">
+                  className="flex items-center gap-2.5 py-2.5 pl-12 text-sm text-[#3d2b1f] font-medium hover:text-[#1A9248] transition-colors">
                   <User className="w-4 h-4 text-gray-400" /> My Account
                 </Link>
                 <Link href="/my-account?tab=orders" onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2.5 py-2.5 pl-12 text-sm text-[#3d2b1f] font-medium hover:text-[#5a8c3a] transition-colors">
+                  className="flex items-center gap-2.5 py-2.5 pl-12 text-sm text-[#3d2b1f] font-medium hover:text-[#1A9248] transition-colors">
                   <ClipboardList className="w-4 h-4 text-gray-400" /> My Orders
                 </Link>
                 <button onClick={() => { setMobileOpen(false); logout(); }}
@@ -325,7 +325,7 @@ export default function Header() {
               </div>
             ) : (
               <Link href="/my-account" onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between py-3 text-[#3d2b1f] font-bold text-base border-b border-gray-100 hover:text-[#5a8c3a] transition-colors">
+                className="flex items-center justify-between py-3 text-[#3d2b1f] font-bold text-base border-b border-gray-100 hover:text-[#1A9248] transition-colors">
                 My Account
                 <User className="w-4 h-4 text-gray-300" />
               </Link>

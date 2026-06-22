@@ -33,7 +33,7 @@ export default function StoreSection() {
               href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-105 uppercase tracking-widest text-sm"
+              className="inline-block bg-[#1A9248] hover:bg-[#148038] text-white font-bold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-105 uppercase tracking-widest text-sm"
             >
               Get Directions
             </Link>
