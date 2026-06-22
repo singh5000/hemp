@@ -16,6 +16,11 @@
   100% { background-position: -100% 0; }
 }
 
+@keyframes slover {
+  0% { transform: rotate(30deg) translateX(-50%); }
+  100% { transform: rotate(-30deg) translateX(-50%); }
+}
+
 body {
   background: var(--background);
   color: var(--brand-brown);
