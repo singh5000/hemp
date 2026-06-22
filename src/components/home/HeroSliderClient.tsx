@@ -177,7 +177,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
       ))}
 
       {/* ── Dot indicators ── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
+      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
         {slides.map((_, i) => (
           <button key={i} onClick={() => go(i)} aria-label={`Slide ${i + 1}`}
             className={`rounded-full transition-all duration-400 ${
