@@ -41,7 +41,7 @@ export default function CartPage() {
   /* ── Loading ── */
   if (cartLoading) {
     return (
-      <div className="w-full mx-auto px-10 py-20 text-center">
+      <div className="w-full mx-auto px-[40px] py-20 text-center">
         <div className="inline-block w-8 h-8 border-4 border-[#5a8c3a] border-t-transparent rounded-full animate-spin" />
         <p className="mt-4 text-gray-400 text-sm">Loading your cart…</p>
       </div>
@@ -51,7 +51,7 @@ export default function CartPage() {
   /* ── Empty cart ── */
   if (!cart || cart.isEmpty) {
     return (
-      <div className="w-full mx-auto px-10 py-24 text-center">
+      <div className="w-full mx-auto px-[40px] py-24 text-center">
         <div className="max-w-md mx-auto">
           <div className="w-20 h-20 bg-[#f8f6f3] rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-9 h-9 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@ export default function CartPage() {
     <>
       {/* ── Hero ── */}
       <section className="bg-[#2a1008] py-10">
-        <div className="w-full mx-auto px-10">
+        <div className="w-full mx-auto px-[40px]">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-4">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -91,7 +91,7 @@ export default function CartPage() {
       </section>
 
       {/* ── Content ── */}
-      <div className="w-full mx-auto px-10 py-10">
+      <div className="w-full mx-auto px-[40px] py-10">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
 
           {/* ── Cart items ── */}

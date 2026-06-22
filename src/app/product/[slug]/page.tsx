@@ -182,7 +182,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <>
       {/* ── Breadcrumb ── */}
       <div className="bg-[#fafaf8] border-b border-gray-100">
-        <div className="w-full mx-auto px-10 py-3">
+        <div className="w-full mx-auto px-[40px] py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
             <Link href="/" className="hover:text-[#5a8c3a] transition-colors">Home</Link>
             <span>/</span>
@@ -201,7 +201,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* ── Product section ── */}
-      <section className="w-full mx-auto px-10 py-10 md:py-14">
+      <section className="w-full mx-auto px-[40px] py-10 md:py-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-start">
 
           {/* Gallery */}
@@ -304,7 +304,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {/* ── Description ── */}
       {product.description && (
         <section className="bg-[#fafaf8] border-t border-gray-100">
-          <div className="w-full mx-auto px-10 py-12">
+          <div className="w-full mx-auto px-[40px] py-12">
             <h2 className="text-[#2a1008] text-2xl font-bold mb-6">Product Description</h2>
             <div className="max-w-3xl text-[#3d2b1f] text-sm leading-relaxed space-y-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#2a1008] [&_h2]:mt-6 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#2a1008] [&_h3]:mt-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1 [&_a]:text-[#5a8c3a] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[#2a1008]"
               dangerouslySetInnerHTML={{ __html: product.description }} />
@@ -314,7 +314,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       {/* ── Customer Reviews ── */}
       <section className="border-t border-gray-100">
-        <div className="w-full mx-auto px-10 py-12">
+        <div className="w-full mx-auto px-[40px] py-12">
           <div className="flex items-baseline gap-3 mb-8">
             <h2 className="text-[#2a1008] text-2xl font-bold">Customer Reviews</h2>
             {reviews.length > 0 && (
@@ -382,7 +382,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       {/* ── Related products ── */}
       {related.length > 0 && (
-        <section className="w-full mx-auto px-10 py-12">
+        <section className="w-full mx-auto px-[40px] py-12">
           <h2 className="text-[#2a1008] text-2xl font-bold mb-6">Related Products</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {related.map(p => {

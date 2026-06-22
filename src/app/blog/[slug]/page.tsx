@@ -141,7 +141,7 @@ export default async function BlogPostPage(
           style={{ background:"linear-gradient(to bottom, rgba(20,10,5,0.55) 0%, rgba(20,10,5,0.82) 60%, rgba(20,10,5,0.97) 100%)" }} />
 
         {/* hero content */}
-        <div className="relative z-10 w-full mx-auto px-10 flex flex-col justify-end pb-12 pt-10"
+        <div className="relative z-10 w-full mx-auto px-[40px] flex flex-col justify-end pb-12 pt-10"
           style={{ minHeight:"420px" }}>
 
           {/* breadcrumb */}
@@ -184,7 +184,7 @@ export default async function BlogPostPage(
       {/* ══════════════════════════════════════════
           MAIN CONTENT AREA — max-w-[1400px]
       ══════════════════════════════════════════ */}
-      <div className="w-full mx-auto px-10 py-12">
+      <div className="w-full mx-auto px-[40px] py-12">
         <div className="flex gap-10 items-start">
 
           {/* ── LEFT: Article ── */}
@@ -313,7 +313,7 @@ export default async function BlogPostPage(
       ══════════════════════════════════════════ */}
       {related.length > 0 && (
         <section className="bg-[#fafaf8] border-t border-gray-100 py-16">
-          <div className="w-full mx-auto px-10">
+          <div className="w-full mx-auto px-[40px]">
             <div className="flex items-end justify-between mb-10">
               <div>
                 <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.3em] mb-1">Keep Reading</p>

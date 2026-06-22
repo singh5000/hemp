@@ -67,7 +67,7 @@ export default function ReturnsExchangesPage() {
           style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
         <div className="absolute -right-32 -top-20 w-[500px] h-[500px] bg-[#5a8c3a]/8 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative w-full mx-auto px-10 py-20 md:py-24">
+        <div className="relative w-full mx-auto px-[40px] py-20 md:py-24">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-7">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -98,7 +98,7 @@ export default function ReturnsExchangesPage() {
 
       {/* ── Highlights strip ── */}
       <div className="bg-[#f5f0eb] border-b border-[#e8e0d8]">
-        <div className="w-full mx-auto px-10 py-10">
+        <div className="w-full mx-auto px-[40px] py-10">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {HIGHLIGHTS.map((h) => (
               <div key={h.label} className="flex items-start gap-4">
@@ -116,7 +116,7 @@ export default function ReturnsExchangesPage() {
       </div>
 
       {/* ── Main content ── */}
-      <div className="w-full mx-auto px-10 py-16">
+      <div className="w-full mx-auto px-[40px] py-16">
         <div className="flex flex-col lg:flex-row gap-14">
 
           {/* ── Policy sections ── */}
