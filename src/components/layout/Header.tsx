@@ -72,7 +72,7 @@ export default function Header() {
 
   return (
     <header className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-300 ${scrolled ? "shadow-lg shadow-black/5" : "shadow-sm"}`}>
-      <div className="max-w-[1400px] mx-auto px-6 h-[72px] flex items-center justify-between">
+      <div className="w-full mx-auto px-[15px] h-[72px] flex items-center justify-between">
 
         {/* Left Nav */}
         <nav className="hidden lg:flex items-center gap-7 flex-1">
@@ -186,7 +186,7 @@ export default function Header() {
         <>
           <div className="fixed inset-0 z-30 bg-black/20 backdrop-blur-[2px]" onClick={() => setShopOpen(false)} />
           <div className="absolute top-full left-0 right-0 w-full bg-white border-t-2 border-[#5a8c3a] shadow-2xl z-40">
-            <div className="max-w-[1400px] mx-auto px-6 py-6">
+            <div className="w-full mx-auto px-[15px] py-6">
               <div className="flex items-center justify-between mb-5">
                 <div>
                   <p className="text-[10px] text-[#5a8c3a] font-bold uppercase tracking-[0.3em] mb-0.5">Browse Categories</p>
@@ -231,7 +231,7 @@ export default function Header() {
         <>
           <div className="fixed inset-0 z-30 bg-black/30 backdrop-blur-[2px]" onClick={() => { setSearchOpen(false); setSearchQ(""); }} />
           <div className="absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl z-40">
-            <div className="max-w-[1400px] mx-auto px-6 py-5">
+            <div className="w-full mx-auto px-[15px] py-5">
               <form onSubmit={handleSearch} className="flex items-center gap-3">
                 <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
                 <input ref={searchInputRef} type="text" value={searchQ}

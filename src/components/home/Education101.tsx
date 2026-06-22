@@ -35,7 +35,7 @@ export default function Education101() {
     <div>
       {sections.map((section) => (
         <section key={section.heading} className={`${section.bg} py-16 md:py-24`}>
-          <div className="max-w-[1200px] mx-auto px-6">
+          <div className="w-full mx-auto px-[15px]">
             <div
               className={`flex flex-col ${
                 section.imageLeft ? "md:flex-row" : "md:flex-row-reverse"

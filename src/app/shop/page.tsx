@@ -193,7 +193,7 @@ export default async function ShopPage({
         <div className="absolute inset-0 opacity-[0.05]"
           style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
         <div className="absolute -right-32 top-0 w-[500px] h-[500px] bg-[#5a8c3a]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative max-w-[1400px] mx-auto px-6 md:px-10 py-14 md:py-18">
+        <div className="relative w-full mx-auto px-[15px] py-14 md:py-18">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-5">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -221,7 +221,7 @@ export default async function ShopPage({
       </section>
 
       {/* ── Main content ── */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-10">
+      <div className="w-full mx-auto px-[15px] py-10">
 
         {/* Mobile: filter + sort bar (above the flex) */}
         <Suspense fallback={null}>
@@ -325,7 +325,7 @@ export default async function ShopPage({
 
       {/* ── Info sections ── */}
       <section className="bg-[#fafaf8] border-t border-gray-100 py-16">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+        <div className="w-full mx-auto px-[15px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
