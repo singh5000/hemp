@@ -114,11 +114,12 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
               </div>
 
               {/* Trust strip */}
-              <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-white/20">
-                {BADGES.map(b => (
-                  <div key={b.label} className="flex items-center gap-2">
+              <div className="flex items-center gap-5 mt-10 pt-8 border-t border-white/20 flex-nowrap">
+                {BADGES.map((b, i) => (
+                  <div key={b.label} className="flex items-center gap-2 flex-shrink-0">
                     <span className="text-sm">{b.icon}</span>
-                    <span className="text-white text-xs font-bold tracking-wide" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}>{b.label}</span>
+                    <span className="text-white text-xs font-bold tracking-wide whitespace-nowrap" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}>{b.label}</span>
+                    {i < BADGES.length - 1 && <span className="text-white/20 ml-3">|</span>}
                   </div>
                 ))}
               </div>
