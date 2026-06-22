@@ -35,19 +35,18 @@ const NAV_LINKS = [
   { label: "CBD Blog", href: "/blog" },
 ];
 
-function NavLink({ label, href, isActive, hasLeaf = true }: { label: string; href: string; isActive: boolean; hasLeaf?: boolean }) {
+function NavLink({ label, href, isActive }: { label: string; href: string; isActive: boolean }) {
   return (
-    <Link href={href} className="group relative flex flex-col items-center">
+    <Link href={href} className="group relative flex flex-col items-center pt-5">
+      {/* Hemp leaf above text */}
+      <span className={`absolute top-0 transition-all duration-300 ${isActive ? "opacity-100 scale-100 -rotate-12" : "opacity-0 scale-50 rotate-12 group-hover:opacity-100 group-hover:scale-100 group-hover:-rotate-12"}`}>
+        {HEMP_LEAF}
+      </span>
       <span className={`font-semibold text-[15px] transition-colors duration-200 ${isActive ? "text-[#1A9248]" : "text-[#3d2b1f] group-hover:text-[#1A9248]"}`}>
         {label}
       </span>
-      {/* Active indicator + hemp leaf */}
-      <span className={`absolute -bottom-2 flex flex-col items-center transition-all duration-300 ${isActive || hasLeaf ? "" : ""}`}>
-        {isActive && <span className="w-6 h-0.5 bg-[#1A9248] rounded-full mb-0.5" />}
-        <span className={`text-[#1A9248] transition-all duration-300 ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100"}`}>
-          {HEMP_LEAF}
-        </span>
-      </span>
+      {/* Active underline */}
+      {isActive && <span className="absolute -bottom-1 w-6 h-0.5 bg-[#1A9248] rounded-full" />}
     </Link>
   );
 }
@@ -124,13 +123,13 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setShopOpen(!shopOpen)}
-                className={`group relative flex items-center gap-1.5 font-semibold text-[15px] transition-colors ${shopOpen || isActive("/shop") || isActive("/product-category") ? "text-[#1A9248]" : "text-[#3d2b1f] hover:text-[#1A9248]"}`}
+                className={`group relative flex items-center gap-1.5 pt-5 font-semibold text-[15px] transition-colors ${shopOpen || isActive("/shop") || isActive("/product-category") ? "text-[#1A9248]" : "text-[#3d2b1f] hover:text-[#1A9248]"}`}
               >
-                Shop Products
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? "rotate-180" : ""}`} />
-                <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 text-[#1A9248] transition-all duration-300 ${shopOpen || isActive("/shop") ? "opacity-100 scale-100" : "opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100"}`}>
+                <span className={`absolute top-0 left-1/2 -translate-x-1/2 transition-all duration-300 ${shopOpen || isActive("/shop") ? "opacity-100 scale-100 -rotate-12" : "opacity-0 scale-50 rotate-12 group-hover:opacity-100 group-hover:scale-100 group-hover:-rotate-12"}`}>
                   {HEMP_LEAF}
                 </span>
+                Shop Products
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? "rotate-180" : ""}`} />
               </button>
             </div>
             <NavLink label="FAQs" href="/faqs" isActive={isActive("/faqs")} />
