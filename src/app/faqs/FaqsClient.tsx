@@ -5,11 +5,10 @@ import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 
 const CATEGORIES = [
-  { id: "all", label: "All Questions" },
+  { id: "all", label: "All" },
   { id: "about-cbd", label: "About CBD" },
   { id: "using-cbd", label: "Using CBD" },
-  { id: "vaping", label: "Vaping CBD" },
-  { id: "orders", label: "Orders & Shipping" },
+  { id: "orders", label: "Shipping & Returns" },
   { id: "in-store", label: "Visit Us" },
 ];
 
@@ -88,32 +87,6 @@ const FAQS = [
     category: "using-cbd",
     q: "Will CBD cause me to fail a drug test?",
     a: "Standard drug tests screen for THC metabolites, not CBD itself. While Full Spectrum products contain trace THC (≤0.3%), they could potentially trigger a positive result with heavy use. If you have upcoming drug testing, we recommend choosing Broad Spectrum or Isolate products, which contain zero THC.",
-  },
-
-  // ── Vaping CBD ──
-  {
-    id: "vape-or-tincture",
-    category: "vaping",
-    q: "Is CBD vape just an e-liquid or is it also a tincture?",
-    a: "Both. You can either vape or drip CBD under your tongue. Our vapable CBD products are versatile — use them in your vape device or sublingually as a tincture.",
-  },
-  {
-    id: "how-much-to-vape",
-    category: "vaping",
-    q: "How much CBD should I vape?",
-    a: "Most of our customers will fill their tank with half of their preferred e-liquid, and half CBD, but you can mix it in any ratio you prefer. CBD can also be vaped on its own. Start with a few puffs and see how you feel before taking more.",
-  },
-  {
-    id: "special-vaporizer",
-    category: "vaping",
-    q: "Do I need a special vaporizer to use CBD?",
-    a: "No, you do not need a special device to vape our CBD products. You can use vapable CBD in any vape setup, including clearomizers, sub-ohm tanks, and RDAs. If you need help choosing the right device, our team is happy to assist.",
-  },
-  {
-    id: "vape-wattage",
-    category: "vaping",
-    q: "What wattage should I use when vaping CBD?",
-    a: "CBD has a similar consistency to regular e-liquid, so feel free to vape it at your preferred wattage. There's no special setting required — whatever wattage works for your usual vape will work great for CBD.",
   },
 
   // ── Orders & Shipping ──

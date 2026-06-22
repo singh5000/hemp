@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CategorySidebar, CategorySortBar, CategoryMobileBar } from "./CategoryFilters";
 import AddToCartButton from "@/app/shop/AddToCartButton";
+import FaqSection, { CATEGORY_FAQS } from "@/components/ui/FaqSection";
 
 export const dynamic = "force-dynamic";
 
@@ -166,6 +167,7 @@ export default async function CategoryPage({
   if (search) apiParams.set("search", search);
 
   const { products, total, pages } = await fetchProducts(apiParams);
+  const categoryFaqs = CATEGORY_FAQS[slug] ?? [];
 
   return (
     <>
@@ -281,6 +283,21 @@ export default async function CategoryPage({
           </div>
         </div>
       </div>
+
+      {/* ── Category FAQs ── */}
+      {categoryFaqs.length > 0 && (
+        <section className="bg-[#fafaf8] border-t border-gray-100">
+          <div className="max-w-[1320px] mx-auto px-4 py-14">
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-8">
+                <span className="text-[10px] font-bold text-[#1A9248] uppercase tracking-[0.3em]">Common Questions</span>
+                <h2 className="text-2xl font-bold text-[#2a1008] mt-2">FAQs About {category.name}</h2>
+              </div>
+              <FaqSection faqs={categoryFaqs} />
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
