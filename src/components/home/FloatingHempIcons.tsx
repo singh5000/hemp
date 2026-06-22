@@ -119,7 +119,7 @@ export default function FloatingHempIcons() {
             top: icon.y,
             width: icon.size,
             height: icon.size,
-            opacity: 0.06,
+            opacity: 0.18,
             transform: `rotate(${icon.rotate}deg)`,
             animation: `hempFloat ${icon.duration}s ease-in-out ${icon.delay}s infinite alternate`,
           }}
@@ -132,19 +132,19 @@ export default function FloatingHempIcons() {
         @keyframes hempFloat {
           0% {
             transform: translateY(0) rotate(var(--r, 0deg)) scale(1);
-            opacity: 0.04;
+            opacity: 0.12;
           }
           33% {
             transform: translateY(-18px) rotate(calc(var(--r, 0deg) + 8deg)) scale(1.08);
-            opacity: 0.08;
+            opacity: 0.22;
           }
           66% {
             transform: translateY(8px) rotate(calc(var(--r, 0deg) - 5deg)) scale(0.95);
-            opacity: 0.05;
+            opacity: 0.15;
           }
           100% {
             transform: translateY(-10px) rotate(calc(var(--r, 0deg) + 3deg)) scale(1.02);
-            opacity: 0.07;
+            opacity: 0.2;
           }
         }
       `}</style>
