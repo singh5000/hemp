@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import NewsletterForm from "./NewsletterForm";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 const SHOP_LINKS = [
   { label: "Smokable Hemp Flower", href: "/product-category/smokable-hemp-flower" },
@@ -179,18 +180,9 @@ export default function Footer() {
             </div>
 
             {/* Get Directions CTA */}
-            <Link
-              href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#1A9248] text-[#1A9248] hover:bg-[#1A9248] hover:text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
+            <AnimatedButton href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" variant="outline" size="sm" external>
               Get Directions
-            </Link>
+            </AnimatedButton>
           </div>
         </div>
       </div>

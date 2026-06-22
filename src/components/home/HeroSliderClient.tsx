@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export interface SlideData {
   id:         number;
@@ -99,13 +100,9 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
 
               {/* CTAs */}
               <div className="flex items-center gap-5 flex-wrap">
-                <Link href={slide.href}
-                  className="inline-flex items-center gap-2.5 bg-[#1A9248] hover:bg-[#148038] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#1A9248]/40 text-sm tracking-widest uppercase shadow-lg">
+                <AnimatedButton href={slide.href} size="lg">
                   {slide.cta}
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
+                </AnimatedButton>
                 <Link href="/shop"
                   className="text-white hover:text-white/80 text-sm font-bold transition-colors underline underline-offset-4 decoration-white/40"
                   style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>

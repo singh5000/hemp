@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export default function StoreSection() {
   return (
@@ -29,14 +29,9 @@ export default function StoreSection() {
           </p>
 
           <div>
-            <Link
-              href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-[#1A9248] hover:bg-[#148038] text-white font-bold px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-105 uppercase tracking-widest text-sm"
-            >
+            <AnimatedButton href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" external>
               Get Directions
-            </Link>
+            </AnimatedButton>
           </div>
         </div>
       </div>
