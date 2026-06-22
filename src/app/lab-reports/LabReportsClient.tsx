@@ -127,7 +127,7 @@ export default function LabReportsClient() {
   return (
     <div>
       {/* ── Filter Bar ── */}
-      <div className="w-full mx-auto px-10 py-10">
+      <div className="w-full mx-auto px-[40px] py-10">
 
         {/* Search + filter row */}
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
@@ -257,7 +257,7 @@ export default function LabReportsClient() {
 
       {/* ── Trust strip ── */}
       <div className="border-t border-gray-100 bg-[#fafaf8] py-12 mt-4">
-        <div className="w-full mx-auto px-10">
+        <div className="w-full mx-auto px-[40px]">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             {[
               { icon: <ShieldIcon />, title: "Third-Party Tested",  desc: "Every batch is tested by an independent ISO-accredited lab." },
