@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
+import { Moon, Zap, Heart, Brain, Smile, Leaf, Sun, Shield } from "lucide-react";
 
 interface Category { id: number; name: string; slug: string; count: number }
 export interface Brand { id: number; name: string; slug: string; count: number }
@@ -13,6 +14,22 @@ export const SORT_OPTIONS = [
   { label: "Sort by Latest",     orderby: "date",        order: "desc" },
   { label: "Price: Low → High",  orderby: "price",       order: "asc"  },
   { label: "Price: High → Low",  orderby: "price",       order: "desc" },
+];
+
+const EFFECTS = [
+  { label: "Sleep",      value: "sleep",      icon: Moon },
+  { label: "Relaxation", value: "relaxation",  icon: Smile },
+  { label: "Pain Relief",value: "pain",        icon: Shield },
+  { label: "Focus",      value: "focus",       icon: Brain },
+  { label: "Energy",     value: "energy",      icon: Zap },
+  { label: "Anxiety",    value: "anxiety",     icon: Heart },
+  { label: "Wellness",   value: "wellness",    icon: Sun },
+];
+
+const STRAINS = [
+  { label: "Indica",  value: "indica",  color: "bg-purple-500" },
+  { label: "Sativa",  value: "sativa",  color: "bg-orange-500" },
+  { label: "Hybrid",  value: "hybrid",  color: "bg-[#1A9248]" },
 ];
 
 function useShopNav() {
@@ -27,6 +44,12 @@ function useShopNav() {
     router.push(`${pathname}?${next.toString()}`);
   }, [params, pathname, router]);
 
+  const toggleMulti = useCallback((key: string, val: string) => {
+    const current = params.get(key)?.split(",").filter(Boolean) ?? [];
+    const next = current.includes(val) ? current.filter(v => v !== val) : [...current, val];
+    push({ [key]: next.join(",") });
+  }, [params, push]);
+
   return {
     params,
     activeCategory: params.get("category") ?? "",
@@ -35,17 +58,21 @@ function useShopNav() {
     activeOrderby:  params.get("orderby")  ?? "menu_order",
     activeOrder:    params.get("order")    ?? "asc",
     activeInstock:  params.get("instock") === "1",
+    activeEffects:  params.get("effects")?.split(",").filter(Boolean) ?? [],
+    activeStrain:   params.get("strain") ?? "",
     setCategory: (slug: string) => push({ category: slug, brand: "" }),
     setBrand:    (slug: string) => push({ brand: slug, category: "" }),
     setSearch:   (q: string)    => push({ search: q }),
     setSort:     (ob: string, or: string) => push({ orderby: ob, order: or }),
     setInstock:  (on: boolean)  => push({ instock: on ? "1" : "" }),
+    toggleEffect:(val: string)  => toggleMulti("effects", val),
+    setStrain:   (val: string)  => push({ strain: params.get("strain") === val ? "" : val }),
   };
 }
 
 /* ─── Desktop sidebar ─── */
 export function ShopSidebar({ categories, brands }: { categories: Category[]; brands: Brand[] }) {
-  const { activeCategory, activeBrand, activeSearch, activeInstock, setCategory, setBrand, setSearch, setInstock } = useShopNav();
+  const { activeCategory, activeBrand, activeSearch, activeInstock, activeEffects, activeStrain, setCategory, setBrand, setSearch, setInstock, toggleEffect, setStrain } = useShopNav();
   const [draft, setDraft] = useState(activeSearch);
   const totalCount = categories.reduce((s, c) => s + c.count, 0);
 
@@ -139,6 +166,47 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
           </div>
         )}
 
+        {/* Strain Type */}
+        <div className="p-4 border-b border-gray-100">
+          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
+            <Leaf className="w-3.5 h-3.5" /> Strain Type
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {STRAINS.map(s => (
+              <button key={s.value} onClick={() => setStrain(s.value)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                  activeStrain === s.value
+                    ? `${s.color} text-white shadow-md`
+                    : "bg-gray-50 text-[#3d2b1f] hover:bg-gray-100"
+                }`}>
+                <span className={`w-2 h-2 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Effects */}
+        <div className="p-4 border-b border-gray-100">
+          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
+          <div className="flex flex-wrap gap-1.5">
+            {EFFECTS.map(eff => {
+              const active = activeEffects.includes(eff.value);
+              return (
+                <button key={eff.value} onClick={() => toggleEffect(eff.value)}
+                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-semibold transition-all ${
+                    active
+                      ? "bg-[#1A9248] text-white shadow-md"
+                      : "bg-gray-50 text-[#3d2b1f] hover:bg-[#1A9248]/10 hover:text-[#1A9248]"
+                  }`}>
+                  <eff.icon className="w-3 h-3" />
+                  {eff.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* In Stock toggle */}
         <div className="p-4">
           <button
@@ -198,12 +266,12 @@ export function ShopSortBar({ total, shown }: { total: number; shown: number }) 
 
 /* ─── Mobile filter + sort bar ─── */
 export function ShopMobileBar({ categories, brands }: { categories: Category[]; brands: Brand[] }) {
-  const { activeCategory, activeBrand, activeOrderby, activeOrder, activeSearch, activeInstock, setCategory, setBrand, setSort, setSearch, setInstock } = useShopNav();
+  const { activeCategory, activeBrand, activeOrderby, activeOrder, activeSearch, activeInstock, activeEffects, activeStrain, setCategory, setBrand, setSort, setSearch, setInstock, toggleEffect, setStrain } = useShopNav();
   const [open, setOpen] = useState(false);
   const [tab, setTab]   = useState<"categories" | "brands">("categories");
   const [draft, setDraft] = useState(activeSearch);
   const active = SORT_OPTIONS.find(o => o.orderby === activeOrderby && o.order === activeOrder) ?? SORT_OPTIONS[0];
-  const hasFilter = !!(activeCategory || activeBrand || activeInstock);
+  const hasFilter = !!(activeCategory || activeBrand || activeInstock || activeStrain || activeEffects.length);
 
   const submitSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -314,6 +382,34 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
               ))}
             </div>
           )}
+
+          {/* Strain + Effects */}
+          <div className="mt-3 pt-3 border-t border-gray-100">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Strain</p>
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {STRAINS.map(s => (
+                <button key={s.value} onClick={() => setStrain(s.value)}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${
+                    activeStrain === s.value ? `${s.color} text-white` : "bg-gray-100 text-[#3d2b1f]"
+                  }`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
+                  {s.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Effects</p>
+            <div className="flex flex-wrap gap-1.5">
+              {EFFECTS.map(eff => (
+                <button key={eff.value} onClick={() => toggleEffect(eff.value)}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold transition-all ${
+                    activeEffects.includes(eff.value) ? "bg-[#1A9248] text-white" : "bg-gray-100 text-[#3d2b1f]"
+                  }`}>
+                  <eff.icon className="w-2.5 h-2.5" />
+                  {eff.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* In Stock toggle row */}
           <div className="mt-3 pt-3 border-t border-gray-100">
