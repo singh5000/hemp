@@ -99,10 +99,11 @@ export default function FeaturedProducts() {
   const [canNext, setCanNext] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_WC_URL}/products?featured=true&per_page=12`)
+    fetch(`${process.env.NEXT_PUBLIC_WC_URL}/products?featured=true&per_page=20&stock_status=instock`)
       .then((r) => r.json())
       .then((data) => {
-        setProducts(Array.isArray(data) ? data : []);
+        const inStock = Array.isArray(data) ? data.filter((p: Product) => p.is_in_stock) : [];
+        setProducts(inStock.slice(0, 12));
         setLoading(false);
       })
       .catch(() => setLoading(false));
