@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import ProductGallery from "./ProductGallery";
 import ProductForm from "./ProductForm";
 import ProductAccordion from "./ProductAccordion";
+import WriteReview from "./WriteReview";
 
 export const dynamic = "force-dynamic";
 
@@ -317,11 +318,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {/* ── Customer Reviews ── */}
       <section className="border-t border-gray-100">
         <div className="max-w-[1320px] mx-auto px-4 py-12">
-          <div className="flex items-baseline gap-3 mb-8">
-            <h2 className="text-[#2a1008] text-2xl font-bold">Customer Reviews</h2>
-            {reviews.length > 0 && (
-              <span className="text-gray-400 text-sm">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
-            )}
+          <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
+            <div className="flex items-baseline gap-3">
+              <h2 className="text-[#2a1008] text-2xl font-bold">Customer Reviews</h2>
+              {reviews.length > 0 && (
+                <span className="text-gray-400 text-sm">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
+              )}
+            </div>
+            <WriteReview productId={product.id} productName={product.name} />
           </div>
 
           {reviews.length === 0 ? (
