@@ -11,7 +11,7 @@ const STORE_INFO = [
 
 export default function StoreSection() {
   return (
-    <section className="relative bg-[#1a1a2e] overflow-hidden mb-16 mx-4 rounded-3xl">
+    <section className="relative bg-[#3d2b1f] overflow-hidden mb-16 mx-4 rounded-3xl">
 
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.03]"
