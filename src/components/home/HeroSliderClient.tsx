@@ -176,17 +176,6 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
         </button>
       ))}
 
-      {/* ── Dot indicators ── */}
-      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
-        {slides.map((_, i) => (
-          <button key={i} onClick={() => go(i)} aria-label={`Slide ${i + 1}`}
-            className={`rounded-full transition-all duration-400 ${
-              i === cur
-                ? "bg-[#1A9248] w-8 h-2.5 shadow-lg shadow-[#1A9248]/50"
-                : "bg-white/30 hover:bg-white/60 w-2.5 h-2.5"
-            }`} />
-        ))}
-      </div>
 
       {/* ── Progress bar ── */}
       {!paused && (
