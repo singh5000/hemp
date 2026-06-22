@@ -179,7 +179,7 @@ export default async function CategoryPage({
           style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
         <div className="absolute -right-32 top-0 w-[500px] h-[500px] bg-[#5a8c3a]/8 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative w-full mx-auto px-[15px] py-14 md:py-18">
+        <div className="relative w-full mx-auto px-10 py-14 md:py-18">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-5 flex-wrap">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -198,7 +198,7 @@ export default async function CategoryPage({
       </section>
 
       {/* ── Main ── */}
-      <div className="w-full mx-auto px-[15px] py-10">
+      <div className="w-full mx-auto px-10 py-10">
         <Suspense fallback={null}>
           <CategoryMobileBar />
         </Suspense>

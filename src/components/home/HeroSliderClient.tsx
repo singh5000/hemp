@@ -73,7 +73,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
 
       {/* ── Content ── */}
       <div className="relative z-20 h-full">
-        <div className="w-full mx-auto px-[15px] md:px-16 h-full flex items-center">
+        <div className="w-full mx-auto px-10 md:px-16 h-full flex items-center">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] xl:grid-cols-[1fr_600px] gap-6 xl:gap-10 items-center w-full">
 
             {/* Left — text */}

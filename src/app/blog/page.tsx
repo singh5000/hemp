@@ -132,7 +132,7 @@ export default async function BlogPage({
         <div className="absolute inset-0 opacity-[0.05]"
           style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
         <div className="absolute -right-32 -top-32 w-[500px] h-[500px] bg-[#5a8c3a]/8 rounded-full blur-3xl" />
-        <div className="relative w-full mx-auto px-[15px] pt-20 pb-24 text-center">
+        <div className="relative w-full mx-auto px-10 pt-20 pb-24 text-center">
           <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-4">Knowledge is Power</p>
           <h1 className="text-white text-5xl md:text-7xl font-bold uppercase leading-tight mb-5">
             CBD <span className="text-[#5a8c3a]">Blog</span>
@@ -154,7 +154,7 @@ export default async function BlogPage({
 
       {/* Featured post (first on each page) */}
       {hero && (
-        <section className="w-full mx-auto px-[15px] -mt-10 relative z-10 mb-10">
+        <section className="w-full mx-auto px-10 -mt-10 relative z-10 mb-10">
           <Link
             href={`/blog/${hero.slug}`}
             className="group flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100 hover:shadow-[#5a8c3a]/15 transition-shadow duration-500"
@@ -199,7 +199,7 @@ export default async function BlogPage({
       {/* 7-post grid */}
       {rest.length > 0 && (
         <section className="bg-[#fafaf8] py-12">
-          <div className="w-full mx-auto px-[15px]">
+          <div className="w-full mx-auto px-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {rest.map((post) => {
                 const img = getImg(post);

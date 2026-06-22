@@ -20,7 +20,7 @@ export default function LabReportsPage() {
         <div className="absolute -left-40 top-0 w-[600px] h-[600px] bg-[#5a8c3a]/8 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-[#5a8c3a]/5 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="relative w-full mx-auto px-[15px] py-20 md:py-24">
+        <div className="relative w-full mx-auto px-10 py-20 md:py-24">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
             <div>
               {/* breadcrumb */}
