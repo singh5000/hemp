@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 const CATEGORIES = [
   { id: "all", label: "All Questions" },
@@ -247,16 +248,9 @@ export default function FaqsClient() {
           <p className="text-white/60 text-lg max-w-xl mx-auto mb-8">
             Everything you need to know about CBD, our products, shipping, and visiting our store.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 border border-white/30 hover:border-[#1A9248] text-white hover:text-[#1A9248] px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            Can't find your answer? Contact us
-          </Link>
+          <AnimatedButton href="/contact" variant="outline" size="sm">
+            Can&apos;t find your answer? Contact us
+          </AnimatedButton>
         </div>
       </section>
 
@@ -335,12 +329,7 @@ export default function FaqsClient() {
               <p className="text-white/55 text-sm mb-6 leading-relaxed">
                 Our CBD experts are here to help. Reach out and we'll get back to you quickly.
               </p>
-              <Link
-                href="/contact"
-                className="inline-block bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-full transition-colors"
-              >
-                Contact Us
-              </Link>
+              <AnimatedButton href="/contact" size="sm">Contact Us</AnimatedButton>
             </div>
 
             {/* Visit store card */}
@@ -360,14 +349,9 @@ export default function FaqsClient() {
               <p className="text-[#3d2b1f]/60 text-xs mb-6">
                 Mon–Sat: 10AM–8PM &nbsp;|&nbsp; Sun: 12PM–4PM
               </p>
-              <Link
-                href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-[#3d2b1f] hover:bg-[#2a1a0e] text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-full transition-colors"
-              >
+              <AnimatedButton href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" variant="dark" size="sm" external>
                 Get Directions
-              </Link>
+              </AnimatedButton>
             </div>
           </div>
         </div>

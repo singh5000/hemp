@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export const metadata: Metadata = {
   title: "About Us | Hemp & Barrel | CBD Products | Best CBD Oil",
@@ -147,14 +148,8 @@ export default function AboutUsPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/shop"
-                className="inline-flex items-center gap-2 bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors">
-                Shop Products
-              </Link>
-              <Link href="/contact"
-                className="inline-flex items-center gap-2 border-2 border-[#3d2b1f] hover:border-[#1A9248] hover:text-[#1A9248] text-[#3d2b1f] font-bold text-sm uppercase tracking-wider px-6 py-3.5 rounded-full transition-all">
-                Contact Us
-              </Link>
+              <AnimatedButton href="/shop">Shop Products</AnimatedButton>
+              <AnimatedButton href="/contact" variant="outline">Contact Us</AnimatedButton>
             </div>
           </div>
         </div>
@@ -229,10 +224,9 @@ export default function AboutUsPage() {
                 </div>
               </div>
             </div>
-            <Link href="/contact"
-              className="flex-shrink-0 bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-colors">
-              Get Directions
-            </Link>
+            <div className="flex-shrink-0">
+              <AnimatedButton href="/contact">Get Directions</AnimatedButton>
+            </div>
           </div>
         </div>
       </section>

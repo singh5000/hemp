@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import NewsletterForm from "@/components/layout/NewsletterForm";
 import TableOfContents from "./TableOfContents";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 /* ─── Types ─── */
 interface WPPost {
@@ -287,14 +288,10 @@ export default async function BlogPostPage(
               <p className="text-white/50 text-xs leading-relaxed mb-5">
                 Lab-tested CBD products · Pineville, NC · Ships nationwide
               </p>
-              <Link href="/shop"
-                className="block w-full bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors">
-                Shop All Products
-              </Link>
-              <Link href="/contact"
-                className="block w-full mt-2 border border-white/20 hover:border-[#1A9248] text-white/70 hover:text-[#1A9248] text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-all">
-                Ask an Expert
-              </Link>
+              <AnimatedButton href="/shop" size="sm">Shop All Products</AnimatedButton>
+              <div className="mt-2">
+                <AnimatedButton href="/contact" variant="outline" size="sm">Ask an Expert</AnimatedButton>
+              </div>
             </div>
 
             {/* Mini newsletter */}
@@ -319,10 +316,9 @@ export default async function BlogPostPage(
                 <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.3em] mb-1">Keep Reading</p>
                 <h2 className="text-[#2a1008] text-2xl md:text-3xl font-bold">Related Articles</h2>
               </div>
-              <Link href="/blog"
-                className="hidden sm:flex items-center gap-2 text-sm font-bold text-[#1A9248] border border-[#1A9248] hover:bg-[#1A9248] hover:text-white px-5 py-2.5 rounded-full transition-all duration-300">
-                All Articles →
-              </Link>
+              <div className="hidden sm:block">
+                <AnimatedButton href="/blog" variant="outline" size="sm">All Articles</AnimatedButton>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

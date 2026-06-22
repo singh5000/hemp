@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { ShopSidebar, ShopSortBar, ShopMobileBar, Brand } from "./ShopFilters";
 import AddToCartButton from "./AddToCartButton";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export const metadata: Metadata = {
   title: "Shop CBD & Hemp Products | Hemp & Barrel",
@@ -347,13 +348,9 @@ export default async function ShopPage({
                 <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-2">{item.tag}</p>
                 <h3 className="text-[#2a1008] text-2xl font-bold mb-3">{item.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-6">{item.body}</p>
-                <Link href={item.href}
-                  className="inline-flex items-center gap-2 bg-[#2a1008] hover:bg-[#3d2b1f] text-white text-xs font-bold uppercase tracking-wider px-5 py-3 rounded-full transition-colors">
+                <AnimatedButton href={item.href} variant="dark" size="sm">
                   {item.cta}
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
-                  </svg>
-                </Link>
+                </AnimatedButton>
               </div>
             ))}
           </div>

@@ -5,6 +5,7 @@ import Link            from "next/link";
 import Image           from "next/image";
 import { useCart }     from "@/context/CartContext";
 import { useAuth }     from "@/context/AuthContext";
+import AnimatedButton  from "@/components/ui/AnimatedButton";
 
 /* Cart page is a client component — metadata set via head or route segment */
 export default function CartPage() {
@@ -61,13 +62,7 @@ export default function CartPage() {
           </div>
           <h1 className="text-3xl font-bold text-[#2a1008] mb-3">Your cart is empty</h1>
           <p className="text-gray-400 mb-8">Looks like you haven&apos;t added anything yet.</p>
-          <Link href="/shop"
-            className="inline-flex items-center gap-2 bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-full transition-colors">
-            Continue Shopping
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
-            </svg>
-          </Link>
+          <AnimatedButton href="/shop">Continue Shopping</AnimatedButton>
         </div>
       </div>
     );
