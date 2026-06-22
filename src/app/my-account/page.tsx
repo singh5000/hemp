@@ -94,7 +94,7 @@ function AuthForms() {
   return (
     <>
       <section className="bg-[#2a1008] py-14">
-        <div className="w-full mx-auto px-[15px] text-center">
+        <div className="w-full mx-auto px-10 text-center">
           <h1 className="text-white text-4xl md:text-5xl font-bold mb-2">My Account</h1>
           <p className="text-white/40 text-sm">Sign in or create an account to track orders and manage your profile.</p>
         </div>
@@ -510,7 +510,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
     <>
       {/* Hero */}
       <section className="bg-[#2a1008] py-12">
-        <div className="w-full mx-auto px-[15px]">
+        <div className="w-full mx-auto px-10">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-4">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -528,7 +528,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
         </div>
       </section>
 
-      <div className="w-full mx-auto px-[15px] py-10">
+      <div className="w-full mx-auto px-10 py-10">
         <div className="flex flex-col lg:flex-row gap-8 items-start">
 
           {/* ── Sidebar ── */}
