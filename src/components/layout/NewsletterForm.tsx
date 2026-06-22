@@ -2,23 +2,39 @@
 import { useState } from "react";
 
 const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
+const RECAPTCHA_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
 export default function NewsletterForm({ variant = "dark" }: { variant?: "dark" | "light" }) {
-  const [email,     setEmail]     = useState("");
-  const [busy,      setBusy]      = useState(false);
+  const [email, setEmail] = useState("");
+  const [honey, setHoney] = useState("");
+  const [busy, setBusy] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [errMsg,    setErrMsg]    = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [loadedAt] = useState(Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || busy) return;
+    if (honey) return;
+    if (Date.now() - loadedAt < 2000) { setErrMsg("Please wait a moment."); return; }
+
     setBusy(true);
     setErrMsg("");
     try {
-      const res  = await fetch(`${WP}/wp-json/hemp/v1/newsletter`, {
-        method:  "POST",
+      let recaptchaToken = "";
+      if (RECAPTCHA_KEY) {
+        const w = window as unknown as { grecaptcha?: { ready: (cb: () => void) => void; execute: (k: string, o: { action: string }) => Promise<string> } };
+        if (w.grecaptcha) {
+          recaptchaToken = await new Promise<string>((res) => {
+            w.grecaptcha!.ready(() => { w.grecaptcha!.execute(RECAPTCHA_KEY, { action: "newsletter" }).then(res).catch(() => res("")); });
+          });
+        }
+      }
+
+      const res = await fetch(`${WP}/wp-json/hemp/v1/newsletter`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify({ email }),
+        body: JSON.stringify({ email, recaptchaToken }),
       });
       if (!res.ok) throw new Error("Subscription failed.");
       setSubmitted(true);
@@ -45,21 +61,13 @@ export default function NewsletterForm({ variant = "dark" }: { variant?: "dark" 
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="flex w-full gap-0">
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
-          required
-          disabled={busy}
-          className={inputCls}
-        />
-        <button
-          type="submit"
-          disabled={busy}
-          className="px-5 py-3 bg-[#1A9248] hover:bg-[#148038] disabled:opacity-70 text-white font-bold text-sm uppercase tracking-wider rounded-r-full transition-colors whitespace-nowrap flex items-center gap-2"
-        >
+      <form onSubmit={handleSubmit} className="flex w-full gap-0 relative">
+        <input type="text" name="company" value={honey} onChange={e => setHoney(e.target.value)}
+          className="absolute -left-[9999px] opacity-0 h-0 w-0" tabIndex={-1} autoComplete="off" />
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email" required disabled={busy} className={inputCls} />
+        <button type="submit" disabled={busy}
+          className="px-5 py-3 bg-[#1A9248] hover:bg-[#148038] disabled:opacity-70 text-white font-bold text-sm uppercase tracking-wider rounded-r-full transition-colors whitespace-nowrap flex items-center gap-2">
           {busy ? (
             <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
