@@ -123,7 +123,7 @@ export default function FeaturedProducts() {
   };
 
   const addToCart = async (productId: number) => {
-    await fetch(`${process.env.NEXT_PUBLIC_WC_URL}/cart/add-item`, {
+    await fetch("/api/wc/cart", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
