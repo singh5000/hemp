@@ -64,10 +64,10 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
       {slides.map((s, i) => (
         <div key={s.id} className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${i === cur ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
           <Image src={s.bg} alt={s.heading.replace("\n", " ")} fill priority={i === 0}
-            className="object-cover object-center brightness-110" sizes="100vw" />
-          {/* Light gradient — keeps bg bright, only darkens left side for text */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+            className="object-cover object-center brightness-125 saturate-110" sizes="100vw" />
+          {/* Minimal gradient — only darkens left edge for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
         </div>
       ))}
 
@@ -132,8 +132,8 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
                     src={slide.productImg}
                     alt={slide.heading.replace("\n", " ")}
                     fill
-                    className="object-contain brightness-110"
-                    style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.25))" }}
+                    className="object-contain brightness-125 saturate-110"
+                    style={{ filter: "drop-shadow(0 10px 25px rgba(0,0,0,0.15))" }}
                     sizes="680px"
                   />
                 </div>
