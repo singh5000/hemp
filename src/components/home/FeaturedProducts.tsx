@@ -134,7 +134,7 @@ export default function FeaturedProducts() {
 
   return (
     <section className="py-16 bg-[#f2f2f2]">
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="w-full mx-auto px-[15px]">
         {/* Title */}
         <h2 className="text-center text-4xl font-bold text-[#3d2b1f] uppercase tracking-wider mb-10">
           Featured Products
