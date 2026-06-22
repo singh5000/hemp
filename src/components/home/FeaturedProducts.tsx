@@ -127,7 +127,7 @@ export default function FeaturedProducts() {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: productId, quantity: 1 }),
+      body: JSON.stringify({ action: "add", productId, quantity: 1 }),
     });
     await refreshCart();
   };
