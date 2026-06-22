@@ -12,9 +12,7 @@ import {
 } from "lucide-react";
 
 const HEMP_LEAF = (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
-    <path d="M12 2C12 2 7.5 6 7 10c-.3 2.5.5 4 2 5.5-1.5-.5-3.5-1-5-2.5 0 0 1 4 4 6-2-0.5-4-1-5.5-2 0 0 1.5 3.5 5 5C6 22 5 22 4 21.5c0 0 2 2.5 5.5 2.5H12h2.5c3.5 0 5.5-2.5 5.5-2.5-1 .5-2 .5-3.5 0 3.5-1.5 5-5 5-5-1.5 1-3.5 1.5-5.5 2 3-2 4-6 4-6-1.5 1.5-3.5 2-5 2.5 1.5-1.5 2.3-3 2-5.5C16.5 6 12 2 12 2z"/>
-  </svg>
+  <Image src="/hemp-leaf.png" alt="" width={18} height={18} className="w-[18px] h-[18px] object-contain" />
 );
 
 const CATEGORIES = [
