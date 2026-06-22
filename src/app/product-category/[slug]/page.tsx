@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CategorySidebar, CategorySortBar, CategoryMobileBar } from "./CategoryFilters";
 import AddToCartButton from "@/app/shop/AddToCartButton";
-import FaqSection, { CATEGORY_FAQS } from "@/components/ui/FaqSection";
+import FaqSection from "@/components/ui/FaqSection";
+import { CATEGORY_FAQS } from "@/lib/category-faqs";
 
 export const dynamic = "force-dynamic";
 
