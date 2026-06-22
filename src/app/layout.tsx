@@ -21,6 +21,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${josefinSans.variable} h-full`}>
+      <head>
+        {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+          <script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} async defer />
+        )}
+      </head>
       <body className="min-h-full flex flex-col bg-white text-[#3d2b1f] antialiased font-sans">
         <AuthProvider>
           <CartProvider>

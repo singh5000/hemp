@@ -53,20 +53,40 @@ const INFO_CARDS = [
 
 const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
 
+const RECAPTCHA_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
+
 export default function ContactClient() {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", message: "" });
+  const [honey, setHoney] = useState("");
+  const [loadedAt] = useState(Date.now());
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errMsg, setErrMsg] = useState("");
 
+  const getRecaptchaToken = async (): Promise<string> => {
+    if (!RECAPTCHA_KEY) return "";
+    return new Promise((resolve) => {
+      const w = window as unknown as { grecaptcha?: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> } };
+      if (!w.grecaptcha) { resolve(""); return; }
+      w.grecaptcha.ready(() => {
+        w.grecaptcha!.execute(RECAPTCHA_KEY, { action: "contact" }).then(resolve).catch(() => resolve(""));
+      });
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (honey) return;
+    if (Date.now() - loadedAt < 3000) { setErrMsg("Please wait a moment before submitting."); setStatus("error"); return; }
+
     setStatus("sending");
     setErrMsg("");
     try {
-      const res  = await fetch(`${WP}/wp-json/hemp/v1/contact`, {
-        method:  "POST",
+      const recaptchaToken = await getRecaptchaToken();
+      const res = await fetch(`${WP}/wp-json/hemp/v1/contact`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify(form),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
       const data = await res.json() as { message?: string };
       if (!res.ok) throw new Error(data.message ?? "Failed to send message.");
@@ -177,6 +197,9 @@ export default function ContactClient() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Honeypot — invisible to users, bots fill it */}
+                  <input type="text" name="website" value={honey} onChange={e => setHoney(e.target.value)}
+                    className="absolute -left-[9999px] opacity-0 h-0 w-0" tabIndex={-1} autoComplete="off" />
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold text-[#3d2b1f]/60 uppercase tracking-wider mb-2">
