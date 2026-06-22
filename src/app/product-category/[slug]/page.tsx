@@ -268,7 +268,7 @@ export default async function CategoryPage({
                               className="w-full py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-[#3d2b1f] hover:bg-[#2a1008] text-white text-center transition-colors">
                               Select Options
                             </Link>
-                          : <AddToCartButton productId={p.id} inStock={inStock} />
+                          : <AddToCartButton productId={p.id} inStock={inStock} productName={p.name} />
                         }
                       </div>
                     </div>

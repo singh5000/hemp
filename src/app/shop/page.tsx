@@ -161,6 +161,10 @@ export default async function ShopPage({
   const search   = sp.search   ?? "";
   const brand    = sp.brand    ?? "";
   const instock  = sp.instock  === "1";
+  const effects  = sp.effects  ?? "";
+  const strain   = sp.strain   ?? "";
+
+  const searchTerms = [search, strain, ...effects.split(",").filter(Boolean)].filter(Boolean).join(" ");
 
   const apiParams = new URLSearchParams({
     per_page: String(PER_PAGE),
@@ -168,10 +172,10 @@ export default async function ShopPage({
     orderby,
     order,
   });
-  if (category) apiParams.set("category", category);
-  if (search)   apiParams.set("search", search);
-  if (brand)    apiParams.set("brand", brand);
-  if (instock)  apiParams.set("stock_status", "instock");
+  if (category)    apiParams.set("category", category);
+  if (searchTerms) apiParams.set("search", searchTerms);
+  if (brand)       apiParams.set("brand", brand);
+  if (instock)     apiParams.set("stock_status", "instock");
 
   // Separate params for pagination URLs — preserves instock/category/brand as URL params
   // so the toggle and filters survive page navigation
@@ -311,7 +315,7 @@ export default async function ShopPage({
                           )}
                         </div>
 
-                        <AddToCartButton productId={p.id} inStock={inStock} />
+                        <AddToCartButton productId={p.id} inStock={inStock} productName={p.name} />
                       </div>
                     </div>
                   );

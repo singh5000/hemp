@@ -16,6 +16,15 @@
   100% { background-position: -100% 0; }
 }
 
+@keyframes ring {
+  0% { transform: rotate(0); }
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-15deg); }
+  60% { transform: rotate(10deg); }
+  80% { transform: rotate(-10deg); }
+  100% { transform: rotate(0); }
+}
+
 @keyframes slover {
   0% { transform: rotate(30deg) translateX(-50%); }
   100% { transform: rotate(-30deg) translateX(-50%); }
