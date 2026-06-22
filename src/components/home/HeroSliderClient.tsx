@@ -64,17 +64,17 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
       {slides.map((s, i) => (
         <div key={s.id} className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${i === cur ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
           <Image src={s.bg} alt={s.heading.replace("\n", " ")} fill priority={i === 0}
-            className="object-cover object-center" sizes="100vw" />
-          {/* Layered gradients for text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/15" />
+            className="object-cover object-center brightness-110" sizes="100vw" />
+          {/* Light gradient — keeps bg bright, only darkens left side for text */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
         </div>
       ))}
 
       {/* ── Content ── */}
       <div className="relative z-20 h-full">
         <div className="max-w-[1320px] mx-auto px-4 md:px-16 h-full flex items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] xl:grid-cols-[1fr_600px] gap-6 xl:gap-10 items-center w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_580px] xl:grid-cols-[1fr_680px] gap-6 xl:gap-10 items-center w-full">
 
             {/* Left — text */}
             <div className={`transition-all duration-500 ${busy ? "opacity-0 translate-y-8" : "opacity-100 translate-y-0"}`}>
@@ -125,17 +125,16 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
             {/* Right — product image */}
             <div className={`hidden lg:flex justify-center items-center transition-all duration-600 ${busy ? "opacity-0 translate-x-10 scale-90" : "opacity-100 translate-x-0 scale-100"}`}>
               {slide.productImg ? (
-                <div className="relative w-[520px] h-[520px] xl:w-[600px] xl:h-[600px] flex-shrink-0">
-                  {/* Ambient glow */}
-                  <div className="absolute inset-4 rounded-full bg-[#5a8c3a]/15 blur-3xl pointer-events-none" />
-                  <div className="absolute inset-12 rounded-full bg-[#5a8c3a]/20 blur-2xl animate-pulse pointer-events-none" />
+                <div className="relative w-[580px] h-[580px] xl:w-[680px] xl:h-[680px] flex-shrink-0">
+                  {/* Subtle ambient glow */}
+                  <div className="absolute inset-8 rounded-full bg-white/10 blur-3xl pointer-events-none" />
                   <Image
                     src={slide.productImg}
                     alt={slide.heading.replace("\n", " ")}
                     fill
-                    className="object-contain"
-                    style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.65)) drop-shadow(0 0 50px rgba(90,140,58,0.18))" }}
-                    sizes="600px"
+                    className="object-contain brightness-110"
+                    style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.25))" }}
+                    sizes="680px"
                   />
                 </div>
               ) : (
