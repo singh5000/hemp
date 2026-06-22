@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductGallery from "./ProductGallery";
 import ProductForm from "./ProductForm";
+import ProductAccordion from "./ProductAccordion";
 
 export const dynamic = "force-dynamic";
 
@@ -301,16 +302,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* ── Description ── */}
-      {product.description && (
-        <section className="bg-[#fafaf8] border-t border-gray-100">
-          <div className="max-w-[1320px] mx-auto px-4 py-12">
-            <h2 className="text-[#2a1008] text-2xl font-bold mb-6">Product Description</h2>
-            <div className="max-w-3xl text-[#3d2b1f] text-sm leading-relaxed space-y-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#2a1008] [&_h2]:mt-6 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#2a1008] [&_h3]:mt-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1 [&_a]:text-[#1A9248] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[#2a1008]"
-              dangerouslySetInnerHTML={{ __html: product.description }} />
-          </div>
-        </section>
-      )}
+      {/* ── Accordion Details ── */}
+      <section className="border-t border-gray-100">
+        <div className="max-w-[1320px] mx-auto px-4 py-10">
+          <ProductAccordion
+            description={product.description}
+            attributes={product.attributes}
+            reviewCount={reviews.length}
+            avgRating={product.average_rating}
+          />
+        </div>
+      </section>
 
       {/* ── Customer Reviews ── */}
       <section className="border-t border-gray-100">
