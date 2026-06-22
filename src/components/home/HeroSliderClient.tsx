@@ -80,43 +80,45 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
             <div className={`transition-all duration-500 ${busy ? "opacity-0 translate-y-8" : "opacity-100 translate-y-0"}`}>
 
               {/* Tag badge */}
-              <div className="inline-flex items-center gap-2.5 bg-white/8 backdrop-blur-sm border border-white/15 rounded-full pl-3 pr-5 py-2 mb-6">
+              <div className="inline-flex items-center gap-2.5 bg-black/30 backdrop-blur-md border border-white/20 rounded-full pl-3 pr-5 py-2 mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#5a8c3a] animate-pulse flex-shrink-0" />
-                <span className="text-[#5a8c3a] text-[11px] font-bold uppercase tracking-[0.3em]">{slide.tag}</span>
+                <span className="text-white text-[11px] font-bold uppercase tracking-[0.3em]">{slide.tag}</span>
               </div>
 
               {/* Heading */}
               <h1 className="text-white font-black leading-[0.88] mb-5 tracking-tight whitespace-pre-line"
-                style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)" }}>
+                style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", textShadow: "0 2px 20px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.4)" }}>
                 {slide.heading}
               </h1>
 
               {/* Sub */}
-              <p className="text-white/60 text-base md:text-[17px] max-w-[440px] leading-relaxed mb-9">
+              <p className="text-white text-base md:text-[17px] max-w-[440px] leading-relaxed mb-9 font-medium"
+                style={{ textShadow: "0 1px 10px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.5)" }}>
                 {slide.sub}
               </p>
 
               {/* CTAs */}
               <div className="flex items-center gap-5 flex-wrap">
                 <Link href={slide.href}
-                  className="inline-flex items-center gap-2.5 bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#5a8c3a]/40 text-sm tracking-widest uppercase">
+                  className="inline-flex items-center gap-2.5 bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#5a8c3a]/40 text-sm tracking-widest uppercase shadow-lg">
                   {slide.cta}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
                 <Link href="/shop"
-                  className="text-white/45 hover:text-white text-sm font-semibold transition-colors underline underline-offset-4 decoration-white/25">
+                  className="text-white hover:text-white/80 text-sm font-bold transition-colors underline underline-offset-4 decoration-white/40"
+                  style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}>
                   View all products
                 </Link>
               </div>
 
               {/* Trust strip */}
-              <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-white/10">
+              <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-white/20">
                 {BADGES.map(b => (
                   <div key={b.label} className="flex items-center gap-2">
                     <span className="text-sm">{b.icon}</span>
-                    <span className="text-white/40 text-xs font-semibold tracking-wide">{b.label}</span>
+                    <span className="text-white text-xs font-bold tracking-wide" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}>{b.label}</span>
                   </div>
                 ))}
               </div>
