@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
         pathname: "/hemp/wp-content/uploads/**",
       },
       {
+        protocol: "https",
+        hostname: "images.pexels.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
         protocol: "http",
         hostname: "127.0.0.1",
         pathname: "/hemp/wp-content/uploads/**",
