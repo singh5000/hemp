@@ -42,7 +42,7 @@ export default function CartPage() {
   if (cartLoading) {
     return (
       <div className="max-w-[1320px] mx-auto px-4 py-20 text-center">
-        <div className="inline-block w-8 h-8 border-4 border-[#5a8c3a] border-t-transparent rounded-full animate-spin" />
+        <div className="inline-block w-8 h-8 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin" />
         <p className="mt-4 text-gray-400 text-sm">Loading your cart…</p>
       </div>
     );
@@ -62,7 +62,7 @@ export default function CartPage() {
           <h1 className="text-3xl font-bold text-[#2a1008] mb-3">Your cart is empty</h1>
           <p className="text-gray-400 mb-8">Looks like you haven&apos;t added anything yet.</p>
           <Link href="/shop"
-            className="inline-flex items-center gap-2 bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-full transition-colors">
+            className="inline-flex items-center gap-2 bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-6 py-3 rounded-full transition-colors">
             Continue Shopping
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
@@ -126,7 +126,7 @@ export default function CartPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <Link href={`/product/${item.product.slug}`}
-                          className="text-[#2a1008] font-bold text-sm hover:text-[#5a8c3a] transition-colors line-clamp-2">
+                          className="text-[#2a1008] font-bold text-sm hover:text-[#1A9248] transition-colors line-clamp-2">
                           {item.product.name}
                         </Link>
                         {varAttrs.length > 0 && (
@@ -180,11 +180,11 @@ export default function CartPage() {
                 <div className="flex flex-wrap gap-2">
                   {cart.coupons.map(c => (
                     <span key={c.code}
-                      className="inline-flex items-center gap-1.5 bg-[#f5faf2] border border-[#5a8c3a]/30 text-[#5a8c3a] text-xs font-bold px-3 py-1 rounded-full">
+                      className="inline-flex items-center gap-1.5 bg-[#f5faf2] border border-[#1A9248]/30 text-[#1A9248] text-xs font-bold px-3 py-1 rounded-full">
                       {c.code}
-                      <span className="text-[#5a8c3a]/70">−{c.discount}</span>
+                      <span className="text-[#1A9248]/70">−{c.discount}</span>
                       <button onClick={() => removeCoupon(c.code)} title="Remove coupon"
-                        className="ml-0.5 text-[#5a8c3a]/60 hover:text-red-500 transition-colors">
+                        className="ml-0.5 text-[#1A9248]/60 hover:text-red-500 transition-colors">
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -202,7 +202,7 @@ export default function CartPage() {
                   onChange={e => { setCouponCode(e.target.value); setCouponError(""); setCouponOk(false); }}
                   onKeyDown={e => e.key === "Enter" && handleApplyCoupon()}
                   placeholder="Coupon code"
-                  className="flex-1 h-10 border border-gray-200 rounded-xl px-4 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#5a8c3a]/30 focus:border-[#5a8c3a] transition-all"
+                  className="flex-1 h-10 border border-gray-200 rounded-xl px-4 text-sm text-[#2a1008] placeholder-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-[#1A9248]/30 focus:border-[#1A9248] transition-all"
                 />
                 <button
                   onClick={handleApplyCoupon}
@@ -212,13 +212,13 @@ export default function CartPage() {
                 </button>
               </div>
               {couponError && <p className="text-xs text-red-500">{couponError}</p>}
-              {couponOk    && <p className="text-xs text-[#5a8c3a] font-medium">Coupon applied successfully!</p>}
+              {couponOk    && <p className="text-xs text-[#1A9248] font-medium">Coupon applied successfully!</p>}
             </div>
 
             {/* Cart actions */}
             <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-1">
               <Link href="/shop"
-                className="flex items-center gap-2 text-sm text-[#5a8c3a] font-bold hover:underline">
+                className="flex items-center gap-2 text-sm text-[#1A9248] font-bold hover:underline">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -243,7 +243,7 @@ export default function CartPage() {
                   <span className="font-semibold">{cart.subtotal}</span>
                 </div>
                 {cart.discount && (
-                  <div className="flex justify-between text-sm text-[#5a8c3a]">
+                  <div className="flex justify-between text-sm text-[#1A9248]">
                     <span>Discount</span>
                     <span className="font-semibold">−{cart.discount}</span>
                   </div>
@@ -256,7 +256,7 @@ export default function CartPage() {
                 ) : (
                   <div className="flex justify-between text-sm text-[#3d2b1f]">
                     <span>Shipping</span>
-                    <span className="text-[#5a8c3a] font-semibold text-xs">Calculated at checkout</span>
+                    <span className="text-[#1A9248] font-semibold text-xs">Calculated at checkout</span>
                   </div>
                 )}
                 {cart.totalTax && cart.totalTax !== "$0.00" && (
@@ -275,13 +275,13 @@ export default function CartPage() {
               <div className="px-6 pb-6 space-y-3">
                 <a
                   href="/checkout"
-                  className="w-full block text-center bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold text-sm uppercase tracking-wider py-4 rounded-xl transition-colors">
+                  className="w-full block text-center bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider py-4 rounded-xl transition-colors">
                   Proceed to Checkout
                 </a>
 
                 {!user && (
                   <p className="text-center text-xs text-gray-400">
-                    <Link href="/my-account" className="text-[#5a8c3a] hover:underline font-medium">
+                    <Link href="/my-account" className="text-[#1A9248] hover:underline font-medium">
                       Sign in
                     </Link>{" "}
                     to access your saved addresses and order history.

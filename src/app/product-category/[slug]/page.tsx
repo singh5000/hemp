@@ -110,7 +110,7 @@ function Pagination({ current, total, params }: { current: number; total: number
     <div className="flex items-center justify-center gap-2 mt-12 flex-wrap">
       {current > 1 && (
         <Link href={href(current - 1)}
-          className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-[#3d2b1f] hover:bg-[#f5f0eb] hover:border-[#5a8c3a] transition-all">
+          className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-[#3d2b1f] hover:bg-[#f5f0eb] hover:border-[#1A9248] transition-all">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
           </svg>
@@ -122,13 +122,13 @@ function Pagination({ current, total, params }: { current: number; total: number
           : <Link key={p} href={href(p)}
               className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-all ${
                 p === current
-                  ? "bg-[#5a8c3a] text-white shadow-md shadow-[#5a8c3a]/30"
-                  : "border border-gray-200 text-[#3d2b1f] hover:bg-[#f5f0eb] hover:border-[#5a8c3a]"
+                  ? "bg-[#1A9248] text-white shadow-md shadow-[#1A9248]/30"
+                  : "border border-gray-200 text-[#3d2b1f] hover:bg-[#f5f0eb] hover:border-[#1A9248]"
               }`}>{p}</Link>
       )}
       {current < total && (
         <Link href={href(current + 1)}
-          className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-[#3d2b1f] hover:bg-[#f5f0eb] hover:border-[#5a8c3a] transition-all">
+          className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-[#3d2b1f] hover:bg-[#f5f0eb] hover:border-[#1A9248] transition-all">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
           </svg>
@@ -176,8 +176,8 @@ export default async function CategoryPage({
             fill className="object-cover opacity-20" sizes="100vw" priority/>
         )}
         <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -right-32 top-0 w-[500px] h-[500px] bg-[#5a8c3a]/8 rounded-full blur-3xl pointer-events-none" />
+          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+        <div className="absolute -right-32 top-0 w-[500px] h-[500px] bg-[#1A9248]/8 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-[1320px] mx-auto px-4 py-14 md:py-18">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-5 flex-wrap">
@@ -216,7 +216,7 @@ export default async function CategoryPage({
             {products.length === 0 ? (
               <div className="py-32 text-center">
                 <p className="text-xl text-gray-300 font-bold">No products found.</p>
-                <Link href="/shop" className="mt-4 inline-block text-[#5a8c3a] font-bold hover:underline text-sm">
+                <Link href="/shop" className="mt-4 inline-block text-[#1A9248] font-bold hover:underline text-sm">
                   View all products →
                 </Link>
               </div>
@@ -238,7 +238,7 @@ export default async function CategoryPage({
                           ? <Image src={img.src} alt={img.alt || p.name} fill
                               sizes="(max-width:640px) 50vw, (max-width:1280px) 33vw, 280px"
                               className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"/>
-                          : <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#5a8c3a]/40"/>
+                          : <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/40"/>
                         }
                         <Link href={`/product/${p.slug}`} className="absolute inset-0" aria-label={p.name}/>
                         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
@@ -253,7 +253,7 @@ export default async function CategoryPage({
 
                       <div className="p-4 flex flex-col flex-1">
                         <Link href={`/product/${p.slug}`}
-                          className="text-[#2a1008] font-bold text-sm leading-snug mb-1 group-hover:text-[#5a8c3a] transition-colors line-clamp-2 flex-1">
+                          className="text-[#2a1008] font-bold text-sm leading-snug mb-1 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                           {p.name}
                         </Link>
                         <StarRating rating={p.average_rating} count={p.review_count} />

@@ -47,8 +47,8 @@ export default function AddToCartButton({
         className={`w-full py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-200 ${
           state === "added"   ? "bg-emerald-500 text-white" :
           state === "error"   ? "bg-red-500 text-white" :
-          state === "loading" ? "bg-[#5a8c3a]/60 text-white cursor-wait" :
-                                "bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white"
+          state === "loading" ? "bg-[#1A9248]/60 text-white cursor-wait" :
+                                "bg-[#1A9248] hover:bg-[#148038] text-white"
         }`}
       >
         {state === "loading" ? "Adding…" :

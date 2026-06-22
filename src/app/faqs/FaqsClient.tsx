@@ -175,19 +175,19 @@ function FaqItem({ faq, isOpen, onToggle }: {
 }) {
   return (
     <div className={`border rounded-xl overflow-hidden transition-all duration-200 ${
-      isOpen ? "border-[#5a8c3a] shadow-md shadow-[#5a8c3a]/10" : "border-gray-200 hover:border-[#5a8c3a]/50"
+      isOpen ? "border-[#1A9248] shadow-md shadow-[#1A9248]/10" : "border-gray-200 hover:border-[#1A9248]/50"
     }`}>
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between px-6 py-5 text-left gap-4 group"
       >
         <span className={`font-bold text-xl leading-snug transition-colors ${
-          isOpen ? "text-[#5a8c3a]" : "text-[#3d2b1f] group-hover:text-[#5a8c3a]"
+          isOpen ? "text-[#1A9248]" : "text-[#3d2b1f] group-hover:text-[#1A9248]"
         }`}>
           {faq.q}
         </span>
         <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-          isOpen ? "bg-[#5a8c3a] rotate-45" : "bg-gray-100 group-hover:bg-[#5a8c3a]/10"
+          isOpen ? "bg-[#1A9248] rotate-45" : "bg-gray-100 group-hover:bg-[#1A9248]/10"
         }`}>
           <svg className={`w-4 h-4 transition-colors ${isOpen ? "text-white" : "text-[#3d2b1f]"}`}
             fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,7 +198,7 @@ function FaqItem({ faq, isOpen, onToggle }: {
 
       {isOpen && (
         <div className="px-6 pb-5">
-          <div className="w-10 h-0.5 bg-[#5a8c3a] mb-4 rounded-full" />
+          <div className="w-10 h-0.5 bg-[#1A9248] mb-4 rounded-full" />
           <p className="text-gray-600 leading-relaxed text-[15px] whitespace-pre-line">
             {faq.a}
           </p>
@@ -233,23 +233,23 @@ export default function FaqsClient() {
       {/* Hero */}
       <section className="bg-[#2a1008] py-20 relative overflow-hidden">
         {/* Decorative circles */}
-        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#5a8c3a]/5 -translate-y-1/2 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-[#5a8c3a]/8 translate-y-1/2 -translate-x-1/4" />
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#1A9248]/5 -translate-y-1/2 translate-x-1/4" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-[#1A9248]/8 translate-y-1/2 -translate-x-1/4" />
 
         <div className="max-w-[900px] mx-auto px-6 text-center relative">
-          <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-4">
+          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-4">
             Got Questions?
           </p>
           <h1 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-wide mb-6">
             Frequently Asked<br />
-            <span className="text-[#5a8c3a]">Questions</span>
+            <span className="text-[#1A9248]">Questions</span>
           </h1>
           <p className="text-white/60 text-lg max-w-xl mx-auto mb-8">
             Everything you need to know about CBD, our products, shipping, and visiting our store.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 border border-white/30 hover:border-[#5a8c3a] text-white hover:text-[#5a8c3a] px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300"
+            className="inline-flex items-center gap-2 border border-white/30 hover:border-[#1A9248] text-white hover:text-[#1A9248] px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -272,8 +272,8 @@ export default function FaqsClient() {
                 onClick={() => { setActiveCategory(cat.id); setOpenItems(new Set()); }}
                 className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                   activeCategory === cat.id
-                    ? "bg-[#5a8c3a] text-white shadow-md shadow-[#5a8c3a]/30"
-                    : "bg-white text-[#3d2b1f] border border-gray-200 hover:border-[#5a8c3a] hover:text-[#5a8c3a]"
+                    ? "bg-[#1A9248] text-white shadow-md shadow-[#1A9248]/30"
+                    : "bg-white text-[#3d2b1f] border border-gray-200 hover:border-[#1A9248] hover:text-[#1A9248]"
                 }`}
               >
                 {cat.label}
@@ -294,7 +294,7 @@ export default function FaqsClient() {
               Showing <span className="font-semibold text-[#3d2b1f]">{filtered.length}</span> question{filtered.length !== 1 ? "s" : ""}
             </p>
             <div className="flex gap-3">
-              <button onClick={expandAll} className="text-xs text-[#5a8c3a] font-semibold hover:underline">
+              <button onClick={expandAll} className="text-xs text-[#1A9248] font-semibold hover:underline">
                 Expand all
               </button>
               <span className="text-gray-300">|</span>
@@ -325,8 +325,8 @@ export default function FaqsClient() {
 
             {/* Contact card */}
             <div className="bg-[#2a1008] rounded-2xl p-8 text-center">
-              <div className="w-14 h-14 bg-[#5a8c3a]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-7 h-7 text-[#5a8c3a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-14 h-14 bg-[#1A9248]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-7 h-7 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
@@ -337,7 +337,7 @@ export default function FaqsClient() {
               </p>
               <Link
                 href="/contact"
-                className="inline-block bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-full transition-colors"
+                className="inline-block bg-[#1A9248] hover:bg-[#148038] text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-full transition-colors"
               >
                 Contact Us
               </Link>

@@ -88,8 +88,8 @@ export default function TermsPage() {
       {/* ── Hero ── */}
       <section className="relative bg-[#2a1008] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-[#5a8c3a]/6 rounded-full blur-3xl pointer-events-none" />
+          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+        <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-[#1A9248]/6 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-24">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-7">
@@ -97,9 +97,9 @@ export default function TermsPage() {
             <span>/</span>
             <span className="text-white/60">Terms &amp; Conditions</span>
           </nav>
-          <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-3">Legal</p>
+          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Legal</p>
           <h1 className="text-white text-4xl md:text-6xl font-bold leading-tight mb-5">
-            Terms &amp; <span className="text-[#5a8c3a]">Conditions</span>
+            Terms &amp; <span className="text-[#1A9248]">Conditions</span>
           </h1>
         </div>
       </section>
@@ -132,11 +132,11 @@ export default function TermsPage() {
           {/* ── TOC sidebar ── */}
           <aside className="hidden lg:block w-[240px] flex-shrink-0">
             <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-4">Contents</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Contents</p>
               <nav className="space-y-0.5">
                 {SECTIONS.map((s) => (
                   <a key={s.id} href={`#${s.id}`}
-                    className="block text-xs text-gray-500 hover:text-[#5a8c3a] py-1.5 pl-3 border-l-2 border-transparent hover:border-[#5a8c3a] transition-all leading-snug">
+                    className="block text-xs text-gray-500 hover:text-[#1A9248] py-1.5 pl-3 border-l-2 border-transparent hover:border-[#1A9248] transition-all leading-snug">
                     {s.title}
                   </a>
                 ))}
@@ -149,7 +149,7 @@ export default function TermsPage() {
             {SECTIONS.map((section) => (
               <div key={section.id} id={section.id} className="scroll-mt-24">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-1.5 h-6 bg-[#5a8c3a] rounded-full flex-shrink-0" />
+                  <div className="w-1.5 h-6 bg-[#1A9248] rounded-full flex-shrink-0" />
                   <h2 className="text-[#2a1008] text-xl font-bold">{section.title}</h2>
                 </div>
                 <div className="pl-5 space-y-3">
@@ -178,33 +178,33 @@ export default function TermsPage() {
             {/* Contact section */}
             <div id="contact" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-1.5 h-6 bg-[#5a8c3a] rounded-full flex-shrink-0" />
+                <div className="w-1.5 h-6 bg-[#1A9248] rounded-full flex-shrink-0" />
                 <h2 className="text-[#2a1008] text-xl font-bold">Contact Us</h2>
               </div>
               <div className="pl-5">
                 <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm space-y-3">
                   <div className="flex items-center gap-3 text-sm text-[#3d2b1f]">
-                    <svg className="w-4 h-4 text-[#5a8c3a] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
                     800 N Polk Street, Pineville, NC 28134
                   </div>
-                  <a href="tel:9803264367" className="flex items-center gap-3 text-sm text-[#3d2b1f] hover:text-[#5a8c3a] transition-colors">
-                    <svg className="w-4 h-4 text-[#5a8c3a] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <a href="tel:9803264367" className="flex items-center gap-3 text-sm text-[#3d2b1f] hover:text-[#1A9248] transition-colors">
+                    <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
                     (980) 326-4367
                   </a>
                   <div className="flex items-center gap-3 text-sm text-[#3d2b1f]">
-                    <svg className="w-4 h-4 text-[#5a8c3a] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     Mon–Sat: 10am – 8pm &nbsp;|&nbsp; Sun: 12pm – 4pm
                   </div>
                   <div className="pt-2">
                     <Link href="/contact"
-                      className="inline-flex items-center gap-2 bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-colors">
+                      className="inline-flex items-center gap-2 bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-colors">
                       Contact Us
                     </Link>
                   </div>

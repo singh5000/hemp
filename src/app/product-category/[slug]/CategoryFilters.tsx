@@ -48,7 +48,7 @@ export function CategorySidebar() {
     <aside className="hidden lg:block w-[230px] flex-shrink-0 self-stretch">
       <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
         <div className="p-4">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-3">Search Products</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
           <form onSubmit={submit} className="flex gap-2">
             <div className="relative flex-1">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
@@ -58,10 +58,10 @@ export function CategorySidebar() {
               </svg>
               <input type="text" value={draft} onChange={e => setDraft(e.target.value)}
                 placeholder="Product name…"
-                className="w-full pl-8 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#5a8c3a] text-[#3d2b1f] placeholder:text-gray-400"/>
+                className="w-full pl-8 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"/>
             </div>
             <button type="submit"
-              className="bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white px-2.5 rounded-lg transition-colors flex-shrink-0">
+              className="bg-[#1A9248] hover:bg-[#148038] text-white px-2.5 rounded-lg transition-colors flex-shrink-0">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
               </svg>
@@ -97,7 +97,7 @@ export function CategorySortBar({ total, shown }: { total: number; shown: number
         <select
           value={`${active.orderby}|${active.order}`}
           onChange={e => { const [ob, or] = e.target.value.split("|"); setSort(ob, or); }}
-          className="appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#5a8c3a] cursor-pointer">
+          className="appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#1A9248] cursor-pointer">
           {SORT_OPTIONS.map(o => (
             <option key={`${o.orderby}|${o.order}`} value={`${o.orderby}|${o.order}`}>{o.label}</option>
           ))}
@@ -133,10 +133,10 @@ export function CategoryMobileBar() {
           </svg>
           <input type="text" value={draft} onChange={e => setDraft(e.target.value)}
             placeholder="Search products…"
-            className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:border-[#5a8c3a] text-[#3d2b1f] placeholder:text-gray-400 bg-white"/>
+            className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400 bg-white"/>
         </div>
         <button type="submit"
-          className="bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white px-4 rounded-full transition-colors text-sm font-bold">
+          className="bg-[#1A9248] hover:bg-[#148038] text-white px-4 rounded-full transition-colors text-sm font-bold">
           Go
         </button>
         {activeSearch && (
@@ -150,7 +150,7 @@ export function CategoryMobileBar() {
         <select
           value={`${active.orderby}|${active.order}`}
           onChange={e => { const [ob, or] = e.target.value.split("|"); setSort(ob, or); }}
-          className="w-full appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#5a8c3a] cursor-pointer">
+          className="w-full appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#1A9248] cursor-pointer">
           {SORT_OPTIONS.map(o => (
             <option key={`${o.orderby}|${o.order}`} value={`${o.orderby}|${o.order}`}>{o.label}</option>
           ))}

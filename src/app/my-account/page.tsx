@@ -45,7 +45,7 @@ const STATUS_COLORS: Record<string, string> = {
   failed:     "bg-red-100 text-red-700",
 };
 
-const inp = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#5a8c3a] focus:ring-2 focus:ring-[#5a8c3a]/10 outline-none text-[#3d2b1f] text-sm transition-all bg-white";
+const inp = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1A9248] focus:ring-2 focus:ring-[#1A9248]/10 outline-none text-[#3d2b1f] text-sm transition-all bg-white";
 
 /* ════════════════════════════════════════════════════════════
    LOGIN / REGISTER FORM
@@ -127,7 +127,7 @@ function AuthForms() {
                   onChange={e => setLoginData(p => ({ ...p, password: e.target.value }))}
                   placeholder="••••••••" className={`${inp} pr-10`}/>
                 <button type="button" onClick={() => setShowLoginPwd(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#5a8c3a]">
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#1A9248]">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {showLoginPwd
                       ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
@@ -141,12 +141,12 @@ function AuthForms() {
               <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-red-600 text-sm">{loginErr}</div>
             )}
             <button type="submit" disabled={loginBusy}
-              className="w-full py-3.5 bg-[#5a8c3a] hover:bg-[#4a7a2e] disabled:bg-[#5a8c3a]/50 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition-colors">
+              className="w-full py-3.5 bg-[#1A9248] hover:bg-[#148038] disabled:bg-[#1A9248]/50 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition-colors">
               {loginBusy ? "Signing in…" : "Sign In"}
             </button>
             <p className="text-center text-xs text-gray-400">
               <a href={`${process.env.NEXT_PUBLIC_WORDPRESS_URL ?? ""}/my-account/lost-password/`}
-                className="text-[#5a8c3a] hover:underline" target="_blank" rel="noopener noreferrer">
+                className="text-[#1A9248] hover:underline" target="_blank" rel="noopener noreferrer">
                 Forgot your password?
               </a>
             </p>
@@ -182,7 +182,7 @@ function AuthForms() {
                   onChange={e => setRegData(p => ({ ...p, password: e.target.value }))}
                   placeholder="At least 6 characters" className={`${inp} pr-10`}/>
                 <button type="button" onClick={() => setShowRegPwd(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#5a8c3a]">
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#1A9248]">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -200,13 +200,13 @@ function AuthForms() {
               <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-red-600 text-sm">{regErr}</div>
             )}
             <button type="submit" disabled={regBusy}
-              className="w-full py-3.5 bg-[#5a8c3a] hover:bg-[#4a7a2e] disabled:bg-[#5a8c3a]/50 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition-colors">
+              className="w-full py-3.5 bg-[#1A9248] hover:bg-[#148038] disabled:bg-[#1A9248]/50 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition-colors">
               {regBusy ? "Creating account…" : "Create Account"}
             </button>
             <p className="text-center text-xs text-gray-400 leading-relaxed">
               By creating an account you agree to our{" "}
-              <Link href="/terms-conditions" className="text-[#5a8c3a] hover:underline">Terms</Link>{" "}and{" "}
-              <Link href="/privacy-policy" className="text-[#5a8c3a] hover:underline">Privacy Policy</Link>.
+              <Link href="/terms-conditions" className="text-[#1A9248] hover:underline">Terms</Link>{" "}and{" "}
+              <Link href="/privacy-policy" className="text-[#1A9248] hover:underline">Privacy Policy</Link>.
             </p>
           </form>
         )}
@@ -241,7 +241,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
     if (customer?.shipping) setShipping({ ...BLANK_ADDR, ...customer.shipping });
   }, [customer]);
 
-  const addrInp = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#5a8c3a] focus:ring-2 focus:ring-[#5a8c3a]/10 outline-none text-[#3d2b1f] text-sm transition-all bg-white";
+  const addrInp = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#1A9248] focus:ring-2 focus:ring-[#1A9248]/10 outline-none text-[#3d2b1f] text-sm transition-all bg-white";
 
   const handleSave = async (type: "billing" | "shipping") => {
     setBusy(true); setErr(""); setOk(false);
@@ -311,7 +311,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
       {err && <p className="text-xs text-red-500">{err}</p>}
       <div className="flex gap-3">
         <button onClick={() => handleSave(type)} disabled={busy}
-          className="bg-[#5a8c3a] hover:bg-[#4a7a2e] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl transition-colors">
+          className="bg-[#1A9248] hover:bg-[#148038] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl transition-colors">
           {busy ? "Saving…" : "Save address"}
         </button>
         <button onClick={() => { setEditing(null); setErr(""); }} type="button"
@@ -343,7 +343,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
 
   if (custLoading) return (
     <div className="py-16 text-center">
-      <div className="inline-block w-7 h-7 border-4 border-[#5a8c3a] border-t-transparent rounded-full animate-spin"/>
+      <div className="inline-block w-7 h-7 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin"/>
     </div>
   );
 
@@ -359,7 +359,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
             <h3 className="font-bold text-[#2a1008] text-sm uppercase tracking-wider">Billing address</h3>
             {editing !== "billing" && (
               <button onClick={() => { setEditing("billing"); setErr(""); }}
-                className="text-[#5a8c3a] text-xs font-bold hover:underline">Edit</button>
+                className="text-[#1A9248] text-xs font-bold hover:underline">Edit</button>
             )}
           </div>
           {editing === "billing"
@@ -374,7 +374,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
             <h3 className="font-bold text-[#2a1008] text-sm uppercase tracking-wider">Shipping address</h3>
             {editing !== "shipping" && (
               <button onClick={() => { setEditing("shipping"); setErr(""); }}
-                className="text-[#5a8c3a] text-xs font-bold hover:underline">Edit</button>
+                className="text-[#1A9248] text-xs font-bold hover:underline">Edit</button>
             )}
           </div>
           {editing === "shipping"
@@ -542,10 +542,10 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                     disabled={item.key === "downloads"}
                     className={`w-full text-left px-5 py-3.5 text-sm font-medium border-b border-gray-50 last:border-0 transition-colors ${
                       isActive
-                        ? "bg-[#5a8c3a] text-white font-semibold"
+                        ? "bg-[#1A9248] text-white font-semibold"
                         : item.key === "downloads"
                           ? "text-gray-300 cursor-not-allowed"
-                          : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#5a8c3a]"
+                          : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
                     }`}>
                     {item.label}
                   </button>
@@ -566,10 +566,10 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
               <div className="space-y-4">
                 <p className="text-[#3d2b1f] text-sm leading-relaxed">
                   Hello <strong>{user.name.split(" ")[0]}</strong>! From your account dashboard you can view your{" "}
-                  <button onClick={() => setActiveTab("orders")} className="text-[#5a8c3a] font-semibold hover:underline">recent orders</button>,
+                  <button onClick={() => setActiveTab("orders")} className="text-[#1A9248] font-semibold hover:underline">recent orders</button>,
                   manage your{" "}
-                  <button onClick={() => setActiveTab("addresses")} className="text-[#5a8c3a] font-semibold hover:underline">shipping and billing addresses</button>, and{" "}
-                  <button onClick={() => setActiveTab("details")} className="text-[#5a8c3a] font-semibold hover:underline">edit your password and account details</button>.
+                  <button onClick={() => setActiveTab("addresses")} className="text-[#1A9248] font-semibold hover:underline">shipping and billing addresses</button>, and{" "}
+                  <button onClick={() => setActiveTab("details")} className="text-[#1A9248] font-semibold hover:underline">edit your password and account details</button>.
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
                   {[
@@ -577,8 +577,8 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                     { label: "Account",   count: null,          icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",                                                                 tab: "details" as Tab },
                   ].map(card => (
                     <button key={card.label} onClick={() => setActiveTab(card.tab)}
-                      className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm text-left hover:border-[#5a8c3a]/30 hover:shadow-md transition-all group">
-                      <svg className="w-6 h-6 text-[#5a8c3a] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm text-left hover:border-[#1A9248]/30 hover:shadow-md transition-all group">
+                      <svg className="w-6 h-6 text-[#1A9248] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={card.icon}/>
                       </svg>
                       <p className="text-[#2a1008] font-bold text-sm">{card.label}</p>
@@ -595,7 +595,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                 <h2 className="text-[#2a1008] text-xl font-bold mb-5">Orders</h2>
                 {custLoading ? (
                   <div className="py-16 text-center">
-                    <div className="inline-block w-7 h-7 border-4 border-[#5a8c3a] border-t-transparent rounded-full animate-spin"/>
+                    <div className="inline-block w-7 h-7 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin"/>
                   </div>
                 ) : orders.length === 0 ? (
                   <div className="bg-white border border-gray-100 rounded-2xl p-12 text-center shadow-sm">
@@ -604,7 +604,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                     </svg>
                     <p className="text-gray-400 text-sm mb-4">No orders yet.</p>
                     <Link href="/shop"
-                      className="inline-block bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-colors">
+                      className="inline-block bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-colors">
                       Start Shopping
                     </Link>
                   </div>
@@ -630,7 +630,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                               </span>
                               <a href={`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/my-account/view-order/${order.databaseId}/`}
                                 target="_blank" rel="noopener noreferrer"
-                                className="text-[#5a8c3a] text-xs font-bold hover:underline">
+                                className="text-[#1A9248] text-xs font-bold hover:underline">
                                 View →
                               </a>
                             </div>
@@ -678,7 +678,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                 <h2 className="text-[#2a1008] text-xl font-bold mb-6">Account Details</h2>
                 {custLoading ? (
                   <div className="py-16 text-center">
-                    <div className="inline-block w-7 h-7 border-4 border-[#5a8c3a] border-t-transparent rounded-full animate-spin"/>
+                    <div className="inline-block w-7 h-7 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin"/>
                   </div>
                 ) : (
                   <form onSubmit={handleSave} className="space-y-5 max-w-xl">
@@ -735,7 +735,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                             onChange={e => setForm(p => ({ ...p, currentPassword: e.target.value }))}
                             className={`${inp} pr-10`}/>
                           <button type="button" onClick={() => setShowCurPwd(v => !v)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#5a8c3a]">
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#1A9248]">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -752,7 +752,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                             onChange={e => setForm(p => ({ ...p, newPassword: e.target.value }))}
                             className={`${inp} pr-10`}/>
                           <button type="button" onClick={() => setShowNewPwd(v => !v)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#5a8c3a]">
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#1A9248]">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -780,7 +780,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                     )}
 
                     <button type="submit" disabled={saveBusy}
-                      className="bg-[#5a8c3a] hover:bg-[#4a7a2e] disabled:bg-[#5a8c3a]/50 text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-xl transition-colors">
+                      className="bg-[#1A9248] hover:bg-[#148038] disabled:bg-[#1A9248]/50 text-white font-bold text-sm uppercase tracking-wider px-8 py-3 rounded-xl transition-colors">
                       {saveBusy ? "Saving…" : "Save changes"}
                     </button>
                   </form>
@@ -804,7 +804,7 @@ export default function MyAccountPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-32">
-        <div className="inline-block w-8 h-8 border-4 border-[#5a8c3a] border-t-transparent rounded-full animate-spin"/>
+        <div className="inline-block w-8 h-8 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin"/>
       </div>
     );
   }

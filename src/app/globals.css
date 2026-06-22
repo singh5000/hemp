@@ -6,9 +6,14 @@
 
 :root {
   --brand-brown: #3d2b1f;
-  --brand-green: #5a8c3a;
-  --brand-green-light: #f0f5eb;
+  --brand-green: #1A9248;
+  --brand-green-light: #e8f5ee;
   --background: #ffffff;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 }
 
 body {
@@ -79,12 +84,12 @@ body {
 .blog-content h2 {
   font-size: 1.55rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #5a8c3a;
+  border-bottom: 2px solid #1A9248;
 }
 .blog-content h3 { font-size: 1.25rem; color: #3d2b1f; }
 .blog-content h4 { font-size: 1.1rem;  color: #3d2b1f; }
 .blog-content h5 { font-size: 1rem;    text-transform: uppercase; letter-spacing: 0.05em; }
-.blog-content h6 { font-size: 0.9rem;  text-transform: uppercase; letter-spacing: 0.08em; color: #5a8c3a; }
+.blog-content h6 { font-size: 0.9rem;  text-transform: uppercase; letter-spacing: 0.08em; color: #1A9248; }
 
 /* ── Paragraphs ── */
 .blog-content p { margin-bottom: 1.1rem; }
@@ -109,7 +114,7 @@ body {
   top: 0.6em;
   width: 8px;
   height: 8px;
-  background: #5a8c3a;
+  background: #1A9248;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -136,7 +141,7 @@ body {
   top: 0.05em;
   width: 1.5rem;
   height: 1.5rem;
-  background: #5a8c3a;
+  background: #1A9248;
   color: white;
   font-size: 0.72rem;
   font-weight: 700;
@@ -188,7 +193,7 @@ body {
 
 /* ── Blockquote ── */
 .blog-content blockquote {
-  border-left: 4px solid #5a8c3a;
+  border-left: 4px solid #1A9248;
   background: #f5f0eb;
   padding: 1.1rem 1.5rem;
   border-radius: 0 12px 12px 0;
@@ -202,7 +207,7 @@ body {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.8rem;
-  color: #5a8c3a;
+  color: #1A9248;
   font-style: normal;
   font-weight: 700;
 }
@@ -233,13 +238,13 @@ body {
 
 /* ── Links ── */
 .blog-content a {
-  color: #5a8c3a;
+  color: #1A9248;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   transition: color 0.2s;
 }
-.blog-content a:hover { color: #3d7a28; }
+.blog-content a:hover { color: #148038; }
 
 /* ── Images ── */
 .blog-content img {
@@ -262,7 +267,7 @@ body {
 .blog-content hr {
   border: none;
   height: 2px;
-  background: linear-gradient(to right, #5a8c3a, transparent);
+  background: linear-gradient(to right, #1A9248, transparent);
   border-radius: 2px;
   margin: 2.5rem 0;
 }

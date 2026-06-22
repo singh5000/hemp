@@ -11,7 +11,7 @@ export default function ProductGallery({ images, name }: { images: Img[]; name: 
 
   if (!main) {
     return (
-      <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#3d2b1f] to-[#5a8c3a]/40" />
+      <div className="aspect-square rounded-2xl bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/40" />
     );
   }
 
@@ -29,7 +29,7 @@ export default function ProductGallery({ images, name }: { images: Img[]; name: 
           {images.map((img, i) => (
             <button key={i} onClick={() => setActive(i)}
               className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 ${
-                i === active ? "border-[#5a8c3a]" : "border-gray-200 hover:border-[#5a8c3a]/50"
+                i === active ? "border-[#1A9248]" : "border-gray-200 hover:border-[#1A9248]/50"
               }`}>
               <Image src={img.src} alt={img.alt || `${name} ${i + 1}`} fill
                 className="object-contain p-1" sizes="64px"/>

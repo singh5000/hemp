@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const sections = [
   {
@@ -69,9 +70,13 @@ export default function Education101() {
                 </div>
                 <Link
                   href={section.buttonHref}
-                  className="inline-block bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold px-10 py-3.5 rounded-full transition-all duration-300 hover:scale-105 uppercase tracking-wider text-sm"
+                  className="group relative inline-flex items-center gap-3 bg-[#1A9248] text-white font-bold pl-8 pr-2 py-2 rounded-full transition-all duration-500 hover:shadow-[0_0_30px_rgba(26,146,72,0.4)] uppercase tracking-wider text-sm overflow-hidden"
                 >
-                  {section.buttonText}
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#1A9248] via-[#22b558] to-[#1A9248] bg-[length:200%_100%] group-hover:animate-[shimmer_1.5s_ease-in-out] rounded-full" />
+                  <span className="relative z-10">{section.buttonText}</span>
+                  <span className="relative z-10 w-10 h-10 rounded-full bg-white/20 group-hover:bg-white/30 flex items-center justify-center transition-all duration-300 group-hover:rotate-[-30deg] group-hover:scale-110">
+                    <ArrowRight className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </span>
                 </Link>
               </div>
             </div>

@@ -70,7 +70,7 @@ export default function Testimonials() {
 
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-[#5a8c3a] font-semibold text-sm uppercase tracking-[0.2em] mb-3">
+          <p className="text-[#1A9248] font-semibold text-sm uppercase tracking-[0.2em] mb-3">
             Customer Reviews
           </p>
           <h2 className="text-5xl md:text-6xl font-bold text-[#3d2b1f] uppercase tracking-widest">
@@ -84,7 +84,7 @@ export default function Testimonials() {
             onClick={() => scroll("left")}
             disabled={!canPrev}
             aria-label="Previous"
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-xl transition-all duration-200 hover:bg-[#5a8c3a] hover:scale-110 ${
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-xl transition-all duration-200 hover:bg-[#1A9248] hover:scale-110 ${
               !canPrev ? "opacity-20 cursor-default" : ""
             }`}
           >
@@ -106,7 +106,7 @@ export default function Testimonials() {
                 className="flex-shrink-0 w-[400px] bg-white rounded-3xl shadow-md hover:shadow-xl transition-shadow duration-300 p-10 flex flex-col relative overflow-hidden"
               >
                 {/* Decorative quote mark */}
-                <span className="absolute top-4 right-6 text-[110px] leading-none text-[#5a8c3a]/10 font-serif select-none pointer-events-none">
+                <span className="absolute top-4 right-6 text-[110px] leading-none text-[#1A9248]/10 font-serif select-none pointer-events-none">
                   "
                 </span>
 
@@ -119,14 +119,14 @@ export default function Testimonials() {
                 </p>
 
                 {/* Divider */}
-                <div className="w-12 h-0.5 bg-[#5a8c3a] mx-auto my-6" />
+                <div className="w-12 h-0.5 bg-[#1A9248] mx-auto my-6" />
 
                 {/* Reviewer */}
                 <div className="text-center">
-                  <div className="w-10 h-10 rounded-full bg-[#5a8c3a] text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">
+                  <div className="w-10 h-10 rounded-full bg-[#1A9248] text-white font-bold text-lg flex items-center justify-center mx-auto mb-3">
                     {review.name.charAt(0)}
                   </div>
-                  <p className="text-[#5a8c3a] font-bold text-base">{review.name}</p>
+                  <p className="text-[#1A9248] font-bold text-base">{review.name}</p>
                   <div className="flex items-center justify-center gap-1.5 mt-1">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
                       <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -146,7 +146,7 @@ export default function Testimonials() {
             onClick={() => scroll("right")}
             disabled={!canNext}
             aria-label="Next"
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-xl transition-all duration-200 hover:bg-[#5a8c3a] hover:scale-110 ${
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-xl transition-all duration-200 hover:bg-[#1A9248] hover:scale-110 ${
               !canNext ? "opacity-20 cursor-default" : ""
             }`}
           >

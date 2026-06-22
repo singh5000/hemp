@@ -49,7 +49,7 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
           </div>
         )}
         {onSale && (
-          <span className="absolute top-3 left-3 bg-[#5a8c3a] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+          <span className="absolute top-3 left-3 bg-[#1A9248] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
             Sale
           </span>
         )}
@@ -58,12 +58,12 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
       {/* Info */}
       <div className="flex flex-col flex-1 px-4 pb-4 pt-2">
         <Link href={`/product/${product.slug}`}>
-          <h3 className="text-center text-lg font-bold text-[#3d2b1f] leading-snug mb-2 line-clamp-3 hover:text-[#5a8c3a] transition-colors">
+          <h3 className="text-center text-lg font-bold text-[#3d2b1f] leading-snug mb-2 line-clamp-3 hover:text-[#1A9248] transition-colors">
             {product.name}
           </h3>
         </Link>
         <div className="flex items-center justify-center gap-2 mb-4">
-          <span className="text-[#5a8c3a] font-bold text-base">
+          <span className="text-[#1A9248] font-bold text-base">
             {product.prices.currency_symbol}{price}
           </span>
           {onSale && (
@@ -77,10 +77,10 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
           disabled={!product.is_in_stock || adding}
           className={`mt-auto w-full py-3 rounded-lg text-white text-xs font-bold uppercase tracking-widest transition-all duration-200 ${
             !product.is_in_stock
-              ? "bg-[#5a8c3a] cursor-not-allowed opacity-80"
+              ? "bg-[#1A9248] cursor-not-allowed opacity-80"
               : adding
-              ? "bg-[#4a7a2e] scale-95"
-              : "bg-[#5a8c3a] hover:bg-[#4a7a2e] hover:scale-[1.02] active:scale-95"
+              ? "bg-[#148038] scale-95"
+              : "bg-[#1A9248] hover:bg-[#148038] hover:scale-[1.02] active:scale-95"
           }`}
         >
           {!product.is_in_stock ? "Sold Out" : adding ? "Adding..." : "Add to Cart"}
@@ -156,7 +156,7 @@ export default function FeaturedProducts() {
               onClick={() => scroll("left")}
               disabled={!canPrev}
               aria-label="Previous"
-              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-11 h-11 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#5a8c3a] hover:scale-110 ${
+              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-11 h-11 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#1A9248] hover:scale-110 ${
                 !canPrev ? "opacity-30 cursor-default" : ""
               }`}
             >
@@ -182,7 +182,7 @@ export default function FeaturedProducts() {
               onClick={() => scroll("right")}
               disabled={!canNext}
               aria-label="Next"
-              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-11 h-11 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#5a8c3a] hover:scale-110 ${
+              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-11 h-11 rounded-full bg-[#3d2b1f] text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:bg-[#1A9248] hover:scale-110 ${
                 !canNext ? "opacity-30 cursor-default" : ""
               }`}
             >

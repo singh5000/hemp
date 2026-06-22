@@ -81,7 +81,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
 
               {/* Tag badge */}
               <div className="inline-flex items-center gap-2.5 bg-black/30 backdrop-blur-md border border-white/20 rounded-full pl-3 pr-5 py-2 mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#5a8c3a] animate-pulse flex-shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-[#1A9248] animate-pulse flex-shrink-0" />
                 <span className="text-white text-[11px] font-bold uppercase tracking-[0.3em]">{slide.tag}</span>
               </div>
 
@@ -100,7 +100,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
               {/* CTAs */}
               <div className="flex items-center gap-5 flex-wrap">
                 <Link href={slide.href}
-                  className="inline-flex items-center gap-2.5 bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#5a8c3a]/40 text-sm tracking-widest uppercase shadow-lg">
+                  className="inline-flex items-center gap-2.5 bg-[#1A9248] hover:bg-[#148038] text-white font-bold px-8 py-4 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:shadow-[#1A9248]/40 text-sm tracking-widest uppercase shadow-lg">
                   {slide.cta}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
@@ -144,10 +144,10 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
                 /* Decorative rings when no product image */
                 <div className="relative w-[320px] h-[320px] flex items-center justify-center opacity-40">
                   {[320, 240, 160].map((size, i) => (
-                    <div key={size} className="absolute rounded-full border border-[#5a8c3a]/40 flex items-center justify-center"
+                    <div key={size} className="absolute rounded-full border border-[#1A9248]/40 flex items-center justify-center"
                       style={{ width: size, height: size, borderWidth: i === 2 ? 2 : 1 }}>
                       {i === 2 && (
-                        <svg className="w-12 h-12 text-[#5a8c3a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-12 h-12 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1}
                             d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                         </svg>
@@ -171,7 +171,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
       {/* ── Navigation arrows ── */}
       {(["prev", "next"] as const).map(dir => (
         <button key={dir} onClick={dir === "prev" ? goPrev : goNext} aria-label={dir === "prev" ? "Previous slide" : "Next slide"}
-          className={`absolute top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/25 hover:bg-[#5a8c3a] backdrop-blur-sm border border-white/20 hover:border-[#5a8c3a] flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#5a8c3a]/30 ${dir === "prev" ? "left-4 md:left-8" : "right-4 md:right-8"}`}>
+          className={`absolute top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-black/25 hover:bg-[#1A9248] backdrop-blur-sm border border-white/20 hover:border-[#1A9248] flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#1A9248]/30 ${dir === "prev" ? "left-4 md:left-8" : "right-4 md:right-8"}`}>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d={dir === "prev" ? "M15 19l-7-7 7-7" : "M9 5l7 7-7 7"} />
@@ -185,7 +185,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
           <button key={i} onClick={() => go(i)} aria-label={`Slide ${i + 1}`}
             className={`rounded-full transition-all duration-400 ${
               i === cur
-                ? "bg-[#5a8c3a] w-8 h-2.5 shadow-lg shadow-[#5a8c3a]/50"
+                ? "bg-[#1A9248] w-8 h-2.5 shadow-lg shadow-[#1A9248]/50"
                 : "bg-white/30 hover:bg-white/60 w-2.5 h-2.5"
             }`} />
         ))}
@@ -193,7 +193,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
 
       {/* ── Progress bar ── */}
       {!paused && (
-        <div key={cur} className="absolute bottom-0 left-0 z-30 h-[3px] bg-gradient-to-r from-[#5a8c3a] to-[#8bc34a]"
+        <div key={cur} className="absolute bottom-0 left-0 z-30 h-[3px] bg-gradient-to-r from-[#1A9248] to-[#2bc465]"
           style={{ animation: "hb-slide-progress 6s linear forwards", width: "100%", transformOrigin: "left" }} />
       )}
 

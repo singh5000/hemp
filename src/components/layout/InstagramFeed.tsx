@@ -68,14 +68,14 @@ export default function InstagramFeed() {
     <>
       <section className="bg-[#2a1008] py-12 overflow-hidden">
         <div className="text-center mb-8">
-          <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.3em] mb-2">
+          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.3em] mb-2">
             Let&apos;s Get Social
           </p>
           <Link
             href="https://www.instagram.com/hempandbarrel/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-4xl md:text-5xl font-bold uppercase tracking-widest hover:text-[#5a8c3a] transition-colors"
+            className="text-white text-4xl md:text-5xl font-bold uppercase tracking-widest hover:text-[#1A9248] transition-colors"
           >
             @HempAndBarrel
           </Link>

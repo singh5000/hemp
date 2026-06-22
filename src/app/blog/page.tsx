@@ -55,7 +55,7 @@ const CAT_STYLES: Record<string, string> = {
   "CBD Beverages": "bg-sky-100 text-sky-700",
   "Hemp Flower":   "bg-amber-100 text-amber-700",
 };
-const catCls = (n: string) => CAT_STYLES[n] ?? "bg-[#5a8c3a]/10 text-[#5a8c3a]";
+const catCls = (n: string) => CAT_STYLES[n] ?? "bg-[#1A9248]/10 text-[#1A9248]";
 
 /* ── Pagination UI ── */
 function Pagination({ current, total }: { current: number; total: number }) {
@@ -82,8 +82,8 @@ function Pagination({ current, total }: { current: number; total: number }) {
         aria-disabled={disabled}
         className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-all ${
           p === current
-            ? "bg-[#5a8c3a] text-white shadow-md shadow-[#5a8c3a]/30"
-            : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#5a8c3a] border border-gray-200"
+            ? "bg-[#1A9248] text-white shadow-md shadow-[#1A9248]/30"
+            : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248] border border-gray-200"
         } ${disabled ? "pointer-events-none opacity-40" : ""}`}
       >
         {label}
@@ -130,12 +130,12 @@ export default async function BlogPage({
       {/* Hero */}
       <section className="relative bg-[#2a1008] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -right-32 -top-32 w-[500px] h-[500px] bg-[#5a8c3a]/8 rounded-full blur-3xl" />
+          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+        <div className="absolute -right-32 -top-32 w-[500px] h-[500px] bg-[#1A9248]/8 rounded-full blur-3xl" />
         <div className="relative max-w-[1320px] mx-auto px-4 pt-20 pb-24 text-center">
-          <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-4">Knowledge is Power</p>
+          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-4">Knowledge is Power</p>
           <h1 className="text-white text-5xl md:text-7xl font-bold uppercase leading-tight mb-5">
-            CBD <span className="text-[#5a8c3a]">Blog</span>
+            CBD <span className="text-[#1A9248]">Blog</span>
           </h1>
           <p className="text-white/55 text-lg max-w-lg mx-auto">
             Expert guides, product education, and the latest in hemp &amp; cannabinoid science.
@@ -157,7 +157,7 @@ export default async function BlogPage({
         <section className="max-w-[1320px] mx-auto px-4 -mt-10 relative z-10 mb-10">
           <Link
             href={`/blog/${hero.slug}`}
-            className="group flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100 hover:shadow-[#5a8c3a]/15 transition-shadow duration-500"
+            className="group flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100 hover:shadow-[#1A9248]/15 transition-shadow duration-500"
           >
             {/* Featured image — object-contain so nothing gets cropped */}
             <div className="relative md:w-[55%] aspect-[16/9] md:aspect-auto bg-[#f8f6f3] overflow-hidden">
@@ -166,12 +166,12 @@ export default async function BlogPage({
                   sizes="(max-width: 768px) 100vw, 660px"
                   className="object-cover transition-transform duration-700 group-hover:scale-105" priority />
               ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#3d2b1f] to-[#5a8c3a]/40" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/40" />
               )}
             </div>
             <div className="flex-1 flex flex-col justify-center p-8 md:p-10">
               <div className="flex items-center gap-3 mb-4">
-                <span className="bg-[#5a8c3a] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+                <span className="bg-[#1A9248] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
                   {currentPage === 1 ? "Latest" : `Page ${currentPage}`}
                 </span>
                 <span className={`text-[11px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full ${catCls(getCat(hero))}`}>
@@ -179,13 +179,13 @@ export default async function BlogPage({
                 </span>
                 <span className="text-gray-400 text-xs">{fmtDate(hero.date)}</span>
               </div>
-              <h2 className="text-[#3d2b1f] text-2xl md:text-3xl font-bold leading-tight mb-4 group-hover:text-[#5a8c3a] transition-colors line-clamp-2">
+              <h2 className="text-[#3d2b1f] text-2xl md:text-3xl font-bold leading-tight mb-4 group-hover:text-[#1A9248] transition-colors line-clamp-2">
                 {strip(hero.title.rendered)}
               </h2>
               <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
                 {strip(hero.excerpt.rendered)}
               </p>
-              <div className="flex items-center gap-2 text-[#5a8c3a] font-bold text-sm">
+              <div className="flex items-center gap-2 text-[#1A9248] font-bold text-sm">
                 Read Full Article
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -215,7 +215,7 @@ export default async function BlogPage({
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           loading="lazy" />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#5a8c3a]/50" />
+                        <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/50" />
                       )}
                     </div>
                     <div className="p-5 flex flex-col flex-1">
@@ -227,13 +227,13 @@ export default async function BlogPage({
                         <span className="text-gray-300 text-xs">·</span>
                         <span className="text-gray-400 text-xs">{fmtDate(post.date)}</span>
                       </div>
-                      <h3 className="text-[#3d2b1f] font-bold text-base leading-snug mb-3 group-hover:text-[#5a8c3a] transition-colors line-clamp-2 flex-1">
+                      <h3 className="text-[#3d2b1f] font-bold text-base leading-snug mb-3 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                         {strip(post.title.rendered)}
                       </h3>
                       <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
                         {strip(post.excerpt.rendered)}
                       </p>
-                      <div className="flex items-center gap-1.5 text-[#5a8c3a] text-xs font-bold mt-auto pt-4 border-t border-gray-100">
+                      <div className="flex items-center gap-1.5 text-[#1A9248] text-xs font-bold mt-auto pt-4 border-t border-gray-100">
                         Read More
                         <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -253,7 +253,7 @@ export default async function BlogPage({
       {/* Newsletter */}
       <section className="bg-[#2a1008] py-16">
         <div className="max-w-[680px] mx-auto px-6 text-center">
-          <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-3">Stay in the Know</p>
+          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Stay in the Know</p>
           <h3 className="text-white text-3xl md:text-4xl font-bold mb-3">Get CBD Tips in Your Inbox</h3>
           <p className="text-white/50 text-base mb-8">New articles, product guides, and exclusive deals — delivered straight to you.</p>
           <div className="flex justify-center"><NewsletterForm /></div>

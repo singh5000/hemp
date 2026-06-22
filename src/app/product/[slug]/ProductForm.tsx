@@ -96,8 +96,8 @@ export default function ProductForm({ productId, hasOptions, isInStock, attribut
                     )}
                     className={`px-4 py-2 text-xs font-semibold rounded-lg border-2 transition-all ${
                       isActive
-                        ? "border-[#5a8c3a] bg-[#5a8c3a] text-white"
-                        : "border-gray-200 text-[#3d2b1f] hover:border-[#5a8c3a]"
+                        ? "border-[#1A9248] bg-[#1A9248] text-white"
+                        : "border-gray-200 text-[#3d2b1f] hover:border-[#1A9248]"
                     }`}>
                     {term.name}
                   </button>
@@ -130,8 +130,8 @@ export default function ProductForm({ productId, hasOptions, isInStock, attribut
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : cartState === "added"   ? "bg-emerald-500 text-white"
               : cartState === "error"   ? "bg-red-500 text-white"
-              : cartState === "loading" ? "bg-[#5a8c3a]/60 text-white cursor-wait"
-              : "bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white"
+              : cartState === "loading" ? "bg-[#1A9248]/60 text-white cursor-wait"
+              : "bg-[#1A9248] hover:bg-[#148038] text-white"
           }`}>
           {!canAddToCart && hasOptions && !matchedVariation
             ? "Select Options"
@@ -154,7 +154,7 @@ export default function ProductForm({ productId, hasOptions, isInStock, attribut
         </p>
       )}
       {activeInStock && canAddToCart && (
-        <p className="text-[#5a8c3a] text-xs font-semibold flex items-center gap-1.5">
+        <p className="text-[#1A9248] text-xs font-semibold flex items-center gap-1.5">
           <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
           </svg>

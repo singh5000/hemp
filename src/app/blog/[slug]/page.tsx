@@ -54,7 +54,7 @@ const CAT_STYLES: Record<string,string> = {
   "CBD Beverages":"bg-sky-100 text-sky-700",
   "Hemp Flower":"bg-amber-100 text-amber-700",
 };
-const catCls = (n: string) => CAT_STYLES[n] ?? "bg-[#5a8c3a]/10 text-[#5a8c3a]";
+const catCls = (n: string) => CAT_STYLES[n] ?? "bg-[#1A9248]/10 text-[#1A9248]";
 
 /* inject IDs into headings so TOC anchors work */
 function injectIds(html: string): string {
@@ -133,7 +133,7 @@ export default async function BlogPostPage(
           <Image src={image} alt={strip(post.title.rendered)} fill
             sizes="100vw" className="object-cover" priority />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#2a1008] to-[#5a8c3a]/30" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#2a1008] to-[#1A9248]/30" />
         )}
 
         {/* overlay — stronger at bottom so text is readable */}
@@ -192,7 +192,7 @@ export default async function BlogPostPage(
 
             {/* Lead / excerpt */}
             {lead && (
-              <p className="text-[#3d2b1f]/80 text-lg leading-relaxed border-l-4 border-[#5a8c3a] pl-5 mb-10 bg-[#f5f0eb] py-4 pr-4 rounded-r-xl">
+              <p className="text-[#3d2b1f]/80 text-lg leading-relaxed border-l-4 border-[#1A9248] pl-5 mb-10 bg-[#f5f0eb] py-4 pr-4 rounded-r-xl">
                 {lead}
               </p>
             )}
@@ -206,7 +206,7 @@ export default async function BlogPostPage(
             {/* ── Bottom: share + back ── */}
             <div className="mt-14 pt-8 border-t-2 border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
               <Link href="/blog"
-                className="inline-flex items-center gap-2 text-[#5a8c3a] font-bold text-sm hover:underline">
+                className="inline-flex items-center gap-2 text-[#1A9248] font-bold text-sm hover:underline">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -256,7 +256,7 @@ export default async function BlogPostPage(
 
             {/* Quick Info card */}
             <div className="bg-[#f5f0eb] rounded-2xl p-6">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-4">Article Info</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Article Info</p>
               <div className="space-y-3">
                 {cat && (
                   <div className="flex items-center justify-between text-sm">
@@ -277,8 +277,8 @@ export default async function BlogPostPage(
 
             {/* Visit Store CTA */}
             <div className="bg-[#2a1008] rounded-2xl p-6 text-center">
-              <div className="w-12 h-12 bg-[#5a8c3a]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-[#5a8c3a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-[#1A9248]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
@@ -288,18 +288,18 @@ export default async function BlogPostPage(
                 Lab-tested CBD products · Pineville, NC · Ships nationwide
               </p>
               <Link href="/shop"
-                className="block w-full bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors">
+                className="block w-full bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors">
                 Shop All Products
               </Link>
               <Link href="/contact"
-                className="block w-full mt-2 border border-white/20 hover:border-[#5a8c3a] text-white/70 hover:text-[#5a8c3a] text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-all">
+                className="block w-full mt-2 border border-white/20 hover:border-[#1A9248] text-white/70 hover:text-[#1A9248] text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-all">
                 Ask an Expert
               </Link>
             </div>
 
             {/* Mini newsletter */}
             <div className="bg-white border border-gray-100 rounded-2xl p-6">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#5a8c3a] mb-2">Newsletter</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-2">Newsletter</p>
               <p className="text-[#3d2b1f] font-bold text-sm mb-1">Stay in the loop</p>
               <p className="text-gray-400 text-xs mb-4">New articles & deals in your inbox.</p>
               <NewsletterForm variant="light" />
@@ -316,11 +316,11 @@ export default async function BlogPostPage(
           <div className="max-w-[1320px] mx-auto px-4">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.3em] mb-1">Keep Reading</p>
+                <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.3em] mb-1">Keep Reading</p>
                 <h2 className="text-[#2a1008] text-2xl md:text-3xl font-bold">Related Articles</h2>
               </div>
               <Link href="/blog"
-                className="hidden sm:flex items-center gap-2 text-sm font-bold text-[#5a8c3a] border border-[#5a8c3a] hover:bg-[#5a8c3a] hover:text-white px-5 py-2.5 rounded-full transition-all duration-300">
+                className="hidden sm:flex items-center gap-2 text-sm font-bold text-[#1A9248] border border-[#1A9248] hover:bg-[#1A9248] hover:text-white px-5 py-2.5 rounded-full transition-all duration-300">
                 All Articles →
               </Link>
             </div>
@@ -337,7 +337,7 @@ export default async function BlogPostPage(
                         ? <Image src={ri} alt={strip(rel.title.rendered)} fill
                             sizes="(max-width:1400px) 33vw, 440px"
                             className="object-cover group-hover:scale-105 transition-transform duration-500"/>
-                        : <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#5a8c3a]/40"/>
+                        : <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/40"/>
                       }
                     </div>
                     <div className="p-5 flex flex-col flex-1">
@@ -345,10 +345,10 @@ export default async function BlogPostPage(
                         {rc && <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${catCls(rc.name)}`}>{rc.name}</span>}
                         <span className="text-gray-400 text-xs">{fmtDate(rel.date)}</span>
                       </div>
-                      <h3 className="text-[#3d2b1f] font-bold text-base leading-snug mb-3 group-hover:text-[#5a8c3a] transition-colors line-clamp-2 flex-1">
+                      <h3 className="text-[#3d2b1f] font-bold text-base leading-snug mb-3 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                         {strip(rel.title.rendered)}
                       </h3>
-                      <div className="flex items-center gap-1.5 text-[#5a8c3a] text-xs font-bold pt-4 border-t border-gray-100">
+                      <div className="flex items-center gap-1.5 text-[#1A9248] text-xs font-bold pt-4 border-t border-gray-100">
                         Read Article
                         <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>

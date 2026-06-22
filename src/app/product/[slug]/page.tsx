@@ -184,14 +184,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <div className="bg-[#fafaf8] border-b border-gray-100">
         <div className="max-w-[1320px] mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
-            <Link href="/" className="hover:text-[#5a8c3a] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#1A9248] transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/shop" className="hover:text-[#5a8c3a] transition-colors">Shop</Link>
+            <Link href="/shop" className="hover:text-[#1A9248] transition-colors">Shop</Link>
             {primaryCat && (
               <>
                 <span>/</span>
                 <Link href={`/product-category/${primaryCat.slug}`}
-                  className="hover:text-[#5a8c3a] transition-colors">{primaryCat.name}</Link>
+                  className="hover:text-[#1A9248] transition-colors">{primaryCat.name}</Link>
               </>
             )}
             <span>/</span>
@@ -212,7 +212,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {/* Category badge */}
             {primaryCat && (
               <Link href={`/product-category/${primaryCat.slug}`}
-                className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#5a8c3a] hover:underline">
+                className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#1A9248] hover:underline">
                 {primaryCat.name}
               </Link>
             )}
@@ -264,7 +264,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     <span key={c.id}>
                       {i > 0 && ", "}
                       <Link href={`/product-category/${c.slug}`}
-                        className="text-[#5a8c3a] hover:underline">{c.name}</Link>
+                        className="text-[#1A9248] hover:underline">{c.name}</Link>
                     </span>
                   ))}
                 </p>
@@ -290,8 +290,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 { label: "Lab Compliant", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/> },
               ].map(b => (
                 <div key={b.label} className="flex flex-col items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#5a8c3a]/10 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-[#5a8c3a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">{b.icon}</svg>
+                  <div className="w-8 h-8 rounded-full bg-[#1A9248]/10 flex items-center justify-center">
+                    <svg className="w-4 h-4 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">{b.icon}</svg>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#3d2b1f]">{b.label}</span>
                 </div>
@@ -306,7 +306,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <section className="bg-[#fafaf8] border-t border-gray-100">
           <div className="max-w-[1320px] mx-auto px-4 py-12">
             <h2 className="text-[#2a1008] text-2xl font-bold mb-6">Product Description</h2>
-            <div className="max-w-3xl text-[#3d2b1f] text-sm leading-relaxed space-y-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#2a1008] [&_h2]:mt-6 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#2a1008] [&_h3]:mt-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1 [&_a]:text-[#5a8c3a] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[#2a1008]"
+            <div className="max-w-3xl text-[#3d2b1f] text-sm leading-relaxed space-y-4 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#2a1008] [&_h2]:mt-6 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#2a1008] [&_h3]:mt-4 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1 [&_a]:text-[#1A9248] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[#2a1008]"
               dangerouslySetInnerHTML={{ __html: product.description }} />
           </div>
         </section>
@@ -343,8 +343,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <div key={r.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-[#5a8c3a]/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-[#5a8c3a] font-bold text-sm">{r.author_name.charAt(0).toUpperCase()}</span>
+                        <div className="w-9 h-9 rounded-full bg-[#1A9248]/10 flex items-center justify-center flex-shrink-0">
+                          <span className="text-[#1A9248] font-bold text-sm">{r.author_name.charAt(0).toUpperCase()}</span>
                         </div>
                         <div>
                           <p className="font-bold text-[#2a1008] text-sm">{r.author_name}</p>
@@ -361,7 +361,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                           ))}
                         </div>
                         {verified && (
-                          <span className="text-[10px] text-[#5a8c3a] font-bold uppercase tracking-wider flex items-center gap-1">
+                          <span className="text-[10px] text-[#1A9248] font-bold uppercase tracking-wider flex items-center gap-1">
                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                             </svg>
@@ -397,14 +397,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                       ? <Image src={img.src} alt={img.alt || p.name} fill
                           sizes="(max-width:640px) 50vw, 25vw"
                           className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"/>
-                      : <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#5a8c3a]/40"/>
+                      : <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/40"/>
                     }
                     {p.on_sale && (
                       <span className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">Sale</span>
                     )}
                   </div>
                   <div className="p-3">
-                    <p className="text-[#2a1008] font-bold text-xs leading-snug mb-1 line-clamp-2 group-hover:text-[#5a8c3a] transition-colors">{p.name}</p>
+                    <p className="text-[#2a1008] font-bold text-xs leading-snug mb-1 line-clamp-2 group-hover:text-[#1A9248] transition-colors">{p.name}</p>
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-[#2a1008] font-bold text-sm">{rPrice}</span>
                       {p.on_sale && rPrice !== rRegular && (

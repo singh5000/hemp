@@ -39,7 +39,7 @@ export default function AgeGate() {
       <div className="w-full max-w-[440px] bg-[#1e0d06] border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
 
         {/* Top accent bar */}
-        <div className="h-1 bg-gradient-to-r from-[#5a8c3a] to-[#8bc34a]" />
+        <div className="h-1 bg-gradient-to-r from-[#1A9248] to-[#2bc465]" />
 
         <div className="px-10 py-10 text-center">
 
@@ -54,8 +54,8 @@ export default function AgeGate() {
           </div>
 
           {/* Lock icon */}
-          <div className="w-16 h-16 bg-[#5a8c3a]/10 border border-[#5a8c3a]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg className="w-8 h-8 text-[#5a8c3a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-16 h-16 bg-[#1A9248]/10 border border-[#1A9248]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <svg className="w-8 h-8 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
             </svg>
@@ -70,7 +70,7 @@ export default function AgeGate() {
           {/* Buttons */}
           <div className="space-y-3">
             <button onClick={confirm}
-              className="w-full bg-[#5a8c3a] hover:bg-[#4a7a2e] text-white font-bold py-4 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-[#5a8c3a]/30 text-sm uppercase tracking-widest hover:scale-[1.02]">
+              className="w-full bg-[#1A9248] hover:bg-[#148038] text-white font-bold py-4 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-[#1A9248]/30 text-sm uppercase tracking-widest hover:scale-[1.02]">
               Yes, I&apos;m 21 or older — Enter
             </button>
             <button onClick={deny}
