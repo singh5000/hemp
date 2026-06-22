@@ -81,7 +81,7 @@ export default function Education101() {
   return (
     <div>
       {sections.map((section, idx) => (
-        <section key={section.heading} className={`bg-gradient-to-br ${section.bg} py-20 md:py-28 relative overflow-hidden`}>
+        <section key={section.headingHighlight} className={`bg-gradient-to-br ${section.bg} py-20 md:py-28 relative overflow-hidden`}>
 
           {/* Floating icons around image */}
           {section.floatingIcons.map((Icon, i) => (
