@@ -66,7 +66,7 @@ export default function Testimonials() {
 
   return (
     <section className="py-20 bg-[#f8f5f0]">
-      <div className="w-full mx-auto px-[70px]">
+      <div className="max-w-[1320px] mx-auto px-4">
 
         {/* Header */}
         <div className="text-center mb-14">

@@ -379,7 +379,7 @@ export default function CheckoutPage() {
   );
 
   if (!cart || cart.isEmpty) return (
-    <div className="w-full mx-auto px-[70px] py-24 text-center">
+    <div className="max-w-[1320px] mx-auto px-4 py-24 text-center">
       <h1 className="text-3xl font-bold text-[#2a1008] mb-4">Your cart is empty</h1>
       <Link href="/shop" className="inline-flex items-center gap-2 bg-[#5a8c3a] text-white font-bold text-sm px-6 py-3 rounded-full">
         Continue Shopping
@@ -396,7 +396,7 @@ export default function CheckoutPage() {
     <>
       {/* Hero */}
       <section className="bg-[#2a1008] py-10">
-        <div className="w-full mx-auto px-[70px]">
+        <div className="max-w-[1320px] mx-auto px-4">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-4">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -408,7 +408,7 @@ export default function CheckoutPage() {
         </div>
       </section>
 
-      <div className="w-full mx-auto px-[70px] py-10">
+      <div className="max-w-[1320px] mx-auto px-4 py-10">
         <form onSubmit={handleSubmit} noValidate>
           <div className="flex flex-col lg:flex-row gap-8 items-start">
 
