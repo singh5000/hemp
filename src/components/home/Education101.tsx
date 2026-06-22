@@ -151,12 +151,6 @@ export default function Education101() {
                     </div>
                   </div>
 
-                  {/* Accent dots */}
-                  <div className={`absolute -bottom-3 ${section.imageLeft ? "-right-3" : "-left-3"} flex gap-1.5`}>
-                    {[0,1,2].map(i => (
-                      <div key={i} className="w-2 h-2 rounded-full bg-[#1A9248]" style={{ opacity: 0.2 + i * 0.2 }} />
-                    ))}
-                  </div>
                 </div>
               </div>
 
