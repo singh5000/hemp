@@ -27,7 +27,7 @@ export default function StoreSection() {
             {/* Image — takes 3 cols */}
             <div className="relative lg:col-span-3 min-h-[350px] lg:min-h-[520px] group">
               <Image
-                src="https://hempandbarrel.com/wp-content/uploads/2023/02/hemp-barrel-we-cant-wait-1-scaled.webp"
+                src="https://images.unsplash.com/photo-1604660664082-3cac347079b0?w=1200&q=80"
                 alt="Hemp & Barrel Store"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
@@ -62,31 +62,46 @@ export default function StoreSection() {
             </div>
 
             {/* Content — takes 2 cols */}
-            <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center">
-              <p className="text-[#3d2b1f] text-[15px] leading-[1.85] mb-8">
-                Hemp & Barrel is Charlotte NC&apos;s trusted CBD store, proudly serving Pineville and surrounding areas. We carry premium THCA flower, CBD gummies, Delta 8 products, THC tinctures, CBD vapes, and hemp-infused beverages — all third-party lab-tested for quality and safety.
-              </p>
+            <div className="lg:col-span-2 p-8 lg:p-12 flex flex-col justify-center relative">
+              {/* Decorative bg pattern */}
+              <div className="absolute top-0 right-0 w-32 h-32 opacity-[0.03]">
+                <Image src="/hemp-leaf.png" alt="" fill className="object-contain" />
+              </div>
 
-              {/* Info rows */}
-              <div className="space-y-2 mb-8">
+              {/* Quote style intro */}
+              <div className="relative mb-6">
+                <span className="absolute -left-2 -top-2 text-5xl font-serif text-[#1A9248]/15 leading-none">&ldquo;</span>
+                <p className="text-[#2a1008] text-[17px] leading-[1.85] font-medium pl-6">
+                  Charlotte NC&apos;s most trusted CBD store — premium THCA flower, gummies, Delta 8, tinctures, vapes &amp; hemp beverages. All third-party lab-tested.
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className="w-12 h-0.5 bg-[#1A9248]/30 rounded-full mb-6" />
+
+              {/* Modern info grid */}
+              <div className="grid grid-cols-1 gap-1 mb-8">
                 {[
-                  { icon: MapPin, text: "800 N Polk Street, Pineville, NC 28134", href: "https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" },
-                  { icon: Clock, text: "Mon–Sat 10AM–8PM • Sun 12PM–4PM" },
-                  { icon: Phone, text: "(980) 326-4367", href: "tel:9803264367" },
+                  { icon: MapPin, label: "FIND US", text: "800 N Polk St, Pineville, NC 28134", href: "https://goo.gl/maps/ZGKaUsQ9k6sGLywh7", color: "bg-[#1A9248]" },
+                  { icon: Clock, label: "STORE HOURS", text: "Mon–Sat 10AM–8PM • Sun 12–4PM", color: "bg-[#2a1008]" },
+                  { icon: Phone, label: "CALL US", text: "(980) 326-4367", href: "tel:9803264367", color: "bg-[#1A9248]" },
                 ].map((row) => {
-                  const content = (
-                    <div className="flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-[#f8f6f3] transition-colors group/row cursor-pointer">
-                      <div className="w-10 h-10 rounded-full bg-[#1A9248]/10 group-hover/row:bg-[#1A9248]/20 flex items-center justify-center flex-shrink-0 transition-colors">
-                        <row.icon className="w-4 h-4 text-[#1A9248]" />
+                  const inner = (
+                    <div className="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 hover:border-[#1A9248]/20 hover:shadow-md hover:shadow-[#1A9248]/5 transition-all duration-300 group/row">
+                      <div className={`w-11 h-11 rounded-xl ${row.color} flex items-center justify-center flex-shrink-0 group-hover/row:scale-110 transition-transform`}>
+                        <row.icon className="w-5 h-5 text-white" />
                       </div>
-                      <span className="text-[#3d2b1f] text-sm font-semibold flex-1">{row.text}</span>
-                      {row.href && <ChevronRight className="w-4 h-4 text-gray-300 group-hover/row:text-[#1A9248] transition-colors" />}
+                      <div className="flex-1">
+                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-0.5">{row.label}</p>
+                        <p className="text-[#2a1008] text-[14px] font-bold">{row.text}</p>
+                      </div>
+                      {row.href && <ChevronRight className="w-5 h-5 text-gray-200 group-hover/row:text-[#1A9248] group-hover/row:translate-x-1 transition-all" />}
                     </div>
                   );
                   return row.href ? (
-                    <a key={row.text} href={row.href} target={row.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block">{content}</a>
+                    <a key={row.text} href={row.href} target={row.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block">{inner}</a>
                   ) : (
-                    <div key={row.text}>{content}</div>
+                    <div key={row.text}>{inner}</div>
                   );
                 })}
               </div>
