@@ -37,15 +37,15 @@ const NAV_LINKS = [
 
 function NavLink({ label, href, isActive }: { label: string; href: string; isActive: boolean }) {
   return (
-    <Link href={href} className="group relative flex flex-col items-center pt-6">
-      {/* Hemp leaf — swings on hover like a pendulum */}
-      <span className={`absolute -top-0.5 left-1/2 -translate-x-1/2 transition-all duration-300 origin-bottom ${isActive ? "opacity-100 scale-100 animate-[slover_1s_infinite_alternate]" : "opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 group-hover:animate-[slover_1s_infinite_alternate]"}`}>
+    <Link href={href} className="group relative flex items-center">
+      {/* Hemp leaf above */}
+      <span className={`absolute -top-5 left-1/2 -translate-x-1/2 transition-all duration-300 origin-bottom ${isActive ? "opacity-100 scale-100 animate-[slover_1s_infinite_alternate]" : "opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 group-hover:animate-[slover_1s_infinite_alternate]"}`}>
         {HEMP_LEAF}
       </span>
       <span className={`font-semibold text-[15px] transition-colors duration-200 ${isActive ? "text-[#1A9248]" : "text-[#3d2b1f] group-hover:text-[#1A9248]"}`}>
         {label}
       </span>
-      {isActive && <span className="absolute -bottom-1 w-6 h-0.5 bg-[#1A9248] rounded-full" />}
+      {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[#1A9248] rounded-full" />}
     </Link>
   );
 }
@@ -122,9 +122,9 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setShopOpen(!shopOpen)}
-                className={`group relative flex items-center gap-1.5 pt-6 font-semibold text-[15px] transition-colors ${shopOpen || isActive("/shop") || isActive("/product-category") ? "text-[#1A9248]" : "text-[#3d2b1f] hover:text-[#1A9248]"}`}
+                className={`group relative flex items-center gap-1.5 font-semibold text-[15px] transition-colors ${shopOpen || isActive("/shop") || isActive("/product-category") ? "text-[#1A9248]" : "text-[#3d2b1f] hover:text-[#1A9248]"}`}
               >
-                <span className={`absolute -top-0.5 left-1/2 -translate-x-1/2 origin-bottom transition-all duration-300 ${shopOpen || isActive("/shop") ? "opacity-100 scale-100 animate-[slover_1s_infinite_alternate]" : "opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 group-hover:animate-[slover_1s_infinite_alternate]"}`}>
+                <span className={`absolute -top-5 left-1/2 -translate-x-1/2 origin-bottom transition-all duration-300 ${shopOpen || isActive("/shop") ? "opacity-100 scale-100 animate-[slover_1s_infinite_alternate]" : "opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 group-hover:animate-[slover_1s_infinite_alternate]"}`}>
                   {HEMP_LEAF}
                 </span>
                 Shop Products
