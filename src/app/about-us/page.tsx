@@ -69,7 +69,7 @@ export default function AboutUsPage() {
         <div className="absolute -left-40 top-0 w-[600px] h-[600px] bg-[#5a8c3a]/8 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-[#5a8c3a]/5 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="relative w-full mx-auto px-[70px] py-20 md:py-28 text-center">
+        <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-28 text-center">
           <nav className="flex items-center justify-center gap-2 text-white/40 text-sm mb-8">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -90,7 +90,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── Origin Story ── */}
-      <section className="w-full mx-auto px-[70px] py-20">
+      <section className="max-w-[1320px] mx-auto px-4 py-20">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           {/* Image */}
           <div className="w-full lg:w-[480px] flex-shrink-0">
@@ -162,7 +162,7 @@ export default function AboutUsPage() {
 
       {/* ── Pillars ── */}
       <section className="bg-[#f5f0eb] py-16">
-        <div className="w-full mx-auto px-[70px]">
+        <div className="max-w-[1320px] mx-auto px-4">
           <div className="text-center mb-12">
             <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-2">Why Hemp &amp; Barrel</p>
             <h2 className="text-[#2a1008] text-3xl md:text-4xl font-bold">What Makes Us Different</h2>
@@ -183,7 +183,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ── Quick Links ── */}
-      <section className="w-full mx-auto px-[70px] py-16">
+      <section className="max-w-[1320px] mx-auto px-4 py-16">
         <div className="text-center mb-10">
           <h2 className="text-[#2a1008] text-2xl md:text-3xl font-bold">Explore More</h2>
         </div>
@@ -202,7 +202,7 @@ export default function AboutUsPage() {
 
       {/* ── Store Info ── */}
       <section className="bg-[#2a1008] py-16">
-        <div className="w-full mx-auto px-[70px]">
+        <div className="max-w-[1320px] mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-10 items-center justify-between">
             <div>
               <p className="text-[#5a8c3a] text-xs font-bold uppercase tracking-[0.4em] mb-3">Store Info</p>

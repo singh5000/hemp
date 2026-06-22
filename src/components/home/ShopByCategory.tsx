@@ -47,7 +47,7 @@ const categories = [
 export default function ShopByCategory() {
   return (
     <section className="py-16 bg-white">
-      <div className="w-full mx-auto px-[70px]">
+      <div className="max-w-[1320px] mx-auto px-4">
         {/* Title */}
         <h2 className="text-center text-4xl font-bold text-[#3d2b1f] uppercase tracking-widest mb-10">
           Shop By Category

@@ -91,7 +91,7 @@ export default function TermsPage() {
           style={{ backgroundImage: "radial-gradient(circle, #5a8c3a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
         <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-[#5a8c3a]/6 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative w-full mx-auto px-[70px] py-20 md:py-24">
+        <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-24">
           <nav className="flex items-center gap-2 text-white/40 text-sm mb-7">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
@@ -106,7 +106,7 @@ export default function TermsPage() {
 
       {/* ── Agreement notice ── */}
       <div className="bg-[#2a1008] border-t border-white/10">
-        <div className="w-full mx-auto px-[70px] py-5">
+        <div className="max-w-[1320px] mx-auto px-4 py-5">
           <p className="text-white/70 text-sm font-semibold uppercase tracking-widest text-center">
             By visiting Hemp and Barrel website you agree to the following Terms &amp; Conditions.
           </p>
@@ -115,7 +115,7 @@ export default function TermsPage() {
 
       {/* ── Age notice ── */}
       <div className="bg-amber-50 border-b border-amber-200">
-        <div className="w-full mx-auto px-[70px] py-4 flex items-center gap-3">
+        <div className="max-w-[1320px] mx-auto px-4 py-4 flex items-center gap-3">
           <svg className="w-5 h-5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
@@ -126,7 +126,7 @@ export default function TermsPage() {
       </div>
 
       {/* ── Content ── */}
-      <div className="w-full mx-auto px-[70px] py-16">
+      <div className="max-w-[1320px] mx-auto px-4 py-16">
         <div className="flex flex-col lg:flex-row gap-14">
 
           {/* ── TOC sidebar ── */}

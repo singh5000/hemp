@@ -33,7 +33,7 @@ export default function Footer() {
 
       {/* Newsletter Strip */}
       <div className="border-b border-white/10 py-10">
-        <div className="w-full mx-auto px-[70px] flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-[1320px] mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-white text-2xl font-bold uppercase tracking-widest mb-1">
               Stay in the Loop
@@ -47,7 +47,7 @@ export default function Footer() {
       </div>
 
       {/* Main Grid */}
-      <div className="w-full mx-auto px-[70px] py-16">
+      <div className="max-w-[1320px] mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
 
           {/* Brand Column */}
@@ -197,7 +197,7 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="w-full mx-auto px-[70px] py-5 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div className="max-w-[1320px] mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-white/35 text-xs">
             © {new Date().getFullYear()} Hemp & Barrel, Inc. All rights reserved.
           </p>
