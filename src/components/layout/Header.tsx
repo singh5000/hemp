@@ -35,14 +35,13 @@ const NAV_LINKS = [
   { label: "CBD Blog", href: "/blog" },
 ];
 
-function NavLink({ label, href, isActive }: { label: string; href: string; isActive: boolean }) {
+function NavLink({ label, href, isActive, scrolled = true }: { label: string; href: string; isActive: boolean; scrolled?: boolean }) {
   return (
     <Link href={href} className="group relative flex items-center">
-      {/* Hemp leaf above */}
       <span className={`absolute -top-5 left-1/2 -translate-x-1/2 transition-all duration-300 origin-bottom ${isActive ? "opacity-100 scale-100 animate-[slover_1s_infinite_alternate]" : "opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 group-hover:animate-[slover_1s_infinite_alternate]"}`}>
         {HEMP_LEAF}
       </span>
-      <span className={`font-semibold text-[15px] transition-colors duration-200 ${isActive ? "text-[#1A9248]" : "text-[#3d2b1f] group-hover:text-[#1A9248]"}`}>
+      <span className={`font-semibold text-[15px] transition-colors duration-300 ${isActive ? "text-[#1A9248]" : scrolled ? "text-[#3d2b1f] group-hover:text-[#1A9248]" : "text-white group-hover:text-[#1A9248]"}`}>
         {label}
       </span>
       {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[#1A9248] rounded-full" />}
@@ -97,32 +96,23 @@ export default function Header() {
   };
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+  const isHome = pathname === "/";
+  const solid = scrolled || !isHome;
 
   return (
     <>
-      {/* ── ANNOUNCEMENT BAR ── */}
-      {!announceClosed && (
-        <div className="bg-[#1A9248] text-white text-center text-xs font-semibold tracking-wide relative">
-          <div className="flex items-center justify-center gap-2 py-2 px-8">
-            <Truck className="w-3.5 h-3.5 flex-shrink-0" />
-            <span>Free Shipping on Orders Over $75 &bull; Lab-Tested &bull; Farm to Shelf</span>
-          </div>
-          <button onClick={() => setAnnounceClosed(true)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors" aria-label="Close">
-            <X className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      )}
+      {/* Announcement bar removed */}
 
       {/* ── HEADER ── */}
-      <header className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-500 ${scrolled ? "shadow-lg shadow-black/5" : "shadow-sm"}`}>
-        <div className={`max-w-[1320px] mx-auto px-4 flex items-center justify-between transition-all duration-500 ${scrolled ? "h-[58px]" : "h-[72px]"}`}>
+      <header className={`sticky top-0 z-50 transition-all duration-500 ${solid ? "bg-white/95 backdrop-blur-md shadow-lg shadow-black/5" : "bg-transparent"}`}>
+        <div className={`max-w-[1320px] mx-auto px-4 flex items-center justify-between transition-all duration-500 ${solid ? "h-[58px]" : "h-[72px]"}`}>
 
           {/* Left Nav */}
           <nav className="hidden lg:flex items-center gap-8 flex-1">
             <div className="relative">
               <button
                 onClick={() => setShopOpen(!shopOpen)}
-                className={`group relative flex items-center gap-1.5 font-semibold text-[15px] transition-colors ${shopOpen || isActive("/shop") || isActive("/product-category") ? "text-[#1A9248]" : "text-[#3d2b1f] hover:text-[#1A9248]"}`}
+                className={`group relative flex items-center gap-1.5 font-semibold text-[15px] transition-colors duration-300 ${shopOpen || isActive("/shop") || isActive("/product-category") ? "text-[#1A9248]" : solid ? "text-[#3d2b1f] hover:text-[#1A9248]" : "text-white hover:text-[#1A9248]"}`}
               >
                 <span className={`absolute -top-5 left-1/2 -translate-x-1/2 origin-bottom transition-all duration-300 ${shopOpen || isActive("/shop") ? "opacity-100 scale-100 animate-[slover_1s_infinite_alternate]" : "opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 group-hover:animate-[slover_1s_infinite_alternate]"}`}>
                   {HEMP_LEAF}
@@ -131,7 +121,7 @@ export default function Header() {
                 <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${shopOpen ? "rotate-180" : ""}`} />
               </button>
             </div>
-            <NavLink label="FAQs" href="/faqs" isActive={isActive("/faqs")} />
+            <NavLink label="FAQs" href="/faqs" isActive={isActive("/faqs")} scrolled={solid} />
           </nav>
 
           {/* Center Logo */}
@@ -140,14 +130,14 @@ export default function Header() {
               src="https://hempandbarrel.com/wp-content/uploads/2023/02/nav-logo.svg"
               alt="Hemp & Barrel"
               width={180} height={50} priority
-              className={`w-auto transition-all duration-500 ${scrolled ? "h-[30px]" : "h-[38px]"}`}
+              className={`w-auto transition-all duration-500 ${solid ? "h-[30px]" : "h-[38px]"} ${!solid ? "brightness-0 invert" : ""}`}
             />
           </Link>
 
           {/* Right Nav */}
           <nav className="hidden lg:flex items-center gap-6 flex-1 justify-end">
-            <NavLink label="Contact" href="/contact" isActive={isActive("/contact")} />
-            <NavLink label="CBD Blog" href="/blog" isActive={isActive("/blog")} />
+            <NavLink label="Contact" href="/contact" isActive={isActive("/contact")} scrolled={solid} />
+            <NavLink label="CBD Blog" href="/blog" isActive={isActive("/blog")} scrolled={solid} />
 
             {/* Account */}
             <div className="relative" ref={accountRef}>
@@ -183,20 +173,20 @@ export default function Header() {
                   )}
                 </>
               ) : (
-                <NavLink label="My Account" href="/my-account" isActive={isActive("/my-account")} />
+                <NavLink label="My Account" href="/my-account" isActive={isActive("/my-account")} scrolled={solid} />
               )}
             </div>
 
             {/* Search */}
             <button aria-label="Search" onClick={() => setSearchOpen(o => !o)}
-              className="text-[#3d2b1f] hover:text-[#1A9248] transition-colors p-1 hover:scale-110 duration-200">
+              className={`${solid ? "text-[#3d2b1f]" : "text-white"} hover:text-[#1A9248] transition-colors p-1 hover:scale-110 duration-300`}>
               <Search className="w-[22px] h-[22px]" strokeWidth={2} />
             </button>
 
             {/* Cart with mini preview */}
             <div className="relative" ref={cartRef}
               onMouseEnter={() => setCartHover(true)} onMouseLeave={() => setCartHover(false)}>
-              <Link href="/cart" aria-label="Cart" className="relative text-[#3d2b1f] hover:text-[#1A9248] transition-colors p-1 hover:scale-110 duration-200 block">
+              <Link href="/cart" aria-label="Cart" className={`relative ${solid ? "text-[#3d2b1f]" : "text-white"} hover:text-[#1A9248] transition-colors p-1 hover:scale-110 duration-300 block`}>
                 <ShoppingCart className="w-[22px] h-[22px]" strokeWidth={2} />
                 {cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-[#1A9248] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center leading-none px-1 animate-bounce-once">
@@ -237,10 +227,10 @@ export default function Header() {
 
           {/* Mobile */}
           <div className="flex lg:hidden items-center gap-3 ml-auto">
-            <button aria-label="Search" onClick={() => setSearchOpen(o => !o)} className="text-[#3d2b1f] p-1">
+            <button aria-label="Search" onClick={() => setSearchOpen(o => !o)} className={`${solid ? "text-[#3d2b1f]" : "text-white"} p-1`}>
               <Search className="w-5 h-5" />
             </button>
-            <Link href="/cart" className="relative text-[#3d2b1f] p-1">
+            <Link href="/cart" className={`relative ${solid ? "text-[#3d2b1f]" : "text-white"} p-1`}>
               <ShoppingCart className="w-5 h-5" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-[#1A9248] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
@@ -248,7 +238,7 @@ export default function Header() {
                 </span>
               )}
             </Link>
-            <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu" className="text-[#3d2b1f] p-1">
+            <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu" className={`${solid ? "text-[#3d2b1f]" : "text-white"} p-1`}>
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
