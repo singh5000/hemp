@@ -1,160 +1,186 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import AnimatedButton from "@/components/ui/AnimatedButton";
-import { Leaf, FlaskConical, Truck, Shield } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, FlaskConical, Leaf, Truck, Shield } from "lucide-react";
 
-const STATS = [
-  { value: "500+", label: "Products", icon: Leaf },
-  { value: "100%", label: "Lab Tested", icon: FlaskConical },
-  { value: "Free", label: "Shipping $75+", icon: Truck },
-  { value: "Legal", label: "≤ 0.3% THC", icon: Shield },
+type Product = { name: string; src: string };
+
+const fallbackProducts: Product[] = [
+  { name: "CBD Tinctures", src: "/sli.png" },
+  { name: "Hemp Topicals", src: "/top-right.png" },
+  { name: "Hemp Flower", src: "/lb1.png" },
+  { name: "CBD Pouches", src: "/rt-lower.png" },
 ];
+
+const WC_BASE = process.env.NEXT_PUBLIC_WC_URL || "https://hempandbarrel.com/wp-json/wc/store/v1";
+
+function decodeHTML(s: string) {
+  if (typeof document === "undefined") return s;
+  const el = document.createElement("textarea");
+  el.innerHTML = s;
+  return el.value;
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export default function HeroBanner() {
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setLoaded(true); }, []);
+  const [products, setProducts] = useState<Product[]>(fallbackProducts);
+  const [step, setStep] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+
+  useEffect(() => { requestAnimationFrame(() => setLoaded(true)); }, []);
+
+  useEffect(() => {
+    async function fetchAll() {
+      try {
+        const all: Product[] = [];
+        const seen = new Set<string>();
+        for (let page = 1; page <= 5; page++) {
+          const res = await fetch(`${WC_BASE}/products?per_page=100&stock_status=instock&page=${page}`);
+          if (!res.ok) break;
+          const data = await res.json();
+          if (!data.length) break;
+          for (const p of data) {
+            const src = p.images?.[0]?.src;
+            if (src && p.is_in_stock && !seen.has(src)) {
+              seen.add(src);
+              all.push({ name: decodeHTML(p.name), src });
+            }
+          }
+          if (data.length < 100) break;
+        }
+        if (all.length > 4) setProducts(shuffle(all));
+      } catch { /* keep fallback */ }
+    }
+    fetchAll();
+  }, []);
+
+  const total = products.length;
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => setStep(s => (s + 1) % total), 8000);
+    return () => clearInterval(intervalRef.current);
+  }, [total]);
+
+  const getProduct = useCallback((slot: number) => products[(slot + step) % total], [products, step, total]);
+  const getPrev = useCallback((slot: number) => products[(slot + step - 1 + total) % total], [products, step, total]);
 
   return (
-    <section className="relative min-h-[600px] lg:min-h-[680px] bg-[#0a0a0a] overflow-hidden">
+    <section className="relative overflow-hidden min-h-screen -mt-[72px]">
 
-      {/* Background image */}
-      <div className="absolute inset-0">
-        <Image
-          src="https://hempandbarrel.com/wp-content/uploads/2024/04/Chris-Grow-for-Banner-e1712944504867.jpeg"
-          alt="Hemp & Barrel Premium CBD"
-          fill
-          priority
-          className="object-cover brightness-[0.35]"
-          sizes="100vw"
-        />
-      </div>
+      <Image
+        src="/hero-leaf.jpg"
+        alt="Hemp & Barrel"
+        fill
+        priority
+        className={`object-cover transition-all duration-[1.5s] ${loaded ? "scale-100" : "scale-110"}`}
+        sizes="100vw"
+        quality={85}
+      />
 
-      {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/90 via-[#0a0a0a]/60 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-[#0a0a0a]/30" />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.2) 100%)" }} />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="absolute w-1 h-1 bg-[#1A9248]/30 rounded-full"
-            style={{
-              left: `${10 + i * 20}%`,
-              top: `${20 + (i % 3) * 25}%`,
-              animation: `floatParticle ${6 + i * 2}s ease-in-out ${i * 0.8}s infinite alternate`,
-            }} />
-        ))}
-      </div>
+      <div className="relative z-10 min-h-screen flex items-center">
+        <div className="max-w-[1320px] mx-auto pl-4 pr-0 w-full py-32">
+          <div className="flex items-center gap-11">
 
-      {/* Green accent line top */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#1A9248] to-transparent" />
+            <div className="flex-1 min-w-0 max-w-[600px]">
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1320px] mx-auto px-4 h-full flex items-center min-h-[600px] lg:min-h-[680px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center w-full py-16">
+              <div className={`flex items-center gap-2.5 mb-8 transition-all duration-700 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                <span className="w-10 h-[2px] bg-[#1A9248]" />
+                <span className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em]">Charlotte&apos;s #1 CBD Store</span>
+              </div>
 
-          {/* Left — Text */}
-          <div className={`transition-all duration-1000 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+              <h1 className={`text-white font-black leading-[0.95] mb-6 transition-all duration-700 delay-150 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ fontSize: "clamp(3.2rem, 6vw, 5rem)" }}>
+                Premium{" "}
+                <span className="relative inline-block">
+                  <span className="text-[#1A9248]">Hemp &amp; CBD</span>
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-[#1A9248]/40 rounded-full" />
+                </span>{" "}
+                Products
+              </h1>
 
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#1A9248]/15 border border-[#1A9248]/30 rounded-full px-4 py-2 mb-6">
-              <Image src="/hemp-leaf.png" alt="" width={16} height={16} className="w-4 h-4" />
-              <span className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.25em]">Charlotte&apos;s #1 CBD Store</span>
-            </div>
+              <p className={`text-white/65 text-xl leading-relaxed mb-10 transition-all duration-700 delay-300 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                Lab-tested tinctures, gummies, flower, Delta 8, vapes &amp; more — sourced from Carolina farms. Trusted locally, shipped nationwide.
+              </p>
 
-            {/* Heading */}
-            <h1 className="text-white font-black leading-[1.05] mb-6" style={{ fontSize: "clamp(2.5rem, 5.5vw, 4.5rem)" }}>
-              Premium{" "}
-              <span className="relative inline-block">
-                <span className="text-[#1A9248]">Hemp & CBD</span>
-                <span className="absolute -bottom-2 left-0 w-full h-1.5 bg-[#1A9248]/30 rounded-full" />
-              </span>
-              <br />
-              Products
-            </h1>
+              <div className={`flex items-center gap-5 mb-14 transition-all duration-700 delay-[450ms] ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+                <Link href="/shop"
+                  className="group inline-flex items-center gap-3 bg-[#1A9248] text-white font-bold pl-8 pr-2 py-2.5 rounded-full text-sm uppercase tracking-wider overflow-hidden relative transition-all duration-500 hover:shadow-[0_0_35px_rgba(26,146,72,0.4)]">
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#1A9248] via-[#22b558] to-[#1A9248] bg-[length:200%_100%] group-hover:animate-[shimmer_1.5s_ease-in-out] rounded-full" />
+                  <span className="relative z-10">Shop Now</span>
+                  <span className="relative z-10 w-10 h-10 rounded-full bg-white/20 group-hover:bg-white/30 flex items-center justify-center transition-all duration-300 group-hover:rotate-[-30deg] group-hover:scale-110">
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
+                </Link>
+                <Link href="/about-us" className="text-white/70 hover:text-white font-semibold text-sm transition-colors flex items-center gap-1.5 group">
+                  Our Story <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
 
-            {/* Subtitle */}
-            <p className="text-white/60 text-lg md:text-xl max-w-[480px] leading-relaxed mb-8">
-              Lab-tested tinctures, gummies, flower, Delta 8, vapes & more.
-              Serving Pineville, NC and shipping nationwide.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex items-center gap-4 flex-wrap mb-10">
-              <AnimatedButton href="/shop" size="lg">Shop Products</AnimatedButton>
-              <AnimatedButton href="/contact" variant="outline" size="md">Visit Store</AnimatedButton>
-            </div>
-
-            {/* Trust stats */}
-            <div className="grid grid-cols-4 gap-3">
-              {STATS.map((stat, i) => (
-                <div key={stat.label}
-                  className={`text-center transition-all duration-700 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                  style={{ transitionDelay: `${600 + i * 150}ms` }}>
-                  <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                    <stat.icon className="w-4 h-4 text-[#1A9248]" />
+              <div className={`flex items-center gap-6 flex-wrap transition-all duration-700 delay-[600ms] ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                {[
+                  { icon: FlaskConical, text: "Lab Tested" },
+                  { icon: Leaf, text: "Farm to Shelf" },
+                  { icon: Truck, text: "Free Ship $75+" },
+                  { icon: Shield, text: "≤ 0.3% THC" },
+                ].map((item, i) => (
+                  <div key={item.text} className="flex items-center gap-2"
+                    style={{ transitionDelay: `${700 + i * 100}ms` }}>
+                    <div className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center">
+                      <item.icon className="w-3.5 h-3.5 text-[#1A9248]" />
+                    </div>
+                    <span className="text-white/60 text-xs font-semibold uppercase tracking-wide">{item.text}</span>
                   </div>
-                  <p className="text-white font-bold text-sm">{stat.value}</p>
-                  <p className="text-white/40 text-[10px] font-medium uppercase tracking-wider">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right — Featured product showcase */}
-          <div className={`hidden lg:block transition-all duration-1000 delay-300 ${loaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"}`}>
-            <div className="relative">
-              {/* Glow */}
-              <div className="absolute inset-0 bg-[#1A9248]/10 rounded-full blur-[80px]" />
-
-              {/* Product image */}
-              <div className="relative w-[480px] h-[480px] mx-auto">
-                <Image
-                  src="https://hempandbarrel.com/wp-content/uploads/2022/05/Tinctures-product.png.webp"
-                  alt="Hemp & Barrel CBD Tinctures"
-                  fill
-                  className="object-contain drop-shadow-2xl"
-                  sizes="480px"
-                  priority
-                />
-              </div>
-
-              {/* Floating badges around product */}
-              <div className="absolute top-8 right-0 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 animate-[floatBadge_4s_ease-in-out_infinite]">
-                <p className="text-[10px] text-white/50 font-bold uppercase tracking-wider">Best Seller</p>
-                <p className="text-white font-bold text-sm">CBD Tinctures</p>
-              </div>
-
-              <div className="absolute bottom-16 left-0 bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl px-4 py-3 animate-[floatBadge_5s_ease-in-out_0.5s_infinite]">
-                <p className="text-[10px] text-white/50 font-bold uppercase tracking-wider">From</p>
-                <p className="text-[#1A9248] font-black text-xl">$24.99</p>
-              </div>
-
-              <div className="absolute top-1/2 -right-2 bg-[#1A9248] rounded-full px-3 py-1.5 animate-[floatBadge_3.5s_ease-in-out_1s_infinite]">
-                <p className="text-white text-[10px] font-bold uppercase tracking-wider">Lab Tested ✓</p>
+                ))}
               </div>
             </div>
+
+            {/* Right side - 2×2 product showcase */}
+            <div className={`hidden lg:flex flex-1 justify-end transition-all duration-[1.2s] delay-300 ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
+              <div className="grid grid-cols-2 gap-2 w-full max-w-[620px] aspect-square">
+                {[0, 1, 2, 3].map((slot) => {
+                  const active = getProduct(slot);
+                  const prev = getPrev(slot);
+                  const showPrev = step > 0 && prev.src !== active.src;
+                  return (
+                    <div key={slot} className="relative overflow-hidden rounded-xl bg-white">
+                      {showPrev && (
+                        <div key={`p-${prev.src}`} className="absolute inset-0 animate-[fadeOut_1.5s_ease-in-out_forwards]">
+                          <Image src={prev.src} alt={prev.name} fill className="object-cover" sizes="310px" />
+                          <div className="absolute bottom-0 left-0 right-0 bg-[#1A9248] px-4 py-2.5">
+                            <span className="text-white text-sm font-bold tracking-wide">{prev.name}</span>
+                          </div>
+                        </div>
+                      )}
+                      <div key={`a-${active.src}`} className="absolute inset-0 animate-[fadeSlideIn_1.5s_ease-in-out]">
+                        <Image src={active.src} alt={active.name} fill className="object-cover" sizes="310px" />
+                        <div className="absolute bottom-0 left-0 right-0 bg-[#1A9248] px-4 py-2.5">
+                          <span className="text-white text-sm font-bold tracking-wide">{active.name}</span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" fill="none" className="w-full h-auto">
-          <path d="M0 60V30C240 0 480 0 720 30C960 60 1200 60 1440 30V60H0Z" fill="white"/>
-        </svg>
-      </div>
-
-      <style>{`
-        @keyframes floatParticle {
-          0% { transform: translateY(0) scale(1); opacity: 0.3; }
-          100% { transform: translateY(-30px) scale(1.5); opacity: 0.1; }
-        }
-        @keyframes floatBadge {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-      `}</style>
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </section>
   );
 }
