@@ -35,7 +35,7 @@ export default function HeroBanner() {
   const [loaded, setLoaded] = useState(false);
   const [products, setProducts] = useState<Product[]>(fallbackProducts);
   const [step, setStep] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const intervalRef = useRef<ReturnType<typeof setInterval>>(null);
 
   useEffect(() => { requestAnimationFrame(() => setLoaded(true)); }, []);
 
