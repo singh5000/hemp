@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
-import HeroSlider from "@/components/home/HeroSlider";
+// import HeroSlider from "@/components/home/HeroSlider";
+import HeroBanner from "@/components/home/HeroBanner";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import ShopByCategory from "@/components/home/ShopByCategory";
 
@@ -11,7 +12,8 @@ const InstagramFeed = dynamic(() => import("@/components/layout/InstagramFeed"),
 export default function HomePage() {
   return (
     <>
-      <HeroSlider />
+      {/* <HeroSlider /> */}
+      <HeroBanner />
       <FeaturedProducts />
       <ShopByCategory />
       <Education101 />
