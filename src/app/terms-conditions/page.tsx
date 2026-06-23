@@ -82,7 +82,19 @@ const SECTIONS = [
   },
 ];
 
-export default function TermsPage() {
+const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
+
+async function fetchPageContent(slug: string): Promise<string> {
+  try {
+    const res = await fetch(`${WP}/wp-json/wp/v2/pages?slug=${slug}&_fields=content`, { next: { revalidate: 300 } });
+    if (!res.ok) return "";
+    const data = await res.json() as Array<{ content?: { rendered?: string } }>;
+    return data[0]?.content?.rendered ?? "";
+  } catch { return ""; }
+}
+
+export default async function TermsPage() {
+  const wpContent = await fetchPageContent("terms-conditions");
   return (
     <>
       {/* ── Hero ── */}
