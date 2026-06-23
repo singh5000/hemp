@@ -2,12 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["http://localhost"],
+  compress: true,
   images: {
     dangerouslyAllowSVG: true,
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2592000,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes:  [16, 32, 64, 96, 128, 256, 384],
+    qualities: [75],
     remotePatterns: [
       {
         protocol: "https",
@@ -61,6 +63,24 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-XSS-Protection", value: "1; mode=block" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+        ],
+      },
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/_next/image(.*)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
+        ],
+      },
+      {
+        source: "/(.*)\\.(ico|png|jpg|jpeg|webp|avif|svg|woff|woff2)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
       },
     ];

@@ -143,7 +143,7 @@ export default function AboutUsPage() {
                 beer and wine.
               </p>
               <p className="text-[#1A9248] font-bold text-lg italic">
-                "Hemping ain't easy" — but we are happy to be on this journey with you!
+                &ldquo;Hemping ain&apos;t easy&rdquo; — but we are happy to be on this journey with you!
               </p>
             </div>
 

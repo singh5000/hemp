@@ -73,7 +73,19 @@ const SECTIONS = [
   },
 ];
 
-export default function PrivacyPolicyPage() {
+const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
+
+async function fetchPageContent(slug: string): Promise<string> {
+  try {
+    const res = await fetch(`${WP}/wp-json/wp/v2/pages?slug=${slug}&_fields=content`, { next: { revalidate: 300 } });
+    if (!res.ok) return "";
+    const data = await res.json() as Array<{ content?: { rendered?: string } }>;
+    return data[0]?.content?.rendered ?? "";
+  } catch { return ""; }
+}
+
+export default async function PrivacyPolicyPage() {
+  const wpContent = await fetchPageContent("privacy-policy");
   return (
     <>
       {/* ── Hero ── */}
@@ -97,6 +109,9 @@ export default function PrivacyPolicyPage() {
 
       {/* ── Content ── */}
       <div className="max-w-[1320px] mx-auto px-4 py-16">
+        {wpContent ? (
+          <div className="blog-content" dangerouslySetInnerHTML={{ __html: wpContent }} />
+        ) : (
         <div className="flex flex-col lg:flex-row gap-14">
 
           {/* ── TOC sidebar ── */}
@@ -170,6 +185,7 @@ export default function PrivacyPolicyPage() {
             ))}
           </div>
         </div>
+        )}
       </div>
     </>
   );
