@@ -68,7 +68,7 @@ export default function HeroBanner() {
 
   useEffect(() => {
     intervalRef.current = setInterval(() => setStep(s => (s + 1) % total), 8000);
-    return () => clearInterval(intervalRef.current);
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [total]);
 
   const getProduct = useCallback((slot: number) => products[(slot + step) % total], [products, step, total]);
