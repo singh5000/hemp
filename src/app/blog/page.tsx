@@ -155,7 +155,7 @@ export default async function BlogPage({
       {hero && (
         <section className="max-w-[1320px] mx-auto px-4 -mt-10 relative z-10 mb-10">
           <Link
-            href={`/blog/${hero.slug}`}
+            href={`/${hero.slug}`}
             className="group flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100 hover:shadow-[#1A9248]/15 transition-shadow duration-500"
           >
             {/* Featured image — object-contain so nothing gets cropped */}
@@ -204,7 +204,7 @@ export default async function BlogPage({
                 const img = getImg(post);
                 const cat = getCat(post);
                 return (
-                  <Link key={post.id} href={`/blog/${post.slug}`}
+                  <Link key={post.id} href={`/${post.slug}`}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-gray-200/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
                     {/* Thumbnail — object-contain, no cropping */}
                     <div className="relative aspect-[16/9] bg-[#f8f6f3] overflow-hidden">

@@ -217,7 +217,7 @@ export default async function BlogPostPage(
               <div className="flex items-center gap-3">
                 <span className="text-sm text-gray-400 font-medium">Share this article:</span>
                 <Link
-                  href={`https://www.facebook.com/sharer/sharer.php?u=https://hempandbarrel.com/blog/${post.slug}`}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=https://hempandbarrel.com/${post.slug}`}
                   target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"
                   className="w-10 h-10 bg-[#1877f2] hover:bg-[#1464c8] rounded-full flex items-center justify-center transition-all hover:scale-105">
                   <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -225,7 +225,7 @@ export default async function BlogPostPage(
                   </svg>
                 </Link>
                 <Link
-                  href={`https://twitter.com/intent/tweet?url=https://hempandbarrel.com/blog/${post.slug}&text=${encodeURIComponent(strip(post.title.rendered))}`}
+                  href={`https://twitter.com/intent/tweet?url=https://hempandbarrel.com/${post.slug}&text=${encodeURIComponent(strip(post.title.rendered))}`}
                   target="_blank" rel="noopener noreferrer" aria-label="Share on X"
                   className="w-10 h-10 bg-[#000] hover:bg-[#333] rounded-full flex items-center justify-center transition-all hover:scale-105">
                   <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -326,7 +326,7 @@ export default async function BlogPostPage(
                 const ri  = getImg(rel);
                 const rc  = getCat(rel);
                 return (
-                  <Link key={rel.id} href={`/blog/${rel.slug}`}
+                  <Link key={rel.id} href={`/${rel.slug}`}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
                     <div className="relative aspect-[16/9] bg-[#f8f6f3] overflow-hidden">
                       {ri
