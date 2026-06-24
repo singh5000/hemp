@@ -154,6 +154,11 @@ export default async function CategoryPage({
   const orderby  = sp.orderby ?? "menu_order";
   const order    = sp.order   ?? "asc";
   const search   = sp.search  ?? "";
+  const instock  = sp.instock === "1";
+  const effects  = sp.effects ?? "";
+  const strain   = sp.strain  ?? "";
+
+  const searchTerms = [search, strain, ...effects.split(",").filter(Boolean)].filter(Boolean).join(" ");
 
   const [category] = await Promise.all([fetchCategory(slug)]);
   if (!category) notFound();
@@ -165,7 +170,8 @@ export default async function CategoryPage({
     orderby,
     order,
   });
-  if (search) apiParams.set("search", search);
+  if (searchTerms) apiParams.set("search", searchTerms);
+  if (instock)     apiParams.set("stock_status", "instock");
 
   const { products, total, pages } = await fetchProducts(apiParams);
   const categoryFaqs = CATEGORY_FAQS[slug] ?? [];

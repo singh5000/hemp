@@ -202,13 +202,6 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
             </div>
           ) : (
             <>
-              <p className="text-red-500 text-xs font-semibold flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Out of stock
-              </p>
-
               {notifyState === "sent" ? (
                 <div className="py-3 px-4 rounded-xl bg-[#1A9248]/10 border border-[#1A9248]/20 flex items-center gap-2">
                   <Check className="w-4 h-4 text-[#1A9248] flex-shrink-0" />

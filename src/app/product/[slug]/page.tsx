@@ -257,34 +257,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Meta */}
-            <div className="border-t border-gray-100 pt-4 space-y-1.5 text-xs text-gray-400">
-              {product.sku && (
+            {product.sku && (
+              <div className="border-t border-gray-100 pt-4 text-xs text-gray-400">
                 <p>SKU: <span className="text-[#3d2b1f] font-medium">{product.sku}</span></p>
-              )}
-              {product.categories.length > 0 && (
-                <p>
-                  {product.categories.length === 1 ? "Category: " : "Categories: "}
-                  {product.categories.map((c, i) => (
-                    <span key={c.id}>
-                      {i > 0 && ", "}
-                      <Link href={`/product-category/${c.slug}`}
-                        className="text-[#1A9248] hover:underline">{c.name}</Link>
-                    </span>
-                  ))}
-                </p>
-              )}
-              {product.tags.length > 0 && (
-                <p>
-                  Tags:{" "}
-                  {product.tags.map((t, i) => (
-                    <span key={t.id}>
-                      {i > 0 && ", "}
-                      <span className="text-[#3d2b1f]">{t.name}</span>
-                    </span>
-                  ))}
-                </p>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Trust badges */}
             <div className="bg-[#f8f6f3] rounded-2xl p-4 grid grid-cols-3 gap-3 text-center">
