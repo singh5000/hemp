@@ -7,8 +7,6 @@ import ProductForm from "./ProductForm";
 import ProductAccordion from "./ProductAccordion";
 import WriteReview from "./WriteReview";
 
-export const dynamic = "force-dynamic";
-
 const WC = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 
 /* ── Types ── */
