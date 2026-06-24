@@ -34,6 +34,11 @@ const nextConfig: NextConfig = {
         hostname: "127.0.0.1",
         pathname: "/hemp/wp-content/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "secure.gravatar.com",
+        pathname: "/avatar/**",
+      },
     ],
   },
   async redirects() {
