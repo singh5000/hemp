@@ -26,7 +26,7 @@ interface Heading { id: string; text: string; level: number }
 async function getPost(slug: string): Promise<WPPost | null> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/posts?slug=${slug}&_embed=1`,
-    { next: { revalidate: 3600 } }
+    { cache: "no-store" }
   );
   if (!res.ok) return null;
   const data = await res.json();
@@ -36,7 +36,7 @@ async function getPost(slug: string): Promise<WPPost | null> {
 async function getRelated(catId: number, excludeId: number): Promise<WPPost[]> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/posts?categories=${catId}&exclude=${excludeId}&per_page=3&_embed=1`,
-    { next: { revalidate: 3600 } }
+    { cache: "no-store" }
   );
   if (!res.ok) return [];
   return res.json();
