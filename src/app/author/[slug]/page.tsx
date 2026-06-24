@@ -147,7 +147,9 @@ export default async function AuthorPage({
     ? author.meta.hb_specialties.split(",").map(s => s.trim()).filter(Boolean)
     : [];
   const profileImage = author.meta?.hb_profile_image || null;
-  const avatarUrl = profileImage || author.avatar_urls?.["96"] || null;
+  const gravatarUrl = author.avatar_urls?.["96"] || "";
+  const hasRealAvatar = gravatarUrl && !gravatarUrl.includes("d=mm") && !gravatarUrl.includes("gravatar.com/avatar/0");
+  const avatarUrl = profileImage || (hasRealAvatar ? gravatarUrl : null);
 
   const [{ posts, total, pages: totalPages }, otherAuthors] = await Promise.all([
     getAuthorPosts(author.id, page),
@@ -161,39 +163,44 @@ export default async function AuthorPage({
     <>
       {/* ── Hero ── */}
       <section className="bg-[#f0ede6]">
-        <div className="max-w-[1160px] mx-auto px-6 py-14 md:py-16 grid grid-cols-1 md:grid-cols-[1fr_280px] gap-10 items-center">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-[#3d2b1f] mb-1.5">Hi, I&apos;m</p>
-            <h1 className="text-[#1a1a18] text-4xl md:text-6xl font-bold leading-tight mb-3">{author.name}</h1>
-            <p className="text-[#7a7a72] text-lg mb-3">{authorTitle}</p>
-            {author.description && (
-              <p className="text-[#3e3e38] text-base leading-relaxed mb-6 max-w-[600px]">{author.description}</p>
-            )}
-            <div className="flex items-center gap-3 mb-5">
-              <a href="#articles" className="bg-[#2d3b2a] hover:bg-[#3a5233] text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors">
-                View Articles
-              </a>
-            </div>
-            <div className="inline-flex items-center gap-2 bg-white border border-[#ddd9d0] rounded-lg px-3 py-1.5 text-sm text-[#3e3e38]">
-              <svg className="w-3.5 h-3.5 text-[#7a7a72]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth={2}/>
-                <path d="M3 9h18M9 21V9" strokeWidth={2}/>
-              </svg>
-              <span><strong>{total}</strong> articles published</span>
-            </div>
-          </div>
-
-          <div className="w-full max-w-[280px] mx-auto md:mx-0">
-            <div className="aspect-[3/3.6] rounded-xl overflow-hidden bg-[#d6d0c4]">
-              {avatarUrl ? (
-                <img src={avatarUrl} alt={author.name} className="w-full h-full object-cover object-top" />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#c8c2b4] to-[#b8b0a0] flex items-center justify-center">
-                  <svg className="w-28 h-28 opacity-25" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-                  </svg>
-                </div>
+        <div className="max-w-[1160px] mx-auto px-6 py-14 md:py-16">
+          <div className="flex flex-col-reverse md:flex-row md:items-center gap-10">
+            <div className="flex-1 min-w-0">
+              <p className="text-[14px] font-medium uppercase tracking-wider text-[#1a1a18] mb-1.5">Hi, I&apos;m</p>
+              <h1 className="text-[#1a1a18] font-bold leading-[1.08] mb-2.5" style={{ fontSize: "clamp(42px, 5vw, 60px)" }}>{author.name}</h1>
+              <p className="text-[#7a7a72] text-[19px] mb-3.5">{authorTitle}</p>
+              {author.description && (
+                <p className="text-[#3e3e38] text-base leading-[1.65] mb-6 max-w-[580px]">{author.description}</p>
               )}
+              <div className="flex items-center gap-2.5 mb-5">
+                <a href="#articles" className="bg-[#2d3b2a] hover:bg-[#3a5233] text-white text-[15px] font-medium px-5 py-2.5 rounded-full transition-colors">
+                  View Articles
+                </a>
+                <button className="border-[1.5px] border-[#1a1a18] text-[#1a1a18] hover:bg-black/5 text-[15px] font-medium px-5 py-2 rounded-full transition-colors">
+                  Follow
+                </button>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-white border border-[#ddd9d0] rounded-lg px-3 py-1.5 text-[14px] text-[#3e3e38]">
+                <svg className="w-3.5 h-3.5 text-[#7a7a72]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth={2}/>
+                  <path d="M3 9h18M9 21V9" strokeWidth={2}/>
+                </svg>
+                <span><strong>{total}</strong> articles published</span>
+              </div>
+            </div>
+
+            <div className="w-[220px] md:w-[300px] flex-shrink-0 mx-auto md:mx-0">
+              <div className="aspect-[3/3.6] rounded-xl overflow-hidden bg-[#d6d0c4]">
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt={author.name} width={300} height={360} className="w-full h-full object-cover object-top" />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-[#c8c2b4] to-[#b8b0a0] flex items-center justify-center">
+                    <svg className="w-24 h-24 opacity-25" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                    </svg>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -307,21 +314,15 @@ export default async function AuthorPage({
           <p className="text-[#7a7a72] text-base mb-9">Discover a wealth of knowledge and expertise from our team of experts.</p>
           <div className="flex justify-center gap-10 flex-wrap">
             {otherAuthors.map((other, i) => {
-              const oAvatar = other.avatar_urls?.["96"];
               const oColor = AVATAR_COLORS[i % AVATAR_COLORS.length];
               const oTitle = other.meta?.hb_title || "Contributor";
               return (
                 <Link key={other.id} href={`/author/${other.slug}`}
                   className="flex flex-col items-center gap-2 group">
-                  {oAvatar && !oAvatar.includes("gravatar.com/avatar/0") ? (
-                    <img src={oAvatar} alt={other.name} width={52} height={52}
-                      className="rounded-full object-cover" loading="lazy" />
-                  ) : (
-                    <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center text-white text-[15px] font-semibold"
-                      style={{ backgroundColor: oColor }}>
-                      {initials(other.name)}
-                    </div>
-                  )}
+                  <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center text-white text-[15px] font-semibold"
+                    style={{ backgroundColor: oColor }}>
+                    {initials(other.name)}
+                  </div>
                   <span className="text-sm font-medium text-[#1a1a18] group-hover:text-[#3a5233] transition-colors">{other.name}</span>
                   <span className="text-sm text-[#7a7a72]">{oTitle}</span>
                 </Link>
