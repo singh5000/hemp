@@ -211,12 +211,12 @@ export default async function CategoryPage({
       {/* ── Main ── */}
       <div className="max-w-[1320px] mx-auto px-4 py-10">
         <Suspense fallback={null}>
-          <CategoryMobileBar />
+          <CategoryMobileBar categorySlug={slug} />
         </Suspense>
 
         <div className="flex gap-8 items-stretch">
           <Suspense fallback={null}>
-            <CategorySidebar />
+            <CategorySidebar categorySlug={slug} />
           </Suspense>
 
           <div className="flex-1 min-w-0">

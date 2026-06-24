@@ -13,7 +13,7 @@ export const SORT_OPTIONS = [
   { label: "Price: High → Low",  orderby: "price",       order: "desc" },
 ];
 
-const EFFECTS = [
+const ALL_EFFECTS = [
   { label: "Sleep",      value: "sleep",      icon: Moon },
   { label: "Relaxation", value: "relaxation",  icon: Smile },
   { label: "Pain Relief",value: "pain",        icon: Shield },
@@ -28,6 +28,28 @@ const STRAINS = [
   { label: "Sativa",  value: "sativa",  color: "bg-orange-500" },
   { label: "Hybrid",  value: "hybrid",  color: "bg-[#1A9248]" },
 ];
+
+interface FilterConfig {
+  strains: boolean;
+  effects: string[];
+}
+
+const CATEGORY_FILTERS: Record<string, FilterConfig> = {
+  "smokable-hemp-flower": { strains: true,  effects: ["sleep", "relaxation", "pain", "focus", "energy", "anxiety", "wellness"] },
+  "vapes":                { strains: true,  effects: ["sleep", "relaxation", "pain", "focus", "energy", "anxiety"] },
+  "edibles-gummies":      { strains: false, effects: ["sleep", "relaxation", "pain", "focus", "energy", "anxiety", "wellness"] },
+  "tinctures":            { strains: false, effects: ["sleep", "relaxation", "pain", "anxiety", "wellness"] },
+  "infused-beverages":    { strains: false, effects: ["relaxation", "focus", "energy", "wellness"] },
+  "topicals":             { strains: false, effects: ["pain", "relaxation", "wellness"] },
+  "cbd-pouches":          { strains: false, effects: ["relaxation", "focus", "energy", "anxiety"] },
+  "pets":                 { strains: false, effects: ["anxiety", "pain", "wellness"] },
+};
+
+const DEFAULT_FILTER: FilterConfig = { strains: false, effects: [] };
+
+function getFilterConfig(slug: string): FilterConfig {
+  return CATEGORY_FILTERS[slug] ?? DEFAULT_FILTER;
+}
 
 function useCatNav() {
   const router   = useRouter();
@@ -64,9 +86,12 @@ function useCatNav() {
 }
 
 /* ── Desktop sticky sidebar ── */
-export function CategorySidebar() {
+export function CategorySidebar({ categorySlug }: { categorySlug: string }) {
   const { activeSearch, activeInstock, activeEffects, activeStrain, setSearch, setInstock, toggleEffect, setStrain } = useCatNav();
   const [draft, setDraft] = useState(activeSearch);
+  const config = getFilterConfig(categorySlug);
+  const effects = ALL_EFFECTS.filter(e => config.effects.includes(e.value));
+  const hasFilters = config.strains || effects.length > 0;
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +103,7 @@ export function CategorySidebar() {
       <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
 
         {/* Search */}
-        <div className="p-4 border-b border-gray-100">
+        <div className={`p-4 ${hasFilters ? "border-b border-gray-100" : ""}`}>
           <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
           <form onSubmit={submit} className="flex gap-2">
             <div className="relative flex-1">
@@ -109,46 +134,50 @@ export function CategorySidebar() {
           )}
         </div>
 
-        {/* Strain Type */}
-        <div className="p-4 border-b border-gray-100">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
-            <Leaf className="w-3.5 h-3.5" /> Strain Type
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {STRAINS.map(s => (
-              <button key={s.value} onClick={() => setStrain(s.value)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                  activeStrain === s.value
-                    ? `${s.color} text-white shadow-md`
-                    : "bg-gray-50 text-[#3d2b1f] hover:bg-gray-100"
-                }`}>
-                <span className={`w-2 h-2 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
-                {s.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Effects */}
-        <div className="p-4 border-b border-gray-100">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
-          <div className="flex flex-wrap gap-1.5">
-            {EFFECTS.map(eff => {
-              const active = activeEffects.includes(eff.value);
-              return (
-                <button key={eff.value} onClick={() => toggleEffect(eff.value)}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-semibold transition-all ${
-                    active
-                      ? "bg-[#1A9248] text-white shadow-md"
-                      : "bg-gray-50 text-[#3d2b1f] hover:bg-[#1A9248]/10 hover:text-[#1A9248]"
+        {/* Strain Type — only for flower & vapes */}
+        {config.strains && (
+          <div className={`p-4 ${effects.length > 0 ? "border-b border-gray-100" : ""}`}>
+            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
+              <Leaf className="w-3.5 h-3.5" /> Strain Type
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {STRAINS.map(s => (
+                <button key={s.value} onClick={() => setStrain(s.value)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    activeStrain === s.value
+                      ? `${s.color} text-white shadow-md`
+                      : "bg-gray-50 text-[#3d2b1f] hover:bg-gray-100"
                   }`}>
-                  <eff.icon className="w-3 h-3" />
-                  {eff.label}
+                  <span className={`w-2 h-2 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
+                  {s.label}
                 </button>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Effects — category-specific subset */}
+        {effects.length > 0 && (
+          <div className="p-4 border-b border-gray-100">
+            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
+            <div className="flex flex-wrap gap-1.5">
+              {effects.map(eff => {
+                const active = activeEffects.includes(eff.value);
+                return (
+                  <button key={eff.value} onClick={() => toggleEffect(eff.value)}
+                    className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-semibold transition-all ${
+                      active
+                        ? "bg-[#1A9248] text-white shadow-md"
+                        : "bg-gray-50 text-[#3d2b1f] hover:bg-[#1A9248]/10 hover:text-[#1A9248]"
+                    }`}>
+                    <eff.icon className="w-3 h-3" />
+                    {eff.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* In Stock toggle */}
         <div className="p-4">
@@ -207,12 +236,15 @@ export function CategorySortBar({ total, shown }: { total: number; shown: number
 }
 
 /* ── Mobile: search + filters + sort bar ── */
-export function CategoryMobileBar() {
+export function CategoryMobileBar({ categorySlug }: { categorySlug: string }) {
   const { activeSearch, activeOrderby, activeOrder, activeInstock, activeEffects, activeStrain, setSearch, setSort, setInstock, toggleEffect, setStrain } = useCatNav();
   const [draft, setDraft] = useState(activeSearch);
   const [open, setOpen] = useState(false);
   const active = SORT_OPTIONS.find(o => o.orderby === activeOrderby && o.order === activeOrder) ?? SORT_OPTIONS[0];
-  const hasFilter = !!(activeInstock || activeStrain || activeEffects.length);
+  const config = getFilterConfig(categorySlug);
+  const effects = ALL_EFFECTS.filter(e => config.effects.includes(e.value));
+  const hasFilters = config.strains || effects.length > 0;
+  const hasActive = !!(activeInstock || activeStrain || activeEffects.length);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -245,18 +277,18 @@ export function CategoryMobileBar() {
       </form>
 
       <div className="flex items-center gap-3">
-        {/* Filter toggle */}
-        <button onClick={() => setOpen(!open)}
-          className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-bold text-[#3d2b1f] hover:border-[#1A9248] transition-colors">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
-          </svg>
-          Filters
-          {hasFilter && <span className="w-2 h-2 rounded-full bg-[#1A9248]" />}
-        </button>
+        {hasFilters && (
+          <button onClick={() => setOpen(!open)}
+            className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm font-bold text-[#3d2b1f] hover:border-[#1A9248] transition-colors">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
+            </svg>
+            Filters
+            {hasActive && <span className="w-2 h-2 rounded-full bg-[#1A9248]" />}
+          </button>
+        )}
 
-        {/* Sort */}
         <div className="relative flex-1">
           <select
             value={`${active.orderby}|${active.order}`}
@@ -274,37 +306,42 @@ export function CategoryMobileBar() {
       </div>
 
       {/* Mobile filter drawer */}
-      {open && (
+      {open && hasFilters && (
         <div className="mt-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-          {/* Strain */}
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Strain Type</p>
-          <div className="flex flex-wrap gap-1.5 mb-3">
-            {STRAINS.map(s => (
-              <button key={s.value} onClick={() => setStrain(s.value)}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${
-                  activeStrain === s.value ? `${s.color} text-white` : "bg-gray-100 text-[#3d2b1f]"
-                }`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
-                {s.label}
-              </button>
-            ))}
-          </div>
+          {config.strains && (
+            <>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Strain Type</p>
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {STRAINS.map(s => (
+                  <button key={s.value} onClick={() => setStrain(s.value)}
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${
+                      activeStrain === s.value ? `${s.color} text-white` : "bg-gray-100 text-[#3d2b1f]"
+                    }`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
+                    {s.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
 
-          {/* Effects */}
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Effects</p>
-          <div className="flex flex-wrap gap-1.5">
-            {EFFECTS.map(eff => (
-              <button key={eff.value} onClick={() => toggleEffect(eff.value)}
-                className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold transition-all ${
-                  activeEffects.includes(eff.value) ? "bg-[#1A9248] text-white" : "bg-gray-100 text-[#3d2b1f]"
-                }`}>
-                <eff.icon className="w-2.5 h-2.5" />
-                {eff.label}
-              </button>
-            ))}
-          </div>
+          {effects.length > 0 && (
+            <>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Effects</p>
+              <div className="flex flex-wrap gap-1.5">
+                {effects.map(eff => (
+                  <button key={eff.value} onClick={() => toggleEffect(eff.value)}
+                    className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold transition-all ${
+                      activeEffects.includes(eff.value) ? "bg-[#1A9248] text-white" : "bg-gray-100 text-[#3d2b1f]"
+                    }`}>
+                    <eff.icon className="w-2.5 h-2.5" />
+                    {eff.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
 
-          {/* In Stock toggle */}
           <div className="mt-3 pt-3 border-t border-gray-100">
             <button
               onClick={() => setInstock(!activeInstock)}
