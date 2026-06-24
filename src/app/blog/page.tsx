@@ -158,8 +158,8 @@ export default async function BlogPage({
             href={`/${hero.slug}`}
             className="group flex flex-col md:flex-row rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100 hover:shadow-[#1A9248]/15 transition-shadow duration-500"
           >
-            {/* Featured image — object-contain so nothing gets cropped */}
-            <div className="relative md:w-[55%] aspect-[16/9] md:aspect-auto bg-[#f8f6f3] overflow-hidden">
+            {/* Featured image */}
+            <div className="relative md:w-[55%] aspect-[16/9] md:min-h-[360px] bg-[#f8f6f3] overflow-hidden">
               {getImg(hero) ? (
                 <Image src={getImg(hero)!} alt={strip(hero.title.rendered)} fill
                   sizes="(max-width: 768px) 100vw, 660px"
@@ -206,7 +206,7 @@ export default async function BlogPage({
                 return (
                   <Link key={post.id} href={`/${post.slug}`}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-gray-200/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
-                    {/* Thumbnail — object-contain, no cropping */}
+                    {/* Thumbnail */}
                     <div className="relative aspect-[16/9] bg-[#f8f6f3] overflow-hidden">
                       {img ? (
                         <Image src={img} alt={strip(post.title.rendered)} fill
