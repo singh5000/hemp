@@ -175,18 +175,21 @@ export default async function ShopPage({
   if (category)    apiParams.set("category", category);
   if (searchTerms) apiParams.set("search", searchTerms);
   if (brand)       apiParams.set("brand", brand);
-  if (instock)     apiParams.set("stock_status", "instock");
 
   // Separate params for pagination URLs — preserves instock/category/brand as URL params
   // so the toggle and filters survive page navigation
   const paginationParams = new URLSearchParams(sp as Record<string, string>);
   paginationParams.delete("page");
 
-  const [{ products, total, pages }, categories, brands] = await Promise.all([
+  const [{ products: rawProducts, total: rawTotal, pages }, categories, brands] = await Promise.all([
     brand ? fetchBrandProducts(apiParams) : fetchProducts(apiParams),
     fetchCategories(),
     fetchBrands(),
   ]);
+
+  const isInStoreOnly = (p: WCProduct) => p.categories.some(c => c.slug === "vapes");
+  const products = instock ? rawProducts.filter(p => p.is_in_stock || isInStoreOnly(p)) : rawProducts;
+  const total    = instock ? rawTotal - (rawProducts.length - products.length) : rawTotal;
 
   const activeCategory  = categories.find(c => c.slug === category);
   const activeBrandData = brands.find(b => b.slug === brand);
