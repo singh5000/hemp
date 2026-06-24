@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import HeroBanner from "@/components/home/HeroBanner";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import ShopByCategory from "@/components/home/ShopByCategory";
+import LatestBlog from "@/components/home/LatestBlog";
 
 const Education101 = dynamic(() => import("@/components/home/Education101"), { ssr: true });
 const Testimonials = dynamic(() => import("@/components/home/Testimonials"), { ssr: true });
@@ -18,6 +19,7 @@ export default function HomePage() {
       <ShopByCategory />
       <Education101 />
       <Testimonials />
+      <LatestBlog />
       <StoreSection />
       <InstagramFeed />
     </>
