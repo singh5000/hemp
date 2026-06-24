@@ -171,9 +171,13 @@ export default async function CategoryPage({
     order,
   });
   if (searchTerms) apiParams.set("search", searchTerms);
-  if (instock)     apiParams.set("stock_status", "instock");
 
-  const { products, total, pages } = await fetchProducts(apiParams);
+  const { products: rawProducts, total: rawTotal, pages } = await fetchProducts(apiParams);
+
+  const isInStoreOnly = (p: WCProduct) => p.categories.some(c => c.slug === "vapes");
+  const products = instock ? rawProducts.filter(p => p.is_in_stock || isInStoreOnly(p)) : rawProducts;
+  const total    = instock ? rawTotal - (rawProducts.length - products.length) : rawTotal;
+
   const categoryFaqs = CATEGORY_FAQS[slug] ?? [];
 
   return (
