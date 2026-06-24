@@ -18,6 +18,7 @@ interface WPPost {
   _embedded?: {
     "wp:featuredmedia"?: Array<{ source_url: string; alt_text: string }>;
     "wp:term"?:          Array<Array<{ name: string; slug: string; id: number }>>;
+    author?:             Array<{ name: string; slug: string; avatar_urls?: Record<string, string>; description?: string }>;
   };
 }
 interface Heading { id: string; text: string; level: number }
@@ -47,7 +48,8 @@ const strip   = (h: string) => h.replace(/<[^>]+>/g,"").replace(/\[[^\]]*\]/g,""
 const fmtDate = (d: string) => new Date(d).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"});
 const readTime = (h: string) => Math.max(1, Math.ceil(h.replace(/<[^>]+>/g,"").split(/\s+/).length / 220));
 const getImg   = (p: WPPost) => p._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? null;
-const getCat   = (p: WPPost) => p._embedded?.["wp:term"]?.[0]?.[0] ?? null;
+const getCat    = (p: WPPost) => p._embedded?.["wp:term"]?.[0]?.[0] ?? null;
+const getAuthor = (p: WPPost) => p._embedded?.author?.[0] ?? null;
 
 const CAT_STYLES: Record<string,string> = {
   "THC":"bg-purple-100 text-purple-700",
@@ -96,12 +98,15 @@ export async function generateMetadata(
   const title   = strip(post.title.rendered);
   const excerpt = strip(post.excerpt.rendered).slice(0,160);
   const image   = getImg(post);
+  const author  = getAuthor(post);
   return {
     title: `${title} | Hemp & Barrel`,
     description: excerpt,
+    ...(author && { authors: [{ name: author.name, url: `https://hempandbarrel.com/blog?author=${author.slug}` }] }),
     openGraph: {
       title, description: excerpt, type:"article",
       publishedTime: post.date, modifiedTime: post.modified,
+      ...(author && { authors: [author.name] }),
       ...(image && { images:[{ url:image, width:1200, height:630 }] }),
     },
   };
@@ -117,6 +122,7 @@ export default async function BlogPostPage(
 
   const cat      = getCat(post);
   const image    = getImg(post);
+  const author   = getAuthor(post);
   const mins     = readTime(post.content.rendered);
   const related  = cat ? await getRelated(cat.id, post.id) : [];
   const toc      = extractTOC(post.content.rendered);
@@ -173,6 +179,15 @@ export default async function BlogPostPage(
               </svg>
               {mins} min read
             </span>
+            {author && (
+              <Link href={`/blog?author=${author.slug}`}
+                className="text-white/50 hover:text-white text-xs flex items-center gap-1.5 transition-colors">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+                {author.name}
+              </Link>
+            )}
           </div>
 
           {/* title */}
@@ -243,6 +258,28 @@ export default async function BlogPostPage(
                 </Link>
               </div>
             </div>
+            {/* Author bio */}
+            {author && (
+              <div className="mt-10 bg-[#f5f0eb] rounded-2xl p-6 md:p-8 flex gap-5 items-start">
+                <div className="w-14 h-14 rounded-full bg-[#1A9248]/10 flex items-center justify-center flex-shrink-0">
+                  {author.avatar_urls?.["96"] ? (
+                    <Image src={author.avatar_urls["96"]} alt={author.name} width={56} height={56} className="rounded-full" />
+                  ) : (
+                    <span className="text-[#1A9248] font-bold text-xl">{author.name.charAt(0).toUpperCase()}</span>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-1">Written by</p>
+                  <Link href={`/blog?author=${author.slug}`}
+                    className="text-[#2a1008] font-bold text-lg hover:text-[#1A9248] transition-colors">
+                    {author.name}
+                  </Link>
+                  {author.description && (
+                    <p className="text-gray-500 text-sm leading-relaxed mt-2">{author.description}</p>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* ── RIGHT: Sticky Sidebar ── */}
