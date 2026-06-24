@@ -12,19 +12,11 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const firstSegment = pathname.split("/")[1] ?? "";
 
-  // Redirect /blog/slug → /slug (301 for SEO migration)
-  if (firstSegment === "blog" && pathname !== "/blog") {
-    const slug = pathname.replace(/^\/blog/, "");
-    const url = request.nextUrl.clone();
-    url.pathname = slug;
-    return NextResponse.redirect(url, 301);
-  }
-
   if (KNOWN_PREFIXES.has(firstSegment) || firstSegment.includes(".")) {
     return NextResponse.next();
   }
 
-  // Rewrite /slug → /blog/slug internally (URL stays as /slug)
+  // Unknown root-level slug → serve blog post from /blog/slug internally
   const url = request.nextUrl.clone();
   url.pathname = `/blog${pathname}`;
   return NextResponse.rewrite(url);

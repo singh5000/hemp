@@ -47,6 +47,8 @@ const nextConfig: NextConfig = {
       { source: "/terms-and-conditions", destination: "/terms-conditions",     permanent: true },
       { source: "/privacy",              destination: "/privacy-policy",       permanent: true },
       { source: "/about",                destination: "/about-us",             permanent: true },
+      // Blog URL migration: /blog/slug → /slug
+      { source: "/blog/:slug", destination: "/:slug", permanent: true },
       // Old WooCommerce category slug aliases
       { source: "/product-category/cbd-gummies",    destination: "/product-category/edibles-gummies",    permanent: true },
       { source: "/product-category/cbd-beverages",  destination: "/product-category/infused-beverages",  permanent: true },
