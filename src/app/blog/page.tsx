@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import NewsletterForm from "@/components/layout/NewsletterForm";
 
 export const metadata: Metadata = {
   title: "CBD Blog | Hemp & Barrel — Expert Hemp Education",
@@ -250,15 +249,6 @@ export default async function BlogPage({
         </section>
       )}
 
-      {/* Newsletter */}
-      <section className="bg-[#2a1008] py-16">
-        <div className="max-w-[680px] mx-auto px-6 text-center">
-          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Stay in the Know</p>
-          <h3 className="text-white text-3xl md:text-4xl font-bold mb-3">Get CBD Tips in Your Inbox</h3>
-          <p className="text-white/50 text-base mb-8">New articles, product guides, and exclusive deals — delivered straight to you.</p>
-          <div className="flex justify-center"><NewsletterForm /></div>
-        </div>
-      </section>
     </>
   );
 }
