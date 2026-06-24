@@ -30,6 +30,14 @@
   100% { transform: rotate(-30deg) translateX(-50%); }
 }
 
+@keyframes heroBgDrift {
+  0% { transform: scale(1.05) translate(0, 0); }
+  25% { transform: scale(1.12) translate(-1.5%, -1%); }
+  50% { transform: scale(1.08) translate(-0.5%, 1%); }
+  75% { transform: scale(1.15) translate(1%, -0.5%); }
+  100% { transform: scale(1.05) translate(0, 0); }
+}
+
 @keyframes fadeSlideIn {
   from { opacity: 0; transform: translateY(8px) scale(1.04); }
   to { opacity: 1; transform: translateY(0) scale(1); }

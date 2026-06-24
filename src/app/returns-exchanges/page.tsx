@@ -11,7 +11,7 @@ const STEPS = [
   {
     n: "01",
     title: "Contact Us",
-    desc: "Email customerservice@email.com within 30 days of your purchase date. Include your order number and reason for return.",
+    desc: "Email customerservice@hempandbarrel.com within 30 days of your purchase date. Include your order number and reason for return.",
   },
   {
     n: "02",
@@ -136,9 +136,9 @@ export default function ReturnsExchangesPage() {
                 <p>
                   All claims for damaged products must be made <strong className="text-[#2a1008]">within 30 days of receipt</strong> by
                   writing to us at{" "}
-                  <a href="mailto:customerservice@email.com"
+                  <a href="mailto:customerservice@hempandbarrel.com"
                     className="text-[#1A9248] underline underline-offset-2 hover:text-[#148038] font-semibold">
-                    customerservice@email.com
+                    customerservice@hempandbarrel.com
                   </a>. You will need to provide detailed information
                   (including images) for any product damaged during shipping within that timeframe.
                 </p>
@@ -173,9 +173,9 @@ export default function ReturnsExchangesPage() {
                   If you are not satisfied with our products, you may request a refund of the
                   full purchase price within <strong className="text-[#2a1008]">30 days of the purchase date</strong>.
                   Please submit this request by writing to{" "}
-                  <a href="mailto:customerservice@email.com"
+                  <a href="mailto:customerservice@hempandbarrel.com"
                     className="text-[#1A9248] underline underline-offset-2 hover:text-[#148038] font-semibold">
-                    customerservice@email.com
+                    customerservice@hempandbarrel.com
                   </a>.
                 </p>
                 <p>
@@ -248,14 +248,14 @@ export default function ReturnsExchangesPage() {
               <p className="text-[#2a1008] font-bold text-base mb-4">We're here to help</p>
 
               <div className="space-y-3 mb-5">
-                <a href="mailto:customerservice@email.com"
+                <a href="mailto:customerservice@hempandbarrel.com"
                   className="flex items-center gap-3 text-sm text-[#3d2b1f] hover:text-[#1A9248] transition-colors group">
                   <div className="w-8 h-8 bg-[#f5f0eb] group-hover:bg-[#1A9248]/10 rounded-lg flex items-center justify-center transition-colors">
                     <svg className="w-4 h-4 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                   </div>
-                  customerservice@email.com
+                  customerservice@hempandbarrel.com
                 </a>
                 <a href="tel:9803264367"
                   className="flex items-center gap-3 text-sm text-[#3d2b1f] hover:text-[#1A9248] transition-colors group">

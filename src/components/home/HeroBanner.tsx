@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, FlaskConical, Leaf, Truck, Shield } from "lucide-react";
@@ -34,8 +34,10 @@ function shuffle<T>(arr: T[]): T[] {
 export default function HeroBanner() {
   const [loaded, setLoaded] = useState(false);
   const [products, setProducts] = useState<Product[]>(fallbackProducts);
-  const [step, setStep] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval>>(null);
+  const [slots, setSlots] = useState([0, 1, 2, 3]);
+  const [transition, setTransition] = useState<{ slot: number; from: number } | null>(null);
+  const nextImg = useRef(4);
+  const turn = useRef(0);
 
   useEffect(() => { requestAnimationFrame(() => setLoaded(true)); }, []);
 
@@ -67,12 +69,26 @@ export default function HeroBanner() {
   const total = products.length;
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => setStep(s => (s + 1) % total), 8000);
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+    const interval = setInterval(() => {
+      const s = turn.current % 4;
+      turn.current++;
+      const ni = nextImg.current % total;
+      nextImg.current++;
+      setSlots(prev => {
+        setTransition({ slot: s, from: prev[s] });
+        const next = [...prev];
+        next[s] = ni;
+        return next;
+      });
+    }, 8000);
+    return () => clearInterval(interval);
   }, [total]);
 
-  const getProduct = useCallback((slot: number) => products[(slot + step) % total], [products, step, total]);
-  const getPrev = useCallback((slot: number) => products[(slot + step - 1 + total) % total], [products, step, total]);
+  useEffect(() => {
+    if (!transition) return;
+    const t = setTimeout(() => setTransition(null), 1600);
+    return () => clearTimeout(t);
+  }, [transition]);
 
   return (
     <section className="relative overflow-hidden min-h-screen -mt-[72px]">
@@ -82,7 +98,7 @@ export default function HeroBanner() {
         alt="Hemp & Barrel"
         fill
         priority
-        className={`object-cover transition-all duration-[1.5s] ${loaded ? "scale-100" : "scale-110"}`}
+        className={`object-cover ${loaded ? "animate-[heroBgDrift_25s_ease-in-out_infinite]" : "scale-110"}`}
         sizes="100vw"
         quality={85}
       />
@@ -150,24 +166,25 @@ export default function HeroBanner() {
             {/* Right side - 2×2 product showcase */}
             <div className={`hidden lg:flex flex-1 justify-end transition-all duration-[1.2s] delay-300 ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
               <div className="grid grid-cols-2 gap-2 w-full max-w-[620px] aspect-square">
-                {[0, 1, 2, 3].map((slot) => {
-                  const active = getProduct(slot);
-                  const prev = getPrev(slot);
-                  const showPrev = step > 0 && prev.src !== active.src;
+                {[0, 1, 2, 3].map((slotIdx) => {
+                  const imgIdx = slots[slotIdx] % total;
+                  const img = products[imgIdx];
+                  const isChanging = transition?.slot === slotIdx;
+                  const prevImg = isChanging ? products[transition.from % total] : null;
                   return (
-                    <div key={slot} className="relative overflow-hidden rounded-xl bg-white">
-                      {showPrev && (
-                        <div key={`p-${prev.src}`} className="absolute inset-0 animate-[fadeOut_1.5s_ease-in-out_forwards]">
-                          <Image src={prev.src} alt={prev.name} fill className="object-cover" sizes="310px" />
+                    <div key={slotIdx} className="relative overflow-hidden rounded-xl bg-white">
+                      {isChanging && prevImg && (
+                        <div key={`p-${transition.from}`} className="absolute inset-0 z-10 animate-[fadeOut_1.5s_ease-in-out_forwards]">
+                          <Image src={prevImg.src} alt={prevImg.name} fill className="object-cover" sizes="310px" />
                           <div className="absolute bottom-0 left-0 right-0 bg-[#1A9248] px-4 py-2.5">
-                            <span className="text-white text-sm font-bold tracking-wide">{prev.name}</span>
+                            <span className="text-white text-sm font-bold tracking-wide">{prevImg.name}</span>
                           </div>
                         </div>
                       )}
-                      <div key={`a-${active.src}`} className="absolute inset-0 animate-[fadeSlideIn_1.5s_ease-in-out]">
-                        <Image src={active.src} alt={active.name} fill className="object-cover" sizes="310px" />
+                      <div key={`a-${imgIdx}`} className={`absolute inset-0 ${isChanging ? "animate-[fadeSlideIn_1.5s_ease-in-out]" : ""}`}>
+                        <Image src={img.src} alt={img.name} fill className="object-cover" sizes="310px" />
                         <div className="absolute bottom-0 left-0 right-0 bg-[#1A9248] px-4 py-2.5">
-                          <span className="text-white text-sm font-bold tracking-wide">{active.name}</span>
+                          <span className="text-white text-sm font-bold tracking-wide">{img.name}</span>
                         </div>
                       </div>
                     </div>

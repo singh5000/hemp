@@ -52,6 +52,8 @@ export default function ChatBot() {
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
+  const [promptVisible, setPromptVisible] = useState(false);
+  const [promptDismissed, setPromptDismissed] = useState(false);
   const messagesEnd = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -62,6 +64,12 @@ export default function ChatBot() {
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 200);
   }, [open]);
+
+  useEffect(() => {
+    if (promptDismissed || open) return;
+    const timer = setTimeout(() => setPromptVisible(true), 3000);
+    return () => clearTimeout(timer);
+  }, [promptDismissed, open]);
 
   const addBotReply = (text: string) => {
     setTyping(true);
@@ -97,20 +105,33 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* Chat bubble */}
-      <button
-        onClick={() => setOpen(!open)}
-        className={`fixed bottom-6 right-6 z-[60] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 ${
-          open
-            ? "bg-[#2a1008] rotate-0 scale-100"
-            : "bg-[#1A9248] hover:bg-[#148038] hover:scale-110 animate-[bounce-subtle_2s_ease-in-out_infinite]"
-        }`}
-      >
-        {open ? <X className="w-6 h-6 text-white" /> : <MessageCircle className="w-6 h-6 text-white" />}
-        {!open && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+      {/* Chat bubble + prompt */}
+      <div className="fixed bottom-6 right-6 z-[60] flex items-center gap-3">
+        {!open && promptVisible && !promptDismissed && (
+          <div className="animate-[fade-in-left_0.4s_ease-out] bg-white rounded-full shadow-lg border border-gray-100 pl-4 pr-2 py-2 flex items-center gap-2">
+            <span className="text-[13px] font-semibold text-[#3d2b1f] whitespace-nowrap">Need any help?</span>
+            <button
+              onClick={(e) => { e.stopPropagation(); setPromptDismissed(true); setPromptVisible(false); }}
+              className="w-5 h-5 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors flex-shrink-0"
+            >
+              <X className="w-3 h-3 text-gray-400" />
+            </button>
+          </div>
         )}
-      </button>
+        <button
+          onClick={() => { setOpen(!open); setPromptDismissed(true); setPromptVisible(false); }}
+          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 flex-shrink-0 ${
+            open
+              ? "bg-[#2a1008] rotate-0 scale-100"
+              : "bg-[#1A9248] hover:bg-[#148038] hover:scale-110 animate-[bounce-subtle_2s_ease-in-out_infinite]"
+          }`}
+        >
+          {open ? <X className="w-6 h-6 text-white" /> : <MessageCircle className="w-6 h-6 text-white" />}
+          {!open && (
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+          )}
+        </button>
+      </div>
 
       {/* Chat window */}
       <div className={`fixed bottom-24 right-6 z-[60] w-[380px] max-w-[calc(100vw-48px)] transition-all duration-500 ${
@@ -217,6 +238,10 @@ export default function ChatBot() {
         @keyframes bounce-subtle {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-5px); }
+        }
+        @keyframes fade-in-left {
+          from { opacity: 0; transform: translateX(10px); }
+          to { opacity: 1; transform: translateX(0); }
         }
       `}</style>
     </>
