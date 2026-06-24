@@ -52,13 +52,13 @@ export default async function LatestBlog() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {posts.map(post => {
             const img = getImg(post);
             const cat = getCat(post);
             return (
               <Link key={post.id} href={`/${post.slug}`}
-                className="group bg-white rounded-2xl border border-gray-100 overflow-hidden flex flex-col shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+                className="group bg-white rounded-2xl border border-gray-200 overflow-hidden flex flex-col shadow-md shadow-black/5 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
                 <div className="relative bg-[#f8f6f3] overflow-hidden">
                   {img ? (
                     <Image src={img} alt={strip(post.title.rendered)} width={600} height={375}
