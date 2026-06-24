@@ -93,7 +93,7 @@ async function fetchReviews(productId: number): Promise<Review[]> {
   const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
   try {
     const res = await fetch(
-      `${WP}/wp-json/wp/v2/comments?post=${productId}&type=review&per_page=20&status=approved`,
+      `${WP}/wp-json/hemp/v1/reviews?product_id=${productId}`,
       { next: { revalidate: 300 } }
     );
     if (!res.ok) return [];
