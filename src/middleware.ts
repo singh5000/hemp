@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const KNOWN_PREFIXES = new Set([
-  "about-us", "api", "blog", "cart", "checkout", "contact", "faqs",
+  "about-us", "api", "author", "blog", "cart", "checkout", "contact", "faqs",
   "lab-reports", "login", "my-account", "privacy-policy", "product",
   "product-category", "register", "returns-exchanges", "shipping-delivery",
   "shop", "terms-conditions", "_next", "favicon.ico",
