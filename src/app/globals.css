@@ -4,6 +4,8 @@
   --font-sans: var(--font-josefin), "Josefin Sans", sans-serif;
 }
 
+.grecaptcha-badge { visibility: hidden !important; }
+
 :root {
   --brand-brown: #3d2b1f;
   --brand-green: #1A9248;
