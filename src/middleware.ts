@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const firstSegment = pathname.split("/")[1] ?? "";
 
-  if (KNOWN_PREFIXES.has(firstSegment) || firstSegment.includes(".")) {
+  if (!firstSegment || KNOWN_PREFIXES.has(firstSegment) || firstSegment.includes(".")) {
     return NextResponse.next();
   }
 
