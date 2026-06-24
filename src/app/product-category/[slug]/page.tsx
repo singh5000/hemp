@@ -8,8 +8,6 @@ import AddToCartButton from "@/app/shop/AddToCartButton";
 import FaqSection from "@/components/ui/FaqSection";
 import { CATEGORY_FAQS } from "@/lib/category-faqs";
 
-export const dynamic = "force-dynamic";
-
 const WC      = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 const PER_PAGE = 12;
 
@@ -36,14 +34,14 @@ interface WCCategory { id: number; name: string; slug: string; count: number; de
 
 /* ── Fetchers ── */
 async function fetchCategory(slug: string): Promise<WCCategory | null> {
-  const res = await fetch(`${WC}/products/categories?per_page=100`, { cache: "no-store" });
+  const res = await fetch(`${WC}/products/categories?per_page=100`, { next: { revalidate: 300 } });
   if (!res.ok) return null;
   const data: WCCategory[] = await res.json();
   return data.find(c => c.slug === slug) ?? null;
 }
 
 async function fetchProducts(params: URLSearchParams): Promise<{ products: WCProduct[]; total: number; pages: number }> {
-  const res = await fetch(`${WC}/products?${params.toString()}`, { cache: "no-store" });
+  const res = await fetch(`${WC}/products?${params.toString()}`, { next: { revalidate: 300 } });
   if (!res.ok) return { products: [], total: 0, pages: 1 };
   const products: WCProduct[] = await res.json();
   const total = parseInt(res.headers.get("X-WP-Total") ?? "0");
