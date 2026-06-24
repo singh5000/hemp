@@ -213,6 +213,15 @@ export default async function BlogPostPage(
               </p>
             )}
 
+            {/* Featured image preview */}
+            {image && (
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-10 shadow-lg">
+                <Image src={image} alt={strip(post.title.rendered)} fill
+                  sizes="(max-width: 1320px) 100vw, 900px"
+                  className="object-cover" priority />
+              </div>
+            )}
+
             {/* Article content */}
             <div
               className="blog-content"
