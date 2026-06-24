@@ -29,7 +29,7 @@ async function getPosts(page: number) {
   const base = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/posts`;
   const res  = await fetch(
     `${base}?per_page=${PER_PAGE}&page=${page}&_embed=1`,
-    { next: { revalidate: 1800 } }          // revalidate every 30 min → new posts appear fast
+    { cache: "no-store" }
   );
   if (!res.ok) return { posts: [], total: 0, totalPages: 1 };
 
