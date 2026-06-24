@@ -179,6 +179,15 @@ export default function Footer() {
               </a>
             </div>
 
+            {/* Email */}
+            <div className="mb-6">
+              <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Email</p>
+              <a href="mailto:customerservice@hempandbarrel.com"
+                className="text-[#1A9248] hover:text-[#7ab84f] font-semibold text-sm transition-colors">
+                customerservice@hempandbarrel.com
+              </a>
+            </div>
+
             {/* Get Directions CTA */}
             <AnimatedButton href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" variant="outline" size="sm" external>
               Get Directions

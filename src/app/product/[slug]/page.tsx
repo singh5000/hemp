@@ -247,8 +247,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="border-t border-gray-100 pt-4">
               <ProductForm
                 productId={product.id}
+                productName={product.name}
                 hasOptions={product.has_options}
                 isInStock={product.is_in_stock}
+                isInStoreOnly={!product.is_in_stock && product.categories.some(c => c.slug === "vapes")}
                 attributes={product.attributes}
                 variations={variations}
               />

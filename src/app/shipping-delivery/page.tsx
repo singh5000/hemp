@@ -263,14 +263,14 @@ export default function ShippingDeliveryPage() {
                   </div>
                   (980) 326-4367
                 </a>
-                <a href="mailto:customerservice@email.com"
+                <a href="mailto:customerservice@hempandbarrel.com"
                   className="flex items-center gap-3 text-sm text-[#3d2b1f] hover:text-[#1A9248] transition-colors group">
                   <div className="w-8 h-8 bg-[#f5f0eb] group-hover:bg-[#1A9248]/10 rounded-lg flex items-center justify-center transition-colors">
                     <svg className="w-4 h-4 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
                   </div>
-                  customerservice@email.com
+                  customerservice@hempandbarrel.com
                 </a>
                 <div className="flex items-start gap-3 text-sm text-[#3d2b1f]">
                   <div className="w-8 h-8 bg-[#f5f0eb] rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">

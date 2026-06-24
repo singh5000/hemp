@@ -230,7 +230,8 @@ export default async function CategoryPage({
                   const unit    = p.prices.currency_minor_unit;
                   const price   = fmt(p.prices.price, unit, sym);
                   const regular = fmt(p.prices.regular_price, unit, sym);
-                  const inStock = p.is_in_stock;
+                  const inStock       = p.is_in_stock;
+                  const isInStoreOnly = !inStock && p.categories.some(c => c.slug === "vapes");
                   const img     = p.images[0];
 
                   return (
@@ -249,7 +250,11 @@ export default async function CategoryPage({
                             <span className="bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Sale</span>
                           )}
                           {!inStock && (
-                            <span className="bg-gray-800/80 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Sold Out</span>
+                            <span className={`text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                              isInStoreOnly ? "bg-amber-600/90" : "bg-gray-800/80"
+                            }`}>
+                              {isInStoreOnly ? "In-Store Only" : "Sold Out"}
+                            </span>
                           )}
                         </div>
                       </div>
@@ -271,7 +276,7 @@ export default async function CategoryPage({
                               className="w-full py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-[#3d2b1f] hover:bg-[#2a1008] text-white text-center transition-colors">
                               Select Options
                             </Link>
-                          : <AddToCartButton productId={p.id} inStock={inStock} productName={p.name} />
+                          : <AddToCartButton productId={p.id} inStock={inStock} isInStoreOnly={isInStoreOnly} />
                         }
                       </div>
                     </div>
