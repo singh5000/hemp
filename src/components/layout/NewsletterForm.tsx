@@ -1,8 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
 const RECAPTCHA_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
+
+function useRecaptcha() {
+  useEffect(() => {
+    if (!RECAPTCHA_KEY || document.querySelector(`script[src*="recaptcha"]`)) return;
+    const s = document.createElement("script");
+    s.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_KEY}`;
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }, []);
+}
 
 export default function NewsletterForm({ variant = "dark" }: { variant?: "dark" | "light" }) {
   const [email, setEmail] = useState("");
@@ -11,6 +22,7 @@ export default function NewsletterForm({ variant = "dark" }: { variant?: "dark" 
   const [submitted, setSubmitted] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [loadedAt] = useState(Date.now());
+  useRecaptcha();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

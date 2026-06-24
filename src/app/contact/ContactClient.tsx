@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const INFO_CARDS = [
@@ -59,6 +59,15 @@ export default function ContactClient() {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", message: "" });
   const [honey, setHoney] = useState("");
   const [loadedAt] = useState(Date.now());
+
+  useEffect(() => {
+    if (!RECAPTCHA_KEY || document.querySelector(`script[src*="recaptcha"]`)) return;
+    const s = document.createElement("script");
+    s.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_KEY}`;
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }, []);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errMsg, setErrMsg] = useState("");
 

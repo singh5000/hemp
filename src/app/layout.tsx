@@ -26,9 +26,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://hempandbarrel.com" />
         <link rel="dns-prefetch" href="https://hempandbarrel.com" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
-          <script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} async defer />
-        )}
       </head>
       <body className="min-h-full flex flex-col bg-white text-[#3d2b1f] antialiased font-sans">
         <AuthProvider>
