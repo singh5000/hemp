@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Expert CBD guides, hemp product education, and the latest cannabinoid science from Hemp & Barrel — Charlotte's trusted CBD store.",
 };
 
-const PER_PAGE = 8;
+const PER_PAGE = 10;
 
 interface WPMedia { source_url: string; alt_text: string }
 interface WPTerm  { name: string; slug: string }
@@ -207,14 +207,14 @@ export default async function BlogPage({
                   <Link key={post.id} href={`/${post.slug}`}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-gray-200/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
                     {/* Thumbnail */}
-                    <div className="relative aspect-[16/9] bg-[#f8f6f3] overflow-hidden">
+                    <div className="bg-[#f8f6f3] overflow-hidden">
                       {img ? (
-                        <Image src={img} alt={strip(post.title.rendered)} fill
+                        <Image src={img} alt={strip(post.title.rendered)} width={600} height={375}
                           sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 380px"
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
                           loading="lazy" />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/50" />
+                        <div className="w-full aspect-[16/9] bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/50" />
                       )}
                     </div>
                     <div className="p-5 flex flex-col flex-1">
