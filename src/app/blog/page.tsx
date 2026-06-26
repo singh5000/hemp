@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "CBD Blog | Hemp & Barrel — Expert Hemp Education",
+  title: "Hemp & Cannabis Blog | Hemp & Barrel — Expert Education",
   description:
     "Expert CBD guides, hemp product education, and the latest cannabinoid science from Hemp & Barrel — Charlotte's trusted CBD store.",
 };

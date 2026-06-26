@@ -8,7 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 import {
   ChevronDown, Search, ShoppingCart, Menu, X,
   User, ClipboardList, LogOut, ArrowRight, Leaf,
-  Wind, ShoppingBag, RefreshCw, Truck,
+  Truck,
 } from "lucide-react";
 
 const HEMP_LEAF = (
@@ -23,16 +23,16 @@ const CATEGORIES = [
   { label: "Topicals", href: "/product-category/topicals", image: "https://hempandbarrel.com/wp-content/uploads/2024/04/Topicals-Category-Photo.png" },
   { label: "CBD Pouches", href: "/product-category/cbd-pouches", image: "https://hempandbarrel.com/wp-content/uploads/2024/04/cbd-pouches2.png" },
   { label: "Pet Products", href: "/product-category/pets", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/pets.jpg" },
-  { label: "Vapes", href: "/product-category/vapes", image: null, gradient: "linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%)", icon: <Wind className="w-10 h-10 text-white/80" strokeWidth={1.5} /> },
-  { label: "Merchandise", href: "/product-category/merchandise", image: null, gradient: "linear-gradient(135deg, #5c3d2e 0%, #3d2b1f 50%, #2a1008 100%)", icon: <ShoppingBag className="w-10 h-10 text-white/80" strokeWidth={1.5} /> },
-  { label: "Subscriptions", href: "/product-category/subitems", image: null, gradient: "linear-gradient(135deg, #2d5a2d 0%, #1a3a1a 50%, #0d2b0d 100%)", icon: <RefreshCw className="w-10 h-10 text-white/80" strokeWidth={1.5} /> },
+  { label: "Vapes", href: "/product-category/vapes", image: "https://hempandbarrel.com/wp-content/uploads/2021/06/CBD-Vape-Cartridge.jpg" },
+  { label: "Merchandise", href: "/product-category/merchandise", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/view-all.jpg" },
+  { label: "Subscriptions", href: "/product-category/subitems", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/tincture.jpg" },
 ];
 
 const NAV_LINKS = [
   { label: "Shop Products", href: "/shop", hasDropdown: true },
   { label: "FAQs", href: "/faqs" },
   { label: "Contact", href: "/contact" },
-  { label: "CBD Blog", href: "/blog" },
+  { label: "Hemp & Cannabis Blog", href: "/blog" },
 ];
 
 function NavLink({ label, href, isActive, scrolled = true }: { label: string; href: string; isActive: boolean; scrolled?: boolean }) {
@@ -137,7 +137,7 @@ export default function Header() {
           {/* Right Nav */}
           <nav className="hidden lg:flex items-center gap-6 flex-1 justify-end">
             <NavLink label="Contact" href="/contact" isActive={isActive("/contact")} scrolled={solid} />
-            <NavLink label="CBD Blog" href="/blog" isActive={isActive("/blog")} scrolled={solid} />
+            <NavLink label="Hemp & Cannabis Blog" href="/blog" isActive={isActive("/blog")} scrolled={solid} />
 
             {/* Account */}
             <div className="relative" ref={accountRef}>
@@ -266,12 +266,8 @@ export default function Header() {
                   {CATEGORIES.map((cat) => (
                     <Link key={cat.href} href={cat.href} onClick={() => setShopOpen(false)}
                       className="group relative rounded-xl overflow-hidden block" style={{ aspectRatio: "1/1" }}>
-                      {cat.image ? (
-                        <Image src={cat.image} alt={cat.label} fill sizes="(max-width:1400px) 20vw, 250px"
-                          className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center" style={{ background: cat.gradient }}>{cat.icon}</div>
-                      )}
+                      <Image src={cat.image} alt={cat.label} fill sizes="(max-width:1400px) 20vw, 250px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent group-hover:from-black/85 transition-all duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-3">
                         <span className="text-white font-bold text-[17px] leading-tight drop-shadow-md block">{cat.label}</span>
@@ -330,13 +326,8 @@ export default function Header() {
                       <Link key={cat.href} href={cat.href}
                         className="flex items-center gap-3 px-4 py-3 hover:bg-[#e8f5ee] border-b border-gray-100 last:border-0 transition-colors"
                         onClick={() => { setMobileOpen(false); setMobileShopOpen(false); }}>
-                        <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0"
-                          style={!cat.image ? { background: cat.gradient } : undefined}>
-                          {cat.image ? (
-                            <Image src={cat.image} alt={cat.label} fill sizes="40px" className="object-cover" />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center scale-50">{cat.icon}</div>
-                          )}
+                        <div className="relative w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+                          <Image src={cat.image} alt={cat.label} fill sizes="40px" className="object-cover" />
                         </div>
                         <span className="text-sm font-semibold text-[#3d2b1f]">{cat.label}</span>
                         <ArrowRight className="w-3.5 h-3.5 text-gray-300 ml-auto" />
@@ -353,7 +344,7 @@ export default function Header() {
               {[
                 { label: "FAQs", href: "/faqs" },
                 { label: "Contact", href: "/contact" },
-                { label: "CBD Blog", href: "/blog" },
+                { label: "Hemp & Cannabis Blog", href: "/blog" },
               ].map((item) => (
                 <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
                   className={`flex items-center justify-between py-3 font-bold text-base border-b border-gray-100 transition-colors ${isActive(item.href) ? "text-[#1A9248]" : "text-[#3d2b1f] hover:text-[#1A9248]"}`}>

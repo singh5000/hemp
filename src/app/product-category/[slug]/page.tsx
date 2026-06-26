@@ -7,6 +7,7 @@ import { CategorySidebar, CategorySortBar, CategoryMobileBar } from "./CategoryF
 import { getCategoryFilterConfig } from "./category-filter-config";
 import AddToCartButton from "@/app/shop/AddToCartButton";
 import FaqSection from "@/components/ui/FaqSection";
+import PetDosageCalculator from "@/components/ui/PetDosageCalculator";
 import { CATEGORY_FAQS } from "@/lib/category-faqs";
 
 const WC      = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
@@ -335,6 +336,9 @@ export default async function CategoryPage({
           </div>
         </div>
       </div>
+
+      {/* ── Pet Dosage Calculator ── */}
+      {slug === "pets" && <PetDosageCalculator />}
 
       {/* ── Category FAQs ── */}
       {categoryFaqs.length > 0 && (

@@ -155,7 +155,7 @@ export default async function BlogPostPage(
           <nav className="flex items-center gap-2 text-white/50 text-sm mb-6">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/blog" className="hover:text-white transition-colors">CBD Blog</Link>
+            <Link href="/blog" className="hover:text-white transition-colors">Hemp & Cannabis Blog</Link>
             {cat && <><span>/</span><span className="text-white/70">{cat.name}</span></>}
           </nav>
 

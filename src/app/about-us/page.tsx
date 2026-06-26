@@ -56,7 +56,7 @@ const PILLARS = [
 const QUICK_LINKS = [
   { label: "Lab Results", href: "/lab-reports", icon: "🔬" },
   { label: "FAQ",         href: "/faqs",        icon: "❓" },
-  { label: "CBD Blog",    href: "/blog",         icon: "📖" },
+  { label: "Hemp & Cannabis Blog", href: "/blog", icon: "📖" },
   { label: "Contact Us",  href: "/contact",      icon: "📞" },
 ];
 
