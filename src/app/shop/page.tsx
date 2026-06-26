@@ -345,7 +345,7 @@ export default async function ShopPage({
                 tag:   "Education",
                 title: "CBD 101",
                 body:  "CBD (cannabidiol) is a naturally occurring compound found in the hemp plant. Non-psychoactive and federally legal, CBD supports relaxation, sleep, and overall wellness. All our products contain ≤ 0.3% Delta-9 THC and are third-party lab tested.",
-                href:  "/product-category/edibles-gummies",
+                href:  "/shop",
                 cta:   "Shop All CBD",
               },
               {
