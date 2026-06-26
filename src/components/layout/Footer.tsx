@@ -20,7 +20,7 @@ const SHOP_LINKS = [
 const INFO_LINKS = [
   { label: "About Us", href: "/about-us" },
   { label: "Lab Reports", href: "/lab-reports" },
-  { label: "CBD Blog", href: "/blog" },
+  { label: "Hemp & Cannabis Blog", href: "/blog" },
   { label: "FAQs", href: "/faqs" },
   { label: "Returns & Exchanges", href: "/returns-exchanges" },
   { label: "Shipping & Delivery", href: "/shipping-delivery" },

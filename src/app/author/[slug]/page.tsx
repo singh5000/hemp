@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${author.name} — Author | Hemp & Barrel`,
     description: author.description
       ? strip(author.description).slice(0, 160)
-      : `Read articles by ${author.name} on Hemp & Barrel's CBD Blog.`,
+      : `Read articles by ${author.name} on Hemp & Barrel's Hemp & Cannabis Blog.`,
   };
 }
 

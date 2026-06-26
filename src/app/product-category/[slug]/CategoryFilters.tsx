@@ -73,12 +73,12 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
   const submit = (e: React.FormEvent) => { e.preventDefault(); nav.setSearch(draft.trim()); };
 
   return (
-    <aside className="hidden lg:block w-[250px] flex-shrink-0 self-stretch">
+    <aside className="hidden lg:block w-[220px] flex-shrink-0 self-stretch">
       <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto">
 
         {/* Header + Clear */}
-        <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-          <p className="text-sm font-bold text-[#1a1a18]">Filter products</p>
+        <div className="px-3.5 py-3 border-b border-gray-100 flex items-center justify-between">
+          <p className="text-[13px] font-bold text-[#1a1a18]">Filter products</p>
           {nav.hasAnyFilter() && (
             <button onClick={nav.clearAll}
               className="text-[11px] font-medium text-gray-400 hover:text-red-500 border border-gray-200 rounded-lg px-2.5 py-1 transition-colors">
@@ -88,28 +88,28 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
         </div>
 
         {/* Search */}
-        <div className="p-4 border-b border-gray-100">
-          <form onSubmit={submit} className="flex gap-2">
+        <div className="px-3.5 py-2.5 border-b border-gray-100">
+          <form onSubmit={submit} className="flex gap-1.5">
             <div className="relative flex-1">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
+              <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none"
                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
               <input type="text" value={draft} onChange={e => setDraft(e.target.value)}
-                placeholder="Search products…"
-                className="w-full pl-8 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"/>
+                placeholder="Search…"
+                className="w-full pl-7 pr-2 py-1.5 text-[11px] border border-gray-200 rounded-md focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"/>
             </div>
             <button type="submit"
-              className="bg-[#1A9248] hover:bg-[#148038] text-white px-2.5 rounded-lg transition-colors flex-shrink-0">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              className="bg-[#1A9248] hover:bg-[#148038] text-white px-2 rounded-md transition-colors flex-shrink-0">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
               </svg>
             </button>
           </form>
           {nav.activeSearch && (
             <button onClick={() => { setDraft(""); nav.setSearch(""); }}
-              className="mt-2 text-[10px] text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              className="mt-1.5 text-[9px] text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
+              <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
               </svg>
               Clear: &ldquo;{nav.activeSearch}&rdquo;
@@ -122,9 +122,9 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
           const activeVal  = nav.getVal(group.key);
           const activeVals = nav.getVals(group.key);
           return (
-            <div key={group.key} className="p-4 border-b border-gray-100">
-              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f] mb-3">{group.label}</p>
-              <div className="flex flex-wrap gap-1.5">
+            <div key={group.key} className="px-3.5 py-2.5 border-b border-gray-100">
+              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#3d2b1f] mb-2">{group.label}</p>
+              <div className="flex flex-wrap gap-1">
                 {group.options.map(opt => {
                   const active = group.type === "single"
                     ? activeVal === opt.value
@@ -132,13 +132,13 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
                   return (
                     <button key={opt.value}
                       onClick={() => group.type === "single" ? nav.setFilter(group.key, opt.value) : nav.toggleFilter(group.key, opt.value)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                      className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium border transition-all ${
                         active
                           ? "bg-[#1a1a18] text-white border-[#1a1a18]"
                           : "bg-white text-[#3d2b1f] border-gray-200 hover:border-gray-400"
                       }`}>
                       {opt.color && (
-                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: active ? "#fff" : opt.color, opacity: active ? 0.6 : 1 }} />
+                        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: active ? "#fff" : opt.color, opacity: active ? 0.6 : 1 }} />
                       )}
                       {opt.label}
                     </button>
@@ -151,18 +151,18 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
 
         {/* Brands */}
         {brands.length > 0 && (
-          <div className="p-4 border-b border-gray-100">
-            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f] mb-3">Brand</p>
-            <div className="space-y-0.5 max-h-[160px] overflow-y-auto">
+          <div className="px-3.5 py-2.5 border-b border-gray-100">
+            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#3d2b1f] mb-2">Brand</p>
+            <div className="space-y-0.5 max-h-[120px] overflow-y-auto">
               {brands.map(b => (
                 <button key={b.id} onClick={() => nav.setBrand(b.slug)}
-                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex justify-between items-center ${
+                  className={`w-full text-left px-2 py-1 rounded-md text-[10px] font-medium transition-all flex justify-between items-center ${
                     nav.activeBrand === b.slug
                       ? "bg-[#1A9248] text-white"
                       : "text-[#3d2b1f] hover:bg-gray-50"
                   }`}>
                   <span>{b.name}</span>
-                  <span className={`text-[10px] ${nav.activeBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
+                  <span className={`text-[9px] ${nav.activeBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
                 </button>
               ))}
             </div>
@@ -171,8 +171,8 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
 
         {/* Price range */}
         {config.priceRange && (
-          <div className="p-4 border-b border-gray-100">
-            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f] mb-3">Price Range</p>
+          <div className="px-3.5 py-2.5 border-b border-gray-100">
+            <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#3d2b1f] mb-2">Price Range</p>
             <PriceRangeSlider
               min={config.priceRange.min}
               max={config.priceRange.max}
@@ -184,12 +184,12 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
         )}
 
         {/* In Stock toggle */}
-        <div className="p-4">
+        <div className="px-3.5 py-2.5">
           <button onClick={() => nav.setInstock(!nav.activeInstock)}
             className="w-full flex items-center justify-between gap-3 group" aria-pressed={nav.activeInstock}>
             <div className="text-left">
-              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f]">In Stock Only</p>
-              <p className="text-[10px] text-gray-400 mt-0.5">{nav.activeInstock ? "Hiding out of stock" : "Showing all"}</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#3d2b1f]">In Stock Only</p>
+              <p className="text-[9px] text-gray-400 mt-0.5">{nav.activeInstock ? "Hiding out of stock" : "Showing all"}</p>
             </div>
             <div className={`relative flex-shrink-0 w-11 h-6 rounded-full transition-colors duration-300 ${
               nav.activeInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
