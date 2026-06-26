@@ -6,6 +6,22 @@
 
 .grecaptcha-badge { visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; position: fixed !important; right: -999px !important; }
 
+.price-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; border: 2px solid #1A9248;
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  cursor: pointer;
+}
+.price-range-input::-moz-range-thumb {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; border: 2px solid #1A9248;
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  cursor: pointer;
+}
+.price-range-input::-webkit-slider-runnable-track { background: transparent; }
+.price-range-input::-moz-range-track { background: transparent; }
+
 :root {
   --brand-brown: #3d2b1f;
   --brand-green: #1A9248;
