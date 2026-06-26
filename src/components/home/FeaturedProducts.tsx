@@ -138,7 +138,7 @@ export default function FeaturedProducts() {
       <div className="max-w-[1320px] mx-auto px-4">
         {/* Title */}
         <h2 className="text-center text-4xl font-bold text-[#3d2b1f] uppercase tracking-wider mb-10">
-          Featured Products
+          Bestsellers
         </h2>
 
         {loading ? (
