@@ -4,11 +4,13 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CategorySidebar, CategorySortBar, CategoryMobileBar } from "./CategoryFilters";
+import { getCategoryFilterConfig } from "./category-filter-config";
 import AddToCartButton from "@/app/shop/AddToCartButton";
 import FaqSection from "@/components/ui/FaqSection";
 import { CATEGORY_FAQS } from "@/lib/category-faqs";
 
 const WC      = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
+const WP_URL  = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
 const PER_PAGE = 12;
 
 /* ── Types ── */
@@ -47,6 +49,27 @@ async function fetchProducts(params: URLSearchParams): Promise<{ products: WCPro
   const total = parseInt(res.headers.get("X-WP-Total") ?? "0");
   const pages = parseInt(res.headers.get("X-WP-TotalPages") ?? "1");
   return { products, total, pages };
+}
+
+export interface Brand { id: number; name: string; slug: string; count: number }
+
+async function fetchBrands(): Promise<Brand[]> {
+  try {
+    const res = await fetch(`${WP_URL}/wp-json/hemp/v1/brands`, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    return res.json();
+  } catch { return []; }
+}
+
+async function fetchCustomProducts(params: URLSearchParams): Promise<{ products: WCProduct[]; total: number; pages: number }> {
+  try {
+    const res = await fetch(`${WP_URL}/wp-json/hemp/v1/products?${params.toString()}`, { next: { revalidate: 300 } });
+    if (!res.ok) return { products: [], total: 0, pages: 1 };
+    const products: WCProduct[] = await res.json();
+    const total = parseInt(res.headers.get("X-WP-Total") ?? "0");
+    const pages = parseInt(res.headers.get("X-WP-TotalPages") ?? "1");
+    return { products, total, pages };
+  } catch { return { products: [], total: 0, pages: 1 }; }
 }
 
 /* ── Metadata ── */
@@ -153,13 +176,23 @@ export default async function CategoryPage({
   const order    = sp.order   ?? "asc";
   const search   = sp.search  ?? "";
   const instock  = sp.instock === "1";
-  const effects  = sp.effects ?? "";
-  const strain   = sp.strain  ?? "";
+  const brand    = sp.brand   ?? "";
+  const maxPrice = sp.max_price ?? "";
 
-  const searchTerms = [search, strain, ...effects.split(",").filter(Boolean)].filter(Boolean).join(" ");
+  const config = getCategoryFilterConfig(slug);
+  const searchParts: string[] = [search];
+  for (const group of config.filters) {
+    const val = sp[group.key] ?? "";
+    if (!val) continue;
+    if (group.type === "multi") searchParts.push(...val.split(",").filter(Boolean));
+    else searchParts.push(val);
+  }
+  const searchTerms = searchParts.filter(Boolean).join(" ");
 
-  const [category] = await Promise.all([fetchCategory(slug)]);
+  const [category, brands] = await Promise.all([fetchCategory(slug), fetchBrands()]);
   if (!category) notFound();
+
+  const useCustom = !!brand || !!maxPrice;
 
   const apiParams = new URLSearchParams({
     category: slug,
@@ -169,12 +202,17 @@ export default async function CategoryPage({
     order,
   });
   if (searchTerms) apiParams.set("search", searchTerms);
+  if (brand)       apiParams.set("brand", brand);
+  if (maxPrice)    apiParams.set("max_price", maxPrice);
+  if (instock)     apiParams.set("instock", "1");
 
-  const { products: rawProducts, total: rawTotal, pages } = await fetchProducts(apiParams);
+  const { products: rawProducts, total: rawTotal, pages } = useCustom
+    ? await fetchCustomProducts(apiParams)
+    : await fetchProducts(apiParams);
 
   const isInStoreOnly = (p: WCProduct) => p.categories.some(c => c.slug === "vapes");
-  const products = instock ? rawProducts.filter(p => p.is_in_stock || isInStoreOnly(p)) : rawProducts;
-  const total    = instock ? rawTotal - (rawProducts.length - products.length) : rawTotal;
+  const products = instock && !useCustom ? rawProducts.filter(p => p.is_in_stock || isInStoreOnly(p)) : rawProducts;
+  const total    = instock && !useCustom ? rawTotal - (rawProducts.length - products.length) : rawTotal;
 
   const categoryFaqs = CATEGORY_FAQS[slug] ?? [];
 
@@ -211,12 +249,12 @@ export default async function CategoryPage({
       {/* ── Main ── */}
       <div className="max-w-[1320px] mx-auto px-4 py-10">
         <Suspense fallback={null}>
-          <CategoryMobileBar categorySlug={slug} />
+          <CategoryMobileBar categorySlug={slug} brands={brands} />
         </Suspense>
 
         <div className="flex gap-8 items-stretch">
           <Suspense fallback={null}>
-            <CategorySidebar categorySlug={slug} />
+            <CategorySidebar categorySlug={slug} brands={brands} />
           </Suspense>
 
           <div className="flex-1 min-w-0">

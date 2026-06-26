@@ -2,9 +2,11 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
-import { Moon, Zap, Heart, Brain, Smile, Leaf, Sun, Shield } from "lucide-react";
+import { getCategoryFilterConfig } from "./category-filter-config";
+import type { Brand } from "./page";
+import PriceRangeSlider from "./PriceRangeSlider";
 
-export const SORT_OPTIONS = [
+const SORT_OPTIONS = [
   { label: "Default Sorting",    orderby: "menu_order", order: "asc"  },
   { label: "Sort by Popularity", orderby: "popularity",  order: "asc"  },
   { label: "Sort by Rating",     orderby: "rating",      order: "asc"  },
@@ -12,44 +14,6 @@ export const SORT_OPTIONS = [
   { label: "Price: Low → High",  orderby: "price",       order: "asc"  },
   { label: "Price: High → Low",  orderby: "price",       order: "desc" },
 ];
-
-const ALL_EFFECTS = [
-  { label: "Sleep",      value: "sleep",      icon: Moon },
-  { label: "Relaxation", value: "relaxation",  icon: Smile },
-  { label: "Pain Relief",value: "pain",        icon: Shield },
-  { label: "Focus",      value: "focus",       icon: Brain },
-  { label: "Energy",     value: "energy",      icon: Zap },
-  { label: "Anxiety",    value: "anxiety",     icon: Heart },
-  { label: "Wellness",   value: "wellness",    icon: Sun },
-];
-
-const STRAINS = [
-  { label: "Indica",  value: "indica",  color: "bg-purple-500" },
-  { label: "Sativa",  value: "sativa",  color: "bg-orange-500" },
-  { label: "Hybrid",  value: "hybrid",  color: "bg-[#1A9248]" },
-];
-
-interface FilterConfig {
-  strains: boolean;
-  effects: string[];
-}
-
-const CATEGORY_FILTERS: Record<string, FilterConfig> = {
-  "smokable-hemp-flower": { strains: true,  effects: ["sleep", "relaxation", "pain", "focus", "energy", "anxiety", "wellness"] },
-  "vapes":                { strains: true,  effects: ["sleep", "relaxation", "pain", "focus", "energy", "anxiety"] },
-  "edibles-gummies":      { strains: false, effects: ["sleep", "relaxation", "pain", "focus", "energy", "anxiety", "wellness"] },
-  "tinctures":            { strains: false, effects: ["sleep", "relaxation", "pain", "anxiety", "wellness"] },
-  "infused-beverages":    { strains: false, effects: ["relaxation", "focus", "energy", "wellness"] },
-  "topicals":             { strains: false, effects: ["pain", "relaxation", "wellness"] },
-  "cbd-pouches":          { strains: false, effects: ["relaxation", "focus", "energy", "anxiety"] },
-  "pets":                 { strains: false, effects: ["anxiety", "pain", "wellness"] },
-};
-
-const DEFAULT_FILTER: FilterConfig = { strains: false, effects: [] };
-
-function getFilterConfig(slug: string): FilterConfig {
-  return CATEGORY_FILTERS[slug] ?? DEFAULT_FILTER;
-}
 
 function useCatNav() {
   const router   = useRouter();
@@ -75,45 +39,64 @@ function useCatNav() {
     activeOrderby:  params.get("orderby")  ?? "menu_order",
     activeOrder:    params.get("order")    ?? "asc",
     activeInstock:  params.get("instock") === "1",
-    activeEffects:  params.get("effects")?.split(",").filter(Boolean) ?? [],
-    activeStrain:   params.get("strain") ?? "",
-    setSearch:   (q: string)              => push({ search: q }),
-    setSort:     (ob: string, or: string) => push({ orderby: ob, order: or }),
-    setInstock:  (on: boolean)            => push({ instock: on ? "1" : "" }),
-    toggleEffect:(val: string)            => toggleMulti("effects", val),
-    setStrain:   (val: string)            => push({ strain: params.get("strain") === val ? "" : val }),
+    activeBrand:    params.get("brand")    ?? "",
+    activeMaxPrice: params.get("max_price") ?? "",
+    getVal:         (key: string) => params.get(key) ?? "",
+    getVals:        (key: string) => params.get(key)?.split(",").filter(Boolean) ?? [],
+    setSearch:      (q: string) => push({ search: q }),
+    setSort:        (ob: string, or: string) => push({ orderby: ob, order: or }),
+    setInstock:     (on: boolean) => push({ instock: on ? "1" : "" }),
+    setBrand:       (s: string) => push({ brand: params.get("brand") === s ? "" : s }),
+    setMaxPrice:    (v: string) => push({ max_price: v }),
+    setFilter:      (key: string, val: string) => push({ [key]: params.get(key) === val ? "" : val }),
+    toggleFilter:   (key: string, val: string) => toggleMulti(key, val),
+    clearAll: () => {
+      const next = new URLSearchParams();
+      if (params.get("orderby")) next.set("orderby", params.get("orderby")!);
+      if (params.get("order"))   next.set("order", params.get("order")!);
+      router.push(`${pathname}?${next.toString()}`);
+    },
+    hasAnyFilter: () => {
+      const skip = new Set(["page", "orderby", "order"]);
+      for (const [k, v] of params.entries()) { if (!skip.has(k) && v) return true; }
+      return false;
+    },
   };
 }
 
-/* ── Desktop sticky sidebar ── */
-export function CategorySidebar({ categorySlug }: { categorySlug: string }) {
-  const { activeSearch, activeInstock, activeEffects, activeStrain, setSearch, setInstock, toggleEffect, setStrain } = useCatNav();
-  const [draft, setDraft] = useState(activeSearch);
-  const config = getFilterConfig(categorySlug);
-  const effects = ALL_EFFECTS.filter(e => config.effects.includes(e.value));
-  const hasFilters = config.strains || effects.length > 0;
+/* ── Desktop sidebar ── */
+export function CategorySidebar({ categorySlug, brands }: { categorySlug: string; brands: Brand[] }) {
+  const nav = useCatNav();
+  const [draft, setDraft] = useState(nav.activeSearch);
+  const config = getCategoryFilterConfig(categorySlug);
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSearch(draft.trim());
-  };
+  const submit = (e: React.FormEvent) => { e.preventDefault(); nav.setSearch(draft.trim()); };
 
   return (
-    <aside className="hidden lg:block w-[230px] flex-shrink-0 self-stretch">
-      <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
+    <aside className="hidden lg:block w-[250px] flex-shrink-0 self-stretch">
+      <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto">
+
+        {/* Header + Clear */}
+        <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+          <p className="text-sm font-bold text-[#1a1a18]">Filter products</p>
+          {nav.hasAnyFilter() && (
+            <button onClick={nav.clearAll}
+              className="text-[11px] font-medium text-gray-400 hover:text-red-500 border border-gray-200 rounded-lg px-2.5 py-1 transition-colors">
+              Clear all
+            </button>
+          )}
+        </div>
 
         {/* Search */}
-        <div className={`p-4 ${hasFilters ? "border-b border-gray-100" : ""}`}>
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
+        <div className="p-4 border-b border-gray-100">
           <form onSubmit={submit} className="flex gap-2">
             <div className="relative flex-1">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
               <input type="text" value={draft} onChange={e => setDraft(e.target.value)}
-                placeholder="Product name…"
+                placeholder="Search products…"
                 className="w-full pl-8 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"/>
             </div>
             <button type="submit"
@@ -123,80 +106,96 @@ export function CategorySidebar({ categorySlug }: { categorySlug: string }) {
               </svg>
             </button>
           </form>
-          {activeSearch && (
-            <button onClick={() => { setDraft(""); setSearch(""); }}
+          {nav.activeSearch && (
+            <button onClick={() => { setDraft(""); nav.setSearch(""); }}
               className="mt-2 text-[10px] text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
               </svg>
-              Clear: &ldquo;{activeSearch}&rdquo;
+              Clear: &ldquo;{nav.activeSearch}&rdquo;
             </button>
           )}
         </div>
 
-        {/* Strain Type — only for flower & vapes */}
-        {config.strains && (
-          <div className={`p-4 ${effects.length > 0 ? "border-b border-gray-100" : ""}`}>
-            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
-              <Leaf className="w-3.5 h-3.5" /> Strain Type
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {STRAINS.map(s => (
-                <button key={s.value} onClick={() => setStrain(s.value)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                    activeStrain === s.value
-                      ? `${s.color} text-white shadow-md`
-                      : "bg-gray-50 text-[#3d2b1f] hover:bg-gray-100"
+        {/* Dynamic filter groups */}
+        {config.filters.map(group => {
+          const activeVal  = nav.getVal(group.key);
+          const activeVals = nav.getVals(group.key);
+          return (
+            <div key={group.key} className="p-4 border-b border-gray-100">
+              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f] mb-3">{group.label}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {group.options.map(opt => {
+                  const active = group.type === "single"
+                    ? activeVal === opt.value
+                    : activeVals.includes(opt.value);
+                  return (
+                    <button key={opt.value}
+                      onClick={() => group.type === "single" ? nav.setFilter(group.key, opt.value) : nav.toggleFilter(group.key, opt.value)}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                        active
+                          ? "bg-[#1a1a18] text-white border-[#1a1a18]"
+                          : "bg-white text-[#3d2b1f] border-gray-200 hover:border-gray-400"
+                      }`}>
+                      {opt.color && (
+                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: active ? "#fff" : opt.color, opacity: active ? 0.6 : 1 }} />
+                      )}
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Brands */}
+        {brands.length > 0 && (
+          <div className="p-4 border-b border-gray-100">
+            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f] mb-3">Brand</p>
+            <div className="space-y-0.5 max-h-[160px] overflow-y-auto">
+              {brands.map(b => (
+                <button key={b.id} onClick={() => nav.setBrand(b.slug)}
+                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex justify-between items-center ${
+                    nav.activeBrand === b.slug
+                      ? "bg-[#1A9248] text-white"
+                      : "text-[#3d2b1f] hover:bg-gray-50"
                   }`}>
-                  <span className={`w-2 h-2 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
-                  {s.label}
+                  <span>{b.name}</span>
+                  <span className={`text-[10px] ${nav.activeBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
                 </button>
               ))}
             </div>
           </div>
         )}
 
-        {/* Effects — category-specific subset */}
-        {effects.length > 0 && (
+        {/* Price range */}
+        {config.priceRange && (
           <div className="p-4 border-b border-gray-100">
-            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
-            <div className="flex flex-wrap gap-1.5">
-              {effects.map(eff => {
-                const active = activeEffects.includes(eff.value);
-                return (
-                  <button key={eff.value} onClick={() => toggleEffect(eff.value)}
-                    className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-semibold transition-all ${
-                      active
-                        ? "bg-[#1A9248] text-white shadow-md"
-                        : "bg-gray-50 text-[#3d2b1f] hover:bg-[#1A9248]/10 hover:text-[#1A9248]"
-                    }`}>
-                    <eff.icon className="w-3 h-3" />
-                    {eff.label}
-                  </button>
-                );
-              })}
-            </div>
+            <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f] mb-3">Price Range</p>
+            <PriceRangeSlider
+              min={config.priceRange.min}
+              max={config.priceRange.max}
+              step={config.priceRange.step}
+              currentMax={nav.activeMaxPrice ? Number(nav.activeMaxPrice) : config.priceRange.max}
+              onApply={nav.setMaxPrice}
+            />
           </div>
         )}
 
         {/* In Stock toggle */}
         <div className="p-4">
-          <button
-            onClick={() => setInstock(!activeInstock)}
-            className="w-full flex items-center justify-between gap-3 group"
-            aria-pressed={activeInstock}
-          >
+          <button onClick={() => nav.setInstock(!nav.activeInstock)}
+            className="w-full flex items-center justify-between gap-3 group" aria-pressed={nav.activeInstock}>
             <div className="text-left">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248]">In Stock Only</p>
-              <p className="text-[10px] text-gray-400 mt-0.5 leading-snug">
-                {activeInstock ? "Hiding out of stock items" : "Showing all products"}
-              </p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#3d2b1f]">In Stock Only</p>
+              <p className="text-[10px] text-gray-400 mt-0.5">{nav.activeInstock ? "Hiding out of stock" : "Showing all"}</p>
             </div>
             <div className={`relative flex-shrink-0 w-11 h-6 rounded-full transition-colors duration-300 ${
-              activeInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
+              nav.activeInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
             }`}>
               <span className={`absolute top-[3px] left-[3px] w-[18px] h-[18px] bg-white rounded-full shadow-sm transition-transform duration-300 ${
-                activeInstock ? "translate-x-5" : "translate-x-0"
+                nav.activeInstock ? "translate-x-5" : "translate-x-0"
               }`} />
             </div>
           </button>
@@ -206,11 +205,10 @@ export function CategorySidebar({ categorySlug }: { categorySlug: string }) {
   );
 }
 
-/* ── Desktop sort + count bar ── */
+/* ── Desktop sort bar ── */
 export function CategorySortBar({ total, shown }: { total: number; shown: number }) {
   const { activeOrderby, activeOrder, setSort } = useCatNav();
   const active = SORT_OPTIONS.find(o => o.orderby === activeOrderby && o.order === activeOrder) ?? SORT_OPTIONS[0];
-
   return (
     <div className="hidden lg:flex items-center justify-between mb-6">
       <p className="text-gray-400 text-sm">
@@ -218,8 +216,7 @@ export function CategorySortBar({ total, shown }: { total: number; shown: number
         <span className="font-bold text-[#3d2b1f]">{total}</span> products
       </p>
       <div className="relative">
-        <select
-          value={`${active.orderby}|${active.order}`}
+        <select value={`${active.orderby}|${active.order}`}
           onChange={e => { const [ob, or] = e.target.value.split("|"); setSort(ob, or); }}
           className="appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#1A9248] cursor-pointer">
           {SORT_OPTIONS.map(o => (
@@ -235,44 +232,34 @@ export function CategorySortBar({ total, shown }: { total: number; shown: number
   );
 }
 
-/* ── Mobile: search + filters + sort bar ── */
-export function CategoryMobileBar({ categorySlug }: { categorySlug: string }) {
-  const { activeSearch, activeOrderby, activeOrder, activeInstock, activeEffects, activeStrain, setSearch, setSort, setInstock, toggleEffect, setStrain } = useCatNav();
-  const [draft, setDraft] = useState(activeSearch);
+/* ── Mobile bar ── */
+export function CategoryMobileBar({ categorySlug, brands }: { categorySlug: string; brands: Brand[] }) {
+  const nav = useCatNav();
+  const [draft, setDraft] = useState(nav.activeSearch);
   const [open, setOpen] = useState(false);
-  const active = SORT_OPTIONS.find(o => o.orderby === activeOrderby && o.order === activeOrder) ?? SORT_OPTIONS[0];
-  const config = getFilterConfig(categorySlug);
-  const effects = ALL_EFFECTS.filter(e => config.effects.includes(e.value));
-  const hasFilters = config.strains || effects.length > 0;
-  const hasActive = !!(activeInstock || activeStrain || activeEffects.length);
+  const config = getCategoryFilterConfig(categorySlug);
+  const active = SORT_OPTIONS.find(o => o.orderby === nav.activeOrderby && o.order === nav.activeOrder) ?? SORT_OPTIONS[0];
+  const hasFilters = config.filters.length > 0 || config.priceRange || brands.length > 0;
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSearch(draft.trim());
-  };
+  const submit = (e: React.FormEvent) => { e.preventDefault(); nav.setSearch(draft.trim()); };
 
   return (
     <div className="lg:hidden mb-6 space-y-3">
+      {/* Search */}
       <form onSubmit={submit} className="flex gap-2">
         <div className="relative flex-1">
           <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"
             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <input type="text" value={draft} onChange={e => setDraft(e.target.value)}
             placeholder="Search products…"
             className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-full focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400 bg-white"/>
         </div>
-        <button type="submit"
-          className="bg-[#1A9248] hover:bg-[#148038] text-white px-4 rounded-full transition-colors text-sm font-bold">
-          Go
-        </button>
-        {activeSearch && (
-          <button type="button" onClick={() => { setDraft(""); setSearch(""); }}
-            className="bg-gray-100 hover:bg-red-50 hover:text-red-500 text-gray-500 px-3 rounded-full transition-colors text-sm font-bold">
-            ✕
-          </button>
+        <button type="submit" className="bg-[#1A9248] hover:bg-[#148038] text-white px-4 rounded-full transition-colors text-sm font-bold">Go</button>
+        {nav.activeSearch && (
+          <button type="button" onClick={() => { setDraft(""); nav.setSearch(""); }}
+            className="bg-gray-100 hover:bg-red-50 hover:text-red-500 text-gray-500 px-3 rounded-full transition-colors text-sm font-bold">✕</button>
         )}
       </form>
 
@@ -285,14 +272,12 @@ export function CategoryMobileBar({ categorySlug }: { categorySlug: string }) {
                 d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
             </svg>
             Filters
-            {hasActive && <span className="w-2 h-2 rounded-full bg-[#1A9248]" />}
+            {nav.hasAnyFilter() && <span className="w-2 h-2 rounded-full bg-[#1A9248]" />}
           </button>
         )}
-
         <div className="relative flex-1">
-          <select
-            value={`${active.orderby}|${active.order}`}
-            onChange={e => { const [ob, or] = e.target.value.split("|"); setSort(ob, or); }}
+          <select value={`${active.orderby}|${active.order}`}
+            onChange={e => { const [ob, or] = e.target.value.split("|"); nav.setSort(ob, or); }}
             className="w-full appearance-none bg-white border border-gray-200 rounded-full pl-4 pr-9 py-2 text-sm font-semibold text-[#3d2b1f] focus:outline-none focus:border-[#1A9248] cursor-pointer">
             {SORT_OPTIONS.map(o => (
               <option key={`${o.orderby}|${o.order}`} value={`${o.orderby}|${o.order}`}>{o.label}</option>
@@ -306,58 +291,90 @@ export function CategoryMobileBar({ categorySlug }: { categorySlug: string }) {
       </div>
 
       {/* Mobile filter drawer */}
-      {open && hasFilters && (
-        <div className="mt-3 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
-          {config.strains && (
-            <>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Strain Type</p>
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {STRAINS.map(s => (
-                  <button key={s.value} onClick={() => setStrain(s.value)}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${
-                      activeStrain === s.value ? `${s.color} text-white` : "bg-gray-100 text-[#3d2b1f]"
-                    }`}>
-                    <span className={`w-1.5 h-1.5 rounded-full ${activeStrain === s.value ? "bg-white/50" : s.color}`} />
-                    {s.label}
-                  </button>
-                ))}
-              </div>
-            </>
+      {open && (
+        <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm space-y-4">
+          {/* Clear all */}
+          {nav.hasAnyFilter() && (
+            <div className="flex justify-end">
+              <button onClick={nav.clearAll} className="text-[11px] text-gray-400 hover:text-red-500 border border-gray-200 rounded-lg px-2.5 py-1">Clear all</button>
+            </div>
           )}
 
-          {effects.length > 0 && (
-            <>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Effects</p>
+          {/* Dynamic filters */}
+          {config.filters.map(group => {
+            const activeVal  = nav.getVal(group.key);
+            const activeVals = nav.getVals(group.key);
+            return (
+              <div key={group.key}>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">{group.label}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.options.map(opt => {
+                    const isActive = group.type === "single" ? activeVal === opt.value : activeVals.includes(opt.value);
+                    return (
+                      <button key={opt.value}
+                        onClick={() => group.type === "single" ? nav.setFilter(group.key, opt.value) : nav.toggleFilter(group.key, opt.value)}
+                        className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-medium border transition-all ${
+                          isActive ? "bg-[#1a1a18] text-white border-[#1a1a18]" : "bg-white text-[#3d2b1f] border-gray-200"
+                        }`}>
+                        {opt.color && <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: isActive ? "#fff" : opt.color, opacity: isActive ? 0.6 : 1 }} />}
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Brands */}
+          {brands.length > 0 && (
+            <div>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Brand</p>
               <div className="flex flex-wrap gap-1.5">
-                {effects.map(eff => (
-                  <button key={eff.value} onClick={() => toggleEffect(eff.value)}
-                    className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold transition-all ${
-                      activeEffects.includes(eff.value) ? "bg-[#1A9248] text-white" : "bg-gray-100 text-[#3d2b1f]"
-                    }`}>
-                    <eff.icon className="w-2.5 h-2.5" />
-                    {eff.label}
-                  </button>
+                {brands.slice(0, 10).map(b => (
+                  <button key={b.id} onClick={() => nav.setBrand(b.slug)}
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-medium border transition-all ${
+                      nav.activeBrand === b.slug ? "bg-[#1A9248] text-white border-[#1A9248]" : "bg-white text-[#3d2b1f] border-gray-200"
+                    }`}>{b.name}</button>
                 ))}
               </div>
-            </>
+            </div>
           )}
 
-          <div className="mt-3 pt-3 border-t border-gray-100">
-            <button
-              onClick={() => setInstock(!activeInstock)}
-              className="w-full flex items-center justify-between gap-3 group py-1"
-              aria-pressed={activeInstock}
-            >
+          {/* Price range */}
+          {config.priceRange && (
+            <div>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Price Range</p>
+              <PriceRangeSlider
+                min={config.priceRange.min}
+                max={config.priceRange.max}
+                step={config.priceRange.step}
+                currentMax={nav.activeMaxPrice ? Number(nav.activeMaxPrice) : config.priceRange.max}
+                onApply={nav.setMaxPrice}
+              />
+            </div>
+          )}
+
+          {/* In Stock */}
+          <div className="pt-3 border-t border-gray-100">
+            <button onClick={() => nav.setInstock(!nav.activeInstock)}
+              className="w-full flex items-center justify-between gap-3 group py-1" aria-pressed={nav.activeInstock}>
               <span className="text-xs font-bold text-[#3d2b1f]">In Stock Only</span>
               <div className={`relative flex-shrink-0 w-10 h-5 rounded-full transition-colors duration-300 ${
-                activeInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
+                nav.activeInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
               }`}>
                 <span className={`absolute top-[3px] left-[3px] w-[14px] h-[14px] bg-white rounded-full shadow-sm transition-transform duration-300 ${
-                  activeInstock ? "translate-x-5" : "translate-x-0"
+                  nav.activeInstock ? "translate-x-5" : "translate-x-0"
                 }`} />
               </div>
             </button>
           </div>
+
+          {/* Apply button */}
+          <button onClick={() => setOpen(false)}
+            className="w-full py-2.5 text-sm font-bold text-center bg-[#1a1a18] hover:bg-[#333] text-white rounded-xl transition-colors">
+            Apply filters
+          </button>
         </div>
       )}
     </div>
