@@ -125,12 +125,12 @@ export default function Header() {
           </nav>
 
           {/* Center Logo */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 flex-shrink-0">
+          <Link href="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 flex-shrink-0 max-w-[140px] sm:max-w-none">
             <Image
               src="https://hempandbarrel.com/wp-content/uploads/2023/02/nav-logo.svg"
               alt="Hemp & Barrel"
               width={180} height={50} priority
-              className={`w-auto transition-all duration-500 ${solid ? "h-[30px]" : "h-[38px]"} ${!solid ? "brightness-0 invert" : ""}`}
+              className={`w-auto transition-all duration-500 ${solid ? "h-[26px] sm:h-[30px]" : "h-[30px] sm:h-[38px]"} ${!solid ? "brightness-0 invert" : ""}`}
             />
           </Link>
 
