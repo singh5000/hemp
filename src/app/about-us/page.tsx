@@ -225,7 +225,7 @@ export default function AboutUsPage() {
               </div>
             </div>
             <div className="flex-shrink-0">
-              <AnimatedButton href="/contact">Get Directions</AnimatedButton>
+              <AnimatedButton href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" external>Get Directions</AnimatedButton>
             </div>
           </div>
         </div>
