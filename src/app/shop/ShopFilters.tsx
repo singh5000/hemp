@@ -136,7 +136,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Search */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
           <form onSubmit={submitSearch} className="flex gap-2">
             <div className="relative flex-1">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
@@ -149,7 +149,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder="Product name…"
-                className="w-full pl-8 pr-3 py-2 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
+                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
               />
             </div>
             <button type="submit"
@@ -161,7 +161,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
           </form>
           {nav.activeSearch && (
             <button onClick={() => { setDraft(""); nav.setSearch(""); }}
-              className="mt-2 text-[10px] text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
+              className="mt-2 text-[11px] text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
               </svg>
@@ -172,7 +172,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Categories */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Category</p>
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Category</p>
           <div className="space-y-0.5">
             <button onClick={() => { setPCat(""); setPBrand(""); }}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all flex justify-between items-center ${
@@ -198,9 +198,9 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
         {/* Brands */}
         {brands.length > 0 && (
           <div className="p-4 border-b border-gray-100">
-            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Brands</p>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Brands</p>
             <div className="relative mb-2">
-              <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none"
+              <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -210,7 +210,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 value={brandSearch}
                 onChange={(e) => setBrandSearch(e.target.value)}
                 placeholder="Search brands…"
-                className="w-full pl-7 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
+                className="w-full pl-7 pr-3 py-1.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
               />
             </div>
             <div className="space-y-0.5 max-h-[200px] overflow-y-auto">
@@ -234,13 +234,13 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Strain Type */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
             <Leaf className="w-3.5 h-3.5" /> Strain Type
           </p>
           <div className="flex flex-wrap gap-1.5">
             {STRAINS.map(s => (
               <button key={s.value} onClick={() => setPStrain(pStrain === s.value ? "" : s.value)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-bold transition-all ${
                   pStrain === s.value
                     ? `${s.color} text-white shadow-md`
                     : "bg-gray-50 text-[#3d2b1f] hover:bg-gray-100"
@@ -254,7 +254,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Effects */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
           <div className="flex flex-wrap gap-1.5">
             {EFFECTS.map(eff => {
               const active = pEffects.includes(eff.value);
@@ -262,7 +262,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 <button key={eff.value} onClick={() => setPEffects(prev =>
                   prev.includes(eff.value) ? prev.filter(v => v !== eff.value) : [...prev, eff.value]
                 )}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-semibold transition-all ${
+                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
                     active
                       ? "bg-[#1A9248] text-white shadow-md"
                       : "bg-gray-50 text-[#3d2b1f] hover:bg-[#1A9248]/10 hover:text-[#1A9248]"
@@ -283,8 +283,8 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
             aria-pressed={pInstock}
           >
             <div className="text-left">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248]">In Stock Only</p>
-              <p className="text-[10px] text-gray-400 mt-0.5 leading-snug">
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248]">In Stock Only</p>
+              <p className="text-[11px] text-gray-400 mt-0.5 leading-snug">
                 {pInstock ? "Hiding out of stock items" : "Showing all products"}
               </p>
             </div>

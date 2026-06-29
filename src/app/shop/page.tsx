@@ -191,11 +191,12 @@ export default async function ShopPage({
   ]);
 
   const isInStoreOnly = (p: WCProduct) => p.categories.some(c => c.slug === "vapes");
+  const isBottomSorted = (p: WCProduct) => parseInt(p.prices.price) === 0 || (!p.is_in_stock && isInStoreOnly(p));
   const filtered = instock ? rawProducts.filter(p => p.is_in_stock || isInStoreOnly(p)) : rawProducts;
   const products = [...filtered].sort((a, b) => {
-    const aZero = parseInt(a.prices.price) === 0 ? 1 : 0;
-    const bZero = parseInt(b.prices.price) === 0 ? 1 : 0;
-    return aZero - bZero;
+    const aEnd = isBottomSorted(a) ? 1 : 0;
+    const bEnd = isBottomSorted(b) ? 1 : 0;
+    return aEnd - bEnd;
   });
   const total    = instock ? rawTotal - (rawProducts.length - filtered.length) : rawTotal;
 
@@ -267,7 +268,7 @@ export default async function ShopPage({
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
                 {products.map((p) => {
                   const sym  = p.prices.currency_symbol;
                   const unit = p.prices.currency_minor_unit;
