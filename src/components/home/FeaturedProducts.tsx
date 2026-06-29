@@ -16,8 +16,13 @@ interface Product {
   featured: boolean;
 }
 
+function decodeSym(sym: string) {
+  return sym.replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
+}
+
 function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: (id: number) => Promise<void> }) {
   const [adding, setAdding] = useState(false);
+  const sym = decodeSym(product.prices.currency_symbol);
   const price = (parseInt(product.prices.price) / 100).toFixed(2);
   const regularPrice = (parseInt(product.prices.regular_price) / 100).toFixed(2);
   const onSale = product.prices.sale_price && product.prices.sale_price !== product.prices.regular_price;
@@ -64,11 +69,11 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
         </Link>
         <div className="flex items-center justify-center gap-2 mb-4">
           <span className="text-[#1A9248] font-bold text-base">
-            {product.prices.currency_symbol}{price}
+            {sym}{price}
           </span>
           {onSale && (
             <span className="text-gray-400 text-sm line-through">
-              {product.prices.currency_symbol}{regularPrice}
+              {sym}{regularPrice}
             </span>
           )}
         </div>

@@ -76,8 +76,11 @@ async function fetchBrandProducts(params: URLSearchParams): Promise<{ products: 
 }
 
 /* ─── Helpers ─── */
+function decodeSym(sym: string) {
+  return sym.replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
+}
 function fmt(minor: string, unit: number, sym: string) {
-  return `${sym}${(parseInt(minor) / Math.pow(10, unit)).toFixed(2)}`;
+  return `${decodeSym(sym)}${(parseInt(minor) / Math.pow(10, unit)).toFixed(2)}`;
 }
 
 function StarRating({ rating, count }: { rating: string; count: number }) {
@@ -188,8 +191,13 @@ export default async function ShopPage({
   ]);
 
   const isInStoreOnly = (p: WCProduct) => p.categories.some(c => c.slug === "vapes");
-  const products = instock ? rawProducts.filter(p => p.is_in_stock || isInStoreOnly(p)) : rawProducts;
-  const total    = instock ? rawTotal - (rawProducts.length - products.length) : rawTotal;
+  const filtered = instock ? rawProducts.filter(p => p.is_in_stock || isInStoreOnly(p)) : rawProducts;
+  const products = [...filtered].sort((a, b) => {
+    const aZero = parseInt(a.prices.price) === 0 ? 1 : 0;
+    const bZero = parseInt(b.prices.price) === 0 ? 1 : 0;
+    return aZero - bZero;
+  });
+  const total    = instock ? rawTotal - (rawProducts.length - filtered.length) : rawTotal;
 
   const activeCategory  = categories.find(c => c.slug === category);
   const activeBrandData = brands.find(b => b.slug === brand);

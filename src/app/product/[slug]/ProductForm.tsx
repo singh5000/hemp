@@ -37,8 +37,11 @@ interface Props {
   variations:    Variation[];
 }
 
+function decodeSym(sym: string) {
+  return sym.replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
+}
 function fmt(minor: string, unit: number, sym: string) {
-  return `${sym}${(parseInt(minor) / Math.pow(10, unit)).toFixed(2)}`;
+  return `${decodeSym(sym)}${(parseInt(minor) / Math.pow(10, unit)).toFixed(2)}`;
 }
 
 export default function ProductForm({ productId, productName, hasOptions, isInStock, isInStoreOnly, attributes, variations }: Props) {

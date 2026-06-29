@@ -112,7 +112,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     : `Buy ${product.name} at Hemp & Barrel — lab-tested hemp & CBD products.`;
 
   const unit = product.prices.currency_minor_unit;
-  const sym  = product.prices.currency_symbol;
+  const sym  = decodeSym(product.prices.currency_symbol);
   const price = `${sym}${(parseInt(product.prices.price) / Math.pow(10, unit)).toFixed(2)}`;
 
   return {
@@ -133,8 +133,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 /* ── Helpers ── */
+function decodeSym(sym: string) {
+  return sym.replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)));
+}
 function fmt(minor: string, unit: number, sym: string) {
-  return `${sym}${(parseInt(minor) / Math.pow(10, unit)).toFixed(2)}`;
+  return `${decodeSym(sym)}${(parseInt(minor) / Math.pow(10, unit)).toFixed(2)}`;
 }
 
 function StarsFull({ rating, count }: { rating: string; count: number }) {
