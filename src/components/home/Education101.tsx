@@ -8,12 +8,12 @@ const sections = [
   {
     tag: "Learn About Hemp",
     heading: "What is",
-    headingHighlight: "CBD?",
-    body: "Cannabidiol (CBD) is a naturally occurring compound found in the hemp plant. Unlike THC, CBD is non-psychoactive — it won't get you high. Millions use CBD daily for relaxation, stress relief, better sleep, and overall wellness.",
-    body2: "Available in oils, edibles, vapes, and flower — all lab-tested and federally compliant at ≤ 0.3% THC.",
+    headingHighlight: "THCA?",
+    body: "THCA (tetrahydrocannabinolic acid) is the raw, non-psychoactive precursor to THC found naturally in the hemp plant. When heated, THCA converts to THC — delivering powerful effects. In its raw form, THCA offers wellness benefits without the high.",
+    body2: "Available in flower, pre-rolls, and concentrates — all lab-tested and federally compliant at ≤ 0.3% Delta-9 THC.",
     stats: [
-      { value: "99%", label: "Pure CBD", icon: FlaskConical },
-      { value: "0.3%", label: "Max THC", icon: Shield },
+      { value: "High", label: "Potency", icon: FlaskConical },
+      { value: "0.3%", label: "Max Δ9 THC", icon: Shield },
       { value: "3rd", label: "Party Tested", icon: Droplets },
     ],
     benefits: [
@@ -21,7 +21,7 @@ const sections = [
       { icon: Moon, text: "Better Sleep Quality" },
       { icon: Zap, text: "Pain & Inflammation" },
     ],
-    buttonText: "Shop All CBD",
+    buttonText: "Shop THCA",
     buttonHref: "/shop",
     image: "https://images.pexels.com/photos/6955175/pexels-photo-6955175.jpeg?auto=compress&cs=tinysrgb&w=800",
     imageLeft: true,
