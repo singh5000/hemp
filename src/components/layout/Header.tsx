@@ -183,61 +183,58 @@ export default function Header() {
               <Search className="w-[22px] h-[22px]" strokeWidth={2} />
             </button>
 
-            {/* Cart with mini preview */}
-            <div className="relative" ref={cartRef}
-              onMouseEnter={() => setCartHover(true)} onMouseLeave={() => setCartHover(false)}>
-              <Link href="/cart" aria-label="Cart" className={`relative ${solid ? "text-[#3d2b1f]" : "text-white"} hover:text-[#1A9248] transition-colors p-1 hover:scale-110 duration-300 block`}>
-                <ShoppingCart className="w-[22px] h-[22px]" strokeWidth={2} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-[#1A9248] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center leading-none px-1 animate-bounce-once">
-                    {cartCount > 9 ? "9+" : cartCount}
-                  </span>
-                )}
-              </Link>
-
-              {/* Mini cart popup */}
-              {cartHover && cartCount > 0 && cart?.items && (
-                <div className="absolute right-0 top-full mt-3 w-[300px] bg-white border border-gray-100 rounded-2xl shadow-2xl shadow-black/10 overflow-hidden z-50">
-                  <div className="px-4 py-3 bg-gray-50/80 border-b border-gray-100 flex items-center justify-between">
-                    <p className="text-xs font-bold text-[#3d2b1f] uppercase tracking-wider">Cart ({cartCount})</p>
-                    <Leaf className="w-3.5 h-3.5 text-[#1A9248]" />
-                  </div>
-                  <div className="max-h-[200px] overflow-y-auto">
-                    {cart.items.slice(0, 3).map((item: { key: string; quantity: number; product: { name: string; image?: { sourceUrl?: string } } }) => (
-                      <div key={item.key} className="flex items-center gap-3 px-4 py-2.5 border-b border-gray-50 last:border-0">
-                        <div className="w-10 h-10 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden relative">
-                          {item.product?.image?.sourceUrl && (
-                            <Image src={item.product.image.sourceUrl} alt={item.product.name} fill className="object-contain p-1" sizes="40px" />
-                          )}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-[#3d2b1f] line-clamp-1">{item.product.name}</p>
-                          <p className="text-[10px] text-gray-400">Qty: {item.quantity}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <Link href="/cart" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1A9248] text-white text-sm font-bold hover:bg-[#148038] transition-colors">
-                    View Cart <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              )}
-            </div>
           </nav>
 
-          {/* Mobile */}
+          {/* Mobile search + hamburger (no cart here — single cart below) */}
           <div className="flex lg:hidden items-center gap-3 ml-auto">
             <button aria-label="Search" onClick={() => setSearchOpen(o => !o)} className={`${solid ? "text-[#3d2b1f]" : "text-white"} p-1`}>
               <Search className="w-5 h-5" />
             </button>
-            <Link href="/cart" className={`relative ${solid ? "text-[#3d2b1f]" : "text-white"} p-1`}>
-              <ShoppingCart className="w-5 h-5" />
+          </div>
+
+          {/* Cart with mini preview — single instance for all breakpoints */}
+          <div className="relative ml-3 lg:ml-0" ref={cartRef}
+            onMouseEnter={() => setCartHover(true)} onMouseLeave={() => setCartHover(false)}>
+            <Link href="/cart" aria-label="Cart" className={`relative ${solid ? "text-[#3d2b1f]" : "text-white"} hover:text-[#1A9248] transition-colors p-1 hover:scale-110 duration-300 block`}>
+              <ShoppingCart className="w-5 h-5 lg:w-[22px] lg:h-[22px]" strokeWidth={2} />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#1A9248] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
-                  {cartCount}
+                <span className="absolute -top-1 -right-1 bg-[#1A9248] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center leading-none px-1 animate-bounce-once">
+                  {cartCount > 9 ? "9+" : cartCount}
                 </span>
               )}
             </Link>
+
+            {/* Mini cart popup (desktop hover only) */}
+            {cartHover && cartCount > 0 && cart?.items && (
+              <div className="hidden lg:block absolute right-0 top-full mt-3 w-[300px] bg-white border border-gray-100 rounded-2xl shadow-2xl shadow-black/10 overflow-hidden z-50">
+                <div className="px-4 py-3 bg-gray-50/80 border-b border-gray-100 flex items-center justify-between">
+                  <p className="text-xs font-bold text-[#3d2b1f] uppercase tracking-wider">Cart ({cartCount})</p>
+                  <Leaf className="w-3.5 h-3.5 text-[#1A9248]" />
+                </div>
+                <div className="max-h-[200px] overflow-y-auto">
+                  {cart.items.slice(0, 3).map((item: { key: string; quantity: number; product: { name: string; image?: { sourceUrl?: string } } }) => (
+                    <div key={item.key} className="flex items-center gap-3 px-4 py-2.5 border-b border-gray-50 last:border-0">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden relative">
+                        {item.product?.image?.sourceUrl && (
+                          <Image src={item.product.image.sourceUrl} alt={item.product.name} fill className="object-contain p-1" sizes="40px" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-[#3d2b1f] line-clamp-1">{item.product.name}</p>
+                        <p className="text-[10px] text-gray-400">Qty: {item.quantity}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/cart" className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1A9248] text-white text-sm font-bold hover:bg-[#148038] transition-colors">
+                  View Cart <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile hamburger */}
+          <div className="lg:hidden ml-3">
             <button onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu" className={`${solid ? "text-[#3d2b1f]" : "text-white"} p-1`}>
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
