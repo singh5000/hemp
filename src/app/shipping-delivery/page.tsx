@@ -25,12 +25,12 @@ export default function ShippingDeliveryPage() {
 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
             <div>
-              <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">We Ship Nationwide</p>
-              <h1 className="text-white text-4xl md:text-6xl font-bold leading-tight mb-4">
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">We Ship Nationwide</p>
+              <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight mb-4">
                 Shipping &amp;<br />
                 <span className="text-[#1A9248]">Delivery</span>
               </h1>
-              <p className="text-white/50 text-base md:text-lg max-w-[500px] leading-relaxed">
+              <p className="text-white/50 text-[16.5px] md:text-lg max-w-[500px] leading-relaxed">
                 Fast, trackable Priority USPS shipping to all US addresses — including
                 territories and APO/FPO/DPO.
               </p>
@@ -45,9 +45,9 @@ export default function ShippingDeliveryPage() {
               ].map((s) => (
                 <div key={s.label}
                   className="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-center min-w-[90px]">
-                  <p className="text-[#1A9248] text-2xl font-bold leading-none">{s.value}</p>
-                  <p className="text-white/40 text-[10px] uppercase tracking-wider mt-0.5 font-semibold">{s.unit}</p>
-                  <p className="text-white/60 text-[11px] font-semibold mt-1">{s.label}</p>
+                  <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">{s.value}</p>
+                  <p className="text-white/40 text-[16.5px] uppercase tracking-wider mt-0.5 font-semibold">{s.unit}</p>
+                  <p className="text-white/60 text-[16.5px] font-semibold mt-1">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -86,8 +86,8 @@ export default function ShippingDeliveryPage() {
                   {item.icon}
                 </div>
                 <div>
-                  <p className="font-bold text-[#2a1008] text-sm mb-1">{item.label}</p>
-                  <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
+                  <p className="font-bold text-[#2a1008] text-[16.5px] mb-1">{item.label}</p>
+                  <p className="text-gray-500 text-[16.5px] leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -106,7 +106,7 @@ export default function ShippingDeliveryPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Shipping Method &amp; Cost</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Shipping Method &amp; Cost</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
                 <table className="w-full text-sm">
@@ -128,7 +128,7 @@ export default function ShippingDeliveryPage() {
                   </tbody>
                 </table>
                 <div className="px-6 py-4 bg-[#fafaf8] border-t border-gray-100">
-                  <p className="text-gray-500 text-xs leading-relaxed">
+                  <p className="text-gray-500 text-[16.5px] leading-relaxed">
                     Overnight delivery is available for orders with delivery addresses within the continental United States only.
                   </p>
                 </div>
@@ -139,10 +139,10 @@ export default function ShippingDeliveryPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Processing Time</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Processing Time</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4">
-                <p className="text-[#3d2b1f] text-[15px] leading-relaxed">
+                <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">
                   All orders are processed within <strong className="text-[#2a1008]">1–2 business days</strong> after payment confirmation.
                   Orders placed on weekends or public holidays will be processed on the next business day.
                 </p>
@@ -150,7 +150,7 @@ export default function ShippingDeliveryPage() {
                   <svg className="w-5 h-5 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  <p className="text-sm text-[#3d2b1f]">
+                  <p className="text-[16.5px] text-[#3d2b1f]">
                     Orders are not shipped or delivered on weekends or holidays. Please account for this
                     when calculating your expected delivery date.
                   </p>
@@ -162,10 +162,10 @@ export default function ShippingDeliveryPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Order Tracking</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Order Tracking</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4">
-                <p className="text-[#3d2b1f] text-[15px] leading-relaxed">
+                <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">
                   You will receive a <strong className="text-[#2a1008]">Shipment Confirmation email</strong> once your order has
                   shipped, containing your tracking number(s). The tracking number will become
                   active within <strong className="text-[#2a1008]">24–48 hours</strong> of shipment.
@@ -177,10 +177,10 @@ export default function ShippingDeliveryPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Service Area</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Service Area</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm">
-                <p className="text-[#3d2b1f] text-[15px] leading-relaxed mb-5">
+                <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed mb-5">
                   Hemp &amp; Barrel ships to addresses within the United States, including:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -200,10 +200,10 @@ export default function ShippingDeliveryPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Damaged or Lost Shipments</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Damaged or Lost Shipments</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4">
-                <p className="text-[#3d2b1f] text-[15px] leading-relaxed">
+                <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">
                   Hemp &amp; Barrel is not liable for products damaged or lost during shipping.
                   If you received a damaged product, please <strong className="text-[#2a1008]">save all packaging materials and
                   damaged goods</strong> before filing a claim with the carrier.
@@ -212,7 +212,7 @@ export default function ShippingDeliveryPage() {
                   <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                   </svg>
-                  <p className="text-sm text-amber-800 font-medium">
+                  <p className="text-[16.5px] text-amber-800 font-medium">
                     Hemp &amp; Barrel is not responsible for any customs duties or taxes applied to your
                     order by your local jurisdiction. All such fees are the buyer's responsibility.
                   </p>
@@ -226,7 +226,7 @@ export default function ShippingDeliveryPage() {
 
             {/* What to expect */}
             <div className="bg-[#2a1008] rounded-2xl p-7">
-              <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-5">What to Expect</p>
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-5">What to Expect</p>
               <div className="space-y-5">
                 {[
                   { step: "01", title: "Place Your Order", desc: "Complete checkout and receive your order confirmation email." },
@@ -242,8 +242,8 @@ export default function ShippingDeliveryPage() {
                       {i < arr.length - 1 && <div className="w-px flex-1 bg-white/10 mt-1.5" />}
                     </div>
                     <div className="pb-4">
-                      <p className="text-white font-bold text-sm mb-1">{item.title}</p>
-                      <p className="text-white/50 text-xs leading-relaxed">{item.desc}</p>
+                      <p className="text-white font-bold text-[16.5px] mb-1">{item.title}</p>
+                      <p className="text-white/50 text-[16.5px] leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -252,7 +252,7 @@ export default function ShippingDeliveryPage() {
 
             {/* Contact */}
             <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-              <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Shipping Questions?</p>
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-4">Shipping Questions?</p>
               <div className="space-y-3 mb-5">
                 <a href="tel:9803264367"
                   className="flex items-center gap-3 text-sm text-[#3d2b1f] hover:text-[#1A9248] transition-colors group">
@@ -279,8 +279,8 @@ export default function ShippingDeliveryPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-semibold">Mon–Sat: 10am – 8pm</p>
-                    <p className="text-gray-400 text-xs">Sun: 12pm – 4pm</p>
+                    <p className="font-semibold text-[16.5px]">Mon–Sat: 10am – 8pm</p>
+                    <p className="text-gray-400 text-[16.5px]">Sun: 12pm – 4pm</p>
                   </div>
                 </div>
               </div>
@@ -292,7 +292,7 @@ export default function ShippingDeliveryPage() {
 
             {/* Related links */}
             <div className="bg-[#f5f0eb] rounded-2xl p-6">
-              <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Related Policies</p>
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-4">Related Policies</p>
               <div className="space-y-2">
                 {[
                   { href: "/returns-exchanges", label: "Returns & Exchanges" },

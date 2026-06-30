@@ -10,12 +10,12 @@ export default function StoreSection() {
 
         {/* Section header */}
         <div className="text-center mb-14">
-          <span className="inline-flex items-center gap-2 text-[10px] font-bold text-[#1A9248] uppercase tracking-[0.3em] mb-3">
+          <span className="inline-flex items-center gap-2 text-[12px] font-bold text-[#1A9248] uppercase tracking-[0.3em] mb-3">
             <span className="w-8 h-px bg-[#1A9248]/40" />
             Visit Our Store
             <span className="w-8 h-px bg-[#1A9248]/40" />
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-[#2a1008]">
+          <h2 className="text-[44px] md:text-5xl font-black text-[#2a1008]">
             We Can&apos;t Wait <span className="text-[#1A9248]">To See You</span>
           </h2>
         </div>
@@ -41,11 +41,11 @@ export default function StoreSection() {
                   <div className="flex">
                     {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />)}
                   </div>
-                  <span className="text-[11px] font-bold text-[#2a1008] ml-0.5">5.0</span>
+                  <span className="text-[13px] font-bold text-[#2a1008] ml-0.5">5.0</span>
                 </div>
                 <div className="flex items-center gap-1.5 bg-[#1A9248] rounded-full px-3.5 py-2 shadow-lg w-fit">
                   <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                  <span className="text-[10px] font-bold text-white uppercase tracking-wider">Open Now</span>
+                  <span className="text-[12px] font-bold text-white uppercase tracking-wider">Open Now</span>
                 </div>
               </div>
 
@@ -54,8 +54,8 @@ export default function StoreSection() {
                 <div className="bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 flex items-center gap-3">
                   <Image src="/hemp-leaf.png" alt="" width={20} height={20} className="w-5 h-5" />
                   <div>
-                    <p className="text-xs font-bold text-[#2a1008]">Hemp & Barrel</p>
-                    <p className="text-[10px] text-gray-500">Charlotte&apos;s #1 CBD Store</p>
+                    <p className="text-[16.5px] font-bold text-[#2a1008]">Hemp & Barrel</p>
+                    <p className="text-[16.5px] text-gray-500">Charlotte&apos;s #1 CBD Store</p>
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@ export default function StoreSection() {
               {/* Quote style intro */}
               <div className="relative mb-6">
                 <span className="absolute -left-2 -top-2 text-5xl font-serif text-[#1A9248]/15 leading-none">&ldquo;</span>
-                <p className="text-[#2a1008] text-[17px] leading-[1.85] font-medium pl-6">
+                <p className="text-[#2a1008] text-[16.5px] leading-[1.85] font-medium pl-6">
                   Charlotte NC&apos;s most trusted CBD store — premium THCA flower, gummies, Delta 8, tinctures, vapes &amp; hemp beverages. All third-party lab-tested.
                 </p>
               </div>
@@ -92,8 +92,8 @@ export default function StoreSection() {
                         <row.icon className="w-5 h-5 text-white" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-0.5">{row.label}</p>
-                        <p className="text-[#2a1008] text-[14px] font-bold">{row.text}</p>
+                        <p className="text-[16.5px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-0.5">{row.label}</p>
+                        <p className="text-[#2a1008] text-[16.5px] font-bold">{row.text}</p>
                       </div>
                       {row.href && <ChevronRight className="w-5 h-5 text-gray-200 group-hover/row:text-[#1A9248] group-hover/row:translate-x-1 transition-all" />}
                     </div>

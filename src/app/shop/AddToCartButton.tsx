@@ -69,7 +69,7 @@ export default function AddToCartButton({
                                "Add to Cart"}
       </button>
       {errMsg && (
-        <p className="text-[10px] text-red-500 leading-tight text-center px-1">{errMsg}</p>
+        <p className="text-[16.5px] text-red-500 leading-tight text-center px-1">{errMsg}</p>
       )}
     </div>
   );

@@ -157,8 +157,8 @@ export default function Header() {
                   {accountOpen && (
                     <div className="absolute right-0 top-full mt-3 w-52 bg-white border border-gray-100 rounded-2xl shadow-2xl shadow-black/10 overflow-hidden z-50">
                       <div className="px-4 py-3 bg-gray-50/80 border-b border-gray-100">
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Signed in as</p>
-                        <p className="text-xs font-semibold text-[#3d2b1f] truncate mt-0.5">{user.email}</p>
+                        <p className="text-[16.5px] font-bold text-gray-400 uppercase tracking-wider">Signed in as</p>
+                        <p className="text-[16.5px] font-semibold text-[#3d2b1f] truncate mt-0.5">{user.email}</p>
                       </div>
                       <Link href="/my-account" onClick={() => setAccountOpen(false)}
                         className="flex items-center gap-2.5 px-4 py-3 text-sm text-[#3d2b1f] hover:bg-[#e8f5ee] transition-colors font-medium">
@@ -211,7 +211,7 @@ export default function Header() {
             {cartHover && cartCount > 0 && cart?.items && (
               <div className="hidden lg:block absolute right-0 top-full mt-3 w-[300px] bg-white border border-gray-100 rounded-2xl shadow-2xl shadow-black/10 overflow-hidden z-50">
                 <div className="px-4 py-3 bg-gray-50/80 border-b border-gray-100 flex items-center justify-between">
-                  <p className="text-xs font-bold text-[#3d2b1f] uppercase tracking-wider">Cart ({cartCount})</p>
+                  <p className="text-[16.5px] font-bold text-[#3d2b1f] uppercase tracking-wider">Cart ({cartCount})</p>
                   <Leaf className="w-3.5 h-3.5 text-[#1A9248]" />
                 </div>
                 <div className="max-h-[200px] overflow-y-auto">
@@ -223,8 +223,8 @@ export default function Header() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-[#3d2b1f] line-clamp-1">{item.product.name}</p>
-                        <p className="text-[10px] text-gray-400">Qty: {item.quantity}</p>
+                        <p className="text-[16.5px] font-semibold text-[#3d2b1f] line-clamp-1">{item.product.name}</p>
+                        <p className="text-[16.5px] text-gray-400">Qty: {item.quantity}</p>
                       </div>
                     </div>
                   ))}
@@ -252,10 +252,10 @@ export default function Header() {
               <div className="w-full py-6" style={{ paddingLeft: 80, paddingRight: 80 }}>
                 <div className="flex items-center justify-between mb-5">
                   <div>
-                    <p className="text-[10px] text-[#1A9248] font-bold uppercase tracking-[0.3em] mb-0.5 flex items-center gap-1.5">
+                    <p className="text-[16.5px] text-[#1A9248] font-bold uppercase tracking-[0.3em] mb-0.5 flex items-center gap-1.5">
                       <Leaf className="w-3 h-3" /> Browse Categories
                     </p>
-                    <h3 className="text-lg font-bold text-[#3d2b1f]">Shop Our Product Range</h3>
+                    <h3 className="text-[26px] font-bold text-[#3d2b1f]">Shop Our Product Range</h3>
                   </div>
                   <Link href="/shop" onClick={() => setShopOpen(false)}
                     className="flex items-center gap-1.5 text-sm font-semibold text-[#1A9248] hover:bg-[#1A9248] hover:text-white border border-[#1A9248] px-4 py-2 rounded-full transition-all">
@@ -360,8 +360,8 @@ export default function Header() {
                       {user.name.charAt(0).toUpperCase()}
                     </span>
                     <div>
-                      <p className="text-[#3d2b1f] font-bold text-sm">{user.name}</p>
-                      <p className="text-gray-400 text-xs">{user.email}</p>
+                      <p className="text-[#3d2b1f] font-bold text-[16.5px]">{user.name}</p>
+                      <p className="text-gray-400 text-[16.5px]">{user.email}</p>
                     </div>
                   </div>
                   <Link href="/my-account" onClick={() => setMobileOpen(false)}

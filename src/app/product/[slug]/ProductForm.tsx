@@ -113,7 +113,7 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
         const key = attr.name.toLowerCase().replace(/\s+/g, "_");
         return (
           <div key={attr.id}>
-            <p className="text-[13px] font-bold uppercase tracking-[0.25em] text-[#3d2b1f] mb-2">{attr.name}</p>
+            <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#3d2b1f] mb-2">{attr.name}</p>
             <div className="flex flex-wrap gap-2">
               {attr.terms.map(term => {
                 const isActive  = selected[key] === term.slug;
@@ -181,14 +181,14 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
         <div className="space-y-3">
           {isInStoreOnly ? (
             <div className="rounded-xl bg-amber-50 border border-amber-200/60 p-4 space-y-2.5">
-              <p className="text-amber-700 text-[16px] font-bold flex items-center gap-2">
+              <p className="text-amber-700 text-[16.5px] font-bold flex items-center gap-2">
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
                 Available In-Store Only
               </p>
-              <p className="text-amber-700/70 text-[14px] leading-relaxed">
+              <p className="text-amber-700/70 text-[16.5px] leading-relaxed">
                 This product is available for purchase at our retail location. Visit us to see it in person!
               </p>
               <div className="flex items-start gap-2 text-[14px] text-amber-800/80 bg-amber-100/50 rounded-lg px-3 py-2.5">
@@ -196,9 +196,9 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
                 <div>
-                  <p className="font-bold">Hemp &amp; Barrel</p>
-                  <p>800 N Polk Street, Pineville, NC 28134</p>
-                  <p>Mon–Sat 10AM–8PM · Sun 12PM–4PM</p>
+                  <p className="font-bold text-[16.5px]">Hemp &amp; Barrel</p>
+                  <p className="text-[16.5px]">800 N Polk Street, Pineville, NC 28134</p>
+                  <p className="text-[16.5px]">Mon–Sat 10AM–8PM · Sun 12PM–4PM</p>
                   <a href="tel:9803264367" className="font-bold text-amber-800 hover:underline">(980) 326-4367</a>
                 </div>
               </div>
@@ -212,7 +212,7 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
                 </div>
               ) : notifyOpen ? (
                 <form onSubmit={handleNotify} className="space-y-2">
-                  <p className="text-[14px] text-gray-500">Enter your email and we&apos;ll let you know when it&apos;s available again.</p>
+                  <p className="text-[16.5px] text-gray-500">Enter your email and we&apos;ll let you know when it&apos;s available again.</p>
                   <div className="flex gap-2">
                     <div className="relative flex-1">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
@@ -238,7 +238,7 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
                     </button>
                   </div>
                   {notifyState === "error" && (
-                    <p className="text-[14px] text-red-500">Something went wrong. Please try again.</p>
+                    <p className="text-[16.5px] text-red-500">Something went wrong. Please try again.</p>
                   )}
                 </form>
               ) : (
@@ -253,7 +253,7 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
         </div>
       )}
       {activeInStock && canAddToCart && (
-        <p className="text-[#1A9248] text-[14px] font-semibold flex items-center gap-1.5">
+        <p className="text-[#1A9248] text-[16.5px] font-semibold flex items-center gap-1.5">
           <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
           </svg>

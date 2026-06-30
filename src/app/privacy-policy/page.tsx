@@ -100,8 +100,8 @@ export default async function PrivacyPolicyPage() {
             <span>/</span>
             <span className="text-white/60">Privacy Policy</span>
           </nav>
-          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Legal</p>
-          <h1 className="text-white text-4xl md:text-6xl font-bold leading-tight">
+          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">Legal</p>
+          <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight">
             Privacy <span className="text-[#1A9248]">Policy</span>
           </h1>
         </div>
@@ -117,7 +117,7 @@ export default async function PrivacyPolicyPage() {
           {/* ── TOC sidebar ── */}
           <aside className="hidden lg:block w-[240px] flex-shrink-0">
             <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Contents</p>
+              <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Contents</p>
               <nav className="space-y-0.5">
                 {SECTIONS.map((s) => (
                   <a key={s.id} href={`#${s.id}`}
@@ -135,19 +135,19 @@ export default async function PrivacyPolicyPage() {
               <div key={section.id} id={section.id} className="scroll-mt-24">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1.5 h-6 bg-[#1A9248] rounded-full flex-shrink-0" />
-                  <h2 className="text-[#2a1008] text-xl font-bold">{section.title}</h2>
+                  <h2 className="text-[#2a1008] text-[28px] font-bold">{section.title}</h2>
                 </div>
                 <div className="pl-5 space-y-3">
                   {section.content && (
-                    <p className="text-[#3d2b1f] text-[15px] leading-relaxed">{section.content}</p>
+                    <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">{section.content}</p>
                   )}
                   {section.listIntro && (
-                    <p className="text-[#3d2b1f] text-[15px] leading-relaxed">{section.listIntro}</p>
+                    <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">{section.listIntro}</p>
                   )}
                   {section.list && (
                     <ul className="space-y-2 mt-2">
                       {section.list.map((item) => (
-                        <li key={item} className="flex items-start gap-3 text-sm text-[#3d2b1f]">
+                        <li key={item} className="flex items-start gap-3 text-[16px] text-[#3d2b1f]">
                           <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
                           </svg>

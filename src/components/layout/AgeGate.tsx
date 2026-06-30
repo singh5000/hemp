@@ -45,7 +45,7 @@ export default function AgeGate() {
 
           {/* Logo wordmark */}
           <div className="mb-8">
-            <p className="text-white text-2xl font-black tracking-[0.25em] uppercase mb-2">Hemp & Barrel</p>
+            <p className="text-white text-[16.5px] font-black tracking-[0.25em] uppercase mb-2">Hemp & Barrel</p>
             <div className="flex items-center justify-center gap-3">
               <span className="flex-1 h-px bg-white/10" />
               <span className="text-white/25 text-[10px] uppercase tracking-[0.3em]">Pineville, NC</span>
@@ -61,8 +61,8 @@ export default function AgeGate() {
             </svg>
           </div>
 
-          <h2 className="text-white text-2xl font-bold mb-2 tracking-tight">Age Verification</h2>
-          <p className="text-white/45 text-sm leading-relaxed mb-8">
+          <h2 className="text-white text-[32px] font-bold mb-2 tracking-tight">Age Verification</h2>
+          <p className="text-white/45 text-[16.5px] leading-relaxed mb-8">
             This site contains hemp-derived CBD and THCa products.<br />
             You must be <strong className="text-white/70">21 years or older</strong> to enter.
           </p>
@@ -80,7 +80,7 @@ export default function AgeGate() {
           </div>
 
           {/* Footer note */}
-          <p className="text-white/20 text-[11px] mt-7 leading-relaxed">
+          <p className="text-white/20 text-[16.5px] mt-7 leading-relaxed">
             By entering you agree to our{" "}
             <Link href="/terms-conditions" onClick={confirm} className="underline hover:text-white/40 transition-colors">Terms</Link>
             {" & "}

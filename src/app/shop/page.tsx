@@ -221,7 +221,7 @@ export default async function ShopPage({
               : <span className="text-white/60">Shop</span>
             }
           </nav>
-          <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-2">
+          <h1 className="text-white text-[44px] md:text-5xl font-bold leading-tight mb-2">
             {search
               ? `Search: "${search}"`
               : activeBrandData
@@ -230,7 +230,7 @@ export default async function ShopPage({
               ? activeCategory.name
               : "All Products"}
           </h1>
-          <p className="text-white/40 text-sm">
+          <p className="text-white/40 text-[16.5px]">
             {total > 0 ? `${total} product${total !== 1 ? "s" : ""}` : "No products found"}
             {activeBrandData && !search ? ` from ${activeBrandData.name}` : activeCategory && !search ? ` in ${activeCategory.name}` : ""}
           </p>
@@ -262,7 +262,7 @@ export default async function ShopPage({
 
             {products.length === 0 ? (
               <div className="py-32 text-center">
-                <p className="text-xl text-gray-300 font-bold">No products found.</p>
+                <p className="text-[16.5px] text-gray-300 font-bold">No products found.</p>
                 <Link href="/shop" className="mt-4 inline-block text-[#1A9248] font-bold hover:underline text-sm">
                   View all products →
                 </Link>
@@ -366,9 +366,9 @@ export default async function ShopPage({
               },
             ].map((item) => (
               <div key={item.title} className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
-                <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-2">{item.tag}</p>
-                <h3 className="text-[#2a1008] text-2xl font-bold mb-3">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-6">{item.body}</p>
+                <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-2">{item.tag}</p>
+                <h3 className="text-[#2a1008] text-[32px] font-bold mb-3">{item.title}</h3>
+                <p className="text-gray-500 text-[16.5px] leading-relaxed mb-6">{item.body}</p>
                 <AnimatedButton href={item.href} variant="dark" size="sm">
                   {item.cta}
                 </AnimatedButton>

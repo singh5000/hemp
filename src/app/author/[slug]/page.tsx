@@ -222,10 +222,10 @@ export default async function AuthorPage({
         <section>
           <div className="hero">
             <div className="hero-content">
-              <p className="hero-label">Hi, I&apos;m</p>
+              <p className="hero-label text-[16.5px]">Hi, I&apos;m</p>
               <h1 className="hero-name">{author.name}</h1>
-              <p className="hero-title" dangerouslySetInnerHTML={{ __html: authorTitle }} />
-              {author.description && <p className="hero-bio">{author.description}</p>}
+              <p className="hero-title text-[16.5px]" dangerouslySetInnerHTML={{ __html: authorTitle }} />
+              {author.description && <p className="hero-bio text-[16.5px]">{author.description}</p>}
               <div className="hero-actions">
                 <a href="#hb-articles" className="btn-primary">View Articles</a>
                 <button className="btn-outline">Follow</button>
@@ -261,7 +261,7 @@ export default async function AuthorPage({
                 {credentials.map((c, i) => <li key={i}>{c}</li>)}
               </ul>
             ) : (
-              <p className="no-data">No credentials added yet.</p>
+              <p className="no-data text-[16.5px]">No credentials added yet.</p>
             )}
           </div>
           <div className="info-card">
@@ -274,7 +274,7 @@ export default async function AuthorPage({
                 {specialties.map((t, i) => <span key={i} className="tag">{t}</span>)}
               </div>
             ) : (
-              <p className="no-data">No specialties added yet.</p>
+              <p className="no-data text-[16.5px]">No specialties added yet.</p>
             )}
           </div>
         </div>
@@ -284,7 +284,7 @@ export default async function AuthorPage({
         {/* ── ARTICLES ── */}
         <section className="articles-section" id="hb-articles">
           <h2 className="section-heading">All Articles by {firstName}</h2>
-          <p className="section-sub">Science-backed insights from years in the field.</p>
+          <p className="section-sub text-[16.5px]">Science-backed insights from years in the field.</p>
 
           {posts.length > 0 ? (
             <div className="articles-grid">
@@ -302,11 +302,11 @@ export default async function AuthorPage({
                       )}
                     </Link>
                     <div className="article-body">
-                      {cat && <p className="article-cat">{cat}</p>}
+                      {cat && <p className="article-cat text-[16.5px]">{cat}</p>}
                       <h3 className="article-title">
                         <Link href={`/${post.slug}`}>{strip(post.title.rendered)}</Link>
                       </h3>
-                      <p className="article-excerpt">{strip(post.excerpt.rendered)}</p>
+                      <p className="article-excerpt text-[16.5px]">{strip(post.excerpt.rendered)}</p>
                       <div className="article-meta">
                         <span className="article-meta-item">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
@@ -320,7 +320,7 @@ export default async function AuthorPage({
               })}
             </div>
           ) : (
-            <p className="no-posts">No articles published yet.</p>
+            <p className="no-posts text-[16.5px]">No articles published yet.</p>
           )}
 
           {totalPages > 1 && (
@@ -346,7 +346,7 @@ export default async function AuthorPage({
         {otherAuthors.length > 0 && (
           <section className="authors-section">
             <h2 className="section-heading">Explore Our Other Authors</h2>
-            <p className="section-sub">Discover a wealth of knowledge and expertise from our team of experts.</p>
+            <p className="section-sub text-[16.5px]">Discover a wealth of knowledge and expertise from our team of experts.</p>
             <div className="authors-row">
               {otherAuthors.map((other, i) => {
                 const oColor = AVATAR_COLORS[i % AVATAR_COLORS.length];
@@ -369,7 +369,7 @@ export default async function AuthorPage({
         {featuredPosts.length > 0 && (
           <section className="featured-section">
             <h2 className="section-heading" style={{ marginBottom: 6 }}>Most Read Articles</h2>
-            <p className="section-sub" style={{ marginBottom: 28 }}>Top articles based on reader views.</p>
+            <p className="section-sub text-[16.5px]" style={{ marginBottom: 28 }}>Top articles based on reader views.</p>
             <div className="featured-grid">
               {featuredPosts.map(fp => {
                 const fpImg = getImg(fp);
@@ -385,11 +385,11 @@ export default async function AuthorPage({
                       )}
                     </div>
                     <div className="featured-content">
-                      <p className="featured-label">{fpCat || "Featured Article"}</p>
+                      <p className="featured-label text-[16.5px]">{fpCat || "Featured Article"}</p>
                       <h2 className="featured-title">
                         <Link href={`/${fp.slug}`}>{strip(fp.title.rendered)}</Link>
                       </h2>
-                      <p className="featured-excerpt">{strip(fp.excerpt.rendered)}</p>
+                      <p className="featured-excerpt text-[16.5px]">{strip(fp.excerpt.rendered)}</p>
                       <Link href={`/${fp.slug}`} className="btn-read">
                         Read Article
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>

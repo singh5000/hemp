@@ -76,12 +76,12 @@ export default function ReturnsExchangesPage() {
 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
             <div>
-              <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Customer Satisfaction</p>
-              <h1 className="text-white text-4xl md:text-6xl font-bold leading-tight mb-4">
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">Customer Satisfaction</p>
+              <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight mb-4">
                 Returns &<br />
                 <span className="text-[#1A9248]">Exchanges</span>
               </h1>
-              <p className="text-white/50 text-base md:text-lg max-w-[500px] leading-relaxed">
+              <p className="text-white/50 text-[16.5px] md:text-lg max-w-[500px] leading-relaxed">
                 Thanks for shopping at Hemp &amp; Barrel. If you are not entirely satisfied
                 with your purchase, we are here to help.
               </p>
@@ -89,8 +89,8 @@ export default function ReturnsExchangesPage() {
 
             {/* 30-day badge */}
             <div className="flex-shrink-0 flex flex-col items-center justify-center w-36 h-36 rounded-full border-4 border-[#1A9248]/40 bg-[#1A9248]/10 text-center">
-              <p className="text-[#1A9248] text-4xl font-bold leading-none">30</p>
-              <p className="text-white/70 text-xs font-bold uppercase tracking-wider mt-1">Day<br/>Returns</p>
+              <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">30</p>
+              <p className="text-white/70 text-[16.5px] font-bold uppercase tracking-wider mt-1">Day<br/>Returns</p>
             </div>
           </div>
         </div>
@@ -106,8 +106,8 @@ export default function ReturnsExchangesPage() {
                   {h.icon}
                 </div>
                 <div>
-                  <p className="font-bold text-[#2a1008] text-sm mb-1">{h.label}</p>
-                  <p className="text-gray-500 text-sm leading-relaxed">{h.desc}</p>
+                  <p className="font-bold text-[#2a1008] text-[16.5px] mb-1">{h.label}</p>
+                  <p className="text-gray-500 text-[16.5px] leading-relaxed">{h.desc}</p>
                 </div>
               </div>
             ))}
@@ -126,14 +126,14 @@ export default function ReturnsExchangesPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Returns</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Returns</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4 text-[#3d2b1f] text-[15px] leading-relaxed">
-                <p>
+                <p className="text-[16.5px]">
                   We take customer satisfaction very seriously. Please check your shipment carefully
                   upon arrival to ensure it has not been damaged during shipping.
                 </p>
-                <p>
+                <p className="text-[16.5px]">
                   All claims for damaged products must be made <strong className="text-[#2a1008]">within 30 days of receipt</strong> by
                   writing to us at{" "}
                   <a href="mailto:customerservice@hempandbarrel.com"
@@ -143,14 +143,14 @@ export default function ReturnsExchangesPage() {
                   (including images) for any product damaged during shipping within that timeframe.
                 </p>
                 <div className="bg-[#f5f0eb] rounded-xl p-5">
-                  <p className="text-[#2a1008] font-bold text-sm mb-3">To be eligible for a return, your item must:</p>
+                  <p className="text-[#2a1008] font-bold text-[16.5px] mb-3">To be eligible for a return, your item must:</p>
                   <ul className="space-y-2">
                     {[
                       "Be unused and in the same condition as received",
                       "Be in the original packaging",
                       "Include the receipt or proof of purchase",
                     ].map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-sm text-[#3d2b1f]">
+                      <li key={item} className="flex items-start gap-3 text-[16px] text-[#3d2b1f]">
                         <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
                         </svg>
@@ -166,10 +166,10 @@ export default function ReturnsExchangesPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Refunds</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Refunds</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4 text-[#3d2b1f] text-[15px] leading-relaxed">
-                <p>
+                <p className="text-[16.5px]">
                   If you are not satisfied with our products, you may request a refund of the
                   full purchase price within <strong className="text-[#2a1008]">30 days of the purchase date</strong>.
                   Please submit this request by writing to{" "}
@@ -178,7 +178,7 @@ export default function ReturnsExchangesPage() {
                     customerservice@hempandbarrel.com
                   </a>.
                 </p>
-                <p>
+                <p className="text-[16.5px]">
                   Once we receive your item, we will inspect it and notify you of the status of
                   your refund. If your return is approved, we will initiate a refund to your
                   credit card or original method of payment.
@@ -187,7 +187,7 @@ export default function ReturnsExchangesPage() {
                   <svg className="w-5 h-5 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  <p className="text-sm text-[#3d2b1f]">
+                  <p className="text-[16.5px] text-[#3d2b1f]">
                     You will receive the credit within a certain number of days, depending on
                     your card issuer's policies.
                   </p>
@@ -199,18 +199,18 @@ export default function ReturnsExchangesPage() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-2xl font-bold">Return Shipping</h2>
+                <h2 className="text-[#2a1008] text-[32px] font-bold">Return Shipping</h2>
               </div>
               <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4 text-[#3d2b1f] text-[15px] leading-relaxed">
                 <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
                   <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                   </svg>
-                  <p className="text-sm text-amber-800 font-medium">
+                  <p className="text-[16.5px] text-amber-800 font-medium">
                     You are responsible for paying your own return shipping costs. Shipping costs are <strong>non-refundable</strong>.
                   </p>
                 </div>
-                <p>
+                <p className="text-[16.5px]">
                   If you receive a refund, the cost of return shipping will be deducted from your refund amount.
                   We recommend using a trackable shipping service or purchasing shipping insurance for items over $50.
                 </p>
@@ -223,7 +223,7 @@ export default function ReturnsExchangesPage() {
 
             {/* How to return — steps */}
             <div className="bg-[#2a1008] rounded-2xl p-7">
-              <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-5">How It Works</p>
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-5">How It Works</p>
               <div className="space-y-6">
                 {STEPS.map((step, i) => (
                   <div key={step.n} className="flex gap-4">
@@ -234,8 +234,8 @@ export default function ReturnsExchangesPage() {
                       {i < STEPS.length - 1 && <div className="w-px flex-1 bg-white/10 mt-2" />}
                     </div>
                     <div className="pb-6">
-                      <p className="text-white font-bold text-sm mb-1">{step.title}</p>
-                      <p className="text-white/50 text-xs leading-relaxed">{step.desc}</p>
+                      <p className="text-white font-bold text-[16.5px] mb-1">{step.title}</p>
+                      <p className="text-white/50 text-[16.5px] leading-relaxed">{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -244,8 +244,8 @@ export default function ReturnsExchangesPage() {
 
             {/* Contact card */}
             <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm">
-              <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-4">Questions?</p>
-              <p className="text-[#2a1008] font-bold text-base mb-4">We're here to help</p>
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-4">Questions?</p>
+              <p className="text-[#2a1008] font-bold text-[16.5px] mb-4">We're here to help</p>
 
               <div className="space-y-3 mb-5">
                 <a href="mailto:customerservice@hempandbarrel.com"
@@ -273,8 +273,8 @@ export default function ReturnsExchangesPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-semibold">Mon–Sat: 10am – 8pm</p>
-                    <p className="text-gray-400 text-xs">Sun: 12pm – 4pm</p>
+                    <p className="font-semibold text-[16.5px]">Mon–Sat: 10am – 8pm</p>
+                    <p className="text-gray-400 text-[16.5px]">Sun: 12pm – 4pm</p>
                   </div>
                 </div>
               </div>
@@ -287,9 +287,9 @@ export default function ReturnsExchangesPage() {
 
             {/* Store address */}
             <div className="bg-[#f5f0eb] rounded-2xl p-6">
-              <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em] mb-3">Store Location</p>
-              <p className="text-[#2a1008] font-bold text-sm">Hemp & Barrel</p>
-              <p className="text-[#3d2b1f] text-sm mt-1 leading-relaxed">800 N Polk Street<br />Pineville, NC 28134</p>
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-3">Store Location</p>
+              <p className="text-[#2a1008] font-bold text-[16.5px]">Hemp & Barrel</p>
+              <p className="text-[#3d2b1f] text-[16.5px] mt-1 leading-relaxed">800 N Polk Street<br />Pineville, NC 28134</p>
               <Link href="/contact"
                 className="mt-4 inline-flex items-center gap-1.5 text-[#1A9248] text-xs font-bold hover:underline">
                 Get Directions →

@@ -136,7 +136,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Search */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
+          <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Search Products</p>
           <form onSubmit={submitSearch} className="flex gap-2">
             <div className="relative flex-1">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
@@ -149,7 +149,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder="Product name…"
-                className="w-full pl-8 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
+                className="w-full pl-8 pr-3 py-2 text-[12px] border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
               />
             </div>
             <button type="submit"
@@ -161,7 +161,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
           </form>
           {nav.activeSearch && (
             <button onClick={() => { setDraft(""); nav.setSearch(""); }}
-              className="mt-2 text-[11px] text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
+              className="mt-2 text-[12px] text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
               </svg>
@@ -172,24 +172,24 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Categories */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Category</p>
+          <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Category</p>
           <div className="space-y-0.5">
             <button onClick={() => { setPCat(""); setPBrand(""); }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all flex justify-between items-center ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all flex justify-between items-center ${
                 !pCat && !pBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
               }`}>
               <span>All Products</span>
-              <span className={`text-xs font-normal ${!pCat && !pBrand ? "text-white/70" : "text-gray-400"}`}>{totalCount}</span>
+              <span className={`text-[12px] font-normal ${!pCat && !pBrand ? "text-white/70" : "text-gray-400"}`}>{totalCount}</span>
             </button>
             {categories.map((cat) => (
               <button key={cat.id} onClick={() => { setPCat(cat.slug); setPBrand(""); }}
-                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all flex justify-between items-center ${
+                className={`w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all flex justify-between items-center ${
                   pCat === cat.slug
                     ? "bg-[#1A9248] text-white"
                     : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
                 }`}>
                 <span>{cat.name}</span>
-                <span className={`text-xs font-normal ${pCat === cat.slug ? "text-white/70" : "text-gray-400"}`}>{cat.count}</span>
+                <span className={`text-[12px] font-normal ${pCat === cat.slug ? "text-white/70" : "text-gray-400"}`}>{cat.count}</span>
               </button>
             ))}
           </div>
@@ -198,7 +198,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
         {/* Brands */}
         {brands.length > 0 && (
           <div className="p-4 border-b border-gray-100">
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Brands</p>
+            <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Brands</p>
             <div className="relative mb-2">
               <svg className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 pointer-events-none"
                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -210,23 +210,23 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 value={brandSearch}
                 onChange={(e) => setBrandSearch(e.target.value)}
                 placeholder="Search brands…"
-                className="w-full pl-7 pr-3 py-1.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
+                className="w-full pl-7 pr-3 py-1.5 text-[12px] border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
               />
             </div>
             <div className="space-y-0.5 max-h-[200px] overflow-y-auto">
               {filteredBrands.map((b) => (
                 <button key={b.id} onClick={() => { setPBrand(pBrand === b.slug ? "" : b.slug); setPCat(""); }}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all flex justify-between items-center ${
+                  className={`w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all flex justify-between items-center ${
                     pBrand === b.slug
                       ? "bg-[#1A9248] text-white"
                       : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
                   }`}>
                   <span>{b.name}</span>
-                  <span className={`text-xs font-normal ${pBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
+                  <span className={`text-[12px] font-normal ${pBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
                 </button>
               ))}
               {brandSearch && filteredBrands.length === 0 && (
-                <p className="text-xs text-gray-400 px-3 py-2">No brands found</p>
+                <p className="text-[12px] text-gray-400 px-3 py-2">No brands found</p>
               )}
             </div>
           </div>
@@ -234,13 +234,13 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Strain Type */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
+          <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3 flex items-center gap-1.5">
             <Leaf className="w-3.5 h-3.5" /> Strain Type
           </p>
           <div className="flex flex-wrap gap-1.5">
             {STRAINS.map(s => (
               <button key={s.value} onClick={() => setPStrain(pStrain === s.value ? "" : s.value)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-bold transition-all ${
                   pStrain === s.value
                     ? `${s.color} text-white shadow-md`
                     : "bg-gray-50 text-[#3d2b1f] hover:bg-gray-100"
@@ -254,7 +254,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
 
         {/* Effects */}
         <div className="p-4 border-b border-gray-100">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
+          <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Effects</p>
           <div className="flex flex-wrap gap-1.5">
             {EFFECTS.map(eff => {
               const active = pEffects.includes(eff.value);
@@ -262,7 +262,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 <button key={eff.value} onClick={() => setPEffects(prev =>
                   prev.includes(eff.value) ? prev.filter(v => v !== eff.value) : [...prev, eff.value]
                 )}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[12px] font-semibold transition-all ${
                     active
                       ? "bg-[#1A9248] text-white shadow-md"
                       : "bg-gray-50 text-[#3d2b1f] hover:bg-[#1A9248]/10 hover:text-[#1A9248]"
@@ -283,8 +283,8 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
             aria-pressed={pInstock}
           >
             <div className="text-left">
-              <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#1A9248]">In Stock Only</p>
-              <p className="text-[11px] text-gray-400 mt-0.5 leading-snug">
+              <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#1A9248]">In Stock Only</p>
+              <p className="text-[12px] text-gray-400 mt-0.5 leading-snug">
                 {pInstock ? "Hiding out of stock items" : "Showing all products"}
               </p>
             </div>
@@ -302,7 +302,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
         <div className="p-4 space-y-2">
           <button onClick={applyFilters}
             disabled={!isDirty}
-            className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all ${
+            className={`w-full py-2.5 rounded-xl text-[12px] font-bold transition-all ${
               isDirty
                 ? "bg-[#1A9248] text-white hover:bg-[#148038] shadow-md shadow-[#1A9248]/20 animate-pulse"
                 : "bg-gray-100 text-gray-400 cursor-default"
@@ -311,7 +311,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
           </button>
           {hasActive && (
             <button onClick={resetFilters}
-              className="w-full py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all">
+              className="w-full py-2 rounded-xl text-[12px] font-semibold text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all">
               Reset All Filters
             </button>
           )}
@@ -328,7 +328,7 @@ export function ShopSortBar({ total, shown }: { total: number; shown: number }) 
 
   return (
     <div className="hidden lg:flex items-center justify-between mb-6">
-      <p className="text-gray-400 text-sm">
+      <p className="text-gray-400 text-[18px]">
         Showing <span className="font-bold text-[#3d2b1f]">{shown}</span> of{" "}
         <span className="font-bold text-[#3d2b1f]">{total}</span> products
       </p>
@@ -479,7 +479,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
             <div className="flex gap-1 mb-4 bg-gray-50 rounded-xl p-1">
               {(["categories", "brands"] as const).map(t => (
                 <button key={t} onClick={() => setTab(t)}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-bold capitalize transition-all ${
+                  className={`flex-1 py-1.5 rounded-lg text-[12px] font-bold capitalize transition-all ${
                     tab === t ? "bg-white text-[#2a1008] shadow-sm" : "text-gray-400 hover:text-[#3d2b1f]"
                   }`}>
                   {t}
@@ -492,12 +492,12 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
           {(!brands.length || tab === "categories") && (
             <div className="grid grid-cols-2 gap-1">
               <button onClick={() => { setPCat(""); setPBrand(""); }}
-                className={`text-left px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                className={`text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all ${
                   !pCat && !pBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
                 }`}>All Products</button>
               {categories.map(cat => (
                 <button key={cat.id} onClick={() => { setPCat(cat.slug); setPBrand(""); }}
-                  className={`text-left px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                  className={`text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all ${
                     pCat === cat.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
                   }`}>{cat.name}</button>
               ))}
@@ -518,18 +518,18 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
                   value={brandSearch}
                   onChange={(e) => setBrandSearch(e.target.value)}
                   placeholder="Search brands…"
-                  className="w-full pl-7 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
+                  className="w-full pl-7 pr-3 py-1.5 text-[12px] border border-gray-200 rounded-lg focus:outline-none focus:border-[#1A9248] text-[#3d2b1f] placeholder:text-gray-400"
                 />
               </div>
               <div className="grid grid-cols-2 gap-1 max-h-[200px] overflow-y-auto">
                 {filteredBrands.map(b => (
                   <button key={b.id} onClick={() => { setPBrand(pBrand === b.slug ? "" : b.slug); setPCat(""); }}
-                    className={`text-left px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                    className={`text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all ${
                       pBrand === b.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
                     }`}>{b.name}</button>
                 ))}
                 {brandSearch && filteredBrands.length === 0 && (
-                  <p className="text-xs text-gray-400 px-3 py-2 col-span-2">No brands found</p>
+                  <p className="text-[12px] text-gray-400 px-3 py-2 col-span-2">No brands found</p>
                 )}
               </div>
             </div>
@@ -537,11 +537,11 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
 
           {/* Strain + Effects */}
           <div className="mt-3 pt-3 border-t border-gray-100">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Strain</p>
+            <p className="text-[12px] font-bold text-gray-400 uppercase tracking-wider mb-2">Strain</p>
             <div className="flex flex-wrap gap-1.5 mb-3">
               {STRAINS.map(s => (
                 <button key={s.value} onClick={() => setPStrain(pStrain === s.value ? "" : s.value)}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold transition-all ${
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-bold transition-all ${
                     pStrain === s.value ? `${s.color} text-white` : "bg-gray-100 text-[#3d2b1f]"
                   }`}>
                   <span className={`w-1.5 h-1.5 rounded-full ${pStrain === s.value ? "bg-white/50" : s.color}`} />
@@ -549,13 +549,13 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
                 </button>
               ))}
             </div>
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Effects</p>
+            <p className="text-[12px] font-bold text-gray-400 uppercase tracking-wider mb-2">Effects</p>
             <div className="flex flex-wrap gap-1.5">
               {EFFECTS.map(eff => (
                 <button key={eff.value} onClick={() => setPEffects(prev =>
                   prev.includes(eff.value) ? prev.filter(v => v !== eff.value) : [...prev, eff.value]
                 )}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-semibold transition-all ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-[12px] font-semibold transition-all ${
                     pEffects.includes(eff.value) ? "bg-[#1A9248] text-white" : "bg-gray-100 text-[#3d2b1f]"
                   }`}>
                   <eff.icon className="w-2.5 h-2.5" />
@@ -572,7 +572,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
               className="w-full flex items-center justify-between gap-3 group py-1"
               aria-pressed={pInstock}
             >
-              <span className="text-xs font-bold text-[#3d2b1f]">In Stock Only</span>
+              <span className="text-[12px] font-bold text-[#3d2b1f]">In Stock Only</span>
               <div className={`relative flex-shrink-0 w-10 h-5 rounded-full transition-colors duration-300 ${
                 pInstock ? "bg-[#1A9248]" : "bg-gray-200 group-hover:bg-gray-300"
               }`}>
@@ -587,7 +587,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
           <div className="mt-3 pt-3 border-t border-gray-100 space-y-2">
             <button onClick={applyFilters}
               disabled={!isDirty}
-              className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all ${
+              className={`w-full py-2.5 rounded-xl text-[12px] font-bold transition-all ${
                 isDirty
                   ? "bg-[#1A9248] text-white hover:bg-[#148038] shadow-md shadow-[#1A9248]/20"
                   : "bg-gray-100 text-gray-400 cursor-default"
@@ -596,7 +596,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
             </button>
             {hasFilter && (
               <button onClick={resetFilters}
-                className="w-full py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all">
+                className="w-full py-2 rounded-xl text-[12px] font-semibold text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all">
                 Reset All Filters
               </button>
             )}

@@ -29,7 +29,7 @@ export default function FaqSection({ title, faqs }: { title?: string; faqs: FaqI
   return (
     <div>
       {title && (
-        <h3 className="text-lg font-bold text-[#2a1008] mb-4 flex items-center gap-2">
+        <h3 className="text-[26px] font-bold text-[#2a1008] mb-4 flex items-center gap-2">
           <span className="w-1 h-5 bg-[#1A9248] rounded-full" />
           {title}
         </h3>

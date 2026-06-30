@@ -95,8 +95,8 @@ function AuthForms() {
     <>
       <section className="bg-[#2a1008] py-14">
         <div className="max-w-[1320px] mx-auto px-4 text-center">
-          <h1 className="text-white text-4xl md:text-5xl font-bold mb-2">My Account</h1>
-          <p className="text-white/40 text-sm">Sign in or create an account to track orders and manage your profile.</p>
+          <h1 className="text-white text-[44px] md:text-5xl font-bold mb-2">My Account</h1>
+          <p className="text-white/40 text-[16.5px]">Sign in or create an account to track orders and manage your profile.</p>
         </div>
       </section>
 
@@ -144,7 +144,7 @@ function AuthForms() {
               className="w-full py-3.5 bg-[#1A9248] hover:bg-[#148038] disabled:bg-[#1A9248]/50 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition-colors">
               {loginBusy ? "Signing in…" : "Sign In"}
             </button>
-            <p className="text-center text-xs text-gray-400">
+            <p className="text-center text-[16.5px] text-gray-400">
               <a href={`${process.env.NEXT_PUBLIC_WORDPRESS_URL ?? ""}/my-account/lost-password/`}
                 className="text-[#1A9248] hover:underline" target="_blank" rel="noopener noreferrer">
                 Forgot your password?
@@ -203,7 +203,7 @@ function AuthForms() {
               className="w-full py-3.5 bg-[#1A9248] hover:bg-[#148038] disabled:bg-[#1A9248]/50 text-white font-bold text-sm uppercase tracking-wider rounded-xl transition-colors">
               {regBusy ? "Creating account…" : "Create Account"}
             </button>
-            <p className="text-center text-xs text-gray-400 leading-relaxed">
+            <p className="text-center text-[16.5px] text-gray-400 leading-relaxed">
               By creating an account you agree to our{" "}
               <Link href="/terms-conditions" className="text-[#1A9248] hover:underline">Terms</Link>{" "}and{" "}
               <Link href="/privacy-policy" className="text-[#1A9248] hover:underline">Privacy Policy</Link>.
@@ -308,7 +308,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
           <AddrField label="Email address" value={addr.email ?? ""} onChange={v => setAddr({ ...addr, email: v })} type="email"/>
         </>
       )}
-      {err && <p className="text-xs text-red-500">{err}</p>}
+      {err && <p className="text-[16.5px] text-red-500">{err}</p>}
       <div className="flex gap-3">
         <button onClick={() => handleSave(type)} disabled={busy}
           className="bg-[#1A9248] hover:bg-[#148038] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-xl transition-colors">
@@ -324,19 +324,19 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
 
   const AddrDisplay = ({ addr }: { addr: typeof billing | null }) => {
     if (!addr || (!addr.address1 && !addr.city)) {
-      return <p className="text-sm text-gray-400 italic">No address set yet.</p>;
+      return <p className="text-[16.5px] text-gray-400 italic">No address set yet.</p>;
     }
     return (
       <address className="not-italic text-sm text-[#3d2b1f] space-y-0.5">
-        {(addr.firstName || addr.lastName) && <p className="font-semibold">{[addr.firstName, addr.lastName].filter(Boolean).join(" ")}</p>}
-        {addr.company   && <p className="text-gray-500">{addr.company}</p>}
-        {addr.address1  && <p>{addr.address1}</p>}
-        {addr.address2  && <p>{addr.address2}</p>}
+        {(addr.firstName || addr.lastName) && <p className="font-semibold text-[16.5px]">{[addr.firstName, addr.lastName].filter(Boolean).join(" ")}</p>}
+        {addr.company   && <p className="text-gray-500 text-[16.5px]">{addr.company}</p>}
+        {addr.address1  && <p className="text-[16.5px]">{addr.address1}</p>}
+        {addr.address2  && <p className="text-[16.5px]">{addr.address2}</p>}
         {(addr.city || addr.state || addr.postcode) && (
-          <p>{[addr.city, addr.state, addr.postcode].filter(Boolean).join(", ")}</p>
+          <p className="text-[16.5px]">{[addr.city, addr.state, addr.postcode].filter(Boolean).join(", ")}</p>
         )}
-        {addr.country   && <p>{COUNTRIES_ADDR.find(([c]) => c === addr.country)?.[1] ?? addr.country}</p>}
-        {addr.phone     && <p className="mt-1 text-gray-500">{addr.phone}</p>}
+        {addr.country   && <p className="text-[16.5px]">{COUNTRIES_ADDR.find(([c]) => c === addr.country)?.[1] ?? addr.country}</p>}
+        {addr.phone     && <p className="mt-1 text-gray-500 text-[16.5px]">{addr.phone}</p>}
       </address>
     );
   };
@@ -349,14 +349,14 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
 
   return (
     <div>
-      <h2 className="text-[#2a1008] text-xl font-bold mb-6">Addresses</h2>
+      <h2 className="text-[#2a1008] text-[28px] font-bold mb-6">Addresses</h2>
       {ok && <div className="mb-4 bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-emerald-700 text-sm font-semibold">Address saved successfully.</div>}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         {/* Billing */}
         <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-[#2a1008] text-sm uppercase tracking-wider">Billing address</h3>
+            <h3 className="font-bold text-[#2a1008] text-[22px] uppercase tracking-wider">Billing address</h3>
             {editing !== "billing" && (
               <button onClick={() => { setEditing("billing"); setErr(""); }}
                 className="text-[#1A9248] text-xs font-bold hover:underline">Edit</button>
@@ -371,7 +371,7 @@ function AddressesPanel({ customer, custLoading, userEmail }: { customer: Custom
         {/* Shipping */}
         <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-[#2a1008] text-sm uppercase tracking-wider">Shipping address</h3>
+            <h3 className="font-bold text-[#2a1008] text-[22px] uppercase tracking-wider">Shipping address</h3>
             {editing !== "shipping" && (
               <button onClick={() => { setEditing("shipping"); setErr(""); }}
                 className="text-[#1A9248] text-xs font-bold hover:underline">Edit</button>
@@ -516,13 +516,13 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
             <span>/</span>
             <span className="text-white/60">My Account</span>
           </nav>
-          <h1 className="text-white text-3xl md:text-4xl font-bold">
+          <h1 className="text-white text-[38px] md:text-4xl font-bold">
             Hello {user.name.split(" ")[0]}
             <span className="text-white/40 text-lg font-normal ml-2">(not {user.name.split(" ")[0]}?{" "}
               <button onClick={handleLogout} className="underline hover:text-white transition-colors">Log out</button>)
             </span>
           </h1>
-          <p className="text-white/40 text-sm mt-1">
+          <p className="text-white/40 text-[16.5px] mt-1">
             From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.
           </p>
         </div>
@@ -564,7 +564,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
             {/* ── Dashboard overview ── */}
             {activeTab === "dashboard" && (
               <div className="space-y-4">
-                <p className="text-[#3d2b1f] text-sm leading-relaxed">
+                <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">
                   Hello <strong>{user.name.split(" ")[0]}</strong>! From your account dashboard you can view your{" "}
                   <button onClick={() => setActiveTab("orders")} className="text-[#1A9248] font-semibold hover:underline">recent orders</button>,
                   manage your{" "}
@@ -581,8 +581,8 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                       <svg className="w-6 h-6 text-[#1A9248] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={card.icon}/>
                       </svg>
-                      <p className="text-[#2a1008] font-bold text-sm">{card.label}</p>
-                      {card.count !== null && <p className="text-gray-400 text-xs mt-0.5">{card.count} total</p>}
+                      <p className="text-[#2a1008] font-bold text-[16.5px]">{card.label}</p>
+                      {card.count !== null && <p className="text-gray-400 text-[16.5px] mt-0.5">{card.count} total</p>}
                     </button>
                   ))}
                 </div>
@@ -592,7 +592,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
             {/* ── Orders ── */}
             {activeTab === "orders" && (
               <div>
-                <h2 className="text-[#2a1008] text-xl font-bold mb-5">Orders</h2>
+                <h2 className="text-[#2a1008] text-[28px] font-bold mb-5">Orders</h2>
                 {custLoading ? (
                   <div className="py-16 text-center">
                     <div className="inline-block w-7 h-7 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin"/>
@@ -602,7 +602,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                     <svg className="w-12 h-12 text-gray-200 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                     </svg>
-                    <p className="text-gray-400 text-sm mb-4">No orders yet.</p>
+                    <p className="text-gray-400 text-[16.5px] mb-4">No orders yet.</p>
                     <Link href="/shop"
                       className="inline-block bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-xl transition-colors">
                       Start Shopping
@@ -620,9 +620,9 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                         <div key={order.databaseId} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
                           <div className="flex items-center justify-between flex-wrap gap-3 px-6 py-4 border-b border-gray-50">
                             <div className="flex items-center gap-4 flex-wrap">
-                              <div><p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Order</p><p className="text-[#2a1008] font-bold">#{order.orderNumber}</p></div>
-                              <div><p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Date</p><p className="text-[#3d2b1f] text-sm">{dateStr}</p></div>
-                              <div><p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Total</p><p className="text-[#3d2b1f] font-bold text-sm">{order.total}</p></div>
+                              <div><p className="text-[16.5px] font-bold uppercase tracking-wider text-gray-400">Order</p><p className="text-[#2a1008] font-bold text-[16.5px]">#{order.orderNumber}</p></div>
+                              <div><p className="text-[16.5px] font-bold uppercase tracking-wider text-gray-400">Date</p><p className="text-[#3d2b1f] text-[16.5px]">{dateStr}</p></div>
+                              <div><p className="text-[16.5px] font-bold uppercase tracking-wider text-gray-400">Total</p><p className="text-[#3d2b1f] font-bold text-[16.5px]">{order.total}</p></div>
                             </div>
                             <div className="flex items-center gap-3">
                               <span className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${badgeClass}`}>
@@ -647,8 +647,8 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                                     }
                                   </div>
                                   <div>
-                                    <p className="text-xs font-semibold text-[#3d2b1f] line-clamp-1 max-w-[120px]">{item.product?.node?.name}</p>
-                                    <p className="text-[10px] text-gray-400">Qty: {item.quantity}</p>
+                                    <p className="text-[16.5px] font-semibold text-[#3d2b1f] line-clamp-1 max-w-[120px]">{item.product?.node?.name}</p>
+                                    <p className="text-[16.5px] text-gray-400">Qty: {item.quantity}</p>
                                   </div>
                                 </div>
                               );
@@ -675,7 +675,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
             {/* ── Account Details (editable form) ── */}
             {activeTab === "details" && (
               <div>
-                <h2 className="text-[#2a1008] text-xl font-bold mb-6">Account Details</h2>
+                <h2 className="text-[#2a1008] text-[28px] font-bold mb-6">Account Details</h2>
                 {custLoading ? (
                   <div className="py-16 text-center">
                     <div className="inline-block w-7 h-7 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin"/>
@@ -710,7 +710,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                       <input type="text" required value={form.displayName}
                         onChange={e => setForm(p => ({ ...p, displayName: e.target.value }))}
                         className={inp}/>
-                      <p className="text-[11px] text-gray-400 mt-1 italic">This will be how your name will be displayed in the account section and in reviews.</p>
+                      <p className="text-[16.5px] text-gray-400 mt-1 italic">This will be how your name will be displayed in the account section and in reviews.</p>
                     </div>
 
                     {/* Email */}
@@ -725,7 +725,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
 
                     {/* Password change */}
                     <div className="border border-gray-200 rounded-2xl p-5 space-y-4">
-                      <h3 className="text-sm font-bold text-[#3d2b1f] uppercase tracking-wider">Password change</h3>
+                      <h3 className="text-[22px] font-bold text-[#3d2b1f] uppercase tracking-wider">Password change</h3>
                       <div>
                         <label className="block text-xs font-bold text-[#3d2b1f]/60 uppercase tracking-wider mb-1.5">
                           Current password <span className="text-gray-400 font-normal normal-case">(leave blank to leave unchanged)</span>

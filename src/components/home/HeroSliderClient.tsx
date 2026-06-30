@@ -93,7 +93,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
                   {slide.heading}
                 </h1>
               ) : (
-                <p className="text-white font-black leading-[0.88] mb-5 tracking-tight whitespace-pre-line"
+                <p className="text-white font-black leading-[0.88] mb-5 tracking-tight whitespace-pre-line text-[16.5px]"
                   style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", textShadow: "0 2px 20px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.4)" }}
                   aria-hidden="true">
                   {slide.heading}
@@ -101,7 +101,7 @@ export default function HeroSliderClient({ slides }: { slides: SlideData[] }) {
               )}
 
               {/* Sub */}
-              <p className="text-white text-base md:text-[17px] max-w-[440px] leading-relaxed mb-9 font-medium"
+              <p className="text-white text-[16.5px] md:text-[17px] max-w-[440px] leading-relaxed mb-9 font-medium"
                 style={{ textShadow: "0 1px 10px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.5)" }}>
                 {slide.sub}
               </p>

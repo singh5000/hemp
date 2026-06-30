@@ -81,10 +81,10 @@ export default function AboutUsPage() {
             Est. 2019 · Pineville, NC
           </div>
 
-          <h1 className="text-white text-5xl md:text-7xl font-bold leading-tight mb-6">
+          <h1 className="text-white text-[56px] md:text-7xl font-bold leading-tight mb-6">
             About <span className="text-[#1A9248]">Hemp &amp; Barrel</span>
           </h1>
-          <p className="text-white/50 text-lg md:text-xl max-w-[600px] mx-auto leading-relaxed">
+          <p className="text-white/50 text-[16.5px] md:text-xl max-w-[600px] mx-auto leading-relaxed">
             Charlotte NC's trusted CBD store. Premium, lab-tested hemp products for your everyday wellness.
           </p>
         </div>
@@ -105,44 +105,44 @@ export default function AboutUsPage() {
               />
               {/* Est badge */}
               <div className="absolute bottom-5 left-5 bg-[#2a1008]/90 backdrop-blur-sm rounded-2xl px-5 py-3">
-                <p className="text-[#1A9248] text-xs font-bold uppercase tracking-wider">Est.</p>
-                <p className="text-white text-3xl font-bold leading-none">2019</p>
+                <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-wider">Est.</p>
+                <p className="text-white text-[16.5px] font-bold leading-none">2019</p>
               </div>
             </div>
           </div>
 
           {/* Text */}
           <div className="flex-1 min-w-0">
-            <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-4">Our Story</p>
-            <h2 className="text-[#2a1008] text-3xl md:text-4xl font-bold leading-tight mb-6">
+            <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-4">Our Story</p>
+            <h2 className="text-[#2a1008] text-[38px] md:text-4xl font-bold leading-tight mb-6">
               Born at a Farm in Lake Lure, NC
             </h2>
 
             <div className="space-y-5 text-[#3d2b1f] text-[16px] leading-relaxed">
-              <p>
+              <p className="text-[16.5px]">
                 The idea of Hemp &amp; Barrel started at a farm in Lake Lure, North Carolina in the
                 Summer of 2018. The founders took a trip to Lake Lure Farms, and it was there that
                 the idea for <strong>Lake Harvest CBD</strong> was hatched.
               </p>
-              <p>
+              <p className="text-[16.5px]">
                 Lake Harvest CBD is now home of the most effective and best CBD brand in four states.
               </p>
-              <p>
+              <p className="text-[16.5px]">
                 Hemp &amp; Barrel is the first retail store devoted to the brand Lake Harvest CBD, as
                 well as offering a wide range of other great products. We are a true locally owned,
                 seed to shelf, fully vertical organization.
               </p>
-              <p>
+              <p className="text-[16.5px]">
                 We believe that local is better, but understand people might want different products,
                 and we are here to provide. Before we opened Hemp &amp; Barrel we scoured the state
                 sampling products and store setups to bring you the best CBD shopping experience possible.
               </p>
-              <p>
+              <p className="text-[16.5px]">
                 We offer CBD tinctures, lotions, salves, pet treatments, bath salts/bombs, water,
                 gummies, honey, flower and vapes. In addition to that we also select hemp themed
                 beer and wine.
               </p>
-              <p className="text-[#1A9248] font-bold text-lg italic">
+              <p className="text-[#1A9248] font-bold text-[16.5px] italic">
                 &ldquo;Hemping ain&apos;t easy&rdquo; — but we are happy to be on this journey with you!
               </p>
             </div>
@@ -159,8 +159,8 @@ export default function AboutUsPage() {
       <section className="bg-[#f5f0eb] py-16">
         <div className="max-w-[1320px] mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-2">Why Hemp &amp; Barrel</p>
-            <h2 className="text-[#2a1008] text-3xl md:text-4xl font-bold">What Makes Us Different</h2>
+            <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-2">Why Hemp &amp; Barrel</p>
+            <h2 className="text-[#2a1008] text-[38px] md:text-4xl font-bold">What Makes Us Different</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {PILLARS.map((p) => (
@@ -169,8 +169,8 @@ export default function AboutUsPage() {
                 <div className="w-12 h-12 bg-[#1A9248]/10 text-[#1A9248] rounded-xl flex items-center justify-center mb-5">
                   {p.icon}
                 </div>
-                <h3 className="text-[#2a1008] font-bold text-base mb-2">{p.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
+                <h3 className="text-[#2a1008] font-bold text-[24px] mb-2">{p.title}</h3>
+                <p className="text-gray-500 text-[16.5px] leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -180,14 +180,14 @@ export default function AboutUsPage() {
       {/* ── Quick Links ── */}
       <section className="max-w-[1320px] mx-auto px-4 py-16">
         <div className="text-center mb-10">
-          <h2 className="text-[#2a1008] text-2xl md:text-3xl font-bold">Explore More</h2>
+          <h2 className="text-[#2a1008] text-[32px] md:text-3xl font-bold">Explore More</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {QUICK_LINKS.map((ql) => (
             <Link key={ql.href} href={ql.href}
               className="group bg-[#2a1008] hover:bg-[#3d2b1f] rounded-2xl p-6 text-center transition-all hover:-translate-y-1 hover:shadow-xl">
               <span className="text-3xl block mb-3">{ql.icon}</span>
-              <p className="text-white font-bold text-sm uppercase tracking-wider group-hover:text-[#1A9248] transition-colors">
+              <p className="text-white font-bold text-[16.5px] uppercase tracking-wider group-hover:text-[#1A9248] transition-colors">
                 {ql.label}
               </p>
             </Link>
@@ -200,8 +200,8 @@ export default function AboutUsPage() {
         <div className="max-w-[1320px] mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-10 items-center justify-between">
             <div>
-              <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Store Info</p>
-              <h2 className="text-white text-3xl font-bold mb-5">Visit Us in Pineville</h2>
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">Store Info</p>
+              <h2 className="text-white text-[38px] font-bold mb-5">Visit Us in Pineville</h2>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-3 text-white/70">
                   <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

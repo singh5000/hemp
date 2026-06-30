@@ -169,14 +169,14 @@ export default function LabReportsClient() {
         </div>
 
         {/* Results count */}
-        <p className="text-gray-400 text-sm mb-6">
+        <p className="text-gray-400 text-[16.5px] mb-6">
           Showing <span className="font-bold text-[#3d2b1f]">{filtered.length}</span> certificates
         </p>
 
         {/* ── Grid ── */}
         {filtered.length === 0 ? (
           <div className="py-24 text-center">
-            <p className="text-2xl text-gray-300 font-bold">No results found</p>
+            <p className="text-[16.5px] text-gray-300 font-bold">No results found</p>
             <button onClick={() => { setSearch(""); setActiveCategory("All"); }}
               className="mt-4 text-[#1A9248] text-sm font-bold hover:underline">Clear filters</button>
           </div>
@@ -188,7 +188,7 @@ export default function LabReportsClient() {
 
                 {/* Card header */}
                 <div className="bg-[#2a1008] px-5 pt-5 pb-4 flex items-start justify-between gap-2">
-                  <h3 className="text-white font-bold text-base leading-snug flex-1">{report.name}</h3>
+                  <h3 className="text-white font-bold text-[24px] leading-snug flex-1">{report.name}</h3>
                   {isPDF(report.url) ? (
                     <span className="flex-shrink-0 bg-white/10 text-white/70 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md">PDF</span>
                   ) : (
@@ -215,14 +215,14 @@ export default function LabReportsClient() {
                     <div className="flex gap-3 mb-4">
                       {report.thca && (
                         <div className="flex-1 bg-[#f5f0eb] rounded-xl px-3 py-2.5 text-center">
-                          <p className="text-[#1A9248] text-lg font-bold leading-none">{report.thca.toFixed(1)}%</p>
-                          <p className="text-[#3d2b1f]/50 text-[10px] uppercase tracking-wider mt-1 font-semibold">THCa</p>
+                          <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">{report.thca.toFixed(1)}%</p>
+                          <p className="text-[#3d2b1f]/50 text-[16.5px] uppercase tracking-wider mt-1 font-semibold">THCa</p>
                         </div>
                       )}
                       {report.terp && (
                         <div className="flex-1 bg-[#f5f0eb] rounded-xl px-3 py-2.5 text-center">
-                          <p className="text-[#3d2b1f] text-lg font-bold leading-none">{report.terp.toFixed(2)}%</p>
-                          <p className="text-[#3d2b1f]/50 text-[10px] uppercase tracking-wider mt-1 font-semibold">Terpenes</p>
+                          <p className="text-[#3d2b1f] text-[16.5px] font-bold leading-none">{report.terp.toFixed(2)}%</p>
+                          <p className="text-[#3d2b1f]/50 text-[16.5px] uppercase tracking-wider mt-1 font-semibold">Terpenes</p>
                         </div>
                       )}
                     </div>
@@ -230,7 +230,7 @@ export default function LabReportsClient() {
 
                   {/* Batch */}
                   {report.batch && (
-                    <p className="text-gray-400 text-[11px] mb-4 font-mono">Batch: {report.batch}</p>
+                    <p className="text-gray-400 text-[16.5px] mb-4 font-mono">Batch: {report.batch}</p>
                   )}
 
                   {/* CTA */}
@@ -268,8 +268,8 @@ export default function LabReportsClient() {
                 <div className="w-12 h-12 bg-[#1A9248]/10 text-[#1A9248] rounded-full flex items-center justify-center">
                   {item.icon}
                 </div>
-                <p className="font-bold text-[#2a1008] text-sm">{item.title}</p>
-                <p className="text-gray-400 text-xs leading-relaxed max-w-[220px]">{item.desc}</p>
+                <p className="font-bold text-[#2a1008] text-[16.5px]">{item.title}</p>
+                <p className="text-gray-400 text-[16.5px] leading-relaxed max-w-[220px]">{item.desc}</p>
               </div>
             ))}
           </div>

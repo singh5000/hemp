@@ -86,7 +86,7 @@ export default function ProductAccordion({ description, attributes, reviewCount,
         {reviewCount > 0 ? (
           <div className="flex items-center gap-4">
             <div className="text-center">
-              <p className="text-3xl font-black text-[#2a1008]">{avgRating}</p>
+              <p className="text-[16.5px] font-black text-[#2a1008]">{avgRating}</p>
               <div className="flex mt-1">
                 {[1,2,3,4,5].map(i => (
                   <svg key={i} className={`w-4 h-4 ${i <= Math.round(parseFloat(avgRating)) ? "text-amber-400" : "text-gray-200"}`}
@@ -95,12 +95,12 @@ export default function ProductAccordion({ description, attributes, reviewCount,
                   </svg>
                 ))}
               </div>
-              <p className="text-[14px] text-gray-400 mt-1">{reviewCount} review{reviewCount !== 1 ? "s" : ""}</p>
+              <p className="text-[16.5px] text-gray-400 mt-1">{reviewCount} review{reviewCount !== 1 ? "s" : ""}</p>
             </div>
-            <p className="text-[16px] text-gray-500">Scroll down to read all customer reviews.</p>
+            <p className="text-[16.5px] text-gray-500">Scroll down to read all customer reviews.</p>
           </div>
         ) : (
-          <p className="text-[16px] text-gray-400">No reviews yet. Be the first to share your experience!</p>
+          <p className="text-[16.5px] text-gray-400">No reviews yet. Be the first to share your experience!</p>
         )}
       </AccordionItem>
 
@@ -113,8 +113,8 @@ export default function ProductAccordion({ description, attributes, reviewCount,
             { title: "COA Available", desc: "Certificate of Analysis available for every product on request." },
           ].map(item => (
             <div key={item.title} className="bg-[#1A9248]/5 rounded-xl p-4 border border-[#1A9248]/10">
-              <p className="text-[14px] font-bold text-[#1A9248] uppercase tracking-wide mb-1">{item.title}</p>
-              <p className="text-[14px] text-[#3d2b1f] leading-relaxed">{item.desc}</p>
+              <p className="text-[16.5px] font-bold text-[#1A9248] uppercase tracking-wide mb-1">{item.title}</p>
+              <p className="text-[16.5px] text-[#3d2b1f] leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>

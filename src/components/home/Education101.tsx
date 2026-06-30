@@ -2,10 +2,12 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import AnimatedButton from "@/components/ui/AnimatedButton";
-import { Leaf, FlaskConical, Shield, Droplets, Heart, Zap, Moon, Sparkles } from "lucide-react";
+import { Leaf, FlaskConical, Shield, Droplets, Heart, Zap, Moon, Sparkles, Flame, Sun } from "lucide-react";
 
 const sections = [
   {
+    tabLabel: "THCA",
+    tabIcon: Sparkles,
     tag: "Learn About Hemp",
     heading: "What is",
     headingHighlight: "THCA?",
@@ -22,13 +24,15 @@ const sections = [
       { icon: Zap, text: "Pain & Inflammation" },
     ],
     buttonText: "Shop THCA",
-    buttonHref: "/shop",
+    buttonHref: "/shop?search=thca",
     image: "https://images.pexels.com/photos/6955175/pexels-photo-6955175.jpeg?auto=compress&cs=tinysrgb&w=800",
     imageLeft: true,
     bg: "from-white to-[#f0faf3]",
     floatingIcons: [FlaskConical, Leaf, Droplets, Shield],
   },
   {
+    tabLabel: "Delta 8",
+    tabIcon: Zap,
     tag: "Cannabinoid Education",
     heading: "What is",
     headingHighlight: "Delta 8?",
@@ -45,11 +49,86 @@ const sections = [
       { icon: Moon, text: "Gentle Euphoria" },
     ],
     buttonText: "Shop Delta 8",
-    buttonHref: "/product-tag/delta-8",
+    buttonHref: "/shop?search=delta+8",
     image: "https://images.unsplash.com/photo-1498671546682-94a232c26d17?w=800&q=80",
     imageLeft: false,
     bg: "from-[#fafaf8] to-[#f5f0eb]",
     floatingIcons: [Leaf, Sparkles, Moon, Zap],
+  },
+  {
+    tabLabel: "Delta 9",
+    tabIcon: Flame,
+    tag: "Federally Legal THC",
+    heading: "What is",
+    headingHighlight: "Delta 9?",
+    body: "Delta-9 THC is the cannabinoid everyone knows — the one responsible for cannabis's classic, euphoric high. When derived from hemp and kept at or below 0.3% THC by dry weight, it's federally legal under the 2018 Farm Bill, giving you a true, balanced high within the legal hemp market.",
+    body2: "Found in our gummies, beverages, and tinctures — precisely dosed and third-party lab-tested for a consistent, predictable experience every time.",
+    stats: [
+      { value: "0.3%", label: "Max by Weight", icon: Shield },
+      { value: "True", label: "Euphoric High", icon: Sparkles },
+      { value: "Lab", label: "Verified", icon: FlaskConical },
+    ],
+    benefits: [
+      { icon: Heart, text: "Euphoric & Uplifting" },
+      { icon: Zap, text: "Creativity & Focus" },
+      { icon: Moon, text: "Deep Relaxation" },
+    ],
+    buttonText: "Shop Delta 9",
+    buttonHref: "/shop?search=delta+9",
+    image: "https://images.unsplash.com/photo-1503262028195-93c528f03218?w=800&q=80",
+    imageLeft: true,
+    bg: "from-white to-[#f0faf3]",
+    floatingIcons: [Flame, Leaf, Sparkles, Shield],
+  },
+  {
+    tabLabel: "CBD",
+    tabIcon: Leaf,
+    tag: "Hemp Wellness Essential",
+    heading: "What is",
+    headingHighlight: "CBD?",
+    body: "CBD (cannabidiol) is the most studied non-intoxicating cannabinoid in hemp. It won't get you high, but it works with your body's endocannabinoid system to support calm, balance, and everyday wellness — the foundation of the modern hemp movement.",
+    body2: "Available as full-spectrum, broad-spectrum, and isolate — in oils, gummies, topicals, and capsules for every part of your routine.",
+    stats: [
+      { value: "0%", label: "Psychoactive", icon: Shield },
+      { value: "100%", label: "Hemp Derived", icon: Leaf },
+      { value: "3rd", label: "Party Tested", icon: FlaskConical },
+    ],
+    benefits: [
+      { icon: Heart, text: "Calm & Balance" },
+      { icon: Moon, text: "Restful Sleep" },
+      { icon: Zap, text: "Everyday Relief" },
+    ],
+    buttonText: "Shop CBD",
+    buttonHref: "/product-category/tinctures",
+    image: "https://images.unsplash.com/photo-1605040056130-38d9faad3534?w=800&q=80",
+    imageLeft: false,
+    bg: "from-[#fafaf8] to-[#f5f0eb]",
+    floatingIcons: [Leaf, Droplets, Heart, Shield],
+  },
+  {
+    tabLabel: "Delta 10",
+    tabIcon: Sun,
+    tag: "Sativa-Leaning Energy",
+    heading: "What is",
+    headingHighlight: "Delta 10?",
+    body: "Delta-10 THC is one of hemp's newer minor cannabinoids — prized for a lighter, more energizing effect than Delta-8 or Delta-9. Think sativa-style focus and uplift, without the heavy body high.",
+    body2: "A daytime favorite — popular in vapes and edibles for staying productive while still enjoying the benefits of hemp.",
+    stats: [
+      { value: "Light", label: "Body Effect", icon: Sparkles },
+      { value: "High", label: "Energy Lift", icon: Zap },
+      { value: "COA", label: "Verified", icon: FlaskConical },
+    ],
+    benefits: [
+      { icon: Zap, text: "Energizing Focus" },
+      { icon: Heart, text: "Uplifted Mood" },
+      { icon: Sparkles, text: "Light & Clear-Headed" },
+    ],
+    buttonText: "Shop Delta 10",
+    buttonHref: "/shop",
+    image: "https://images.unsplash.com/photo-1545095088-26a59e3f2717?w=800&q=80",
+    imageLeft: true,
+    bg: "from-white to-[#f0faf3]",
+    floatingIcons: [Sun, Sparkles, Zap, Leaf],
   },
 ];
 
@@ -71,17 +150,48 @@ function AnimatedStat({ value, label, icon: Icon, delay }: { value: string; labe
       <div className="w-11 h-11 mx-auto mb-2 rounded-full bg-[#1A9248]/10 flex items-center justify-center">
         <Icon className="w-5 h-5 text-[#1A9248]" />
       </div>
-      <p className="text-xl font-black text-[#1A9248]">{value}</p>
-      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mt-0.5">{label}</p>
+      <p className="text-[16.5px] font-black text-[#1A9248]">{value}</p>
+      <p className="text-[16.5px] font-bold text-gray-400 uppercase tracking-wider mt-0.5">{label}</p>
     </div>
   );
 }
 
 export default function Education101() {
+  const [active, setActive] = useState(0);
+
   return (
-    <div>
+    <div className="bg-gradient-to-br from-white to-[#f0faf3] relative overflow-hidden">
+      {/* ── Tab bar ── */}
+      <div className="max-w-[1320px] mx-auto px-4 pt-16 md:pt-20 relative">
+        <div className="text-center mb-9">
+          <span className="text-[12px] font-bold text-[#1A9248] uppercase tracking-[0.3em] block mb-2">Cannabinoid Education</span>
+          <h2 className="text-[38px] md:text-4xl font-black text-[#3d2b1f]">Know Your Cannabinoids</h2>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-2">
+          {sections.map((section, idx) => {
+            const TabIcon = section.tabIcon;
+            const isActive = active === idx;
+            return (
+              <button
+                key={section.tabLabel}
+                onClick={() => setActive(idx)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full text-[15px] font-bold uppercase tracking-wide transition-all duration-300 border-2 ${
+                  isActive
+                    ? "bg-[#1A9248] border-[#1A9248] text-white shadow-lg shadow-[#1A9248]/25 scale-105"
+                    : "bg-white border-gray-200 text-[#3d2b1f] hover:border-[#1A9248]/50 hover:text-[#1A9248]"
+                }`}
+              >
+                <TabIcon className={`w-4 h-4 ${isActive ? "text-white" : "text-[#1A9248]"}`} />
+                {section.tabLabel}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {sections.map((section, idx) => (
-        <section key={section.headingHighlight} className={`bg-gradient-to-br ${section.bg} py-16 md:py-20 relative overflow-hidden`}>
+        <section key={section.headingHighlight}
+          className={`${active === idx ? "block" : "hidden"} bg-gradient-to-br ${section.bg} py-12 md:py-16 relative overflow-hidden`}>
 
           {/* Floating icons around image */}
           {section.floatingIcons.map((Icon, i) => (
@@ -132,7 +242,7 @@ export default function Education101() {
                       {/* Top-left badge */}
                       <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-md">
                         <Image src="/hemp-leaf.png" alt="" width={14} height={14} className="w-3.5 h-3.5" />
-                        <span className="text-[9px] font-bold text-[#1A9248] uppercase tracking-wider">Hemp & Barrel</span>
+                        <span className="text-[11px] font-bold text-[#1A9248] uppercase tracking-wider">Hemp & Barrel</span>
                       </div>
 
                       {/* Bottom gradient */}
@@ -162,13 +272,13 @@ export default function Education101() {
                     <Leaf className="w-4.5 h-4.5 text-[#1A9248]" />
                   </span>
                   <div>
-                    <span className="text-[10px] font-bold text-[#1A9248] uppercase tracking-[0.3em] block">{section.tag}</span>
+                    <span className="text-[12px] font-bold text-[#1A9248] uppercase tracking-[0.3em] block">{section.tag}</span>
                     <span className="w-12 h-0.5 bg-[#1A9248]/30 rounded-full block mt-1" />
                   </div>
                 </div>
 
                 {/* Heading */}
-                <h2 className="text-4xl md:text-[3.5rem] font-black text-[#3d2b1f] mb-7 leading-[1.05]">
+                <h2 className="text-[44px] md:text-[3.5rem] font-black text-[#3d2b1f] mb-7 leading-[1.05]">
                   {section.heading}{" "}
                   <span className="relative inline-block">
                     <span className="text-[#1A9248]">{section.headingHighlight}</span>
@@ -178,10 +288,10 @@ export default function Education101() {
                 </h2>
 
                 {/* Body */}
-                <p className="text-[#5a4a3f] text-[16px] leading-[1.9] mb-5">{section.body}</p>
+                <p className="text-[#5a4a3f] text-[16.5px] leading-[1.9] mb-5">{section.body}</p>
                 <div className="flex items-start gap-3 mb-8 bg-[#1A9248]/5 border-l-[3px] border-[#1A9248]/40 rounded-r-xl px-5 py-4">
                   <Leaf className="w-4 h-4 text-[#1A9248] mt-0.5 flex-shrink-0" />
-                  <p className="text-[#3d2b1f] text-[14px] leading-[1.8] font-medium italic">{section.body2}</p>
+                  <p className="text-[#3d2b1f] text-[16.5px] leading-[1.8] font-medium italic">{section.body2}</p>
                 </div>
 
                 {/* Benefits */}
@@ -191,7 +301,7 @@ export default function Education101() {
                       <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#1A9248]/10 to-[#1A9248]/5 group-hover/b:from-[#1A9248]/20 group-hover/b:to-[#1A9248]/10 flex items-center justify-center transition-colors duration-300">
                         <b.icon className="w-5 h-5 text-[#1A9248]" />
                       </div>
-                      <span className="text-[11px] font-bold text-[#3d2b1f] uppercase tracking-wide leading-tight">{b.text}</span>
+                      <span className="text-[13px] font-bold text-[#3d2b1f] uppercase tracking-wide leading-tight">{b.text}</span>
                     </div>
                   ))}
                 </div>
