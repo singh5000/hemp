@@ -1,203 +1,169 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
+
 import Link from "next/link";
-import { ArrowRight, FlaskConical, Leaf, Truck, Shield } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-type Product = { name: string; src: string };
-
-const fallbackProducts: Product[] = [
-  { name: "CBD Tinctures", src: "/sli.png" },
-  { name: "Hemp Topicals", src: "/top-right.png" },
-  { name: "Hemp Flower", src: "/lb1.png" },
-  { name: "CBD Pouches", src: "/rt-lower.png" },
-];
-
-const WC_BASE = process.env.NEXT_PUBLIC_WC_URL || "https://hempandbarrel.com/wp-json/wc/store/v1";
-
-function decodeHTML(s: string) {
-  if (typeof document === "undefined") return s;
-  const el = document.createElement("textarea");
-  el.innerHTML = s;
-  return el.value;
+interface Slide {
+  src: string;
+  alt: string;
+  href: string;
 }
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+const IMAGE_VERSION = "20260630-2";
+
+const SLIDES: Slide[] = [
+  {
+    src: `https://hempandbarrel.com/wp-content/uploads/2026/06/banner_new.jpg?v=${IMAGE_VERSION}`,
+    alt: "Hemp & Barrel — Full Spectrum CBD Oil",
+    href: "/product-category/tinctures",
+  },
+  {
+    src: `https://hempandbarrel.com/wp-content/uploads/2026/06/banner2.jpg?v=${IMAGE_VERSION}`,
+    alt: "Hemp & Barrel — Pet CBD Products",
+    href: "/product-category/pets",
+  },
+  {
+    src: `https://hempandbarrel.com/wp-content/uploads/2026/06/banner3.jpg?v=${IMAGE_VERSION}`,
+    alt: "Hemp & Barrel — Premium THCA Flower",
+    href: "/product-category/smokable-hemp-flower",
+  },
+];
+
+const AUTOPLAY_MS = 6000;
+const SHARD_COLS = 6;
+const SHARD_ROWS = 4;
+const SHARD_COUNT = SHARD_COLS * SHARD_ROWS;
+
+interface ShardSeed {
+  rot: number;
+  tx: number;
+  ty: number;
+  delay: number;
 }
 
 export default function HeroBanner() {
-  const [loaded, setLoaded] = useState(false);
-  const [products, setProducts] = useState<Product[]>(fallbackProducts);
-  const [slots, setSlots] = useState([0, 1, 2, 3]);
-  const [transition, setTransition] = useState<{ slot: number; from: number } | null>(null);
-  const nextImg = useRef(4);
-  const turn = useRef(0);
+  const [current, setCurrent] = useState(0);
+  const [shattering, setShattering] = useState<number | null>(null);
+  const autoplayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const swapRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const shardSeeds = useRef<ShardSeed[]>([]);
 
-  useEffect(() => { requestAnimationFrame(() => setLoaded(true)); }, []);
+  const goTo = useCallback(
+    (index: number) => {
+      if (SLIDES.length < 2 || index === current) return;
+
+      shardSeeds.current = Array.from({ length: SHARD_COUNT }, () => ({
+        rot: (Math.random() - 0.5) * 60,
+        tx: (Math.random() - 0.5) * 220,
+        ty: (Math.random() - 0.5) * 220,
+        delay: Math.random() * 220,
+      }));
+      setShattering(index);
+
+      if (swapRef.current) clearTimeout(swapRef.current);
+      swapRef.current = setTimeout(() => {
+        setCurrent(index);
+        setShattering(null);
+      }, 950);
+    },
+    [current]
+  );
 
   useEffect(() => {
-    async function fetchAll() {
-      try {
-        const all: Product[] = [];
-        const seen = new Set<string>();
-        for (let page = 1; page <= 5; page++) {
-          const res = await fetch(`${WC_BASE}/products?per_page=100&stock_status=instock&page=${page}`);
-          if (!res.ok) break;
-          const data = await res.json();
-          if (!data.length) break;
-          for (const p of data) {
-            const src = p.images?.[0]?.src;
-            if (src && p.is_in_stock && !seen.has(src)) {
-              seen.add(src);
-              all.push({ name: decodeHTML(p.name), src });
-            }
-          }
-          if (data.length < 100) break;
-        }
-        if (all.length > 4) setProducts(shuffle(all));
-      } catch { /* keep fallback */ }
-    }
-    fetchAll();
+    if (SLIDES.length < 2) return;
+    autoplayRef.current = setTimeout(() => {
+      goTo((current + 1) % SLIDES.length);
+    }, AUTOPLAY_MS);
+    return () => {
+      if (autoplayRef.current) clearTimeout(autoplayRef.current);
+    };
+  }, [current, goTo]);
+
+  useEffect(() => {
+    return () => {
+      if (swapRef.current) clearTimeout(swapRef.current);
+    };
   }, []);
 
-  const total = products.length;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const s = turn.current % 4;
-      turn.current++;
-      const ni = nextImg.current % total;
-      nextImg.current++;
-      setSlots(prev => {
-        setTransition({ slot: s, from: prev[s] });
-        const next = [...prev];
-        next[s] = ni;
-        return next;
-      });
-    }, 8000);
-    return () => clearInterval(interval);
-  }, [total]);
-
-  useEffect(() => {
-    if (!transition) return;
-    const t = setTimeout(() => setTransition(null), 1600);
-    return () => clearTimeout(t);
-  }, [transition]);
+  const incoming = shattering !== null ? SLIDES[shattering] : null;
 
   return (
-    <section className="relative overflow-hidden min-h-screen -mt-[72px]">
+    <section className="relative -mt-[72px] overflow-hidden">
+      <Link href={SLIDES[current].href} aria-label={SLIDES[current].alt} className="block">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={SLIDES[current].src}
+          alt={SLIDES[current].alt}
+          className="block w-full h-auto"
+        />
+      </Link>
 
-      <Image
-        src="/hero-leaf.jpg"
-        alt="Hemp & Barrel"
-        fill
-        priority
-        className={`object-cover ${loaded ? "animate-[heroBgDrift_25s_ease-in-out_infinite]" : "scale-110"}`}
-        sizes="100vw"
-        quality={85}
-      />
-
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.2) 100%)" }} />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
-
-      <div className="relative z-10 min-h-screen flex items-center">
-        <div className="max-w-[1320px] mx-auto pl-4 pr-0 w-full py-32">
-          <div className="flex items-center gap-11">
-
-            <div className="flex-1 min-w-0 max-w-[600px]">
-
-              <div className={`flex items-center gap-2.5 mb-8 transition-all duration-700 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                <span className="w-10 h-[2px] bg-[#1A9248]" />
-                <span className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.3em]">Charlotte&apos;s #1 CBD Store</span>
-              </div>
-
-              <h1 className={`text-white font-black leading-[0.95] mb-6 transition-all duration-700 delay-150 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ fontSize: "clamp(3.2rem, 6vw, 5rem)" }}>
-                Premium{" "}
-                <span className="relative inline-block">
-                  <span className="text-[#1A9248]">Hemp &amp; CBD</span>
-                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-[#1A9248]/40 rounded-full" />
-                </span>{" "}
-                Products
-              </h1>
-
-              <p className={`text-white/65 text-xl leading-relaxed mb-10 transition-all duration-700 delay-300 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-                Lab-tested tinctures, gummies, flower, Delta 8, vapes &amp; more — sourced from Carolina farms. Trusted locally, shipped nationwide.
-              </p>
-
-              <div className={`flex items-center gap-5 mb-14 transition-all duration-700 delay-[450ms] ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-                <Link href="/shop"
-                  className="group inline-flex items-center gap-3 bg-[#1A9248] text-white font-bold pl-8 pr-2 py-2.5 rounded-full text-sm uppercase tracking-wider overflow-hidden relative transition-all duration-500 hover:shadow-[0_0_35px_rgba(26,146,72,0.4)]">
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#1A9248] via-[#22b558] to-[#1A9248] bg-[length:200%_100%] group-hover:animate-[shimmer_1.5s_ease-in-out] rounded-full" />
-                  <span className="relative z-10">Shop Now</span>
-                  <span className="relative z-10 w-10 h-10 rounded-full bg-white/20 group-hover:bg-white/30 flex items-center justify-center transition-all duration-300 group-hover:rotate-[-30deg] group-hover:scale-110">
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </Link>
-                <Link href="/about-us" className="text-white/70 hover:text-white font-semibold text-sm transition-colors flex items-center gap-1.5 group">
-                  Our Story <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-
-              <div className={`flex items-center gap-6 flex-wrap transition-all duration-700 delay-[600ms] ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                {[
-                  { icon: FlaskConical, text: "Lab Tested" },
-                  { icon: Leaf, text: "Farm to Shelf" },
-                  { icon: Truck, text: "Free Ship $75+" },
-                  { icon: Shield, text: "≤ 0.3% THC" },
-                ].map((item, i) => (
-                  <div key={item.text} className="flex items-center gap-2"
-                    style={{ transitionDelay: `${700 + i * 100}ms` }}>
-                    <div className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center">
-                      <item.icon className="w-3.5 h-3.5 text-[#1A9248]" />
-                    </div>
-                    <span className="text-white/60 text-xs font-semibold uppercase tracking-wide">{item.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right side - 2×2 product showcase */}
-            <div className={`hidden lg:flex flex-1 justify-end transition-all duration-[1.2s] delay-300 ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
-              <div className="grid grid-cols-2 gap-2 w-full max-w-[620px] aspect-square">
-                {[0, 1, 2, 3].map((slotIdx) => {
-                  const imgIdx = slots[slotIdx] % total;
-                  const img = products[imgIdx];
-                  const isChanging = transition?.slot === slotIdx;
-                  const prevImg = isChanging ? products[transition.from % total] : null;
-                  return (
-                    <div key={slotIdx} className="relative overflow-hidden rounded-xl bg-white">
-                      {isChanging && prevImg && (
-                        <div key={`p-${transition.from}`} className="absolute inset-0 z-10 animate-[fadeOut_1.5s_ease-in-out_forwards]">
-                          <Image src={prevImg.src} alt={prevImg.name} fill className="object-cover" sizes="310px" />
-                          <div className="absolute bottom-0 left-0 right-0 bg-[#1A9248] px-4 py-2.5">
-                            <span className="text-white text-sm font-bold tracking-wide">{prevImg.name}</span>
-                          </div>
-                        </div>
-                      )}
-                      <div key={`a-${imgIdx}`} className={`absolute inset-0 ${isChanging ? "animate-[fadeSlideIn_1.5s_ease-in-out]" : ""}`}>
-                        <Image src={img.src} alt={img.name} fill className="object-cover" sizes="310px" />
-                        <div className="absolute bottom-0 left-0 right-0 bg-[#1A9248] px-4 py-2.5">
-                          <span className="text-white text-sm font-bold tracking-wide">{img.name}</span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-          </div>
+      {incoming && (
+        <div
+          className="absolute inset-0 grid"
+          style={{
+            gridTemplateColumns: `repeat(${SHARD_COLS}, 1fr)`,
+            gridTemplateRows: `repeat(${SHARD_ROWS}, 1fr)`,
+          }}
+        >
+          {Array.from({ length: SHARD_COUNT }).map((_, i) => {
+            const col = i % SHARD_COLS;
+            const row = Math.floor(i / SHARD_COLS);
+            const seed = shardSeeds.current[i] ?? { rot: 0, tx: 0, ty: 0, delay: 0 };
+            return (
+              <span
+                key={i}
+                className="hero-shard"
+                style={
+                  {
+                    backgroundImage: `url(${incoming.src})`,
+                    backgroundSize: `${SHARD_COLS * 100}% ${SHARD_ROWS * 100}%`,
+                    backgroundPosition: `${(col / (SHARD_COLS - 1)) * 100}% ${(row / (SHARD_ROWS - 1)) * 100}%`,
+                    animationDelay: `${seed.delay}ms`,
+                    "--shard-rot": `${seed.rot}deg`,
+                    "--shard-tx": `${seed.tx}px`,
+                    "--shard-ty": `${seed.ty}px`,
+                  } as React.CSSProperties
+                }
+              />
+            );
+          })}
         </div>
-      </div>
+      )}
 
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+      {SLIDES.length > 1 && (
+        <>
+          <button
+            type="button"
+            aria-label="Previous slide"
+            onClick={() => goTo((current - 1 + SLIDES.length) % SLIDES.length)}
+            className="absolute left-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-2xl text-[#2a1008] shadow-md transition hover:bg-white"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            aria-label="Next slide"
+            onClick={() => goTo((current + 1) % SLIDES.length)}
+            className="absolute right-4 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-2xl text-[#2a1008] shadow-md transition hover:bg-white"
+          >
+            ›
+          </button>
+          <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+            {SLIDES.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Go to slide ${i + 1}`}
+                onClick={() => goTo(i)}
+                className={`h-2.5 rounded-full transition-all ${
+                  i === current ? "w-8 bg-white" : "w-2.5 bg-white/50 hover:bg-white/80"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 }
