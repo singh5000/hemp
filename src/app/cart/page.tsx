@@ -44,7 +44,7 @@ export default function CartPage() {
     return (
       <div className="max-w-[1320px] mx-auto px-4 py-20 text-center">
         <div className="inline-block w-8 h-8 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin" />
-        <p className="mt-4 text-gray-400 text-sm">Loading your cart…</p>
+        <p className="mt-4 text-gray-400 text-[16.5px]">Loading your cart…</p>
       </div>
     );
   }
@@ -60,8 +60,8 @@ export default function CartPage() {
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-[#2a1008] mb-3">Your cart is empty</h1>
-          <p className="text-gray-400 mb-8">Looks like you haven&apos;t added anything yet.</p>
+          <h1 className="text-[38px] font-bold text-[#2a1008] mb-3">Your cart is empty</h1>
+          <p className="text-gray-400 mb-8 text-[16.5px]">Looks like you haven&apos;t added anything yet.</p>
           <AnimatedButton href="/shop">Continue Shopping</AnimatedButton>
         </div>
       </div>
@@ -78,7 +78,7 @@ export default function CartPage() {
             <span>/</span>
             <span className="text-white/60">Cart</span>
           </nav>
-          <h1 className="text-white text-3xl md:text-4xl font-bold">
+          <h1 className="text-white text-[38px] md:text-4xl font-bold">
             Shopping Cart
             <span className="text-white/40 text-lg font-normal ml-3">({cart.itemCount} item{cart.itemCount !== 1 ? "s" : ""})</span>
           </h1>
@@ -125,7 +125,7 @@ export default function CartPage() {
                           {item.product.name}
                         </Link>
                         {varAttrs.length > 0 && (
-                          <p className="text-gray-400 text-xs mt-0.5">
+                          <p className="text-gray-400 text-[16.5px] mt-0.5">
                             {varAttrs.map(a => `${a.name}: ${a.value}`).join(" / ")}
                           </p>
                         )}
@@ -206,8 +206,8 @@ export default function CartPage() {
                   {couponBusy ? "Applying…" : "Apply Coupon"}
                 </button>
               </div>
-              {couponError && <p className="text-xs text-red-500">{couponError}</p>}
-              {couponOk    && <p className="text-xs text-[#1A9248] font-medium">Coupon applied successfully!</p>}
+              {couponError && <p className="text-[16.5px] text-red-500">{couponError}</p>}
+              {couponOk    && <p className="text-[16.5px] text-[#1A9248] font-medium">Coupon applied successfully!</p>}
             </div>
 
             {/* Cart actions */}
@@ -230,7 +230,7 @@ export default function CartPage() {
           <div className="w-full lg:w-[360px] flex-shrink-0">
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
               <div className="bg-[#2a1008] px-6 py-4">
-                <h2 className="text-white font-bold text-base">Order Summary</h2>
+                <h2 className="text-white font-bold text-[24px]">Order Summary</h2>
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex justify-between text-sm text-[#3d2b1f]">
@@ -275,7 +275,7 @@ export default function CartPage() {
                 </a>
 
                 {!user && (
-                  <p className="text-center text-xs text-gray-400">
+                  <p className="text-center text-[16.5px] text-gray-400">
                     <Link href="/my-account" className="text-[#1A9248] hover:underline font-medium">
                       Sign in
                     </Link>{" "}
@@ -304,8 +304,8 @@ export default function CartPage() {
               ].map(b => (
                 <div key={b.label}
                   className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm">
-                  <p className="text-[10px] font-bold text-[#3d2b1f] uppercase tracking-wider">{b.label}</p>
-                  <p className="text-[9px] text-gray-400 mt-0.5">{b.desc}</p>
+                  <p className="text-[16.5px] font-bold text-[#3d2b1f] uppercase tracking-wider">{b.label}</p>
+                  <p className="text-[16.5px] text-gray-400 mt-0.5">{b.desc}</p>
                 </div>
               ))}
             </div>

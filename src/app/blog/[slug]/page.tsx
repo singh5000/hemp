@@ -191,7 +191,7 @@ export default async function BlogPostPage(
           </div>
 
           {/* title */}
-          <h1 className="text-white text-3xl md:text-5xl font-bold leading-tight max-w-[820px]">
+          <h1 className="text-white text-[38px] md:text-5xl font-bold leading-tight max-w-[820px]">
             {strip(post.title.rendered)}
           </h1>
         </div>
@@ -208,7 +208,7 @@ export default async function BlogPostPage(
 
             {/* Lead / excerpt */}
             {lead && (
-              <p className="text-[#3d2b1f]/80 text-lg leading-relaxed border-l-4 border-[#1A9248] pl-5 mb-10 bg-[#f5f0eb] py-4 pr-4 rounded-r-xl">
+              <p className="text-[#3d2b1f]/80 text-[16.5px] leading-relaxed border-l-4 border-[#1A9248] pl-5 mb-10 bg-[#f5f0eb] py-4 pr-4 rounded-r-xl">
                 {lead}
               </p>
             )}
@@ -278,13 +278,13 @@ export default async function BlogPostPage(
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-1">Written by</p>
+                  <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-1">Written by</p>
                   <Link href={`/author/${author.slug}`}
                     className="text-[#2a1008] font-bold text-lg hover:text-[#1A9248] transition-colors">
                     {author.name}
                   </Link>
                   {author.description && (
-                    <p className="text-gray-500 text-sm leading-relaxed mt-2">{author.description}</p>
+                    <p className="text-gray-500 text-[16.5px] leading-relaxed mt-2">{author.description}</p>
                   )}
                 </div>
               </div>
@@ -303,7 +303,7 @@ export default async function BlogPostPage(
 
             {/* Quick Info card */}
             <div className="bg-[#f5f0eb] rounded-2xl p-6">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Article Info</p>
+              <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Article Info</p>
               <div className="space-y-3">
                 {cat && (
                   <div className="flex items-center justify-between text-sm">
@@ -330,8 +330,8 @@ export default async function BlogPostPage(
                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
               </div>
-              <p className="text-white font-bold text-base mb-2">Shop Hemp & Barrel</p>
-              <p className="text-white/50 text-xs leading-relaxed mb-5">
+              <p className="text-white font-bold text-[16.5px] mb-2">Shop Hemp & Barrel</p>
+              <p className="text-white/50 text-[16.5px] leading-relaxed mb-5">
                 Lab-tested CBD products · Pineville, NC · Ships nationwide
               </p>
               <AnimatedButton href="/shop" size="sm">Shop All Products</AnimatedButton>
@@ -342,9 +342,9 @@ export default async function BlogPostPage(
 
             {/* Mini newsletter */}
             <div className="bg-white border border-gray-100 rounded-2xl p-6">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-2">Newsletter</p>
-              <p className="text-[#3d2b1f] font-bold text-sm mb-1">Stay in the loop</p>
-              <p className="text-gray-400 text-xs mb-4">New articles & deals in your inbox.</p>
+              <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-2">Newsletter</p>
+              <p className="text-[#3d2b1f] font-bold text-[16.5px] mb-1">Stay in the loop</p>
+              <p className="text-gray-400 text-[16.5px] mb-4">New articles & deals in your inbox.</p>
               <NewsletterForm variant="light" />
             </div>
           </aside>
@@ -359,8 +359,8 @@ export default async function BlogPostPage(
           <div className="max-w-[1320px] mx-auto px-4">
             <div className="flex items-end justify-between mb-10">
               <div>
-                <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.3em] mb-1">Keep Reading</p>
-                <h2 className="text-[#2a1008] text-2xl md:text-3xl font-bold">Related Articles</h2>
+                <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-1">Keep Reading</p>
+                <h2 className="text-[#2a1008] text-[32px] md:text-3xl font-bold">Related Articles</h2>
               </div>
               <div className="hidden sm:block">
                 <AnimatedButton href="/blog" variant="outline" size="sm">All Articles</AnimatedButton>
@@ -387,7 +387,7 @@ export default async function BlogPostPage(
                         {rc && <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${catCls(rc.name)}`}>{rc.name}</span>}
                         <span className="text-gray-400 text-xs">{fmtDate(rel.date)}</span>
                       </div>
-                      <h3 className="text-[#3d2b1f] font-bold text-base leading-snug mb-3 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
+                      <h3 className="text-[#3d2b1f] font-bold text-[24px] leading-snug mb-3 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                         {strip(rel.title.rendered)}
                       </h3>
                       <div className="flex items-center gap-1.5 text-[#1A9248] text-xs font-bold pt-4 border-t border-gray-100">

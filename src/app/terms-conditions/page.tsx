@@ -109,8 +109,8 @@ export default async function TermsPage() {
             <span>/</span>
             <span className="text-white/60">Terms &amp; Conditions</span>
           </nav>
-          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Legal</p>
-          <h1 className="text-white text-4xl md:text-6xl font-bold leading-tight mb-5">
+          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">Legal</p>
+          <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight mb-5">
             Terms &amp; <span className="text-[#1A9248]">Conditions</span>
           </h1>
         </div>
@@ -119,7 +119,7 @@ export default async function TermsPage() {
       {/* ── Agreement notice ── */}
       <div className="bg-[#2a1008] border-t border-white/10">
         <div className="max-w-[1320px] mx-auto px-4 py-5">
-          <p className="text-white/70 text-sm font-semibold uppercase tracking-widest text-center">
+          <p className="text-white/70 text-[16.5px] font-semibold uppercase tracking-widest text-center">
             By visiting Hemp and Barrel website you agree to the following Terms &amp; Conditions.
           </p>
         </div>
@@ -131,7 +131,7 @@ export default async function TermsPage() {
           <svg className="w-5 h-5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
-          <p className="text-amber-800 text-sm font-bold uppercase tracking-wide">
+          <p className="text-amber-800 text-[16.5px] font-bold uppercase tracking-wide">
             This website is not intended for persons under 18 years of age.
           </p>
         </div>
@@ -144,7 +144,7 @@ export default async function TermsPage() {
           {/* ── TOC sidebar ── */}
           <aside className="hidden lg:block w-[240px] flex-shrink-0">
             <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-              <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Contents</p>
+              <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Contents</p>
               <nav className="space-y-0.5">
                 {SECTIONS.map((s) => (
                   <a key={s.id} href={`#${s.id}`}
@@ -162,19 +162,19 @@ export default async function TermsPage() {
               <div key={section.id} id={section.id} className="scroll-mt-24">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1.5 h-6 bg-[#1A9248] rounded-full flex-shrink-0" />
-                  <h2 className="text-[#2a1008] text-xl font-bold">{section.title}</h2>
+                  <h2 className="text-[#2a1008] text-[28px] font-bold">{section.title}</h2>
                 </div>
                 <div className="pl-5 space-y-3">
                   {section.content && (
-                    <p className="text-[#3d2b1f] text-[15px] leading-relaxed">{section.content}</p>
+                    <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">{section.content}</p>
                   )}
                   {section.listIntro && (
-                    <p className="text-[#3d2b1f] text-[15px] leading-relaxed">{section.listIntro}</p>
+                    <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">{section.listIntro}</p>
                   )}
                   {section.list && (
                     <ul className="space-y-2 mt-2">
                       {section.list.map((item) => (
-                        <li key={item} className="flex items-start gap-3 text-sm text-[#3d2b1f]">
+                        <li key={item} className="flex items-start gap-3 text-[16px] text-[#3d2b1f]">
                           <svg className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
                           </svg>
@@ -191,7 +191,7 @@ export default async function TermsPage() {
             <div id="contact" className="scroll-mt-24">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-1.5 h-6 bg-[#1A9248] rounded-full flex-shrink-0" />
-                <h2 className="text-[#2a1008] text-xl font-bold">Contact Us</h2>
+                <h2 className="text-[#2a1008] text-[28px] font-bold">Contact Us</h2>
               </div>
               <div className="pl-5">
                 <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm space-y-3">

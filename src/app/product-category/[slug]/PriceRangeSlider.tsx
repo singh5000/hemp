@@ -44,7 +44,7 @@ export default function PriceRangeSlider({ min, max, step, currentMax, onApply }
           className="price-range-input absolute inset-x-0 w-full h-5 appearance-none bg-transparent cursor-pointer"
         />
       </div>
-      <p className="text-center text-xs text-gray-600 mt-2">
+      <p className="text-center text-[12px] text-gray-600 mt-2">
         Up to <strong>${val}</strong>
       </p>
     </div>

@@ -46,9 +46,9 @@ export default async function LatestBlog() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-[#1A9248] text-[11px] font-bold uppercase tracking-[0.4em] mb-3">From the Blog</p>
-          <h2 className="text-[#2a1008] text-3xl md:text-4xl font-bold mb-3">Latest Articles &amp; Guides</h2>
-          <p className="text-gray-500 text-base max-w-lg mx-auto">Expert CBD education, product guides, and the latest in hemp science.</p>
+          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">From the Blog</p>
+          <h2 className="text-[#2a1008] text-[38px] md:text-4xl font-bold mb-3">Latest Articles &amp; Guides</h2>
+          <p className="text-gray-500 text-[16.5px] max-w-lg mx-auto">Expert CBD education, product guides, and the latest in hemp science.</p>
         </div>
 
         {/* Cards */}
@@ -68,20 +68,20 @@ export default async function LatestBlog() {
                     <div className="w-full aspect-[16/9] bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/40" />
                   )}
                   <div className="absolute top-3 left-3">
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-sm shadow-sm ${catCls(cat)}`}>
+                    <span className={`text-[12px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full backdrop-blur-sm shadow-sm ${catCls(cat)}`}>
                       {cat}
                     </span>
                   </div>
                 </div>
                 <div className="p-5 flex flex-col flex-1">
-                  <span className="text-gray-400 text-[11px] mb-2">{fmtDate(post.date)}</span>
-                  <h3 className="text-[#2a1008] font-bold text-[17px] leading-snug mb-2 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
+                  <span className="text-gray-400 text-[13px] mb-2">{fmtDate(post.date)}</span>
+                  <h3 className="text-[#2a1008] font-bold text-[27px] leading-snug mb-2 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                     {strip(post.title.rendered)}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
+                  <p className="text-gray-500 text-[16.5px] leading-relaxed line-clamp-2 mb-4">
                     {strip(post.excerpt.rendered)}
                   </p>
-                  <div className="flex items-center gap-1.5 text-[#1A9248] text-[13px] font-bold mt-auto pt-4 border-t border-gray-100 group-hover:gap-2.5 transition-all duration-300">
+                  <div className="flex items-center gap-1.5 text-[#1A9248] text-[15px] font-bold mt-auto pt-4 border-t border-gray-100 group-hover:gap-2.5 transition-all duration-300">
                     Read More
                     <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7"/>

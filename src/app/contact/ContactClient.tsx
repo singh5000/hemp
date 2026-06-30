@@ -123,11 +123,11 @@ export default function ContactClient() {
           <span className="inline-block text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-5">
             We&apos;d Love to Hear From You
           </span>
-          <h1 className="text-white text-5xl md:text-7xl font-bold uppercase leading-tight mb-6">
+          <h1 className="text-white text-[56px] md:text-7xl font-bold uppercase leading-tight mb-6">
             Get In<br />
             <span className="text-[#1A9248]">Touch</span>
           </h1>
-          <p className="text-white/55 text-lg max-w-lg mx-auto">
+          <p className="text-white/55 text-[16.5px] max-w-lg mx-auto">
             Questions about our products? Need expert CBD advice? We&apos;re here and happy to help.
           </p>
         </div>
@@ -144,8 +144,8 @@ export default function ContactClient() {
                   {card.icon}
                 </div>
                 <div className="flex-1">
-                  <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-2">{card.label}</p>
-                  <p className="text-white font-semibold text-sm leading-relaxed whitespace-pre-line">{card.value}</p>
+                  <p className="text-white/40 text-[16.5px] font-bold uppercase tracking-widest mb-2">{card.label}</p>
+                  <p className="text-white font-semibold text-[16.5px] leading-relaxed whitespace-pre-line">{card.value}</p>
                 </div>
                 {card.action && (
                   <Link
@@ -174,8 +174,8 @@ export default function ContactClient() {
             {/* Contact Form */}
             <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/60 p-8 md:p-10">
               <div className="mb-8">
-                <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.3em] mb-2">Send a Message</p>
-                <h2 className="text-[#3d2b1f] text-3xl font-bold leading-tight">
+                <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-2">Send a Message</p>
+                <h2 className="text-[#3d2b1f] text-[38px] font-bold leading-tight">
                   How Can We<br />Help You?
                 </h2>
               </div>
@@ -193,8 +193,8 @@ export default function ContactClient() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-[#3d2b1f] mb-3">Message Sent!</h3>
-                  <p className="text-gray-500 mb-8">
+                  <h3 className="text-[32px] font-bold text-[#3d2b1f] mb-3">Message Sent!</h3>
+                  <p className="text-gray-500 mb-8 text-[16.5px]">
                     Thanks for reaching out. We&apos;ll get back to you as soon as possible.
                   </p>
                   <button
@@ -293,7 +293,7 @@ export default function ContactClient() {
                     )}
                   </button>
 
-                  <p className="text-center text-gray-400 text-xs">
+                  <p className="text-center text-gray-400 text-[16.5px]">
                     We typically respond within 1 business day.
                   </p>
                 </form>
@@ -332,12 +332,12 @@ export default function ContactClient() {
               {/* Quick contact strip */}
               <div className="bg-[#2a1008] rounded-3xl p-7 flex flex-col sm:flex-row gap-6 items-center justify-between">
                 <div>
-                  <p className="text-[#1A9248] text-xs font-bold uppercase tracking-widest mb-1.5">Prefer to call?</p>
+                  <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-widest mb-1.5">Prefer to call?</p>
                   <a href="tel:9803264367"
                     className="text-white text-2xl font-bold tracking-wide hover:text-[#1A9248] transition-colors">
                     (980) 326-4367
                   </a>
-                  <p className="text-white/40 text-xs mt-1">Mon–Sat 10AM–8PM · Sun 12–4PM</p>
+                  <p className="text-white/40 text-[16.5px] mt-1">Mon–Sat 10AM–8PM · Sun 12–4PM</p>
                 </div>
                 <div className="flex gap-3">
                   <Link
@@ -374,8 +374,8 @@ export default function ContactClient() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[#3d2b1f] font-bold text-sm mb-1">Have a quick question?</p>
-                  <p className="text-gray-500 text-xs mb-2">Check our FAQ page — most answers are already there.</p>
+                  <p className="text-[#3d2b1f] font-bold text-[16.5px] mb-1">Have a quick question?</p>
+                  <p className="text-gray-500 text-[16.5px] mb-2">Check our FAQ page — most answers are already there.</p>
                   <Link href="/faqs" className="text-[#1A9248] text-xs font-bold uppercase tracking-wider hover:underline">
                     Browse FAQs →
                   </Link>

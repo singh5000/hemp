@@ -30,12 +30,12 @@ export default function LabReportsPage() {
                 <span className="text-white/60">Lab Reports</span>
               </nav>
 
-              <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-3">Full Transparency</p>
-              <h1 className="text-white text-4xl md:text-6xl font-bold leading-tight mb-4">
+              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">Full Transparency</p>
+              <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight mb-4">
                 Lab Reports &<br />
                 <span className="text-[#1A9248]">COA Results</span>
               </h1>
-              <p className="text-white/50 text-base md:text-lg max-w-[520px] leading-relaxed">
+              <p className="text-white/50 text-[16.5px] md:text-lg max-w-[520px] leading-relaxed">
                 Every product we carry is tested by an independent, ISO-accredited laboratory.
                 Browse and download any Certificate of Analysis below.
               </p>
@@ -49,8 +49,8 @@ export default function LabReportsPage() {
                 { label: "Testing Standard", value: "ISO" },
               ].map((s) => (
                 <div key={s.label} className="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-center min-w-[90px]">
-                  <p className="text-[#1A9248] text-2xl font-bold">{s.value}</p>
-                  <p className="text-white/40 text-[10px] uppercase tracking-wider mt-1 font-semibold leading-tight">{s.label}</p>
+                  <p className="text-[#1A9248] text-[16.5px] font-bold">{s.value}</p>
+                  <p className="text-white/40 text-[16.5px] uppercase tracking-wider mt-1 font-semibold leading-tight">{s.label}</p>
                 </div>
               ))}
             </div>

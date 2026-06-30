@@ -224,7 +224,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </Link>
             )}
 
-            <h1 className="text-[#2a1008] text-4xl md:text-5xl font-bold leading-tight">{product.name}</h1>
+            <h1 className="text-[#2a1008] text-[44px] md:text-5xl font-bold leading-tight">{product.name}</h1>
 
             {/* Rating + Write a Review */}
             <div className="flex items-center gap-4 flex-wrap">
@@ -271,7 +271,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {/* Meta */}
             {product.sku && (
               <div className="border-t border-gray-100 pt-4 text-[14px] text-gray-400">
-                <p>SKU: <span className="text-[#3d2b1f] font-medium">{product.sku}</span></p>
+                <p className="text-[16.5px]">SKU: <span className="text-[#3d2b1f] font-medium">{product.sku}</span></p>
               </div>
             )}
 
@@ -297,7 +297,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {/* ── Why Hemp & Barrel comparison ── */}
       <section className="border-t border-gray-100 bg-[#fafaf8]">
         <div className="max-w-[900px] mx-auto px-4 py-12">
-          <h2 className="text-[#2a1008] text-3xl font-bold text-center mb-8">Why Hemp &amp; Barrel</h2>
+          <h2 className="text-[#2a1008] text-[38px] font-bold text-center mb-8">Why Hemp &amp; Barrel</h2>
           <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
             <div className="grid grid-cols-3 bg-[#2a1008] text-white">
               <div className="px-4 py-4 text-[14px] font-bold uppercase tracking-wide">&nbsp;</div>
@@ -344,7 +344,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="max-w-[1320px] mx-auto px-4 py-12">
           <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
             <div className="flex items-baseline gap-3">
-              <h2 className="text-[#2a1008] text-3xl font-bold">Customer Reviews</h2>
+              <h2 className="text-[#2a1008] text-[38px] font-bold">Customer Reviews</h2>
               {reviews.length > 0 && (
                 <span className="text-gray-400 text-[16px]">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
               )}
@@ -376,8 +376,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
               </svg>
-              <p className="text-[#3d2b1f] font-bold text-[16px] mb-1">No reviews yet</p>
-              <p className="text-gray-400 text-[14px]">Be the first to share your experience with this product.</p>
+              <p className="text-[#3d2b1f] font-bold text-[16.5px] mb-1">No reviews yet</p>
+              <p className="text-gray-400 text-[16.5px]">Be the first to share your experience with this product.</p>
             </div>
           ) : (
             <div className="space-y-5 max-w-3xl">
@@ -395,8 +395,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                           <span className="text-[#1A9248] font-bold text-[16px]">{r.author_name.charAt(0).toUpperCase()}</span>
                         </div>
                         <div>
-                          <p className="font-bold text-[#2a1008] text-[16px]">{r.author_name}</p>
-                          <p className="text-gray-400 text-[14px]">{date}</p>
+                          <p className="font-bold text-[#2a1008] text-[16.5px]">{r.author_name}</p>
+                          <p className="text-gray-400 text-[16.5px]">{date}</p>
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1.5">
@@ -432,7 +432,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {categoryFaqs.length > 0 && (
         <section className="border-t border-gray-100 bg-[#fafaf8]">
           <div className="max-w-[900px] mx-auto px-4 py-12">
-            <h2 className="text-[#2a1008] text-3xl font-bold text-center mb-8">FAQs</h2>
+            <h2 className="text-[#2a1008] text-[38px] font-bold text-center mb-8">FAQs</h2>
             <div className="space-y-3">
               {categoryFaqs.map(faq => (
                 <FaqAccordionItem key={faq.q} q={faq.q} a={faq.a} />
@@ -445,7 +445,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {/* ── Related products ── */}
       {related.length > 0 && (
         <section className="max-w-[1320px] mx-auto px-4 py-12">
-          <h2 className="text-[#2a1008] text-3xl font-bold mb-6">Related Products</h2>
+          <h2 className="text-[#2a1008] text-[38px] font-bold mb-6">Related Products</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {related.map(p => {
               const rPrice   = fmt(p.prices.price, p.prices.currency_minor_unit, p.prices.currency_symbol);
@@ -466,7 +466,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     )}
                   </div>
                   <div className="p-3">
-                    <p className="text-[#2a1008] font-bold text-[14px] leading-snug mb-1 line-clamp-2 group-hover:text-[#1A9248] transition-colors">{p.name}</p>
+                    <p className="text-[#2a1008] font-bold text-[16.5px] leading-snug mb-1 line-clamp-2 group-hover:text-[#1A9248] transition-colors">{p.name}</p>
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-[#2a1008] font-bold text-[16px]">{rPrice}</span>
                       {p.on_sale && rPrice !== rRegular && (

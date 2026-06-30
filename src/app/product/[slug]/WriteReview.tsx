@@ -40,8 +40,8 @@ export default function WriteReview({ productId, productName }: { productId: num
     return (
       <div className="bg-[#1A9248]/5 border border-[#1A9248]/20 rounded-2xl p-8 text-center">
         <CheckCircle className="w-12 h-12 text-[#1A9248] mx-auto mb-3" />
-        <p className="text-[#2a1008] font-bold text-lg mb-1">Thank You!</p>
-        <p className="text-gray-500 text-sm">Your review has been submitted and is pending approval.</p>
+        <p className="text-[#2a1008] font-bold text-[16.5px] mb-1">Thank You!</p>
+        <p className="text-gray-500 text-[16.5px]">Your review has been submitted and is pending approval.</p>
       </div>
     );
   }
@@ -59,16 +59,16 @@ export default function WriteReview({ productId, productName }: { productId: num
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm max-w-xl">
       <div className="flex items-center justify-between mb-5">
-        <h3 className="text-[#2a1008] font-bold text-lg">Write a Review</h3>
+        <h3 className="text-[#2a1008] font-bold text-[26px]">Write a Review</h3>
         <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-gray-600 text-sm font-medium">Cancel</button>
       </div>
 
-      <p className="text-xs text-gray-400 mb-4">Reviewing: <span className="text-[#2a1008] font-semibold">{productName}</span></p>
+      <p className="text-[16.5px] text-gray-400 mb-4">Reviewing: <span className="text-[#2a1008] font-semibold">{productName}</span></p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Star Rating */}
         <div>
-          <p className="text-xs font-bold text-[#3d2b1f] uppercase tracking-wider mb-2">Your Rating *</p>
+          <p className="text-[16.5px] font-bold text-[#3d2b1f] uppercase tracking-wider mb-2">Your Rating *</p>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map(i => (
               <button key={i} type="button"
@@ -113,7 +113,7 @@ export default function WriteReview({ productId, productName }: { productId: num
 
         {/* Error */}
         {errMsg && (
-          <p className="text-red-500 text-xs bg-red-50 px-3 py-2 rounded-lg">{errMsg}</p>
+          <p className="text-red-500 text-[16.5px] bg-red-50 px-3 py-2 rounded-lg">{errMsg}</p>
         )}
 
         {/* Submit */}

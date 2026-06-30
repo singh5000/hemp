@@ -132,22 +132,22 @@ export default async function BlogPage({
           style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
         <div className="absolute -right-32 -top-32 w-[500px] h-[500px] bg-[#1A9248]/8 rounded-full blur-3xl" />
         <div className="relative max-w-[1320px] mx-auto px-4 pt-20 pb-24 text-center">
-          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-4">Knowledge is Power</p>
-          <h1 className="text-white text-5xl md:text-7xl font-bold uppercase leading-tight mb-5">
+          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-4">Knowledge is Power</p>
+          <h1 className="text-white text-[56px] md:text-7xl font-bold uppercase leading-tight mb-5">
             CBD <span className="text-[#1A9248]">Blog</span>
           </h1>
-          <p className="text-white/55 text-lg max-w-lg mx-auto">
+          <p className="text-white/55 text-[16.5px] max-w-lg mx-auto">
             Expert guides, product education, and the latest in hemp &amp; cannabinoid science.
           </p>
           {total > 0 && (
-            <p className="text-white/30 text-sm mt-4">{total} articles · Page {currentPage} of {totalPages}</p>
+            <p className="text-white/30 text-[16.5px] mt-4">{total} articles · Page {currentPage} of {totalPages}</p>
           )}
         </div>
       </section>
 
       {posts.length === 0 && (
         <div className="py-32 text-center">
-          <p className="text-2xl font-bold text-gray-300">No posts found.</p>
+          <p className="text-[16.5px] font-bold text-gray-300">No posts found.</p>
         </div>
       )}
 
@@ -178,10 +178,10 @@ export default async function BlogPage({
                 </span>
                 <span className="text-gray-400 text-xs">{fmtDate(hero.date)}</span>
               </div>
-              <h2 className="text-[#3d2b1f] text-2xl md:text-3xl font-bold leading-tight mb-4 group-hover:text-[#1A9248] transition-colors line-clamp-2">
+              <h2 className="text-[#3d2b1f] text-[32px] md:text-3xl font-bold leading-tight mb-4 group-hover:text-[#1A9248] transition-colors line-clamp-2">
                 {strip(hero.title.rendered)}
               </h2>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
+              <p className="text-gray-500 text-[16.5px] leading-relaxed mb-6 line-clamp-3">
                 {strip(hero.excerpt.rendered)}
               </p>
               <div className="flex items-center gap-2 text-[#1A9248] font-bold text-sm">
@@ -226,10 +226,10 @@ export default async function BlogPage({
                         <span className="text-gray-300 text-xs">·</span>
                         <span className="text-gray-400 text-xs">{fmtDate(post.date)}</span>
                       </div>
-                      <h3 className="text-[#3d2b1f] font-bold text-base leading-snug mb-3 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
+                      <h3 className="text-[#3d2b1f] font-bold text-[24px] leading-snug mb-3 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                         {strip(post.title.rendered)}
                       </h3>
-                      <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
+                      <p className="text-gray-500 text-[16.5px] leading-relaxed line-clamp-2 mb-4">
                         {strip(post.excerpt.rendered)}
                       </p>
                       <div className="flex items-center gap-1.5 text-[#1A9248] text-xs font-bold mt-auto pt-4 border-t border-gray-100">

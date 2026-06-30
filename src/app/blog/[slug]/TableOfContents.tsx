@@ -28,7 +28,7 @@ export default function TableOfContents({ headings }: { headings: Heading[] }) {
 
   return (
     <nav aria-label="Table of contents">
-      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">
+      <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">
         Table of Contents
       </p>
       <ol className="space-y-1">

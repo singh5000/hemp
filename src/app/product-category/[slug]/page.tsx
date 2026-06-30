@@ -240,10 +240,10 @@ export default async function CategoryPage({
             <span>/</span>
             <span className="text-white/60">{category.name}</span>
           </nav>
-          <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight mb-2">
+          <h1 className="text-white text-[44px] md:text-5xl font-bold leading-tight mb-2">
             {search ? `Search: "${search}"` : category.name}
           </h1>
-          <p className="text-white/40 text-sm">
+          <p className="text-white/40 text-[16.5px]">
             {total > 0 ? `${total} product${total !== 1 ? "s" : ""}` : "No products found"}
             {!search && ` in ${category.name}`}
           </p>
@@ -268,7 +268,7 @@ export default async function CategoryPage({
 
             {products.length === 0 ? (
               <div className="py-32 text-center">
-                <p className="text-xl text-gray-300 font-bold">No products found.</p>
+                <p className="text-[16.5px] text-gray-300 font-bold">No products found.</p>
                 <Link href="/shop" className="mt-4 inline-block text-[#1A9248] font-bold hover:underline text-sm">
                   View all products →
                 </Link>
@@ -350,7 +350,7 @@ export default async function CategoryPage({
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-8">
                 <span className="text-[10px] font-bold text-[#1A9248] uppercase tracking-[0.3em]">Common Questions</span>
-                <h2 className="text-2xl font-bold text-[#2a1008] mt-2">FAQs About {category.name}</h2>
+                <h2 className="text-[32px] font-bold text-[#2a1008] mt-2">FAQs About {category.name}</h2>
               </div>
               <FaqSection faqs={categoryFaqs} />
             </div>

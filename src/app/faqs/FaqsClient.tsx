@@ -173,7 +173,7 @@ function FaqItem({ faq, isOpen, onToggle }: {
       {isOpen && (
         <div className="px-6 pb-5">
           <div className="w-10 h-0.5 bg-[#1A9248] mb-4 rounded-full" />
-          <p className="text-gray-600 leading-relaxed text-[15px] whitespace-pre-line">
+          <p className="text-gray-600 leading-relaxed text-[16.5px] whitespace-pre-line">
             {faq.a}
           </p>
         </div>
@@ -211,14 +211,14 @@ export default function FaqsClient() {
         <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-[#1A9248]/8 translate-y-1/2 -translate-x-1/4" />
 
         <div className="max-w-[900px] mx-auto px-6 text-center relative">
-          <p className="text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-4">
+          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-4">
             Got Questions?
           </p>
-          <h1 className="text-white text-4xl md:text-6xl font-bold uppercase tracking-wide mb-6">
+          <h1 className="text-white text-[44px] md:text-6xl font-bold uppercase tracking-wide mb-6">
             Frequently Asked<br />
             <span className="text-[#1A9248]">Questions</span>
           </h1>
-          <p className="text-white/60 text-lg max-w-xl mx-auto mb-8">
+          <p className="text-white/60 text-[16.5px] max-w-xl mx-auto mb-8">
             Everything you need to know about CBD, our products, shipping, and visiting our store.
           </p>
           <AnimatedButton href="/contact" variant="outline" size="sm">
@@ -257,7 +257,7 @@ export default function FaqsClient() {
 
           {/* Expand/Collapse controls */}
           <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-gray-500">
+            <p className="text-[16.5px] text-gray-500">
               Showing <span className="font-semibold text-[#3d2b1f]">{filtered.length}</span> question{filtered.length !== 1 ? "s" : ""}
             </p>
             <div className="flex gap-3">
@@ -298,8 +298,8 @@ export default function FaqsClient() {
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-white text-xl font-bold mb-2">Still Have Questions?</h3>
-              <p className="text-white/55 text-sm mb-6 leading-relaxed">
+              <h3 className="text-white text-[28px] font-bold mb-2">Still Have Questions?</h3>
+              <p className="text-white/55 text-[16.5px] mb-6 leading-relaxed">
                 Our CBD experts are here to help. Reach out and we'll get back to you quickly.
               </p>
               <AnimatedButton href="/contact" size="sm">Contact Us</AnimatedButton>
@@ -315,11 +315,11 @@ export default function FaqsClient() {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <h3 className="text-[#3d2b1f] text-xl font-bold mb-2">Visit Our Store</h3>
-              <p className="text-[#3d2b1f]/60 text-sm mb-1 leading-relaxed">
+              <h3 className="text-[#3d2b1f] text-[28px] font-bold mb-2">Visit Our Store</h3>
+              <p className="text-[#3d2b1f]/60 text-[16.5px] mb-1 leading-relaxed">
                 800 N Polk Street, Pineville, NC 28134
               </p>
-              <p className="text-[#3d2b1f]/60 text-xs mb-6">
+              <p className="text-[#3d2b1f]/60 text-[16.5px] mb-6">
                 Mon–Sat: 10AM–8PM &nbsp;|&nbsp; Sun: 12PM–4PM
               </p>
               <AnimatedButton href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" variant="dark" size="sm" external>

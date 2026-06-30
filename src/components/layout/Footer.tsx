@@ -36,10 +36,10 @@ export default function Footer() {
       <div className="border-b border-white/10 py-10">
         <div className="max-w-[1320px] mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h3 className="text-white text-2xl font-bold uppercase tracking-widest mb-1">
+            <h3 className="text-white text-[32px] font-bold uppercase tracking-widest mb-1">
               Stay in the Loop
             </h3>
-            <p className="text-white/50 text-sm">
+            <p className="text-white/50 text-[16.5px]">
               Get exclusive deals, new arrivals & hemp education straight to your inbox.
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function Footer() {
                 className="h-16 w-auto"
               />
             </Link>
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
+            <p className="text-white/60 text-[16.5px] leading-relaxed mb-6">
               Charlotte NC's trusted CBD store. Premium, lab-tested hemp products for your everyday wellness.
             </p>
 
@@ -101,7 +101,7 @@ export default function Footer() {
 
           {/* Shop Column */}
           <div className="md:col-span-3">
-            <h4 className="text-[#1A9248] font-bold uppercase tracking-[0.2em] text-xs mb-6 pb-3 border-b border-white/10">
+            <h4 className="text-[#1A9248] font-bold uppercase tracking-[0.2em] text-[20px] mb-6 pb-3 border-b border-white/10">
               Shop
             </h4>
             <ul className="space-y-3">
@@ -119,7 +119,7 @@ export default function Footer() {
 
           {/* Information Column */}
           <div className="md:col-span-3">
-            <h4 className="text-[#1A9248] font-bold uppercase tracking-[0.2em] text-xs mb-6 pb-3 border-b border-white/10">
+            <h4 className="text-[#1A9248] font-bold uppercase tracking-[0.2em] text-[20px] mb-6 pb-3 border-b border-white/10">
               Information
             </h4>
             <ul className="space-y-3">
@@ -137,13 +137,13 @@ export default function Footer() {
 
           {/* Store Info Column */}
           <div className="md:col-span-3">
-            <h4 className="text-[#1A9248] font-bold uppercase tracking-[0.2em] text-xs mb-6 pb-3 border-b border-white/10">
+            <h4 className="text-[#1A9248] font-bold uppercase tracking-[0.2em] text-[20px] mb-6 pb-3 border-b border-white/10">
               Visit Us
             </h4>
 
             {/* Hours */}
             <div className="mb-6">
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Store Hours</p>
+              <p className="text-white/40 text-[16.5px] uppercase tracking-wider mb-3">Store Hours</p>
               <div className="space-y-1.5">
                 <div className="flex justify-between text-sm">
                   <span className="text-white/60">Mon – Sat</span>
@@ -158,7 +158,7 @@ export default function Footer() {
 
             {/* Address */}
             <div className="mb-6">
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-3">Address</p>
+              <p className="text-white/40 text-[16.5px] uppercase tracking-wider mb-3">Address</p>
               <Link
                 href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7"
                 target="_blank"
@@ -172,7 +172,7 @@ export default function Footer() {
 
             {/* Phone */}
             <div className="mb-6">
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Phone</p>
+              <p className="text-white/40 text-[16.5px] uppercase tracking-wider mb-2">Phone</p>
               <a href="tel:9803264367"
                 className="text-[#1A9248] hover:text-[#7ab84f] font-semibold text-base transition-colors">
                 (980) 326-4367
@@ -181,7 +181,7 @@ export default function Footer() {
 
             {/* Email */}
             <div className="mb-6">
-              <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Email</p>
+              <p className="text-white/40 text-[16.5px] uppercase tracking-wider mb-2">Email</p>
               <a href="mailto:customerservice@hempandbarrel.com"
                 className="text-[#1A9248] hover:text-[#7ab84f] font-semibold text-sm transition-colors">
                 customerservice@hempandbarrel.com
@@ -199,10 +199,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
         <div className="max-w-[1320px] mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-white/35 text-xs">
+          <p className="text-white/35 text-[16.5px]">
             © {new Date().getFullYear()} Hemp & Barrel, Inc. All rights reserved.
           </p>
-          <p className="text-white/25 text-xs">
+          <p className="text-white/25 text-[16.5px]">
             *These statements have not been evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease.
           </p>
         </div>

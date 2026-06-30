@@ -380,7 +380,7 @@ export default function CheckoutPage() {
 
   if (!cart || cart.isEmpty) return (
     <div className="max-w-[1320px] mx-auto px-4 py-24 text-center">
-      <h1 className="text-3xl font-bold text-[#2a1008] mb-4">Your cart is empty</h1>
+      <h1 className="text-[38px] font-bold text-[#2a1008] mb-4">Your cart is empty</h1>
       <Link href="/shop" className="inline-flex items-center gap-2 bg-[#1A9248] text-white font-bold text-sm px-6 py-3 rounded-full">
         Continue Shopping
       </Link>
@@ -404,7 +404,7 @@ export default function CheckoutPage() {
             <span>/</span>
             <span className="text-white/60">Checkout</span>
           </nav>
-          <h1 className="text-white text-3xl md:text-4xl font-bold">Checkout</h1>
+          <h1 className="text-white text-[38px] md:text-4xl font-bold">Checkout</h1>
         </div>
       </section>
 
@@ -437,7 +437,7 @@ export default function CheckoutPage() {
                             className={inp} placeholder="••••••••"/>
                         </div>
                       </div>
-                      {loginErr && <p className="text-xs text-red-500">{loginErr}</p>}
+                      {loginErr && <p className="text-[16.5px] text-red-500">{loginErr}</p>}
                       <button type="button" onClick={handleLogin} disabled={loginBusy}
                         className="h-10 px-6 bg-[#3d2b1f] hover:bg-[#2a1008] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors disabled:opacity-50">
                         {loginBusy ? "Logging in…" : "Login"}
@@ -459,15 +459,15 @@ export default function CheckoutPage() {
                         {couponBusy ? "Applying…" : "Apply Coupon"}
                       </button>
                     </div>
-                    {couponErr && <p className="text-xs text-red-500 mt-2">{couponErr}</p>}
-                    {couponOk  && <p className="text-xs text-[#1A9248] font-semibold mt-2">Coupon applied!</p>}
+                    {couponErr && <p className="text-[16.5px] text-red-500 mt-2">{couponErr}</p>}
+                    {couponOk  && <p className="text-[16.5px] text-[#1A9248] font-semibold mt-2">Coupon applied!</p>}
                   </NoticeBar>
                 </>
               )}
 
               {/* ── Step 1: Billing Details ── */}
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
-                <h2 className="text-[#2a1008] font-bold text-base mb-5 flex items-center gap-2">
+                <h2 className="text-[#2a1008] font-bold text-[24px] mb-5 flex items-center gap-2">
                   <span className="w-6 h-6 bg-[#1A9248] text-white rounded-full text-xs font-bold flex items-center justify-center">1</span>
                   Billing Details
                 </h2>
@@ -557,7 +557,7 @@ export default function CheckoutPage() {
 
               {/* ── Step 3: Shipping Method ── */}
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
-                <h2 className="text-[#2a1008] font-bold text-base mb-5 flex items-center gap-2">
+                <h2 className="text-[#2a1008] font-bold text-[24px] mb-5 flex items-center gap-2">
                   <span className="w-6 h-6 bg-[#1A9248] text-white rounded-full text-xs font-bold flex items-center justify-center">3</span>
                   Shipping Method
                 </h2>
@@ -569,10 +569,10 @@ export default function CheckoutPage() {
                   </div>
                 ) : ratesErr ? (
                   <div className="bg-amber-50 border border-amber-100 rounded-xl p-4">
-                    <p className="text-sm text-amber-700">{ratesErr}</p>
+                    <p className="text-[16.5px] text-amber-700">{ratesErr}</p>
                   </div>
                 ) : !ratesFetched ? (
-                  <p className="text-sm text-gray-400 flex items-center gap-2">
+                  <p className="text-[16.5px] text-gray-400 flex items-center gap-2">
                     <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -581,8 +581,8 @@ export default function CheckoutPage() {
                   </p>
                 ) : shippingRates.length === 0 ? (
                   <div className="bg-red-50 border border-red-100 rounded-xl p-4">
-                    <p className="text-sm font-semibold text-red-700">No shipping methods available for your address.</p>
-                    <p className="text-xs text-red-500 mt-1">
+                    <p className="text-[16.5px] font-semibold text-red-700">No shipping methods available for your address.</p>
+                    <p className="text-[16.5px] text-red-500 mt-1">
                       We may not ship to your area. Please{" "}
                       <Link href="/contact" className="underline hover:text-red-700">contact us</Link>{" "}
                       for assistance.
@@ -614,7 +614,7 @@ export default function CheckoutPage() {
 
               {/* ── Step 4: Payment Method ── */}
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
-                <h2 className="text-[#2a1008] font-bold text-base mb-5 flex items-center gap-2">
+                <h2 className="text-[#2a1008] font-bold text-[24px] mb-5 flex items-center gap-2">
                   <span className="w-6 h-6 bg-[#1A9248] text-white rounded-full text-xs font-bold flex items-center justify-center">4</span>
                   Payment Method
                 </h2>
@@ -626,7 +626,7 @@ export default function CheckoutPage() {
                   </div>
                 ) : pms.length === 0 ? (
                   <div className="space-y-3">
-                    <p className="text-sm text-gray-500">
+                    <p className="text-[16.5px] text-gray-500">
                       Could not load payment methods.{" "}
                       <button type="button" onClick={loadPaymentMethods}
                         className="text-[#1A9248] font-bold hover:underline">Retry</button>
@@ -655,7 +655,7 @@ export default function CheckoutPage() {
                             className="mt-0.5 accent-[#1A9248]"/>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <p className="text-[#2a1008] font-bold text-sm">{method.name}</p>
+                              <p className="text-[#2a1008] font-bold text-[16.5px]">{method.name}</p>
                               {method.payment_method_id === "nmi" && (
                                 <div className="flex items-center gap-1">
                                   {["VISA","MC","AMEX","Discover"].map(c => (
@@ -665,7 +665,7 @@ export default function CheckoutPage() {
                               )}
                             </div>
                             {method.description && (
-                              <p className="text-gray-400 text-xs mt-0.5 leading-relaxed"
+                              <p className="text-gray-400 text-[16.5px] mt-0.5 leading-relaxed"
                                 dangerouslySetInnerHTML={{ __html: method.description }}/>
                             )}
                           </div>
@@ -716,7 +716,7 @@ export default function CheckoutPage() {
 
               {/* ── Step 5: Order Notes ── */}
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
-                <h2 className="text-[#2a1008] font-bold text-base mb-4 flex items-center gap-2">
+                <h2 className="text-[#2a1008] font-bold text-[24px] mb-4 flex items-center gap-2">
                   <span className="w-6 h-6 bg-[#3d2b1f] text-white rounded-full text-xs font-bold flex items-center justify-center">5</span>
                   Order Notes
                   <span className="text-gray-400 text-xs font-normal ml-1">(optional)</span>
@@ -731,7 +731,7 @@ export default function CheckoutPage() {
             <div className="w-full lg:w-[380px] flex-shrink-0 lg:sticky lg:top-24">
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
                 <div className="bg-[#2a1008] px-6 py-4">
-                  <h2 className="text-white font-bold text-base">Your Order</h2>
+                  <h2 className="text-white font-bold text-[24px]">Your Order</h2>
                 </div>
 
                 <div className="p-6">
@@ -755,14 +755,14 @@ export default function CheckoutPage() {
                             </span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-[#2a1008] font-bold text-xs line-clamp-2">{item.product.name}</p>
+                            <p className="text-[#2a1008] font-bold text-[16.5px] line-clamp-2">{item.product.name}</p>
                             {varAttrs.length > 0 && (
-                              <p className="text-gray-400 text-[10px] mt-0.5">
+                              <p className="text-gray-400 text-[16.5px] mt-0.5">
                                 {varAttrs.map(a => `${a.name}: ${a.value}`).join(" / ")}
                               </p>
                             )}
                           </div>
-                          <p className="text-[#2a1008] font-bold text-sm flex-shrink-0">{item.total}</p>
+                          <p className="text-[#2a1008] font-bold text-[16.5px] flex-shrink-0">{item.total}</p>
                         </div>
                       );
                     })}
@@ -801,7 +801,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="px-6 pb-6 space-y-4">
-                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                  <p className="text-[16.5px] text-gray-400 leading-relaxed">
                     Your personal data will be used to process your order, support your experience throughout this
                     website, and for other purposes described in our{" "}
                     <Link href="/privacy-policy" className="text-[#1A9248] hover:underline">privacy policy</Link>.
@@ -831,7 +831,7 @@ export default function CheckoutPage() {
                     }
                   </button>
 
-                  <p className="text-center text-[10px] text-gray-400 flex items-center justify-center gap-1">
+                  <p className="text-center text-[16.5px] text-gray-400 flex items-center justify-center gap-1">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                         d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>

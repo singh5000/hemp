@@ -59,7 +59,7 @@ export default function NewsletterForm({ variant = "dark" }: { variant?: "dark" 
 
   if (submitted)
     return (
-      <p className="font-semibold text-sm text-[#1A9248] flex items-center gap-2">
+      <p className="font-semibold text-[16.5px] text-[#1A9248] flex items-center gap-2">
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
         </svg>
@@ -88,7 +88,7 @@ export default function NewsletterForm({ variant = "dark" }: { variant?: "dark" 
           ) : "Subscribe"}
         </button>
       </form>
-      {errMsg && <p className="text-red-400 text-xs mt-2">{errMsg}</p>}
+      {errMsg && <p className="text-red-400 text-[16.5px] mt-2">{errMsg}</p>}
     </div>
   );
 }

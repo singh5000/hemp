@@ -17,7 +17,7 @@ export default function FaqAccordionItem({ q, a }: { q: string; a: string }) {
       </button>
       <div className={`grid transition-all duration-300 ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
         <div className="overflow-hidden">
-          <p className="px-6 pb-5 pt-1 text-[15px] text-[#3d2b1f] leading-relaxed">{a}</p>
+          <p className="px-6 pb-5 pt-1 text-[16.5px] text-[#3d2b1f] leading-relaxed">{a}</p>
         </div>
       </div>
     </div>

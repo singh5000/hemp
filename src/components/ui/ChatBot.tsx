@@ -148,8 +148,8 @@ export default function ChatBot() {
               <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-[#1A9248]" />
             </div>
             <div className="flex-1">
-              <p className="text-white font-bold text-sm">Hemp & Barrel</p>
-              <p className="text-white/70 text-[11px]">Usually replies instantly</p>
+              <p className="text-white font-bold text-[16.5px]">Hemp & Barrel</p>
+              <p className="text-white/70 text-[16.5px]">Usually replies instantly</p>
             </div>
             <button onClick={() => setOpen(false)} className="text-white/60 hover:text-white transition-colors">
               <X className="w-5 h-5" />
@@ -176,7 +176,7 @@ export default function ChatBot() {
                   }`}>
                     {msg.text}
                   </div>
-                  <p className={`text-[10px] text-gray-400 mt-1 ${msg.role === "user" ? "text-right" : ""}`}>{msg.time}</p>
+                  <p className={`text-[16.5px] text-gray-400 mt-1 ${msg.role === "user" ? "text-right" : ""}`}>{msg.time}</p>
                 </div>
               </div>
             ))}
@@ -229,7 +229,7 @@ export default function ChatBot() {
                 <Send className="w-4 h-4 text-white" />
               </button>
             </form>
-            <p className="text-[9px] text-gray-300 text-center mt-2">Powered by Hemp & Barrel</p>
+            <p className="text-[16.5px] text-gray-300 text-center mt-2">Powered by Hemp & Barrel</p>
           </div>
         </div>
       </div>
