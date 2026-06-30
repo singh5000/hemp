@@ -112,7 +112,7 @@ function StarRating({ rating, count }: { rating: string; count: number }) {
           </svg>
         ))}
       </div>
-      <span className="text-gray-400 text-[10px]">({count})</span>
+      <span className="text-gray-400 text-[11px]">({count})</span>
     </div>
   );
 }
@@ -297,10 +297,10 @@ export default async function CategoryPage({
                         <Link href={`/product/${p.slug}`} className="absolute inset-0" aria-label={p.name}/>
                         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
                           {p.on_sale && (
-                            <span className="bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Sale</span>
+                            <span className="bg-red-500 text-white text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Sale</span>
                           )}
                           {!inStock && (
-                            <span className={`text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                            <span className={`text-white text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
                               isInStoreOnly ? "bg-amber-600/90" : "bg-gray-800/80"
                             }`}>
                               {isInStoreOnly ? "In-Store Only" : "Sold Out"}
@@ -311,19 +311,19 @@ export default async function CategoryPage({
 
                       <div className="p-4 flex flex-col flex-1">
                         <Link href={`/product/${p.slug}`}
-                          className="text-[#2a1008] font-bold text-sm leading-snug mb-1 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
+                          className="text-[#2a1008] font-bold text-[15px] leading-snug mb-1 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                           {p.name}
                         </Link>
                         <StarRating rating={p.average_rating} count={p.review_count} />
                         <div className="flex items-baseline gap-2 mt-2 mb-3">
-                          <span className="text-[#2a1008] font-bold text-base">{price}</span>
+                          <span className="text-[#2a1008] font-bold text-[17px]">{price}</span>
                           {p.on_sale && price !== regular && (
-                            <span className="text-gray-400 text-xs line-through">{regular}</span>
+                            <span className="text-gray-400 text-[13px] line-through">{regular}</span>
                           )}
                         </div>
                         {p.has_options
                           ? <Link href={`/product/${p.slug}`}
-                              className="w-full py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-[#3d2b1f] hover:bg-[#2a1008] text-white text-center transition-colors">
+                              className="w-full py-2.5 text-[13px] font-bold uppercase tracking-wider rounded-xl bg-[#3d2b1f] hover:bg-[#2a1008] text-white text-center transition-colors">
                               Select Options
                             </Link>
                           : <AddToCartButton productId={p.id} inStock={inStock} isInStoreOnly={isInStoreOnly} />
