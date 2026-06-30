@@ -27,9 +27,9 @@ function AccordionItem({ title, icon: Icon, badge, defaultOpen, children }: {
         <div className="w-9 h-9 rounded-xl bg-[#1A9248]/10 flex items-center justify-center flex-shrink-0">
           <Icon className="w-4 h-4 text-[#1A9248]" />
         </div>
-        <span className="flex-1 font-bold text-[#2a1008] text-[15px]">{title}</span>
+        <span className="flex-1 font-bold text-[#2a1008] text-[17px]">{title}</span>
         {badge && (
-          <span className="text-[10px] font-bold text-[#1A9248] bg-[#1A9248]/10 px-2 py-0.5 rounded-full">{badge}</span>
+          <span className="text-[12px] font-bold text-[#1A9248] bg-[#1A9248]/10 px-2 py-0.5 rounded-full">{badge}</span>
         )}
         <ChevronDown className={`w-5 h-5 text-gray-300 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
       </button>
@@ -52,7 +52,7 @@ export default function ProductAccordion({ description, attributes, reviewCount,
       {/* Description */}
       {description && (
         <AccordionItem title="Product Description" icon={FileText} defaultOpen>
-          <div className="text-[#3d2b1f] text-sm leading-[1.85] space-y-3 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-[#2a1008] [&_h2]:mt-4 [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-[#2a1008] [&_h3]:mt-3 [&_p]:leading-[1.85] [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1 [&_a]:text-[#1A9248] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[#2a1008]"
+          <div className="text-[#3d2b1f] text-[16px] leading-[1.85] space-y-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#2a1008] [&_h2]:mt-4 [&_h3]:text-[18px] [&_h3]:font-bold [&_h3]:text-[#2a1008] [&_h3]:mt-3 [&_p]:leading-[1.85] [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1 [&_a]:text-[#1A9248] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[#2a1008]"
             dangerouslySetInnerHTML={{ __html: description }} />
         </AccordionItem>
       )}
@@ -63,10 +63,10 @@ export default function ProductAccordion({ description, attributes, reviewCount,
           <div className="divide-y divide-gray-50">
             {attributes.filter(a => a.terms.length > 0).map(attr => (
               <div key={attr.name} className="flex items-start gap-4 py-3 first:pt-0 last:pb-0">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider w-28 flex-shrink-0 pt-0.5">{attr.name}</span>
+                <span className="text-[14px] font-bold text-gray-400 uppercase tracking-wider w-28 flex-shrink-0 pt-0.5">{attr.name}</span>
                 <div className="flex flex-wrap gap-1.5">
                   {attr.terms.map(t => (
-                    <span key={t.name} className="bg-gray-50 text-[#3d2b1f] text-xs font-semibold px-3 py-1 rounded-full border border-gray-100">
+                    <span key={t.name} className="bg-gray-50 text-[#3d2b1f] text-[14px] font-semibold px-3 py-1 rounded-full border border-gray-100">
                       {t.name}
                     </span>
                   ))}
@@ -95,12 +95,12 @@ export default function ProductAccordion({ description, attributes, reviewCount,
                   </svg>
                 ))}
               </div>
-              <p className="text-xs text-gray-400 mt-1">{reviewCount} review{reviewCount !== 1 ? "s" : ""}</p>
+              <p className="text-[14px] text-gray-400 mt-1">{reviewCount} review{reviewCount !== 1 ? "s" : ""}</p>
             </div>
-            <p className="text-sm text-gray-500">Scroll down to read all customer reviews.</p>
+            <p className="text-[16px] text-gray-500">Scroll down to read all customer reviews.</p>
           </div>
         ) : (
-          <p className="text-sm text-gray-400">No reviews yet. Be the first to share your experience!</p>
+          <p className="text-[16px] text-gray-400">No reviews yet. Be the first to share your experience!</p>
         )}
       </AccordionItem>
 
@@ -113,8 +113,8 @@ export default function ProductAccordion({ description, attributes, reviewCount,
             { title: "COA Available", desc: "Certificate of Analysis available for every product on request." },
           ].map(item => (
             <div key={item.title} className="bg-[#1A9248]/5 rounded-xl p-4 border border-[#1A9248]/10">
-              <p className="text-xs font-bold text-[#1A9248] uppercase tracking-wide mb-1">{item.title}</p>
-              <p className="text-[12px] text-[#3d2b1f] leading-relaxed">{item.desc}</p>
+              <p className="text-[14px] font-bold text-[#1A9248] uppercase tracking-wide mb-1">{item.title}</p>
+              <p className="text-[14px] text-[#3d2b1f] leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>

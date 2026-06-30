@@ -6,6 +6,9 @@ import ProductGallery from "./ProductGallery";
 import ProductForm from "./ProductForm";
 import ProductAccordion from "./ProductAccordion";
 import WriteReview from "./WriteReview";
+import { CATEGORY_FAQS } from "@/lib/category-faqs";
+import FaqAccordionItem from "./FaqAccordionItem";
+import ShortDescription from "./ShortDescription";
 
 const WC = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 
@@ -152,7 +155,7 @@ function StarsFull({ rating, count }: { rating: string; count: number }) {
           </svg>
         ))}
       </div>
-      {count > 0 && <span className="text-gray-400 text-sm">({count} review{count !== 1 ? "s" : ""})</span>}
+      {count > 0 && <span className="text-gray-400 text-[16px]">({count} review{count !== 1 ? "s" : ""})</span>}
     </div>
   );
 }
@@ -169,6 +172,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const regular = fmt(product.prices.regular_price, unit, sym);
 
   const primaryCat = product.categories[0];
+  const categoryFaqs = primaryCat ? (CATEGORY_FAQS[primaryCat.slug] ?? []) : [];
 
   const [variations, related, reviews] = await Promise.all([
     product.has_options ? fetchVariations(product.id) : Promise.resolve([]),
@@ -186,7 +190,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {/* ── Breadcrumb ── */}
       <div className="bg-[#fafaf8] border-b border-gray-100">
         <div className="max-w-[1320px] mx-auto px-4 py-3">
-          <nav className="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
+          <nav className="flex items-center gap-2 text-[16px] text-gray-400 flex-wrap">
             <Link href="/" className="hover:text-[#1A9248] transition-colors">Home</Link>
             <span>/</span>
             <Link href="/shop" className="hover:text-[#1A9248] transition-colors">Shop</Link>
@@ -210,24 +214,24 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           {/* Gallery */}
           <ProductGallery images={product.images} name={product.name} />
 
-          {/* Info */}
-          <div className="lg:sticky lg:top-24 space-y-6">
+          {/* Info — buy box card */}
+          <div className="lg:sticky lg:top-24 bg-white border border-gray-100 rounded-2xl shadow-sm p-6 md:p-7 space-y-6">
             {/* Category badge */}
             {primaryCat && (
               <Link href={`/product-category/${primaryCat.slug}`}
-                className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#1A9248] hover:underline">
+                className="text-[13px] font-bold uppercase tracking-[0.3em] text-[#1A9248] hover:underline">
                 {primaryCat.name}
               </Link>
             )}
 
-            <h1 className="text-[#2a1008] text-3xl md:text-4xl font-bold leading-tight">{product.name}</h1>
+            <h1 className="text-[#2a1008] text-4xl md:text-5xl font-bold leading-tight">{product.name}</h1>
 
             {/* Rating + Write a Review */}
             <div className="flex items-center gap-4 flex-wrap">
               {product.review_count > 0 && (
                 <StarsFull rating={product.average_rating} count={product.review_count} />
               )}
-              <a href="#reviews" className="text-[#1A9248] text-xs font-bold hover:underline flex items-center gap-1">
+              <a href="#reviews" className="text-[#1A9248] text-[14px] font-bold hover:underline flex items-center gap-1">
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                 </svg>
@@ -237,19 +241,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             {/* Price */}
             <div className="flex items-baseline gap-3">
-              <span className="text-[#2a1008] text-2xl font-bold">{priceDisplay}</span>
+              <span className="text-[#2a1008] text-3xl font-bold">{priceDisplay}</span>
               {product.on_sale && price !== regular && !product.prices.price_range && (
-                <span className="text-gray-400 text-base line-through">{regular}</span>
+                <span className="text-gray-400 text-[18px] line-through">{regular}</span>
               )}
               {product.on_sale && (
-                <span className="bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full">Sale</span>
+                <span className="bg-red-100 text-red-600 text-[14px] font-bold px-2 py-0.5 rounded-full">Sale</span>
               )}
             </div>
 
             {/* Short description */}
             {product.short_description && (
-              <div className="text-[#3d2b1f] text-sm leading-relaxed border-t border-gray-100 pt-4"
-                dangerouslySetInnerHTML={{ __html: product.short_description }} />
+              <ShortDescription html={product.short_description} />
             )}
 
             {/* Form: qty + options + add to cart */}
@@ -267,7 +270,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             {/* Meta */}
             {product.sku && (
-              <div className="border-t border-gray-100 pt-4 text-xs text-gray-400">
+              <div className="border-t border-gray-100 pt-4 text-[14px] text-gray-400">
                 <p>SKU: <span className="text-[#3d2b1f] font-medium">{product.sku}</span></p>
               </div>
             )}
@@ -283,10 +286,43 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <div className="w-8 h-8 rounded-full bg-[#1A9248]/10 flex items-center justify-center">
                     <svg className="w-4 h-4 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">{b.icon}</svg>
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#3d2b1f]">{b.label}</span>
+                  <span className="text-[12px] font-bold uppercase tracking-wider text-[#3d2b1f]">{b.label}</span>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Why Hemp & Barrel comparison ── */}
+      <section className="border-t border-gray-100 bg-[#fafaf8]">
+        <div className="max-w-[900px] mx-auto px-4 py-12">
+          <h2 className="text-[#2a1008] text-3xl font-bold text-center mb-8">Why Hemp &amp; Barrel</h2>
+          <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
+            <div className="grid grid-cols-3 bg-[#2a1008] text-white">
+              <div className="px-4 py-4 text-[14px] font-bold uppercase tracking-wide">&nbsp;</div>
+              <div className="px-4 py-4 text-[16px] font-bold text-center text-[#1A9248]">Hemp &amp; Barrel</div>
+              <div className="px-4 py-4 text-[16px] font-bold text-center text-white/50">Other Brands</div>
+            </div>
+            {[
+              "Third-party lab tested",
+              "≤ 0.3% Delta-9 THC compliant",
+              "Certificate of Analysis available",
+            ].map((row, i) => (
+              <div key={row} className={`grid grid-cols-3 items-center ${i % 2 === 0 ? "bg-white" : "bg-[#fafaf8]"}`}>
+                <div className="px-4 py-4 text-[15px] font-semibold text-[#3d2b1f]">{row}</div>
+                <div className="px-4 py-4 flex justify-center">
+                  <svg className="w-5 h-5 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <div className="px-4 py-4 flex justify-center">
+                  <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -308,13 +344,31 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="max-w-[1320px] mx-auto px-4 py-12">
           <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
             <div className="flex items-baseline gap-3">
-              <h2 className="text-[#2a1008] text-2xl font-bold">Customer Reviews</h2>
+              <h2 className="text-[#2a1008] text-3xl font-bold">Customer Reviews</h2>
               {reviews.length > 0 && (
-                <span className="text-gray-400 text-sm">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
+                <span className="text-gray-400 text-[16px]">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
               )}
             </div>
             <WriteReview productId={product.id} productName={product.name} />
           </div>
+
+          {reviews.length > 0 && (
+            <div className="bg-[#fafaf8] border border-gray-100 rounded-2xl p-6 mb-8 max-w-xl space-y-2">
+              {[5, 4, 3, 2, 1].map(star => {
+                const count = reviews.filter(r => Math.round(Number(r.meta?.rating ?? 0)) === star).length;
+                const pct = reviews.length > 0 ? Math.round((count / reviews.length) * 100) : 0;
+                return (
+                  <div key={star} className="flex items-center gap-3">
+                    <span className="text-[14px] font-semibold text-[#3d2b1f] w-10 flex-shrink-0">{star} ★</span>
+                    <div className="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-amber-400 rounded-full transition-all" style={{ width: `${pct}%` }} />
+                    </div>
+                    <span className="text-[14px] text-gray-400 w-8 flex-shrink-0 text-right">{count}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {reviews.length === 0 ? (
             <div className="bg-[#fafaf8] rounded-2xl p-8 text-center max-w-sm">
@@ -322,8 +376,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
               </svg>
-              <p className="text-[#3d2b1f] font-bold text-sm mb-1">No reviews yet</p>
-              <p className="text-gray-400 text-xs">Be the first to share your experience with this product.</p>
+              <p className="text-[#3d2b1f] font-bold text-[16px] mb-1">No reviews yet</p>
+              <p className="text-gray-400 text-[14px]">Be the first to share your experience with this product.</p>
             </div>
           ) : (
             <div className="space-y-5 max-w-3xl">
@@ -338,11 +392,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-full bg-[#1A9248]/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-[#1A9248] font-bold text-sm">{r.author_name.charAt(0).toUpperCase()}</span>
+                          <span className="text-[#1A9248] font-bold text-[16px]">{r.author_name.charAt(0).toUpperCase()}</span>
                         </div>
                         <div>
-                          <p className="font-bold text-[#2a1008] text-sm">{r.author_name}</p>
-                          <p className="text-gray-400 text-xs">{date}</p>
+                          <p className="font-bold text-[#2a1008] text-[16px]">{r.author_name}</p>
+                          <p className="text-gray-400 text-[14px]">{date}</p>
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1.5">
@@ -355,7 +409,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                           ))}
                         </div>
                         {verified && (
-                          <span className="text-[10px] text-[#1A9248] font-bold uppercase tracking-wider flex items-center gap-1">
+                          <span className="text-[12px] text-[#1A9248] font-bold uppercase tracking-wider flex items-center gap-1">
                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
                             </svg>
@@ -364,7 +418,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                         )}
                       </div>
                     </div>
-                    <div className="text-[#3d2b1f] text-sm leading-relaxed [&_p]:mb-2 [&_p:last-child]:mb-0"
+                    <div className="text-[#3d2b1f] text-[16px] leading-relaxed [&_p]:mb-2 [&_p:last-child]:mb-0"
                       dangerouslySetInnerHTML={{ __html: r.content.rendered }} />
                   </div>
                 );
@@ -374,10 +428,24 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
+      {/* ── FAQs ── */}
+      {categoryFaqs.length > 0 && (
+        <section className="border-t border-gray-100 bg-[#fafaf8]">
+          <div className="max-w-[900px] mx-auto px-4 py-12">
+            <h2 className="text-[#2a1008] text-3xl font-bold text-center mb-8">FAQs</h2>
+            <div className="space-y-3">
+              {categoryFaqs.map(faq => (
+                <FaqAccordionItem key={faq.q} q={faq.q} a={faq.a} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Related products ── */}
       {related.length > 0 && (
         <section className="max-w-[1320px] mx-auto px-4 py-12">
-          <h2 className="text-[#2a1008] text-2xl font-bold mb-6">Related Products</h2>
+          <h2 className="text-[#2a1008] text-3xl font-bold mb-6">Related Products</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {related.map(p => {
               const rPrice   = fmt(p.prices.price, p.prices.currency_minor_unit, p.prices.currency_symbol);
@@ -394,15 +462,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                       : <div className="w-full h-full bg-gradient-to-br from-[#3d2b1f] to-[#1A9248]/40"/>
                     }
                     {p.on_sale && (
-                      <span className="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full">Sale</span>
+                      <span className="absolute top-2 left-2 bg-red-500 text-white text-[12px] font-bold uppercase px-2 py-0.5 rounded-full">Sale</span>
                     )}
                   </div>
                   <div className="p-3">
-                    <p className="text-[#2a1008] font-bold text-xs leading-snug mb-1 line-clamp-2 group-hover:text-[#1A9248] transition-colors">{p.name}</p>
+                    <p className="text-[#2a1008] font-bold text-[14px] leading-snug mb-1 line-clamp-2 group-hover:text-[#1A9248] transition-colors">{p.name}</p>
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-[#2a1008] font-bold text-sm">{rPrice}</span>
+                      <span className="text-[#2a1008] font-bold text-[16px]">{rPrice}</span>
                       {p.on_sale && rPrice !== rRegular && (
-                        <span className="text-gray-400 text-xs line-through">{rRegular}</span>
+                        <span className="text-gray-400 text-[14px] line-through">{rRegular}</span>
                       )}
                     </div>
                   </div>
