@@ -104,8 +104,11 @@ export default function Header() {
       {/* Announcement bar removed */}
 
       {/* ── HEADER ── */}
-      <header className={`sticky top-0 z-50 transition-all duration-500 ${solid ? "bg-white/95 backdrop-blur-md shadow-lg shadow-black/5" : "bg-transparent"}`}>
-        <div className={`max-w-[1320px] mx-auto px-4 flex items-center justify-between transition-all duration-500 ${solid ? "h-[58px]" : "h-[72px]"}`}>
+      <header className={`sticky top-0 z-50 transition-all duration-500 ${solid ? "bg-white/95 backdrop-blur-md shadow-lg shadow-black/5" : "bg-gradient-to-r from-[#3d2b1f]/60 via-[#3d2b1f]/45 to-[#1A9248]/40 backdrop-blur-md"}`}>
+        <div
+          className={`w-full flex items-center justify-between transition-all duration-500 ${solid ? "h-[58px]" : "h-[72px]"}`}
+          style={{ paddingLeft: 80, paddingRight: 80, filter: solid ? undefined : "drop-shadow(0 1px 1px rgba(0,0,0,0.95))" }}
+        >
 
           {/* Left Nav */}
           <nav className="hidden lg:flex items-center gap-8 flex-1">
@@ -246,7 +249,7 @@ export default function Header() {
           <>
             <div className="fixed inset-0 z-30 bg-black/20 backdrop-blur-[2px]" onClick={() => setShopOpen(false)} />
             <div className="absolute top-full left-0 right-0 w-full bg-white border-t-2 border-[#1A9248] shadow-2xl z-40">
-              <div className="max-w-[1320px] mx-auto px-4 py-6">
+              <div className="w-full py-6" style={{ paddingLeft: 80, paddingRight: 80 }}>
                 <div className="flex items-center justify-between mb-5">
                   <div>
                     <p className="text-[10px] text-[#1A9248] font-bold uppercase tracking-[0.3em] mb-0.5 flex items-center gap-1.5">
@@ -286,7 +289,7 @@ export default function Header() {
           <>
             <div className="fixed inset-0 z-30 bg-black/30 backdrop-blur-[2px]" onClick={() => { setSearchOpen(false); setSearchQ(""); }} />
             <div className="absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl z-40">
-              <div className="max-w-[1320px] mx-auto px-4 py-5">
+              <div className="w-full py-5" style={{ paddingLeft: 80, paddingRight: 80 }}>
                 <form onSubmit={handleSearch} className="flex items-center gap-3">
                   <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
                   <input ref={searchInputRef} type="text" value={searchQ}
