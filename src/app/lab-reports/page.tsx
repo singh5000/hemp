@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import LabReportsClient from "./LabReportsClient";
+import PageBanner from "@/components/layout/PageBanner";
 
 export const metadata: Metadata = {
   title: "Lab Reports & COA Results | Hemp & Barrel",
@@ -12,51 +12,26 @@ export default function LabReportsPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        {/* dot grid */}
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        {/* glow */}
-        <div className="absolute -left-40 top-0 w-[600px] h-[600px] bg-[#1A9248]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-[#1A9248]/5 rounded-full blur-2xl pointer-events-none" />
-
-        <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-24">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
-            <div>
-              {/* breadcrumb */}
-              <nav className="flex items-center gap-2 text-white/40 text-sm mb-6">
-                <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                <span>/</span>
-                <span className="text-white/60">Lab Reports</span>
-              </nav>
-
-              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">Full Transparency</p>
-              <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight mb-4">
-                Lab Reports &<br />
-                <span className="text-[#1A9248]">COA Results</span>
-              </h1>
-              <p className="text-white/50 text-[16.5px] md:text-lg max-w-[520px] leading-relaxed">
-                Every product we carry is tested by an independent, ISO-accredited laboratory.
-                Browse and download any Certificate of Analysis below.
-              </p>
-            </div>
-
-            {/* stat cards */}
-            <div className="flex gap-4 flex-shrink-0">
-              {[
-                { label: "COAs Published", value: "50+" },
-                { label: "Product Categories", value: "4" },
-                { label: "Testing Standard", value: "ISO" },
-              ].map((s) => (
-                <div key={s.label} className="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-center min-w-[90px]">
-                  <p className="text-[#1A9248] text-[16.5px] font-bold">{s.value}</p>
-                  <p className="text-white/40 text-[16.5px] uppercase tracking-wider mt-1 font-semibold leading-tight">{s.label}</p>
-                </div>
-              ))}
-            </div>
+      <PageBanner
+        crumbs={[{ label: "Lab Reports" }]}
+        eyebrow="Full Transparency"
+        title={<>Lab Reports &amp; <span className="text-[#1A9248]">COA Results</span></>}
+        description="Every product we carry is tested by an independent, ISO-accredited laboratory. Browse and download any Certificate of Analysis below."
+        aside={
+          <div className="flex gap-4 flex-shrink-0">
+            {[
+              { label: "COAs Published", value: "50+" },
+              { label: "Product Categories", value: "4" },
+              { label: "Testing Standard", value: "ISO" },
+            ].map((s) => (
+              <div key={s.label} className="bg-white border border-gray-100 shadow-sm rounded-2xl px-5 py-4 text-center min-w-[90px]">
+                <p className="text-[#1A9248] text-[16.5px] font-bold">{s.value}</p>
+                <p className="text-gray-400 text-[16.5px] uppercase tracking-wider mt-1 font-semibold leading-tight">{s.label}</p>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* ── Main content (client) ── */}
       <LabReportsClient />

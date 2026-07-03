@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import AnimatedButton from "@/components/ui/AnimatedButton";
+import PageBanner from "@/components/layout/PageBanner";
 
 export const metadata: Metadata = {
   title: "About Us | Hemp & Barrel | CBD Products | Best CBD Oil",
@@ -64,31 +65,13 @@ export default function AboutUsPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -left-40 top-0 w-[600px] h-[600px] bg-[#1A9248]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute right-0 bottom-0 w-[400px] h-[400px] bg-[#1A9248]/5 rounded-full blur-2xl pointer-events-none" />
-
-        <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-28 text-center">
-          <nav className="flex items-center justify-center gap-2 text-white/40 text-sm mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white/60">About Us</span>
-          </nav>
-
-          <div className="inline-flex items-center gap-2 bg-[#1A9248]/15 border border-[#1A9248]/30 text-[#1A9248] text-xs font-bold uppercase tracking-[0.3em] px-4 py-2 rounded-full mb-6">
-            Est. 2019 · Pineville, NC
-          </div>
-
-          <h1 className="text-white text-[56px] md:text-7xl font-bold leading-tight mb-6">
-            About <span className="text-[#1A9248]">Hemp &amp; Barrel</span>
-          </h1>
-          <p className="text-white/50 text-[16.5px] md:text-xl max-w-[600px] mx-auto leading-relaxed">
-            Charlotte NC's trusted CBD store. Premium, lab-tested hemp products for your everyday wellness.
-          </p>
-        </div>
-      </section>
+      <PageBanner
+        align="center"
+        crumbs={[{ label: "About Us" }]}
+        eyebrow="Est. 2019 · Pineville, NC"
+        title={<>About <span className="text-[#1A9248]">Hemp &amp; Barrel</span></>}
+        description="Charlotte NC's trusted CBD store. Premium, lab-tested hemp products for your everyday wellness."
+      />
 
       {/* ── Origin Story ── */}
       <section className="max-w-[1320px] mx-auto px-4 py-20">

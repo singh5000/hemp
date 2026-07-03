@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import PageBanner from "@/components/layout/PageBanner";
 
 export const metadata: Metadata = {
   title: "Hemp & Cannabis Blog | Hemp & Barrel — Expert Education",
@@ -127,23 +128,19 @@ export default async function BlogPage({
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -right-32 -top-32 w-[500px] h-[500px] bg-[#1A9248]/8 rounded-full blur-3xl" />
-        <div className="relative max-w-[1320px] mx-auto px-4 pt-20 pb-24 text-center">
-          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-4">Knowledge is Power</p>
-          <h1 className="text-white text-[56px] md:text-7xl font-bold uppercase leading-tight mb-5">
-            CBD <span className="text-[#1A9248]">Blog</span>
-          </h1>
-          <p className="text-white/55 text-[16.5px] max-w-lg mx-auto">
+      <PageBanner
+        align="center"
+        eyebrow="Knowledge is Power"
+        title={<>CBD <span className="text-[#1A9248]">Blog</span></>}
+        description={
+          <>
             Expert guides, product education, and the latest in hemp &amp; cannabinoid science.
-          </p>
-          {total > 0 && (
-            <p className="text-white/30 text-[16.5px] mt-4">{total} articles · Page {currentPage} of {totalPages}</p>
-          )}
-        </div>
-      </section>
+            {total > 0 && (
+              <span className="block text-gray-400 text-[16.5px] mt-4">{total} articles · Page {currentPage} of {totalPages}</span>
+            )}
+          </>
+        }
+      />
 
       {posts.length === 0 && (
         <div className="py-32 text-center">

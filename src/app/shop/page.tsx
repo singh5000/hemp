@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { ShopSidebar, ShopSortBar, ShopMobileBar, Brand } from "./ShopFilters";
 import AddToCartButton from "./AddToCartButton";
 import AnimatedButton from "@/components/ui/AnimatedButton";
+import PageBanner from "@/components/layout/PageBanner";
 
 export const metadata: Metadata = {
   title: "Shop CBD & Hemp Products | Hemp & Barrel",
@@ -206,36 +207,31 @@ export default async function ShopPage({
   return (
     <>
       {/* ── Hero banner ── */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -right-32 top-0 w-[500px] h-[500px] bg-[#1A9248]/8 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative max-w-[1320px] mx-auto px-4 py-14 md:py-18">
-          <nav className="flex items-center gap-2 text-white/40 text-sm mb-5">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            {activeBrandData
-              ? <><Link href="/shop" className="hover:text-white transition-colors">Shop</Link><span>/</span><span className="text-white/60">{activeBrandData.name}</span></>
-              : activeCategory
-              ? <><Link href="/shop" className="hover:text-white transition-colors">Shop</Link><span>/</span><span className="text-white/60">{activeCategory.name}</span></>
-              : <span className="text-white/60">Shop</span>
-            }
-          </nav>
-          <h1 className="text-white text-[44px] md:text-5xl font-bold leading-tight mb-2">
-            {search
-              ? `Search: "${search}"`
-              : activeBrandData
-              ? activeBrandData.name
-              : activeCategory
-              ? activeCategory.name
-              : "All Products"}
-          </h1>
-          <p className="text-white/40 text-[16.5px]">
+      <PageBanner
+        compact
+        crumbs={
+          activeBrandData
+            ? [{ label: "Shop", href: "/shop" }, { label: activeBrandData.name }]
+            : activeCategory
+            ? [{ label: "Shop", href: "/shop" }, { label: activeCategory.name }]
+            : [{ label: "Shop" }]
+        }
+        title={
+          search
+            ? `Search: "${search}"`
+            : activeBrandData
+            ? activeBrandData.name
+            : activeCategory
+            ? activeCategory.name
+            : "All Products"
+        }
+        description={
+          <>
             {total > 0 ? `${total} product${total !== 1 ? "s" : ""}` : "No products found"}
             {activeBrandData && !search ? ` from ${activeBrandData.name}` : activeCategory && !search ? ` in ${activeCategory.name}` : ""}
-          </p>
-        </div>
-      </section>
+          </>
+        }
+      />
 
       {/* ── Main content ── */}
       <div className="max-w-[1320px] mx-auto px-4 py-10">

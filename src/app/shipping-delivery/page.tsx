@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageBanner from "@/components/layout/PageBanner";
 
 export const metadata: Metadata = {
   title: "Shipping & Delivery | Hemp & Barrel",
@@ -11,49 +12,28 @@ export default function ShippingDeliveryPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -right-32 -top-20 w-[500px] h-[500px] bg-[#1A9248]/8 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-24">
-          <nav className="flex items-center gap-2 text-white/40 text-sm mb-7">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white/60">Shipping &amp; Delivery</span>
-          </nav>
-
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
-            <div>
-              <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">We Ship Nationwide</p>
-              <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight mb-4">
-                Shipping &amp;<br />
-                <span className="text-[#1A9248]">Delivery</span>
-              </h1>
-              <p className="text-white/50 text-[16.5px] md:text-lg max-w-[500px] leading-relaxed">
-                Fast, trackable Priority USPS shipping to all US addresses — including
-                territories and APO/FPO/DPO.
-              </p>
-            </div>
-
-            {/* Quick stats */}
-            <div className="flex gap-4 flex-shrink-0 flex-wrap">
-              {[
-                { value: "1–2",  unit: "days",      label: "Processing" },
-                { value: "1–2",  unit: "days",      label: "Delivery" },
-                { value: "$10",  unit: "flat rate",  label: "Shipping Cost" },
-              ].map((s) => (
-                <div key={s.label}
-                  className="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-center min-w-[90px]">
-                  <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">{s.value}</p>
-                  <p className="text-white/40 text-[16.5px] uppercase tracking-wider mt-0.5 font-semibold">{s.unit}</p>
-                  <p className="text-white/60 text-[16.5px] font-semibold mt-1">{s.label}</p>
-                </div>
-              ))}
-            </div>
+      <PageBanner
+        crumbs={[{ label: "Shipping & Delivery" }]}
+        eyebrow="We Ship Nationwide"
+        title={<>Shipping &amp; <span className="text-[#1A9248]">Delivery</span></>}
+        description="Fast, trackable Priority USPS shipping to all US addresses — including territories and APO/FPO/DPO."
+        aside={
+          <div className="flex gap-4 flex-shrink-0 flex-wrap">
+            {[
+              { value: "1–2",  unit: "days",      label: "Processing" },
+              { value: "1–2",  unit: "days",      label: "Delivery" },
+              { value: "$10",  unit: "flat rate",  label: "Shipping Cost" },
+            ].map((s) => (
+              <div key={s.label}
+                className="bg-white border border-gray-100 shadow-sm rounded-2xl px-5 py-4 text-center min-w-[90px]">
+                <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">{s.value}</p>
+                <p className="text-gray-400 text-[16.5px] uppercase tracking-wider mt-0.5 font-semibold">{s.unit}</p>
+                <p className="text-[#3d2b1f] text-[16.5px] font-semibold mt-1">{s.label}</p>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* ── At-a-glance strip ── */}
       <div className="bg-[#f5f0eb] border-b border-[#e8e0d8]">

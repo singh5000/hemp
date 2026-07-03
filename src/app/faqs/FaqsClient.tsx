@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
+import PageBanner from "@/components/layout/PageBanner";
 
 const CATEGORIES = [
   { id: "all", label: "All" },
@@ -205,27 +206,17 @@ export default function FaqsClient() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-[#2a1008] py-20 relative overflow-hidden">
-        {/* Decorative circles */}
-        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#1A9248]/5 -translate-y-1/2 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-[#1A9248]/8 translate-y-1/2 -translate-x-1/4" />
-
-        <div className="max-w-[900px] mx-auto px-6 text-center relative">
-          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-4">
-            Got Questions?
-          </p>
-          <h1 className="text-white text-[44px] md:text-6xl font-bold uppercase tracking-wide mb-6">
-            Frequently Asked<br />
-            <span className="text-[#1A9248]">Questions</span>
-          </h1>
-          <p className="text-white/60 text-[16.5px] max-w-xl mx-auto mb-8">
-            Everything you need to know about CBD, our products, shipping, and visiting our store.
-          </p>
+      <PageBanner
+        align="center"
+        eyebrow="Got Questions?"
+        title={<>Frequently Asked <span className="text-[#1A9248]">Questions</span></>}
+        description="Everything you need to know about CBD, our products, shipping, and visiting our store."
+        cta={
           <AnimatedButton href="/contact" variant="outline" size="sm">
             Can&apos;t find your answer? Contact us
           </AnimatedButton>
-        </div>
-      </section>
+        }
+      />
 
       {/* FAQ Content */}
       <section className="py-16 bg-[#fafaf8]">

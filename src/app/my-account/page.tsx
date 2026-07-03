@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth }               from "@/context/AuthContext";
 import { gql }                   from "@/lib/graphql/client";
 import { GET_CUSTOMER_QUERY }    from "@/lib/graphql/mutations";
+import PageBanner                from "@/components/layout/PageBanner";
 
 /* ── Types ── */
 interface Order {
@@ -93,12 +94,12 @@ function AuthForms() {
 
   return (
     <>
-      <section className="bg-[#2a1008] py-14">
-        <div className="max-w-[1320px] mx-auto px-4 text-center">
-          <h1 className="text-white text-[44px] md:text-5xl font-bold mb-2">My Account</h1>
-          <p className="text-white/40 text-[16.5px]">Sign in or create an account to track orders and manage your profile.</p>
-        </div>
-      </section>
+      <PageBanner
+        compact
+        align="center"
+        title="My Account"
+        description="Sign in or create an account to track orders and manage your profile."
+      />
 
       <div className="max-w-[500px] mx-auto px-6 py-14">
         <div className="flex bg-gray-100 rounded-2xl p-1 mb-8">
@@ -509,24 +510,19 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
   return (
     <>
       {/* Hero */}
-      <section className="bg-[#2a1008] py-12">
-        <div className="max-w-[1320px] mx-auto px-4">
-          <nav className="flex items-center gap-2 text-white/40 text-sm mb-4">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white/60">My Account</span>
-          </nav>
-          <h1 className="text-white text-[38px] md:text-4xl font-bold">
+      <PageBanner
+        compact
+        crumbs={[{ label: "My Account" }]}
+        title={
+          <>
             Hello {user.name.split(" ")[0]}
-            <span className="text-white/40 text-lg font-normal ml-2">(not {user.name.split(" ")[0]}?{" "}
-              <button onClick={handleLogout} className="underline hover:text-white transition-colors">Log out</button>)
+            <span className="text-gray-400 text-lg font-normal ml-2">(not {user.name.split(" ")[0]}?{" "}
+              <button onClick={handleLogout} className="underline hover:text-[#1A9248] transition-colors">Log out</button>)
             </span>
-          </h1>
-          <p className="text-white/40 text-[16.5px] mt-1">
-            From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.
-          </p>
-        </div>
-      </section>
+          </>
+        }
+        description="From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details."
+      />
 
       <div className="max-w-[1320px] mx-auto px-4 py-10">
         <div className="flex flex-col lg:flex-row gap-8 items-start">

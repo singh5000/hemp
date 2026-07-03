@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import PageBanner from "@/components/layout/PageBanner";
 
 const INFO_CARDS = [
   {
@@ -112,26 +113,13 @@ export default function ContactClient() {
   return (
     <>
       {/* ── HERO ── */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-[0.04]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#1A9248]/6 -translate-y-1/3 translate-x-1/3 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#1A9248]/5 translate-y-1/3 -translate-x-1/3 blur-3xl" />
-
-        <div className="relative max-w-[1100px] mx-auto px-6 py-24 text-center">
-          <span className="inline-block text-[#1A9248] text-xs font-bold uppercase tracking-[0.4em] mb-5">
-            We&apos;d Love to Hear From You
-          </span>
-          <h1 className="text-white text-[56px] md:text-7xl font-bold uppercase leading-tight mb-6">
-            Get In<br />
-            <span className="text-[#1A9248]">Touch</span>
-          </h1>
-          <p className="text-white/55 text-[16.5px] max-w-lg mx-auto">
-            Questions about our products? Need expert CBD advice? We&apos;re here and happy to help.
-          </p>
-        </div>
-      </section>
+      <PageBanner
+        align="center"
+        crumbs={[{ label: "Contact" }]}
+        eyebrow="We'd Love to Hear From You"
+        title={<>Get In <span className="text-[#1A9248]">Touch</span></>}
+        description="Questions about our products? Need expert CBD advice? We're here and happy to help."
+      />
 
       {/* ── INFO CARDS ── */}
       <section className="bg-[#3d2b1f] py-12">

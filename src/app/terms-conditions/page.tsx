@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageBanner from "@/components/layout/PageBanner";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions | Hemp & Barrel",
@@ -98,23 +99,11 @@ export default async function TermsPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-[#1A9248]/6 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative max-w-[1320px] mx-auto px-4 py-20 md:py-24">
-          <nav className="flex items-center gap-2 text-white/40 text-sm mb-7">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white/60">Terms &amp; Conditions</span>
-          </nav>
-          <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.4em] mb-3">Legal</p>
-          <h1 className="text-white text-[44px] md:text-6xl font-bold leading-tight mb-5">
-            Terms &amp; <span className="text-[#1A9248]">Conditions</span>
-          </h1>
-        </div>
-      </section>
+      <PageBanner
+        crumbs={[{ label: "Terms & Conditions" }]}
+        eyebrow="Legal"
+        title={<>Terms &amp; <span className="text-[#1A9248]">Conditions</span></>}
+      />
 
       {/* ── Agreement notice ── */}
       <div className="bg-[#2a1008] border-t border-white/10">

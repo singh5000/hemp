@@ -6,6 +6,7 @@ import Image           from "next/image";
 import { useCart }     from "@/context/CartContext";
 import { useAuth }     from "@/context/AuthContext";
 import AnimatedButton  from "@/components/ui/AnimatedButton";
+import PageBanner      from "@/components/layout/PageBanner";
 
 /* Cart page is a client component — metadata set via head or route segment */
 export default function CartPage() {
@@ -71,19 +72,16 @@ export default function CartPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="bg-[#2a1008] py-10">
-        <div className="max-w-[1320px] mx-auto px-4">
-          <nav className="flex items-center gap-2 text-white/40 text-sm mb-4">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white/60">Cart</span>
-          </nav>
-          <h1 className="text-white text-[38px] md:text-4xl font-bold">
+      <PageBanner
+        compact
+        crumbs={[{ label: "Cart" }]}
+        title={
+          <>
             Shopping Cart
-            <span className="text-white/40 text-lg font-normal ml-3">({cart.itemCount} item{cart.itemCount !== 1 ? "s" : ""})</span>
-          </h1>
-        </div>
-      </section>
+            <span className="text-gray-400 text-lg font-normal ml-3">({cart.itemCount} item{cart.itemCount !== 1 ? "s" : ""})</span>
+          </>
+        }
+      />
 
       {/* ── Content ── */}
       <div className="max-w-[1320px] mx-auto px-4 py-10">

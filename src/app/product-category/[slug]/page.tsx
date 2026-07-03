@@ -9,6 +9,7 @@ import AddToCartButton from "@/app/shop/AddToCartButton";
 import FaqSection from "@/components/ui/FaqSection";
 import PetDosageCalculator from "@/components/ui/PetDosageCalculator";
 import { CATEGORY_FAQS } from "@/lib/category-faqs";
+import PageBanner from "@/components/layout/PageBanner";
 
 const WC      = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 const WP_URL  = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
@@ -223,32 +224,25 @@ export default async function CategoryPage({
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative bg-[#2a1008] overflow-hidden">
-        {category.image && (
-          <Image src={category.image.src} alt={category.image.alt || category.name}
-            fill className="object-cover opacity-20" sizes="100vw" priority/>
-        )}
-        <div className="absolute inset-0 opacity-[0.05]"
-          style={{ backgroundImage: "radial-gradient(circle, #1A9248 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
-        <div className="absolute -right-32 top-0 w-[500px] h-[500px] bg-[#1A9248]/8 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative max-w-[1320px] mx-auto px-4 py-14 md:py-18">
-          <nav className="flex items-center gap-2 text-white/40 text-sm mb-5 flex-wrap">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/shop" className="hover:text-white transition-colors">Shop</Link>
-            <span>/</span>
-            <span className="text-white/60">{category.name}</span>
-          </nav>
-          <h1 className="text-white text-[44px] md:text-5xl font-bold leading-tight mb-2">
-            {search ? `Search: "${search}"` : category.name}
-          </h1>
-          <p className="text-white/40 text-[16.5px]">
+      <PageBanner
+        compact
+        crumbs={[{ label: "Shop", href: "/shop" }, { label: category.name }]}
+        title={search ? `Search: "${search}"` : category.name}
+        description={
+          <>
             {total > 0 ? `${total} product${total !== 1 ? "s" : ""}` : "No products found"}
             {!search && ` in ${category.name}`}
-          </p>
-        </div>
-      </section>
+          </>
+        }
+        aside={
+          category.image && (
+            <div className="relative w-[160px] h-[120px] md:w-[200px] md:h-[140px] rounded-2xl overflow-hidden shadow-lg border border-white/40">
+              <Image src={category.image.src} alt={category.image.alt || category.name}
+                fill className="object-cover" sizes="200px" priority/>
+            </div>
+          )
+        }
+      />
 
       {/* ── Main ── */}
       <div className="max-w-[1320px] mx-auto px-4 py-10">

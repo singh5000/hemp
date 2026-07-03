@@ -5,6 +5,7 @@ import Link                                          from "next/link";
 import Image                                         from "next/image";
 import { useCart }                                   from "@/context/CartContext";
 import { useAuth }                                   from "@/context/AuthContext";
+import PageBanner                                    from "@/components/layout/PageBanner";
 
 /* ── Types ── */
 type BillingAddr = {
@@ -399,18 +400,11 @@ export default function CheckoutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-[#2a1008] py-10">
-        <div className="max-w-[1320px] mx-auto px-4">
-          <nav className="flex items-center gap-2 text-white/40 text-sm mb-4">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/cart" className="hover:text-white transition-colors">Cart</Link>
-            <span>/</span>
-            <span className="text-white/60">Checkout</span>
-          </nav>
-          <h1 className="text-white text-[38px] md:text-4xl font-bold">Checkout</h1>
-        </div>
-      </section>
+      <PageBanner
+        compact
+        crumbs={[{ label: "Cart", href: "/cart" }, { label: "Checkout" }]}
+        title="Checkout"
+      />
 
       <div className="max-w-[1320px] mx-auto px-4 py-10">
         <form onSubmit={handleSubmit} noValidate>
