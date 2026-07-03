@@ -63,7 +63,7 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
       {/* Info */}
       <div className="flex flex-col flex-1 px-4 pb-4 pt-2">
         <Link href={`/product/${product.slug}`}>
-          <h3 className="text-center text-[26px] font-bold text-[#3d2b1f] leading-snug mb-2 line-clamp-3 hover:text-[#1A9248] transition-colors">
+          <h3 className="text-center text-[18px] font-bold text-[#3d2b1f] leading-snug mb-2 line-clamp-3 hover:text-[#1A9248] transition-colors">
             {product.name}
           </h3>
         </Link>
@@ -142,9 +142,14 @@ export default function FeaturedProducts() {
     <section className="py-16 bg-[#f2f2f2]">
       <div className="max-w-[1320px] mx-auto px-4">
         {/* Title */}
-        <h2 className="text-center text-[44px] font-bold text-[#3d2b1f] uppercase tracking-wider mb-10">
-          Bestsellers
-        </h2>
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center gap-2 text-[12px] font-bold text-[#1A9248] uppercase tracking-[0.3em] mb-3">
+            <span className="w-8 h-px bg-[#1A9248]/40" />
+            Fan Favorites
+            <span className="w-8 h-px bg-[#1A9248]/40" />
+          </span>
+          <h2 className="text-[36px] md:text-5xl font-black text-[#2a1008]">Bestsellers</h2>
+        </div>
 
         {loading ? (
           /* Skeleton */

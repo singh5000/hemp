@@ -75,7 +75,7 @@ export default async function LatestBlog() {
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <span className="text-gray-400 text-[13px] mb-2">{fmtDate(post.date)}</span>
-                  <h3 className="text-[#2a1008] font-bold text-[27px] leading-snug mb-2 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
+                  <h3 className="text-[#2a1008] font-bold text-[19px] leading-snug mb-2 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
                     {strip(post.title.rendered)}
                   </h3>
                   <p className="text-gray-500 text-[16.5px] leading-relaxed line-clamp-2 mb-4">

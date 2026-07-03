@@ -93,7 +93,7 @@ export default function Footer() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <span className="text-white/60 text-xs">{badge}</span>
+                  <span className="text-white/60 text-[15px]">{badge}</span>
                 </div>
               ))}
             </div>
@@ -108,7 +108,7 @@ export default function Footer() {
               {SHOP_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}
-                    className="text-white/65 hover:text-white text-sm transition-colors flex items-center gap-2 group">
+                    className="text-white/65 hover:text-white text-[17px] transition-colors flex items-center gap-2 group">
                     <span className="w-1 h-1 rounded-full bg-[#1A9248] opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link.label}
                   </Link>
@@ -126,7 +126,7 @@ export default function Footer() {
               {INFO_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}
-                    className="text-white/65 hover:text-white text-sm transition-colors flex items-center gap-2 group">
+                    className="text-white/65 hover:text-white text-[17px] transition-colors flex items-center gap-2 group">
                     <span className="w-1 h-1 rounded-full bg-[#1A9248] opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link.label}
                   </Link>
@@ -183,7 +183,7 @@ export default function Footer() {
             <div className="mb-6">
               <p className="text-white/40 text-[16.5px] uppercase tracking-wider mb-2">Email</p>
               <a href="mailto:customerservice@hempandbarrel.com"
-                className="text-[#1A9248] hover:text-[#7ab84f] font-semibold text-sm transition-colors">
+                className="text-[#1A9248] hover:text-[#7ab84f] font-semibold text-[16px] transition-colors">
                 customerservice@hempandbarrel.com
               </a>
             </div>
@@ -199,10 +199,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
         <div className="max-w-[1320px] mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-white/35 text-[16.5px]">
+          <p className="text-white/35 text-[13.5px]">
             © {new Date().getFullYear()} Hemp & Barrel, Inc. All rights reserved.
           </p>
-          <p className="text-white/25 text-[16.5px]">
+          <p className="text-white/25 text-[13.5px]">
             *These statements have not been evaluated by the FDA. Not intended to diagnose, treat, cure, or prevent any disease.
           </p>
         </div>

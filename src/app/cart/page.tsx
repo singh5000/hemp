@@ -44,7 +44,7 @@ export default function CartPage() {
     return (
       <div className="max-w-[1320px] mx-auto px-4 py-20 text-center">
         <div className="inline-block w-8 h-8 border-4 border-[#1A9248] border-t-transparent rounded-full animate-spin" />
-        <p className="mt-4 text-gray-400 text-[16.5px]">Loading your cart…</p>
+        <p className="mt-4 text-gray-500 text-[16.5px]">Loading your cart…</p>
       </div>
     );
   }
@@ -61,7 +61,7 @@ export default function CartPage() {
             </svg>
           </div>
           <h1 className="text-[38px] font-bold text-[#2a1008] mb-3">Your cart is empty</h1>
-          <p className="text-gray-400 mb-8 text-[16.5px]">Looks like you haven&apos;t added anything yet.</p>
+          <p className="text-gray-500 mb-8 text-[16.5px]">Looks like you haven&apos;t added anything yet.</p>
           <AnimatedButton href="/shop">Continue Shopping</AnimatedButton>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function CartPage() {
           {/* ── Cart items ── */}
           <div className="flex-1 min-w-0">
             {/* Header row (desktop) */}
-            <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-4 pb-3 border-b border-gray-200 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
+            <div className="hidden md:grid grid-cols-[1fr_auto_auto_auto] gap-4 pb-3 border-b border-gray-200 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500">
               <span>Product</span>
               <span className="text-center w-28">Price</span>
               <span className="text-center w-28">Quantity</span>
@@ -121,11 +121,11 @@ export default function CartPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <Link href={`/product/${item.product.slug}`}
-                          className="text-[#2a1008] font-bold text-sm hover:text-[#1A9248] transition-colors line-clamp-2">
+                          className="text-[#2a1008] font-bold text-[15px] hover:text-[#1A9248] transition-colors line-clamp-2">
                           {item.product.name}
                         </Link>
                         {varAttrs.length > 0 && (
-                          <p className="text-gray-400 text-[16.5px] mt-0.5">
+                          <p className="text-gray-500 text-[13px] mt-0.5">
                             {varAttrs.map(a => `${a.name}: ${a.value}`).join(" / ")}
                           </p>
                         )}
@@ -141,7 +141,7 @@ export default function CartPage() {
 
                     {/* Price (desktop) */}
                     <div className="hidden md:block text-center w-28">
-                      <span className="text-[#2a1008] font-semibold text-sm">{price || "—"}</span>
+                      <span className="text-[#2a1008] font-semibold text-[15px]">{price || "—"}</span>
                     </div>
 
                     {/* Quantity stepper */}
@@ -161,7 +161,7 @@ export default function CartPage() {
 
                     {/* Line total */}
                     <div className="text-right w-24 mx-auto md:mx-0">
-                      <span className="text-[#2a1008] font-bold text-sm">{item.total}</span>
+                      <span className="text-[#2a1008] font-bold text-[15px]">{item.total}</span>
                     </div>
                   </div>
                 );
@@ -206,8 +206,8 @@ export default function CartPage() {
                   {couponBusy ? "Applying…" : "Apply Coupon"}
                 </button>
               </div>
-              {couponError && <p className="text-[16.5px] text-red-500">{couponError}</p>}
-              {couponOk    && <p className="text-[16.5px] text-[#1A9248] font-medium">Coupon applied successfully!</p>}
+              {couponError && <p className="text-[13px] text-red-500">{couponError}</p>}
+              {couponOk    && <p className="text-[13px] text-[#1A9248] font-medium">Coupon applied successfully!</p>}
             </div>
 
             {/* Cart actions */}
@@ -220,7 +220,7 @@ export default function CartPage() {
                 Continue Shopping
               </Link>
               <button onClick={handleClear} disabled={clearing}
-                className="text-sm text-gray-400 hover:text-red-500 transition-colors font-medium disabled:opacity-50">
+                className="text-sm text-gray-500 hover:text-red-500 transition-colors font-medium disabled:opacity-50">
                 {clearing ? "Clearing…" : "Clear Cart"}
               </button>
             </div>
@@ -230,7 +230,7 @@ export default function CartPage() {
           <div className="w-full lg:w-[360px] flex-shrink-0">
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
               <div className="bg-[#2a1008] px-6 py-4">
-                <h2 className="text-white font-bold text-[24px]">Order Summary</h2>
+                <h2 className="text-white font-bold text-[19px]">Order Summary</h2>
               </div>
               <div className="p-6 space-y-3">
                 <div className="flex justify-between text-sm text-[#3d2b1f]">
@@ -275,7 +275,7 @@ export default function CartPage() {
                 </a>
 
                 {!user && (
-                  <p className="text-center text-[16.5px] text-gray-400">
+                  <p className="text-center text-[13px] text-gray-500">
                     <Link href="/my-account" className="text-[#1A9248] hover:underline font-medium">
                       Sign in
                     </Link>{" "}
@@ -287,7 +287,7 @@ export default function CartPage() {
                 <div className="flex items-center justify-center gap-2 pt-1">
                   {["VISA", "MC", "AMEX", "PayPal"].map(p => (
                     <span key={p}
-                      className="bg-gray-50 border border-gray-200 text-gray-400 text-[10px] font-bold px-2 py-0.5 rounded">
+                      className="bg-gray-50 border border-gray-200 text-gray-500 text-[10px] font-bold px-2 py-0.5 rounded">
                       {p}
                     </span>
                   ))}
@@ -304,8 +304,8 @@ export default function CartPage() {
               ].map(b => (
                 <div key={b.label}
                   className="bg-white border border-gray-100 rounded-xl p-3 shadow-sm">
-                  <p className="text-[16.5px] font-bold text-[#3d2b1f] uppercase tracking-wider">{b.label}</p>
-                  <p className="text-[16.5px] text-gray-400 mt-0.5">{b.desc}</p>
+                  <p className="text-[12px] font-bold text-[#3d2b1f] uppercase tracking-wider">{b.label}</p>
+                  <p className="text-[11px] text-gray-500 mt-0.5">{b.desc}</p>
                 </div>
               ))}
             </div>

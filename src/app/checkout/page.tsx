@@ -66,7 +66,7 @@ function NoticeBar({ icon, label, linkText, children }: {
           {label}{" "}
           <span className="text-[#1A9248] font-semibold hover:underline">{linkText}</span>
         </span>
-        <svg className={`w-4 h-4 text-gray-400 ml-auto transition-transform ${open ? "rotate-180" : ""}`}
+        <svg className={`w-4 h-4 text-gray-500 ml-auto transition-transform ${open ? "rotate-180" : ""}`}
           fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
         </svg>
@@ -139,6 +139,10 @@ export default function CheckoutPage() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const CJS = (window as any).CollectJS;
       if (!CJS || collectJsReady.current) return;
+      // Guard against dev-mode Fast Refresh re-running this effect after
+      // Collect.js already injected iframes into these divs — reconfiguring
+      // on top of existing iframes leaves the fields unresponsive to clicks.
+      if (document.getElementById("nmi-ccnumber")?.childElementCount) return;
       collectJsReady.current = true;
       CJS.configure({
         variant:      "inline",
@@ -563,7 +567,7 @@ export default function CheckoutPage() {
                 </h2>
 
                 {ratesLoading ? (
-                  <div className="flex items-center gap-2.5 text-gray-400 text-sm">
+                  <div className="flex items-center gap-2.5 text-gray-500 text-sm">
                     <div className="w-4 h-4 border-2 border-[#1A9248]/40 border-t-[#1A9248] rounded-full animate-spin"/>
                     Calculating shipping rates for your address…
                   </div>
@@ -572,7 +576,7 @@ export default function CheckoutPage() {
                     <p className="text-[16.5px] text-amber-700">{ratesErr}</p>
                   </div>
                 ) : !ratesFetched ? (
-                  <p className="text-[16.5px] text-gray-400 flex items-center gap-2">
+                  <p className="text-[16.5px] text-gray-500 flex items-center gap-2">
                     <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -620,13 +624,13 @@ export default function CheckoutPage() {
                 </h2>
 
                 {pmLoading ? (
-                  <div className="flex items-center gap-2 text-gray-400 text-sm">
+                  <div className="flex items-center gap-2 text-gray-500 text-sm">
                     <div className="w-4 h-4 border-2 border-gray-300 border-t-transparent rounded-full animate-spin"/>
                     Loading payment methods…
                   </div>
                 ) : pms.length === 0 ? (
                   <div className="space-y-3">
-                    <p className="text-[16.5px] text-gray-500">
+                    <p className="text-[14px] text-gray-500">
                       Could not load payment methods.{" "}
                       <button type="button" onClick={loadPaymentMethods}
                         className="text-[#1A9248] font-bold hover:underline">Retry</button>
@@ -655,7 +659,7 @@ export default function CheckoutPage() {
                             className="mt-0.5 accent-[#1A9248]"/>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <p className="text-[#2a1008] font-bold text-[16.5px]">{method.name}</p>
+                              <p className="text-[#2a1008] font-bold text-[15px]">{method.name}</p>
                               {method.payment_method_id === "nmi" && (
                                 <div className="flex items-center gap-1">
                                   {["VISA","MC","AMEX","Discover"].map(c => (
@@ -665,7 +669,7 @@ export default function CheckoutPage() {
                               )}
                             </div>
                             {method.description && (
-                              <p className="text-gray-400 text-[16.5px] mt-0.5 leading-relaxed"
+                              <p className="text-gray-500 text-[13px] mt-0.5 leading-relaxed"
                                 dangerouslySetInnerHTML={{ __html: method.description }}/>
                             )}
                           </div>
@@ -680,7 +684,7 @@ export default function CheckoutPage() {
                                     Card Number <span className="text-red-400">*</span>
                                   </label>
                                   <div id="nmi-ccnumber"
-                                    className="h-11 border border-gray-200 rounded-xl px-4 bg-white flex items-center"/>
+                                    className="h-11 rounded-xl px-4 bg-white flex items-center"/>
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
                                   <div>
@@ -719,7 +723,7 @@ export default function CheckoutPage() {
                 <h2 className="text-[#2a1008] font-bold text-[24px] mb-4 flex items-center gap-2">
                   <span className="w-6 h-6 bg-[#3d2b1f] text-white rounded-full text-xs font-bold flex items-center justify-center">5</span>
                   Order Notes
-                  <span className="text-gray-400 text-xs font-normal ml-1">(optional)</span>
+                  <span className="text-gray-500 text-xs font-normal ml-1">(optional)</span>
                 </h2>
                 <textarea value={note} onChange={e => setNote(e.target.value)} rows={3}
                   placeholder="Notes about your order, e.g. special delivery instructions."
@@ -731,7 +735,7 @@ export default function CheckoutPage() {
             <div className="w-full lg:w-[380px] flex-shrink-0 lg:sticky lg:top-24">
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
                 <div className="bg-[#2a1008] px-6 py-4">
-                  <h2 className="text-white font-bold text-[24px]">Your Order</h2>
+                  <h2 className="text-white font-bold text-[19px]">Your Order</h2>
                 </div>
 
                 <div className="p-6">
@@ -755,14 +759,14 @@ export default function CheckoutPage() {
                             </span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-[#2a1008] font-bold text-[16.5px] line-clamp-2">{item.product.name}</p>
+                            <p className="text-[#2a1008] font-bold text-[14px] line-clamp-2">{item.product.name}</p>
                             {varAttrs.length > 0 && (
-                              <p className="text-gray-400 text-[16.5px] mt-0.5">
+                              <p className="text-gray-500 text-[12px] mt-0.5">
                                 {varAttrs.map(a => `${a.name}: ${a.value}`).join(" / ")}
                               </p>
                             )}
                           </div>
-                          <p className="text-[#2a1008] font-bold text-[16.5px] flex-shrink-0">{item.total}</p>
+                          <p className="text-[#2a1008] font-bold text-[14px] flex-shrink-0">{item.total}</p>
                         </div>
                       );
                     })}
@@ -783,9 +787,9 @@ export default function CheckoutPage() {
                       {selectedRate ? (
                         <span className="font-semibold">{selectedRate.price}</span>
                       ) : ratesLoading ? (
-                        <span className="text-gray-400 text-xs">Calculating…</span>
+                        <span className="text-gray-500 text-xs">Calculating…</span>
                       ) : (
-                        <span className="text-gray-400 text-xs">Enter address above</span>
+                        <span className="text-gray-500 text-xs">Enter address above</span>
                       )}
                     </div>
                     {cart.totalTax && cart.totalTax !== "$0.00" && (
@@ -801,7 +805,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="px-6 pb-6 space-y-4">
-                  <p className="text-[16.5px] text-gray-400 leading-relaxed">
+                  <p className="text-[12px] text-gray-500 leading-relaxed">
                     Your personal data will be used to process your order, support your experience throughout this
                     website, and for other purposes described in our{" "}
                     <Link href="/privacy-policy" className="text-[#1A9248] hover:underline">privacy policy</Link>.
@@ -831,7 +835,7 @@ export default function CheckoutPage() {
                     }
                   </button>
 
-                  <p className="text-center text-[16.5px] text-gray-400 flex items-center justify-center gap-1">
+                  <p className="text-center text-[12px] text-gray-500 flex items-center justify-center gap-1">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                         d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>

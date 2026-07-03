@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { FlaskConical, ShieldCheck, BadgeCheck } from "lucide-react";
 import ProductGallery from "./ProductGallery";
 import ProductForm from "./ProductForm";
 import ProductAccordion from "./ProductAccordion";
@@ -84,7 +85,7 @@ async function fetchVariations(productId: number): Promise<Variation[]> {
 
 async function fetchRelated(categorySlug: string, excludeId: number): Promise<WCProduct[]> {
   const res = await fetch(
-    `${WC}/products?category=${categorySlug}&per_page=4&orderby=menu_order&order=asc`,
+    `${WC}/products?category=${categorySlug}&per_page=8&orderby=menu_order&order=asc`,
     { next: { revalidate: 300 } }
   );
   if (!res.ok) return [];
@@ -224,7 +225,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </Link>
             )}
 
-            <h1 className="text-[#2a1008] text-[44px] md:text-5xl font-bold leading-tight">{product.name}</h1>
+            <h1 className="text-[#2a1008] text-[32px] font-bold leading-tight">{product.name}</h1>
 
             {/* Rating + Write a Review */}
             <div className="flex items-center gap-4 flex-wrap">
@@ -276,53 +277,27 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             )}
 
             {/* Trust badges */}
-            <div className="bg-[#f8f6f3] rounded-2xl p-4 grid grid-cols-3 gap-3 text-center">
-              {[
-                { label: "Lab Tested", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/> },
-                { label: "Fast Shipping", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/> },
-                { label: "Lab Compliant", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/> },
-              ].map(b => (
-                <div key={b.label} className="flex flex-col items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#1A9248]/10 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">{b.icon}</svg>
+            <div className="bg-[#f8f6f3] rounded-2xl p-4">
+              <div className="grid grid-cols-3 gap-3 text-center">
+                {[
+                  { label: "Third-party lab tested", icon: FlaskConical },
+                  { label: "≤0.3% Delta-9 compliant", icon: ShieldCheck },
+                  { label: "Certificate of analysis available", icon: BadgeCheck },
+                ].map(b => (
+                  <div key={b.label} className="flex flex-col items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-[#1A9248]/10 flex items-center justify-center">
+                      <b.icon className="w-4 h-4 text-[#1A9248]" strokeWidth={1.8} />
+                    </div>
+                    <span className="text-[12px] font-bold uppercase tracking-wider text-[#3d2b1f]">{b.label}</span>
                   </div>
-                  <span className="text-[12px] font-bold uppercase tracking-wider text-[#3d2b1f]">{b.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Why Hemp & Barrel comparison ── */}
-      <section className="border-t border-gray-100 bg-[#fafaf8]">
-        <div className="max-w-[900px] mx-auto px-4 py-12">
-          <h2 className="text-[#2a1008] text-[38px] font-bold text-center mb-8">Why Hemp &amp; Barrel</h2>
-          <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
-            <div className="grid grid-cols-3 bg-[#2a1008] text-white">
-              <div className="px-4 py-4 text-[14px] font-bold uppercase tracking-wide">&nbsp;</div>
-              <div className="px-4 py-4 text-[16px] font-bold text-center text-[#1A9248]">Hemp &amp; Barrel</div>
-              <div className="px-4 py-4 text-[16px] font-bold text-center text-white/50">Other Brands</div>
-            </div>
-            {[
-              "Third-party lab tested",
-              "≤ 0.3% Delta-9 THC compliant",
-              "Certificate of Analysis available",
-            ].map((row, i) => (
-              <div key={row} className={`grid grid-cols-3 items-center ${i % 2 === 0 ? "bg-white" : "bg-[#fafaf8]"}`}>
-                <div className="px-4 py-4 text-[15px] font-semibold text-[#3d2b1f]">{row}</div>
-                <div className="px-4 py-4 flex justify-center">
-                  <svg className="w-5 h-5 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
-                  </svg>
-                </div>
-                <div className="px-4 py-4 flex justify-center">
-                  <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12"/>
-                  </svg>
-                </div>
+                ))}
               </div>
-            ))}
+              <div className="border-t border-gray-200 mt-4 pt-3 text-center">
+                <Link href="/lab-reports" className="text-[#1A9248] text-[13px] font-bold hover:underline">
+                  See lab reports →
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -446,14 +421,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {related.length > 0 && (
         <section className="max-w-[1320px] mx-auto px-4 py-12">
           <h2 className="text-[#2a1008] text-[38px] font-bold mb-6">Related Products</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="flex flex-wrap justify-center gap-5">
             {related.map(p => {
               const rPrice   = fmt(p.prices.price, p.prices.currency_minor_unit, p.prices.currency_symbol);
               const rRegular = fmt(p.prices.regular_price, p.prices.currency_minor_unit, p.prices.currency_symbol);
               const img      = p.images[0];
               return (
                 <Link key={p.id} href={`/product/${p.slug}`}
-                  className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                  className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 basis-[calc(50%-10px)] md:basis-[calc(25%-15px)] flex-shrink-0">
                   <div className="relative aspect-square bg-[#f8f6f3] overflow-hidden">
                     {img
                       ? <Image src={img.src} alt={img.alt || p.name} fill

@@ -104,10 +104,11 @@ export default function Header() {
       {/* Announcement bar removed */}
 
       {/* ── HEADER ── */}
-      <header className={`sticky top-0 z-50 transition-all duration-500 ${solid ? "bg-white/95 backdrop-blur-md shadow-lg shadow-black/5" : "bg-gradient-to-r from-[#3d2b1f]/60 via-[#3d2b1f]/45 to-[#1A9248]/40 backdrop-blur-md"}`}>
+      <header className={`sticky top-0 z-50 transition-all duration-500 ${solid ? "bg-white/95 backdrop-blur-md shadow-lg shadow-black/5" : "bg-black/25 backdrop-blur-md"}`}
+        style={solid ? undefined : { filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.95))" }}>
         <div
           className={`w-full flex items-center justify-between transition-all duration-500 ${solid ? "h-[58px]" : "h-[72px]"}`}
-          style={{ paddingLeft: 80, paddingRight: 80, filter: solid ? undefined : "drop-shadow(0 1px 1px rgba(0,0,0,0.95))" }}
+          style={{ paddingLeft: 80, paddingRight: 80 }}
         >
 
           {/* Left Nav */}

@@ -48,7 +48,7 @@ export default function ProductAccordion({ description, attributes, reviewCount,
   const hasAttributes = attributes.some(a => a.terms.length > 0);
 
   return (
-    <div className="space-y-3 max-w-4xl">
+    <div className="space-y-3">
       {/* Description */}
       {description && (
         <AccordionItem title="Product Description" icon={FileText} defaultOpen>

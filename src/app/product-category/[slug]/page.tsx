@@ -347,13 +347,11 @@ export default async function CategoryPage({
       {categoryFaqs.length > 0 && (
         <section className="bg-[#fafaf8] border-t border-gray-100">
           <div className="max-w-[1320px] mx-auto px-4 py-14">
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-8">
-                <span className="text-[10px] font-bold text-[#1A9248] uppercase tracking-[0.3em]">Common Questions</span>
-                <h2 className="text-[32px] font-bold text-[#2a1008] mt-2">FAQs About {category.name}</h2>
-              </div>
-              <FaqSection faqs={categoryFaqs} />
+            <div className="text-center mb-8">
+              <span className="text-[10px] font-bold text-[#1A9248] uppercase tracking-[0.3em]">Common Questions</span>
+              <h2 className="text-[32px] font-bold text-[#2a1008] mt-2">FAQs About {category.name}</h2>
             </div>
+            <FaqSection faqs={categoryFaqs} />
           </div>
         </section>
       )}

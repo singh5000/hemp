@@ -148,7 +148,7 @@ export default async function TermsPage() {
               <nav className="space-y-0.5">
                 {SECTIONS.map((s) => (
                   <a key={s.id} href={`#${s.id}`}
-                    className="block text-xs text-gray-500 hover:text-[#1A9248] py-1.5 pl-3 border-l-2 border-transparent hover:border-[#1A9248] transition-all leading-snug">
+                    className="block text-[15px] text-gray-500 hover:text-[#1A9248] py-1.5 pl-3 border-l-2 border-transparent hover:border-[#1A9248] transition-all leading-snug">
                     {s.title}
                   </a>
                 ))}

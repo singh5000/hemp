@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Josefin_Sans } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
+import TopBar from "@/components/layout/TopBar";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ChatBot from "@/components/ui/ChatBot";
@@ -8,10 +9,10 @@ import AgeGate from "@/components/layout/AgeGate";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 
-const josefinSans = Josefin_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-josefin",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-manrope",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${josefinSans.variable} h-full`}>
+    <html lang="en" className={`${manrope.variable} h-full`}>
       <head>
         <link rel="preconnect" href="https://hempandbarrel.com" />
         <link rel="dns-prefetch" href="https://hempandbarrel.com" />
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthProvider>
           <CartProvider>
             <AgeGate />
+            <TopBar />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

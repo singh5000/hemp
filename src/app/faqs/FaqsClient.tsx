@@ -229,7 +229,7 @@ export default function FaqsClient() {
 
       {/* FAQ Content */}
       <section className="py-16 bg-[#fafaf8]">
-        <div className="max-w-[860px] mx-auto px-6">
+        <div className="max-w-[1120px] mx-auto px-6">
 
           {/* Category Filter */}
           <div className="flex flex-wrap gap-2 justify-center mb-10">
@@ -272,7 +272,7 @@ export default function FaqsClient() {
           </div>
 
           {/* FAQ Items */}
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-x-5 items-start">
             {filtered.map((faq) => (
               <FaqItem
                 key={faq.id}

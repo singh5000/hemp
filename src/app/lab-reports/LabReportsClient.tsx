@@ -188,7 +188,7 @@ export default function LabReportsClient() {
 
                 {/* Card header */}
                 <div className="bg-[#2a1008] px-5 pt-5 pb-4 flex items-start justify-between gap-2">
-                  <h3 className="text-white font-bold text-[24px] leading-snug flex-1">{report.name}</h3>
+                  <h3 className="text-white font-bold text-[18px] leading-snug flex-1">{report.name}</h3>
                   {isPDF(report.url) ? (
                     <span className="flex-shrink-0 bg-white/10 text-white/70 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md">PDF</span>
                   ) : (
