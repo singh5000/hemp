@@ -5,7 +5,7 @@ import AnimatedButton from "@/components/ui/AnimatedButton";
 import PageBanner from "@/components/layout/PageBanner";
 
 export const metadata: Metadata = {
-  title: "About Us | Hemp & Barrel | CBD Products | Best CBD Oil",
+  title: "About Us | Hemp & Barrel | THCA & CBD Products",
   description:
     "Hemp & Barrel is the first retail store devoted to Lake Harvest CBD — a true locally owned, seed to shelf, fully vertical organization based in Pineville, NC.",
 };
@@ -70,7 +70,7 @@ export default function AboutUsPage() {
         crumbs={[{ label: "About Us" }]}
         eyebrow="Est. 2019 · Pineville, NC"
         title={<>About <span className="text-[#1A9248]">Hemp &amp; Barrel</span></>}
-        description="Charlotte NC's trusted CBD store. Premium, lab-tested hemp products for your everyday wellness."
+        description="Charlotte NC's trusted THCA & hemp store. Premium, lab-tested hemp products for your everyday wellness."
       />
 
       {/* ── Origin Story ── */}

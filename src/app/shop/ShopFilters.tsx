@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Moon, Zap, Heart, Brain, Smile, Leaf, Sun, Shield } from "lucide-react";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 
 interface Category { id: number; name: string; slug: string; count: number }
 export interface Brand { id: number; name: string; slug: string; count: number }
@@ -77,34 +78,26 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
   const [draft, setDraft] = useState(nav.activeSearch);
   const [brandSearch, setBrandSearch] = useState("");
 
-  const [pCat, setPCat] = useState(nav.activeCategory);
-  const [pBrand, setPBrand] = useState(nav.activeBrand);
   const [pStrain, setPStrain] = useState(nav.activeStrain);
   const [pEffects, setPEffects] = useState<string[]>(nav.activeEffects);
   const [pInstock, setPInstock] = useState(nav.activeInstock);
 
-  const urlKey = `${nav.activeCategory}|${nav.activeBrand}|${nav.activeStrain}|${nav.activeEffects.join(",")}|${nav.activeInstock}`;
+  const urlKey = `${nav.activeStrain}|${nav.activeEffects.join(",")}|${nav.activeInstock}`;
   useEffect(() => {
-    setPCat(nav.activeCategory);
-    setPBrand(nav.activeBrand);
     setPStrain(nav.activeStrain);
     setPEffects(nav.activeEffects);
     setPInstock(nav.activeInstock);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlKey]);
 
-  const isDirty = pCat !== nav.activeCategory
-    || pBrand !== nav.activeBrand
-    || pStrain !== nav.activeStrain
+  const isDirty = pStrain !== nav.activeStrain
     || pEffects.join(",") !== nav.activeEffects.join(",")
     || pInstock !== nav.activeInstock;
 
-  const hasActive = !!(pCat || pBrand || pStrain || pEffects.length || pInstock);
+  const hasActive = !!(nav.activeCategory || nav.activeBrand || pStrain || pEffects.length || pInstock);
 
   const applyFilters = () => {
     nav.push({
-      category: pCat,
-      brand: pBrand,
       strain: pStrain,
       effects: pEffects.join(","),
       instock: pInstock ? "1" : "",
@@ -112,11 +105,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
   };
 
   const resetFilters = () => {
-    setPCat("");
-    setPBrand("");
-    setPStrain("");
-    setPEffects([]);
-    setPInstock(false);
+    nav.push({ category: "", brand: "", strain: "", effects: "", instock: "" });
   };
 
   const filteredBrands = brandSearch
@@ -174,22 +163,22 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
         <div className="p-4 border-b border-gray-100">
           <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-3">Category</p>
           <div className="space-y-0.5">
-            <button onClick={() => { setPCat(""); setPBrand(""); }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all flex justify-between items-center ${
-                !pCat && !pBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
+            <button onClick={() => nav.setCategory("")}
+              className={`w-full text-left px-3 py-2 rounded-lg text-[14px] font-semibold transition-all flex justify-between items-center ${
+                !nav.activeCategory && !nav.activeBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
               }`}>
               <span>All Products</span>
-              <span className={`text-[12px] font-normal ${!pCat && !pBrand ? "text-white/70" : "text-gray-400"}`}>{totalCount}</span>
+              <span className={`text-[14px] font-normal ${!nav.activeCategory && !nav.activeBrand ? "text-white/70" : "text-gray-400"}`}>{totalCount}</span>
             </button>
             {categories.map((cat) => (
-              <button key={cat.id} onClick={() => { setPCat(cat.slug); setPBrand(""); }}
-                className={`w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all flex justify-between items-center ${
-                  pCat === cat.slug
+              <button key={cat.id} onClick={() => nav.setCategory(cat.slug)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-[14px] font-semibold transition-all flex justify-between items-center ${
+                  nav.activeCategory === cat.slug
                     ? "bg-[#1A9248] text-white"
                     : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
                 }`}>
-                <span>{cat.name}</span>
-                <span className={`text-[12px] font-normal ${pCat === cat.slug ? "text-white/70" : "text-gray-400"}`}>{cat.count}</span>
+                <span>{decodeHtmlEntities(cat.name)}</span>
+                <span className={`text-[14px] font-normal ${nav.activeCategory === cat.slug ? "text-white/70" : "text-gray-400"}`}>{cat.count}</span>
               </button>
             ))}
           </div>
@@ -215,14 +204,14 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
             </div>
             <div className="space-y-0.5 max-h-[200px] overflow-y-auto">
               {filteredBrands.map((b) => (
-                <button key={b.id} onClick={() => { setPBrand(pBrand === b.slug ? "" : b.slug); setPCat(""); }}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all flex justify-between items-center ${
-                    pBrand === b.slug
+                <button key={b.id} onClick={() => nav.setBrand(nav.activeBrand === b.slug ? "" : b.slug)}
+                  className={`w-full text-left px-3 py-2 rounded-lg text-[14px] font-semibold transition-all flex justify-between items-center ${
+                    nav.activeBrand === b.slug
                       ? "bg-[#1A9248] text-white"
                       : "text-[#3d2b1f] hover:bg-[#f5f0eb] hover:text-[#1A9248]"
                   }`}>
-                  <span>{b.name}</span>
-                  <span className={`text-[12px] font-normal ${pBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
+                  <span>{decodeHtmlEntities(b.name)}</span>
+                  <span className={`text-[14px] font-normal ${nav.activeBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
                 </button>
               ))}
               {brandSearch && filteredBrands.length === 0 && (
@@ -240,7 +229,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
           <div className="flex flex-wrap gap-1.5">
             {STRAINS.map(s => (
               <button key={s.value} onClick={() => setPStrain(pStrain === s.value ? "" : s.value)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[14px] font-bold transition-all ${
                   pStrain === s.value
                     ? `${s.color} text-white shadow-md`
                     : "bg-gray-50 text-[#3d2b1f] hover:bg-gray-100"
@@ -262,7 +251,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
                 <button key={eff.value} onClick={() => setPEffects(prev =>
                   prev.includes(eff.value) ? prev.filter(v => v !== eff.value) : [...prev, eff.value]
                 )}
-                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[12px] font-semibold transition-all ${
+                  className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[14px] font-semibold transition-all ${
                     active
                       ? "bg-[#1A9248] text-white shadow-md"
                       : "bg-gray-50 text-[#3d2b1f] hover:bg-[#1A9248]/10 hover:text-[#1A9248]"
@@ -304,7 +293,7 @@ export function ShopSidebar({ categories, brands }: { categories: Category[]; br
             disabled={!isDirty}
             className={`w-full py-2.5 rounded-xl text-[12px] font-bold transition-all ${
               isDirty
-                ? "bg-[#1A9248] text-white hover:bg-[#148038] shadow-md shadow-[#1A9248]/20 animate-pulse"
+                ? "bg-[#1A9248] text-white hover:bg-[#148038] shadow-md shadow-[#1A9248]/20"
                 : "bg-gray-100 text-gray-400 cursor-default"
             }`}>
             Apply Filters{isDirty && " *"}
@@ -359,34 +348,26 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
   const [brandSearch, setBrandSearch] = useState("");
   const active = SORT_OPTIONS.find(o => o.orderby === nav.activeOrderby && o.order === nav.activeOrder) ?? SORT_OPTIONS[0];
 
-  const [pCat, setPCat] = useState(nav.activeCategory);
-  const [pBrand, setPBrand] = useState(nav.activeBrand);
   const [pStrain, setPStrain] = useState(nav.activeStrain);
   const [pEffects, setPEffects] = useState<string[]>(nav.activeEffects);
   const [pInstock, setPInstock] = useState(nav.activeInstock);
 
-  const urlKey = `${nav.activeCategory}|${nav.activeBrand}|${nav.activeStrain}|${nav.activeEffects.join(",")}|${nav.activeInstock}`;
+  const urlKey = `${nav.activeStrain}|${nav.activeEffects.join(",")}|${nav.activeInstock}`;
   useEffect(() => {
-    setPCat(nav.activeCategory);
-    setPBrand(nav.activeBrand);
     setPStrain(nav.activeStrain);
     setPEffects(nav.activeEffects);
     setPInstock(nav.activeInstock);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlKey]);
 
-  const isDirty = pCat !== nav.activeCategory
-    || pBrand !== nav.activeBrand
-    || pStrain !== nav.activeStrain
+  const isDirty = pStrain !== nav.activeStrain
     || pEffects.join(",") !== nav.activeEffects.join(",")
     || pInstock !== nav.activeInstock;
 
-  const hasFilter = !!(pCat || pBrand || pInstock || pStrain || pEffects.length);
+  const hasFilter = !!(nav.activeCategory || nav.activeBrand || pInstock || pStrain || pEffects.length);
 
   const applyFilters = () => {
     nav.push({
-      category: pCat,
-      brand: pBrand,
       strain: pStrain,
       effects: pEffects.join(","),
       instock: pInstock ? "1" : "",
@@ -395,11 +376,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
   };
 
   const resetFilters = () => {
-    setPCat("");
-    setPBrand("");
-    setPStrain("");
-    setPEffects([]);
-    setPInstock(false);
+    nav.push({ category: "", brand: "", strain: "", effects: "", instock: "" });
   };
 
   const filteredBrands = brandSearch
@@ -491,15 +468,15 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
           {/* Category grid */}
           {(!brands.length || tab === "categories") && (
             <div className="grid grid-cols-2 gap-1">
-              <button onClick={() => { setPCat(""); setPBrand(""); }}
-                className={`text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all ${
-                  !pCat && !pBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
+              <button onClick={() => nav.setCategory("")}
+                className={`text-left px-3 py-2 rounded-lg text-[14px] font-semibold transition-all ${
+                  !nav.activeCategory && !nav.activeBrand ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
                 }`}>All Products</button>
               {categories.map(cat => (
-                <button key={cat.id} onClick={() => { setPCat(cat.slug); setPBrand(""); }}
-                  className={`text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all ${
-                    pCat === cat.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
-                  }`}>{cat.name}</button>
+                <button key={cat.id} onClick={() => nav.setCategory(cat.slug)}
+                  className={`text-left px-3 py-2 rounded-lg text-[14px] font-semibold transition-all ${
+                    nav.activeCategory === cat.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
+                  }`}>{decodeHtmlEntities(cat.name)}</button>
               ))}
             </div>
           )}
@@ -523,10 +500,10 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
               </div>
               <div className="grid grid-cols-2 gap-1 max-h-[200px] overflow-y-auto">
                 {filteredBrands.map(b => (
-                  <button key={b.id} onClick={() => { setPBrand(pBrand === b.slug ? "" : b.slug); setPCat(""); }}
-                    className={`text-left px-3 py-2 rounded-lg text-[12px] font-semibold transition-all ${
-                      pBrand === b.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
-                    }`}>{b.name}</button>
+                  <button key={b.id} onClick={() => nav.setBrand(nav.activeBrand === b.slug ? "" : b.slug)}
+                    className={`text-left px-3 py-2 rounded-lg text-[14px] font-semibold transition-all ${
+                      nav.activeBrand === b.slug ? "bg-[#1A9248] text-white" : "text-[#3d2b1f] hover:bg-[#f5f0eb]"
+                    }`}>{decodeHtmlEntities(b.name)}</button>
                 ))}
                 {brandSearch && filteredBrands.length === 0 && (
                   <p className="text-[12px] text-gray-400 px-3 py-2 col-span-2">No brands found</p>
@@ -541,7 +518,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
             <div className="flex flex-wrap gap-1.5 mb-3">
               {STRAINS.map(s => (
                 <button key={s.value} onClick={() => setPStrain(pStrain === s.value ? "" : s.value)}
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-bold transition-all ${
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[14px] font-bold transition-all ${
                     pStrain === s.value ? `${s.color} text-white` : "bg-gray-100 text-[#3d2b1f]"
                   }`}>
                   <span className={`w-1.5 h-1.5 rounded-full ${pStrain === s.value ? "bg-white/50" : s.color}`} />
@@ -555,7 +532,7 @@ export function ShopMobileBar({ categories, brands }: { categories: Category[]; 
                 <button key={eff.value} onClick={() => setPEffects(prev =>
                   prev.includes(eff.value) ? prev.filter(v => v !== eff.value) : [...prev, eff.value]
                 )}
-                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-[12px] font-semibold transition-all ${
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full text-[14px] font-semibold transition-all ${
                     pEffects.includes(eff.value) ? "bg-[#1A9248] text-white" : "bg-gray-100 text-[#3d2b1f]"
                   }`}>
                   <eff.icon className="w-2.5 h-2.5" />

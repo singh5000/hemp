@@ -10,6 +10,7 @@ import FaqSection from "@/components/ui/FaqSection";
 import PetDosageCalculator from "@/components/ui/PetDosageCalculator";
 import { CATEGORY_FAQS } from "@/lib/category-faqs";
 import PageBanner from "@/components/layout/PageBanner";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 
 const WC      = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 const WP_URL  = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
@@ -124,9 +125,9 @@ function Pagination({ current, total, params }: { current: number; total: number
   if (total <= 7) { for (let i = 1; i <= total; i++) pages.push(i); }
   else {
     pages.push(1);
-    if (current > 3) pages.push("…");
-    for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) pages.push(i);
-    if (current < total - 2) pages.push("…");
+    if (current > 4) pages.push("…");
+    for (let i = Math.max(2, current - 2); i <= Math.min(total - 1, current + 2); i++) pages.push(i);
+    if (current < total - 3) pages.push("…");
     pages.push(total);
   }
   const href = (p: number) => {
@@ -146,7 +147,7 @@ function Pagination({ current, total, params }: { current: number; total: number
       )}
       {pages.map((p, i) =>
         p === "…"
-          ? <span key={`e${i}`} className="px-2 text-gray-400 text-sm">…</span>
+          ? <span key={`e${i}`} className="px-2 text-gray-400 text-sm tracking-widest">······</span>
           : <Link key={p} href={href(p)}
               className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-all ${
                 p === current
@@ -226,12 +227,12 @@ export default async function CategoryPage({
       {/* ── Hero ── */}
       <PageBanner
         compact
-        crumbs={[{ label: "Shop", href: "/shop" }, { label: category.name }]}
-        title={search ? `Search: "${search}"` : category.name}
+        crumbs={[{ label: "Shop", href: "/shop" }, { label: decodeHtmlEntities(category.name) }]}
+        title={search ? `Search: "${search}"` : decodeHtmlEntities(category.name)}
         description={
           <>
             {total > 0 ? `${total} product${total !== 1 ? "s" : ""}` : "No products found"}
-            {!search && ` in ${category.name}`}
+            {!search && ` in ${decodeHtmlEntities(category.name)}`}
           </>
         }
         aside={
@@ -306,7 +307,7 @@ export default async function CategoryPage({
                       <div className="p-4 flex flex-col flex-1">
                         <Link href={`/product/${p.slug}`}
                           className="text-[#2a1008] font-bold text-[15px] leading-snug mb-1 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
-                          {p.name}
+                          {decodeHtmlEntities(p.name)}
                         </Link>
                         <StarRating rating={p.average_rating} count={p.review_count} />
                         <div className="flex items-baseline gap-2 mt-2 mb-3">
@@ -343,7 +344,7 @@ export default async function CategoryPage({
           <div className="max-w-[1320px] mx-auto px-4 py-14">
             <div className="text-center mb-8">
               <span className="text-[10px] font-bold text-[#1A9248] uppercase tracking-[0.3em]">Common Questions</span>
-              <h2 className="text-[32px] font-bold text-[#2a1008] mt-2">FAQs About {category.name}</h2>
+              <h2 className="text-[32px] font-bold text-[#2a1008] mt-2">FAQs About {decodeHtmlEntities(category.name)}</h2>
             </div>
             <FaqSection faqs={categoryFaqs} />
           </div>

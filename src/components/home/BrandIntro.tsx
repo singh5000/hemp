@@ -65,7 +65,7 @@ export default function BrandIntro() {
 
             <h2 className="text-[36px] md:text-[3rem] font-black text-[#2a1008] leading-[1.1] mb-6">
               Hemp &amp; Barrel — Charlotte &amp; Pineville&apos;s Trusted{" "}
-              <span className="text-[#1A9248]">CBD, THCA &amp; Delta 8/9</span> Shop
+              <span className="text-[#1A9248]">THCA, Delta 8/9 &amp; CBD</span> Shop
             </h2>
 
             <p className="text-[#5a4a3f] text-[16.5px] md:text-lg leading-[1.9] mb-8 max-w-[640px]">

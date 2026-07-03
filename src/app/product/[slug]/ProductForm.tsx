@@ -43,6 +43,12 @@ function decodeSym(sym: string) {
 function fmt(minor: string, unit: number, sym: string) {
   return `${decodeSym(sym)}${(parseInt(minor) / Math.pow(10, unit)).toFixed(2)}`;
 }
+/* WooCommerce returns slugs for global attributes but raw labels for
+   custom/local ones — normalize both sides so "5000 Mg Tincture" matches
+   "5000-mg-tincture" regardless of which form the API gave us. */
+function normalize(s: string) {
+  return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
 
 export default function ProductForm({ productId, productName, hasOptions, isInStock, isInStoreOnly, attributes, variations }: Props) {
   const { addToCart } = useCart();
@@ -77,7 +83,7 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
     ? variations.find(v =>
         v.attributes.every(a => {
           const attr = a.name.toLowerCase().replace(/\s+/g, "_");
-          return !a.value || selected[attr] === a.value;
+          return !a.value || normalize(selected[attr] ?? "") === normalize(a.value);
         })
       )
     : undefined;
@@ -118,7 +124,7 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
               {attr.terms.map(term => {
                 const isActive  = selected[key] === term.slug;
                 return (
-                  <button key={term.id}
+                  <button key={term.slug}
                     onClick={() => setSelected(prev =>
                       prev[key] === term.slug
                         ? { ...prev, [key]: "" }

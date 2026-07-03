@@ -6,6 +6,7 @@ import Image                                         from "next/image";
 import { useCart }                                   from "@/context/CartContext";
 import { useAuth }                                   from "@/context/AuthContext";
 import PageBanner                                    from "@/components/layout/PageBanner";
+import { decodeHtmlEntities }                        from "@/lib/decodeHtml";
 
 /* ── Types ── */
 type BillingAddr = {
@@ -602,7 +603,7 @@ export default function CheckoutPage() {
                           checked={selectedRateId === rate.rateId}
                           onChange={() => handleSelectRate(pkg.packageId, rate.rateId)}
                           className="accent-[#1A9248] flex-shrink-0"/>
-                        <span className="flex-1 text-sm font-semibold text-[#2a1008]">{rate.name}</span>
+                        <span className="flex-1 text-sm font-semibold text-[#2a1008]">{decodeHtmlEntities(rate.name)}</span>
                         <span className="text-sm font-bold text-[#3d2b1f]">{rate.price}</span>
                       </label>
                     )))}
@@ -653,7 +654,7 @@ export default function CheckoutPage() {
                             className="mt-0.5 accent-[#1A9248]"/>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <p className="text-[#2a1008] font-bold text-[15px]">{method.name}</p>
+                              <p className="text-[#2a1008] font-bold text-[15px]">{decodeHtmlEntities(method.name)}</p>
                               {method.payment_method_id === "nmi" && (
                                 <div className="flex items-center gap-1">
                                   {["VISA","MC","AMEX","Discover"].map(c => (
@@ -753,10 +754,10 @@ export default function CheckoutPage() {
                             </span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-[#2a1008] font-bold text-[14px] line-clamp-2">{item.product.name}</p>
+                            <p className="text-[#2a1008] font-bold text-[14px] line-clamp-2">{decodeHtmlEntities(item.product.name)}</p>
                             {varAttrs.length > 0 && (
                               <p className="text-gray-500 text-[12px] mt-0.5">
-                                {varAttrs.map(a => `${a.name}: ${a.value}`).join(" / ")}
+                                {decodeHtmlEntities(varAttrs.map(a => `${a.name}: ${a.value}`).join(" / "))}
                               </p>
                             )}
                           </div>

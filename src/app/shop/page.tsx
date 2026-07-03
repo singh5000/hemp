@@ -6,6 +6,7 @@ import { ShopSidebar, ShopSortBar, ShopMobileBar, Brand } from "./ShopFilters";
 import AddToCartButton from "./AddToCartButton";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import PageBanner from "@/components/layout/PageBanner";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 
 export const metadata: Metadata = {
   title: "Shop CBD & Hemp Products | Hemp & Barrel",
@@ -107,9 +108,9 @@ function Pagination({ current, total, params }: { current: number; total: number
   if (total <= 7) { for (let i = 1; i <= total; i++) pages.push(i); }
   else {
     pages.push(1);
-    if (current > 3) pages.push("…");
-    for (let i = Math.max(2, current - 1); i <= Math.min(total - 1, current + 1); i++) pages.push(i);
-    if (current < total - 2) pages.push("…");
+    if (current > 4) pages.push("…");
+    for (let i = Math.max(2, current - 2); i <= Math.min(total - 1, current + 2); i++) pages.push(i);
+    if (current < total - 3) pages.push("…");
     pages.push(total);
   }
 
@@ -131,7 +132,7 @@ function Pagination({ current, total, params }: { current: number; total: number
       )}
       {pages.map((p, i) =>
         p === "…"
-          ? <span key={`e${i}`} className="px-2 text-gray-400 text-sm">…</span>
+          ? <span key={`e${i}`} className="px-2 text-gray-400 text-sm tracking-widest">······</span>
           : <Link key={p} href={href(p)}
               className={`w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-all ${
                 p === current
@@ -234,7 +235,7 @@ export default async function ShopPage({
       />
 
       {/* ── Main content ── */}
-      <div className="max-w-[1320px] mx-auto px-4 py-10">
+      <div className="max-w-[1360px] mx-auto px-4 py-10">
 
         {/* Mobile: filter + sort bar (above the flex) */}
         <Suspense fallback={null}>
@@ -314,8 +315,8 @@ export default async function ShopPage({
                         )}
 
                         <Link href={`/product/${p.slug}`}
-                          className="text-[#2a1008] font-bold text-sm leading-snug mb-1 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
-                          {p.name}
+                          className="text-[#2a1008] font-bold text-[16px] leading-snug mb-1 group-hover:text-[#1A9248] transition-colors line-clamp-2 flex-1">
+                          {decodeHtmlEntities(p.name)}
                         </Link>
 
                         <StarRating rating={p.average_rating} count={p.review_count} />
@@ -343,22 +344,22 @@ export default async function ShopPage({
 
       {/* ── Info sections ── */}
       <section className="bg-[#fafaf8] border-t border-gray-100 py-16">
-        <div className="max-w-[1320px] mx-auto px-4">
+        <div className="max-w-[1360px] mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              {
-                tag:   "Education",
-                title: "CBD 101",
-                body:  "CBD (cannabidiol) is a naturally occurring compound found in the hemp plant. Non-psychoactive and federally legal, CBD supports relaxation, sleep, and overall wellness. All our products contain ≤ 0.3% Delta-9 THC and are third-party lab tested.",
-                href:  "/shop",
-                cta:   "Shop All CBD",
-              },
               {
                 tag:   "Education",
                 title: "Delta 8 THC",
                 body:  "Delta 8 THC is a minor cannabinoid derived from hemp that produces mild psychoactive effects — often described as a smoother, clearer experience than Delta 9. All Delta 8 products are derived from compliant hemp and accompanied by a COA.",
                 href:  "/product-category/smokable-hemp-flower",
                 cta:   "Shop Hemp Flower",
+              },
+              {
+                tag:   "Education",
+                title: "CBD 101",
+                body:  "CBD (cannabidiol) is a naturally occurring compound found in the hemp plant. Non-psychoactive and federally legal, CBD supports relaxation, sleep, and overall wellness. All our products contain ≤ 0.3% Delta-9 THC and are third-party lab tested.",
+                href:  "/shop",
+                cta:   "Shop All CBD",
               },
             ].map((item) => (
               <div key={item.title} className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">

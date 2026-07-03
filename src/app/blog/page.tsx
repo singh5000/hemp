@@ -6,7 +6,7 @@ import PageBanner from "@/components/layout/PageBanner";
 export const metadata: Metadata = {
   title: "Hemp & Cannabis Blog | Hemp & Barrel — Expert Education",
   description:
-    "Expert CBD guides, hemp product education, and the latest cannabinoid science from Hemp & Barrel — Charlotte's trusted CBD store.",
+    "Expert THCA and hemp guides, product education, and the latest cannabinoid science from Hemp & Barrel — Charlotte's trusted THCA & hemp store.",
 };
 
 const PER_PAGE = 10;

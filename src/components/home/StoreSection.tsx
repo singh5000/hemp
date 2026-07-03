@@ -72,7 +72,7 @@ export default function StoreSection() {
               <div className="relative mb-6">
                 <span className="absolute -left-2 -top-2 text-5xl font-serif text-[#1A9248]/15 leading-none">&ldquo;</span>
                 <p className="text-[#2a1008] text-[16.5px] leading-[1.85] font-medium pl-6">
-                  Charlotte NC&apos;s most trusted CBD store — premium THCA flower, gummies, Delta 8, tinctures, vapes &amp; hemp beverages. All third-party lab-tested.
+                  Charlotte NC&apos;s most trusted THCA &amp; hemp store — premium THCA flower, gummies, Delta 8, tinctures, vapes, CBD &amp; hemp beverages. All third-party lab-tested.
                 </p>
               </div>
 

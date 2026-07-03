@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 
 interface Product {
   id: number;
@@ -64,7 +65,7 @@ function ProductCard({ product, onAddToCart }: { product: Product; onAddToCart: 
       <div className="flex flex-col flex-1 px-4 pb-4 pt-2">
         <Link href={`/product/${product.slug}`}>
           <h3 className="text-center text-[18px] font-bold text-[#3d2b1f] leading-snug mb-2 line-clamp-3 hover:text-[#1A9248] transition-colors">
-            {product.name}
+            {decodeHtmlEntities(product.name)}
           </h3>
         </Link>
         <div className="flex items-center justify-center gap-2 mb-4">

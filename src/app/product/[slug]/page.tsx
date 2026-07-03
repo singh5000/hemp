@@ -10,6 +10,7 @@ import WriteReview from "./WriteReview";
 import { CATEGORY_FAQS } from "@/lib/category-faqs";
 import FaqAccordionItem from "./FaqAccordionItem";
 import ShortDescription from "./ShortDescription";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 
 const WC = `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wc/store/v1`;
 
@@ -35,7 +36,7 @@ interface WCProduct {
   on_sale:     boolean;
   is_in_stock: boolean;
   has_options: boolean;
-  variations:  number[];
+  variations:  Array<{ id: number; attributes: Array<{ name: string; value: string }> }>;
   attributes:  Array<{
     id:             number;
     name:           string;
@@ -77,10 +78,34 @@ async function fetchProduct(slug: string): Promise<WCProduct | null> {
   return data[0] ?? null;
 }
 
-async function fetchVariations(productId: number): Promise<Variation[]> {
-  const res = await fetch(`${WC}/products/${productId}/variations?per_page=100`, { next: { revalidate: 300 } });
+/* The Store API has no `/products/{id}/variations` sub-route (it 404s) —
+   variation attribute values live on the parent product's own `variations`
+   field, while price/stock/image need a separate bulk lookup by ID. */
+async function fetchVariations(
+  variationSummaries: Array<{ id: number; attributes: Array<{ name: string; value: string }> }>
+): Promise<Variation[]> {
+  if (variationSummaries.length === 0) return [];
+  const ids = variationSummaries.map(v => v.id).join(",");
+  const res = await fetch(`${WC}/products?include=${ids}&per_page=100`, { next: { revalidate: 300 } });
   if (!res.ok) return [];
-  return res.json();
+  const details: Array<{
+    id: number;
+    prices: Variation["prices"];
+    is_in_stock: boolean;
+    images: Array<{ src: string; alt: string }>;
+  }> = await res.json();
+  const byId = new Map(details.map(d => [d.id, d]));
+
+  return variationSummaries.map(v => {
+    const d = byId.get(v.id);
+    return {
+      id: v.id,
+      attributes: v.attributes,
+      prices: d?.prices ?? { price: "0", regular_price: "0", currency_symbol: "$", currency_minor_unit: 2 },
+      is_in_stock: d?.is_in_stock ?? true,
+      image: d?.images?.[0] ? { src: d.images[0].src, alt: d.images[0].alt } : null,
+    };
+  });
 }
 
 async function fetchRelated(categorySlug: string, excludeId: number): Promise<WCProduct[]> {
@@ -113,14 +138,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   const desc = product.short_description
     ? product.short_description.replace(/<[^>]+>/g, "").slice(0, 160)
-    : `Buy ${product.name} at Hemp & Barrel — lab-tested hemp & CBD products.`;
+    : `Buy ${decodeHtmlEntities(product.name)} at Hemp & Barrel — lab-tested hemp & CBD products.`;
 
   const unit = product.prices.currency_minor_unit;
   const sym  = decodeSym(product.prices.currency_symbol);
   const price = `${sym}${(parseInt(product.prices.price) / Math.pow(10, unit)).toFixed(2)}`;
 
   return {
-    title:       `${product.name} | Hemp & Barrel`,
+    title:       `${decodeHtmlEntities(product.name)} | Hemp & Barrel`,
     description: desc,
     openGraph: {
       title:       product.name,
@@ -176,7 +201,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const categoryFaqs = primaryCat ? (CATEGORY_FAQS[primaryCat.slug] ?? []) : [];
 
   const [variations, related, reviews] = await Promise.all([
-    product.has_options ? fetchVariations(product.id) : Promise.resolve([]),
+    product.has_options ? fetchVariations(product.variations) : Promise.resolve([]),
     primaryCat ? fetchRelated(primaryCat.slug, product.id) : Promise.resolve([]),
     fetchReviews(product.id),
   ]);
@@ -203,7 +228,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </>
             )}
             <span>/</span>
-            <span className="text-[#3d2b1f] font-medium truncate max-w-[200px]">{product.name}</span>
+            <span className="text-[#3d2b1f] font-medium truncate max-w-[200px]">{decodeHtmlEntities(product.name)}</span>
           </nav>
         </div>
       </div>
@@ -225,7 +250,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </Link>
             )}
 
-            <h1 className="text-[#2a1008] text-[32px] font-bold leading-tight">{product.name}</h1>
+            <h1 className="text-[#2a1008] text-[32px] font-bold leading-tight">{decodeHtmlEntities(product.name)}</h1>
 
             {/* Rating + Write a Review */}
             <div className="flex items-center gap-4 flex-wrap">
@@ -260,7 +285,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="border-t border-gray-100 pt-4">
               <ProductForm
                 productId={product.id}
-                productName={product.name}
+                productName={decodeHtmlEntities(product.name)}
                 hasOptions={product.has_options}
                 isInStock={product.is_in_stock}
                 isInStoreOnly={!product.is_in_stock && product.categories.some(c => c.slug === "vapes")}
@@ -315,89 +340,108 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* ── Customer Reviews ── */}
-      <section id="reviews" className="border-t border-gray-100 scroll-mt-24">
-        <div className="max-w-[1320px] mx-auto px-4 py-12">
-          <div className="flex items-center justify-between gap-4 mb-8 flex-wrap">
-            <div className="flex items-baseline gap-3">
-              <h2 className="text-[#2a1008] text-[38px] font-bold">Customer Reviews</h2>
-              {reviews.length > 0 && (
-                <span className="text-gray-400 text-[16px]">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</span>
-              )}
+      <section id="reviews" className="border-t border-gray-100 bg-gradient-to-b from-white to-[#fafaf8] scroll-mt-24">
+        <div className="max-w-[1320px] mx-auto px-4 py-16">
+          <div className="flex items-end justify-between gap-4 mb-10 flex-wrap">
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <span className="w-6 h-px bg-[#1A9248]" />
+                <span className="text-[#1A9248] text-[12px] font-bold uppercase tracking-[0.3em]">Real Feedback</span>
+              </div>
+              <h2 className="text-[#2a1008] text-[36px] md:text-[40px] font-black leading-tight">Customer Reviews</h2>
             </div>
-            <WriteReview productId={product.id} productName={product.name} />
+            <WriteReview productId={product.id} productName={decodeHtmlEntities(product.name)} />
           </div>
 
-          {reviews.length > 0 && (
-            <div className="bg-[#fafaf8] border border-gray-100 rounded-2xl p-6 mb-8 max-w-xl space-y-2">
-              {[5, 4, 3, 2, 1].map(star => {
-                const count = reviews.filter(r => Math.round(Number(r.meta?.rating ?? 0)) === star).length;
-                const pct = reviews.length > 0 ? Math.round((count / reviews.length) * 100) : 0;
-                return (
-                  <div key={star} className="flex items-center gap-3">
-                    <span className="text-[14px] font-semibold text-[#3d2b1f] w-10 flex-shrink-0">{star} ★</span>
-                    <div className="flex-1 h-2.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-400 rounded-full transition-all" style={{ width: `${pct}%` }} />
-                    </div>
-                    <span className="text-[14px] text-gray-400 w-8 flex-shrink-0 text-right">{count}</span>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
           {reviews.length === 0 ? (
-            <div className="bg-[#fafaf8] rounded-2xl p-8 text-center max-w-sm">
-              <svg className="w-10 h-10 text-gray-200 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-              </svg>
-              <p className="text-[#3d2b1f] font-bold text-[16.5px] mb-1">No reviews yet</p>
-              <p className="text-gray-400 text-[16.5px]">Be the first to share your experience with this product.</p>
+            <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-12 text-center">
+              <div className="w-16 h-16 rounded-full bg-[#1A9248]/10 flex items-center justify-center mx-auto mb-5">
+                <svg className="w-7 h-7 text-[#1A9248]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+              </div>
+              <p className="text-[#2a1008] font-bold text-[19px] mb-2">No reviews yet</p>
+              <p className="text-gray-400 text-[16px] leading-relaxed max-w-md mx-auto">Be the first to share your experience with this product — your review helps other shoppers decide.</p>
             </div>
           ) : (
-            <div className="space-y-5 max-w-3xl">
-              {reviews.map(r => {
-                const rating   = Number(r.meta?.rating ?? 0);
-                const verified = Boolean(r.meta?.verified);
-                const date     = new Date(r.date_gmt).toLocaleDateString("en-US", {
-                  year: "numeric", month: "long", day: "numeric",
-                });
-                return (
-                  <div key={r.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-[#1A9248]/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-[#1A9248] font-bold text-[16px]">{r.author_name.charAt(0).toUpperCase()}</span>
-                        </div>
-                        <div>
-                          <p className="font-bold text-[#2a1008] text-[16.5px]">{r.author_name}</p>
-                          <p className="text-gray-400 text-[16.5px]">{date}</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-1.5">
-                        <div className="flex">
-                          {[1,2,3,4,5].map(i => (
-                            <svg key={i} className={`w-4 h-4 ${i <= rating ? "text-amber-400" : "text-gray-200"}`}
-                              fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                            </svg>
-                          ))}
-                        </div>
-                        {verified && (
-                          <span className="text-[12px] text-[#1A9248] font-bold uppercase tracking-wider flex items-center gap-1">
-                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                            </svg>
-                            Verified
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="text-[#3d2b1f] text-[16px] leading-relaxed [&_p]:mb-2 [&_p:last-child]:mb-0"
-                      dangerouslySetInnerHTML={{ __html: r.content.rendered }} />
+            <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-10">
+              {/* Rating summary card */}
+              <div className="bg-white border border-gray-100 rounded-3xl shadow-sm p-7 h-fit lg:sticky lg:top-24">
+                <div className="text-center pb-6 mb-6 border-b border-gray-100">
+                  <p className="text-[#2a1008] text-[48px] font-black leading-none mb-2">{Number(product.average_rating).toFixed(1)}</p>
+                  <div className="flex justify-center mb-2">
+                    {[1,2,3,4,5].map(i => (
+                      <svg key={i} className={`w-4 h-4 ${i <= Math.round(Number(product.average_rating)) ? "text-amber-400" : "text-gray-200"}`}
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
                   </div>
-                );
-              })}
+                  <p className="text-gray-400 text-[14px] font-semibold">Based on {reviews.length} review{reviews.length !== 1 ? "s" : ""}</p>
+                </div>
+                <div className="space-y-2.5">
+                  {[5, 4, 3, 2, 1].map(star => {
+                    const count = reviews.filter(r => Math.round(Number(r.meta?.rating ?? 0)) === star).length;
+                    const pct = reviews.length > 0 ? Math.round((count / reviews.length) * 100) : 0;
+                    return (
+                      <div key={star} className="flex items-center gap-2.5">
+                        <span className="text-[13px] font-semibold text-[#3d2b1f] w-9 flex-shrink-0">{star} ★</span>
+                        <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-amber-400 rounded-full transition-all" style={{ width: `${pct}%` }} />
+                        </div>
+                        <span className="text-[13px] text-gray-400 w-6 flex-shrink-0 text-right">{count}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Review list */}
+              <div className="space-y-5">
+                {reviews.map(r => {
+                  const rating   = Number(r.meta?.rating ?? 0);
+                  const verified = Boolean(r.meta?.verified);
+                  const date     = new Date(r.date_gmt).toLocaleDateString("en-US", {
+                    year: "numeric", month: "long", day: "numeric",
+                  });
+                  return (
+                    <div key={r.id} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+                      <div className="flex items-start justify-between gap-4 mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-full bg-[#1A9248]/10 flex items-center justify-center flex-shrink-0">
+                            <span className="text-[#1A9248] font-bold text-[16px]">{r.author_name.charAt(0).toUpperCase()}</span>
+                          </div>
+                          <div>
+                            <p className="font-bold text-[#2a1008] text-[16.5px]">{r.author_name}</p>
+                            <p className="text-gray-400 text-[16.5px]">{date}</p>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end gap-1.5">
+                          <div className="flex">
+                            {[1,2,3,4,5].map(i => (
+                              <svg key={i} className={`w-4 h-4 ${i <= rating ? "text-amber-400" : "text-gray-200"}`}
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                              </svg>
+                            ))}
+                          </div>
+                          {verified && (
+                            <span className="text-[12px] text-[#1A9248] font-bold uppercase tracking-wider flex items-center gap-1">
+                              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                              </svg>
+                              Verified
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-[#3d2b1f] text-[16px] leading-relaxed [&_p]:mb-2 [&_p:last-child]:mb-0"
+                        dangerouslySetInnerHTML={{ __html: r.content.rendered }} />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
@@ -405,13 +449,31 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       {/* ── FAQs ── */}
       {categoryFaqs.length > 0 && (
-        <section className="border-t border-gray-100 bg-[#fafaf8]">
-          <div className="max-w-[900px] mx-auto px-4 py-12">
-            <h2 className="text-[#2a1008] text-[38px] font-bold text-center mb-8">FAQs</h2>
+        <section className="border-t border-gray-100 bg-[#fafaf8] relative overflow-hidden">
+          <div className="absolute -right-24 -top-24 w-[280px] h-[280px] rounded-full border border-dashed border-[#1A9248]/20 pointer-events-none" />
+          <div className="max-w-[1320px] mx-auto px-4 py-16 relative">
+            <div className="text-center mb-10">
+              <div className="flex items-center justify-center gap-2.5 mb-3">
+                <span className="w-6 h-px bg-[#1A9248]" />
+                <span className="text-[#1A9248] text-[12px] font-bold uppercase tracking-[0.3em]">Got Questions?</span>
+                <span className="w-6 h-px bg-[#1A9248]" />
+              </div>
+              <h2 className="text-[#2a1008] text-[36px] md:text-[40px] font-black leading-tight">Frequently Asked Questions</h2>
+            </div>
             <div className="space-y-3">
               {categoryFaqs.map(faq => (
                 <FaqAccordionItem key={faq.q} q={faq.q} a={faq.a} />
               ))}
+            </div>
+            <div className="mt-10 text-center">
+              <p className="text-gray-500 text-[15px] mb-3">Still have questions about this product?</p>
+              <Link href="/contact"
+                className="inline-flex items-center gap-1.5 text-[#1A9248] font-bold text-[14px] hover:underline">
+                Contact our team
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
+                </svg>
+              </Link>
             </div>
           </div>
         </section>
@@ -441,7 +503,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     )}
                   </div>
                   <div className="p-3">
-                    <p className="text-[#2a1008] font-bold text-[16.5px] leading-snug mb-1 line-clamp-2 group-hover:text-[#1A9248] transition-colors">{p.name}</p>
+                    <p className="text-[#2a1008] font-bold text-[16.5px] leading-snug mb-1 line-clamp-2 group-hover:text-[#1A9248] transition-colors">{decodeHtmlEntities(p.name)}</p>
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-[#2a1008] font-bold text-[16px]">{rPrice}</span>
                       {p.on_sale && rPrice !== rRegular && (

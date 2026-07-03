@@ -63,7 +63,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-white/60 text-[16.5px] leading-relaxed mb-6">
-              Charlotte NC's trusted CBD store. Premium, lab-tested hemp products for your everyday wellness.
+              Charlotte NC's trusted THCA & hemp store. Premium, lab-tested hemp products for your everyday wellness.
             </p>
 
             {/* Social Icons */}

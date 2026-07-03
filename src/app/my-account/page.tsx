@@ -8,6 +8,7 @@ import { useAuth }               from "@/context/AuthContext";
 import { gql }                   from "@/lib/graphql/client";
 import { GET_CUSTOMER_QUERY }    from "@/lib/graphql/mutations";
 import PageBanner                from "@/components/layout/PageBanner";
+import { decodeHtmlEntities }    from "@/lib/decodeHtml";
 
 /* ── Types ── */
 interface Order {
@@ -643,7 +644,7 @@ function AccountDashboard({ user }: { user: { databaseId: number; name: string; 
                                     }
                                   </div>
                                   <div>
-                                    <p className="text-[16.5px] font-semibold text-[#3d2b1f] line-clamp-1 max-w-[120px]">{item.product?.node?.name}</p>
+                                    <p className="text-[16.5px] font-semibold text-[#3d2b1f] line-clamp-1 max-w-[120px]">{decodeHtmlEntities(item.product?.node?.name ?? "")}</p>
                                     <p className="text-[16.5px] text-gray-400">Qty: {item.quantity}</p>
                                   </div>
                                 </div>

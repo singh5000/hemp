@@ -4,6 +4,7 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 import { getCategoryFilterConfig } from "./category-filter-config";
 import type { Brand } from "./page";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 import PriceRangeSlider from "./PriceRangeSlider";
 
 const SORT_OPTIONS = [
@@ -161,7 +162,7 @@ export function CategorySidebar({ categorySlug, brands }: { categorySlug: string
                       ? "bg-[#1A9248] text-white"
                       : "text-[#3d2b1f] hover:bg-gray-50"
                   }`}>
-                  <span>{b.name}</span>
+                  <span>{decodeHtmlEntities(b.name)}</span>
                   <span className={`text-[12px] ${nav.activeBrand === b.slug ? "text-white/70" : "text-gray-400"}`}>{b.count}</span>
                 </button>
               ))}
@@ -335,7 +336,7 @@ export function CategoryMobileBar({ categorySlug, brands }: { categorySlug: stri
                   <button key={b.id} onClick={() => nav.setBrand(b.slug)}
                     className={`px-2.5 py-1 rounded-full text-[12px] font-medium border transition-all ${
                       nav.activeBrand === b.slug ? "bg-[#1A9248] text-white border-[#1A9248]" : "bg-white text-[#3d2b1f] border-gray-200"
-                    }`}>{b.name}</button>
+                    }`}>{decodeHtmlEntities(b.name)}</button>
                 ))}
               </div>
             </div>

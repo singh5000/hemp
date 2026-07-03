@@ -7,6 +7,7 @@ import { useCart }     from "@/context/CartContext";
 import { useAuth }     from "@/context/AuthContext";
 import AnimatedButton  from "@/components/ui/AnimatedButton";
 import PageBanner      from "@/components/layout/PageBanner";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 
 /* Cart page is a client component — metadata set via head or route segment */
 export default function CartPage() {
@@ -120,11 +121,11 @@ export default function CartPage() {
                       <div className="flex-1 min-w-0">
                         <Link href={`/product/${item.product.slug}`}
                           className="text-[#2a1008] font-bold text-[15px] hover:text-[#1A9248] transition-colors line-clamp-2">
-                          {item.product.name}
+                          {decodeHtmlEntities(item.product.name)}
                         </Link>
                         {varAttrs.length > 0 && (
                           <p className="text-gray-500 text-[13px] mt-0.5">
-                            {varAttrs.map(a => `${a.name}: ${a.value}`).join(" / ")}
+                            {decodeHtmlEntities(varAttrs.map(a => `${a.name}: ${a.value}`).join(" / "))}
                           </p>
                         )}
                         <button onClick={() => removeItem(item.key)}

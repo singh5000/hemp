@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { createPortal } from "react-dom";
 import { useState, useEffect, useRef } from "react";
+import { decodeHtmlEntities } from "@/lib/decodeHtml";
 import { useRouter, usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
@@ -63,9 +65,12 @@ export default function Header() {
   const [cartHover, setCartHover] = useState(false);
   const [searchQ, setSearchQ] = useState("");
   const [announceClosed, setAnnounceClosed] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
   const cartRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -85,6 +90,17 @@ export default function Header() {
   useEffect(() => {
     if (searchOpen) setTimeout(() => searchInputRef.current?.focus(), 50);
   }, [searchOpen]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setShopOpen(false);
+      setSearchOpen(false);
+      setAccountOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,7 +150,7 @@ export default function Header() {
               src="https://hempandbarrel.com/wp-content/uploads/2023/02/nav-logo.svg"
               alt="Hemp & Barrel"
               width={180} height={50} priority
-              className={`w-auto transition-all duration-500 ${solid ? "h-[26px] sm:h-[30px]" : "h-[30px] sm:h-[38px]"} ${!solid ? "brightness-0 invert" : ""}`}
+              className={`w-auto transition-all duration-500 ${solid ? "h-[34px] sm:h-[40px]" : "h-[30px] sm:h-[38px]"} ${!solid ? "brightness-0 invert" : ""}`}
             />
           </Link>
 
@@ -197,7 +213,7 @@ export default function Header() {
           </div>
 
           {/* Cart with mini preview — single instance for all breakpoints */}
-          <div className="relative ml-3 lg:ml-0" ref={cartRef}
+          <div className="relative ml-3 lg:ml-5" ref={cartRef}
             onMouseEnter={() => setCartHover(true)} onMouseLeave={() => setCartHover(false)}>
             <Link href="/cart" aria-label="Cart" className={`relative ${solid ? "text-[#3d2b1f]" : "text-white"} hover:text-[#1A9248] transition-colors p-1 hover:scale-110 duration-300 block`}>
               <ShoppingCart className="w-5 h-5 lg:w-[22px] lg:h-[22px]" strokeWidth={2} />
@@ -224,7 +240,7 @@ export default function Header() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[16.5px] font-semibold text-[#3d2b1f] line-clamp-1">{item.product.name}</p>
+                        <p className="text-[16.5px] font-semibold text-[#3d2b1f] line-clamp-1">{decodeHtmlEntities(item.product.name)}</p>
                         <p className="text-[16.5px] text-gray-400">Qty: {item.quantity}</p>
                       </div>
                     </div>
@@ -248,10 +264,14 @@ export default function Header() {
         {/* ── MEGA MENU ── */}
         {shopOpen && (
           <>
-            <div className="fixed inset-0 z-30 bg-black/20 backdrop-blur-[2px]" onClick={() => setShopOpen(false)} />
-            <div className="absolute top-full left-0 right-0 w-full bg-white border-t-2 border-[#1A9248] shadow-2xl z-40">
-              <div className="w-full py-6" style={{ paddingLeft: 80, paddingRight: 80 }}>
-                <div className="flex items-center justify-between mb-5">
+            {mounted && createPortal(
+              <div className="fixed inset-0 z-30 bg-black/25 backdrop-blur-sm animate-[fadeSlideIn_0.25s_ease-out]"
+                onClick={() => setShopOpen(false)} />,
+              document.body
+            )}
+            <div className="absolute top-full left-0 right-0 w-full bg-white border-t-2 border-[#1A9248] shadow-2xl z-40 origin-top animate-[fadeSlideIn_0.28s_cubic-bezier(0.22,1,0.36,1)]">
+              <div className="w-full py-6 px-4" style={{ paddingLeft: "clamp(16px, 6vw, 80px)", paddingRight: "clamp(16px, 6vw, 80px)" }}>
+                <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
                   <div>
                     <p className="text-[16.5px] text-[#1A9248] font-bold uppercase tracking-[0.3em] mb-0.5 flex items-center gap-1.5">
                       <Leaf className="w-3 h-3" /> Browse Categories
@@ -259,15 +279,16 @@ export default function Header() {
                     <h3 className="text-[26px] font-bold text-[#3d2b1f]">Shop Our Product Range</h3>
                   </div>
                   <Link href="/shop" onClick={() => setShopOpen(false)}
-                    className="flex items-center gap-1.5 text-sm font-semibold text-[#1A9248] hover:bg-[#1A9248] hover:text-white border border-[#1A9248] px-4 py-2 rounded-full transition-all">
+                    className="flex items-center gap-1.5 text-sm font-semibold text-[#1A9248] hover:bg-[#1A9248] hover:text-white border border-[#1A9248] px-4 py-2 rounded-full transition-all duration-300">
                     View All Products <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
-                <div className="grid grid-cols-5 gap-3">
-                  {CATEGORIES.map((cat) => (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                  {CATEGORIES.map((cat, i) => (
                     <Link key={cat.href} href={cat.href} onClick={() => setShopOpen(false)}
-                      className="group relative rounded-xl overflow-hidden block" style={{ aspectRatio: "1/1" }}>
-                      <Image src={cat.image} alt={cat.label} fill sizes="(max-width:1400px) 20vw, 250px"
+                      className="group relative rounded-xl overflow-hidden block animate-[fadeSlideIn_0.35s_ease-out_backwards]"
+                      style={{ aspectRatio: "1/1", animationDelay: `${i * 30}ms` }}>
+                      <Image src={cat.image} alt={cat.label} fill sizes="(max-width:640px) 45vw, (max-width:1400px) 20vw, 250px"
                         className="object-cover transition-transform duration-500 group-hover:scale-110" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent group-hover:from-black/85 transition-all duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-3">
@@ -288,20 +309,23 @@ export default function Header() {
         {/* ── SEARCH OVERLAY ── */}
         {searchOpen && (
           <>
-            <div className="fixed inset-0 z-30 bg-black/30 backdrop-blur-[2px]" onClick={() => { setSearchOpen(false); setSearchQ(""); }} />
-            <div className="absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl z-40">
-              <div className="w-full py-5" style={{ paddingLeft: 80, paddingRight: 80 }}>
-                <form onSubmit={handleSearch} className="flex items-center gap-3">
-                  <Search className="w-5 h-5 text-gray-400 flex-shrink-0" />
+            {mounted && createPortal(
+              <div className="fixed inset-0 z-30 bg-black/50 backdrop-blur-md" onClick={() => { setSearchOpen(false); setSearchQ(""); }} />,
+              document.body
+            )}
+            <div className="absolute top-full left-0 right-0 z-40 flex justify-center lg:justify-end px-4 lg:pr-20">
+              <div className="w-full max-w-[560px] lg:max-w-[380px] mt-3 bg-white border border-gray-100 rounded-2xl shadow-2xl shadow-black/10 p-2">
+                <form onSubmit={handleSearch} className="flex items-center gap-2">
+                  <Search className="w-4 h-4 text-gray-400 flex-shrink-0 ml-3" />
                   <input ref={searchInputRef} type="text" value={searchQ}
                     onChange={e => setSearchQ(e.target.value)} placeholder="Search products…"
-                    className="flex-1 text-[#2a1008] text-lg outline-none placeholder-gray-300 bg-transparent" />
-                  <button type="submit" className="bg-[#1A9248] hover:bg-[#148038] text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-colors">
+                    className="flex-1 min-w-0 text-[#2a1008] text-[15px] outline-none placeholder-gray-300 bg-transparent py-2.5" />
+                  <button type="submit" className="bg-[#1A9248] hover:bg-[#148038] text-white text-[13px] font-bold px-4 py-2 rounded-xl transition-colors flex-shrink-0">
                     Search
                   </button>
                   <button type="button" onClick={() => { setSearchOpen(false); setSearchQ(""); }}
-                    className="text-gray-400 hover:text-[#3d2b1f] transition-colors p-1" aria-label="Close">
-                    <X className="w-5 h-5" />
+                    className="text-gray-400 hover:text-[#3d2b1f] transition-colors p-1.5 flex-shrink-0" aria-label="Close">
+                    <X className="w-4 h-4" />
                   </button>
                 </form>
               </div>
