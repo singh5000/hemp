@@ -1,47 +1,81 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { MessageCircle, X, Send, Bot, User, Leaf, Clock, MapPin, Phone, ChevronRight } from "lucide-react";
+
+interface ReplyLink {
+  href: string;
+  label: string;
+}
 
 interface Message {
   id: number;
   role: "bot" | "user";
   text: string;
   time: string;
+  link?: ReplyLink;
 }
 
-const QUICK_REPLIES = [
+interface Answer {
+  text: string;
+  link?: ReplyLink;
+}
+
+const QUICK_REPLIES: { label: string; icon: typeof Clock; answer: string; link?: ReplyLink }[] = [
   { label: "Store Hours", icon: Clock, answer: "We're open Monday–Saturday 10AM–8PM and Sunday 12PM–4PM. Visit us at 800 N Polk Street, Pineville, NC 28134." },
   { label: "Location", icon: MapPin, answer: "We're located at 800 N Polk Street, Pineville, NC 28134 — just south of Charlotte. Plenty of free parking available!" },
   { label: "Call Us", icon: Phone, answer: "You can reach us at (980) 326-4367. Our friendly staff is happy to help with any questions about our products." },
   { label: "Shipping Info", icon: ChevronRight, answer: "We ship to all 50 states! Orders are processed within 1-2 business days and arrive in 3-7 days via USPS/UPS. Free shipping on orders over $75." },
   { label: "Return Policy", icon: ChevronRight, answer: "We offer hassle-free returns within 30 days. Unopened products in original condition can be returned or exchanged. Contact us for any quality issues — we'll make it right." },
-  { label: "Product Help", icon: Leaf, answer: "We carry CBD tinctures, gummies, smokable hemp flower, Delta 8 products, vapes, topicals, pet CBD, and more. All third-party lab tested. What type of product are you looking for?" },
+  { label: "Product Help", icon: Leaf, answer: "We carry CBD tinctures, gummies, smokable hemp flower, Delta 8 products, vapes, topicals, pet CBD, and more. All third-party lab tested. What type of product are you looking for?", link: { href: "/shop", label: "Browse All Products" } },
 ];
 
 const WELCOME = "Hi there! 👋 I'm the Hemp & Barrel assistant. How can I help you today?";
+
+// Specific product topics — most specific keyword wins and routes to the
+// matching category/search page instead of the generic store info fallback.
+const PRODUCT_TOPICS: { test: RegExp; text: string; link: ReplyLink }[] = [
+  { test: /\bpet(s)?\b|\bdog(s)?\b|\bcat(s)?\b/i, text: "We carry CBD products made specifically for pets — calming chews, tinctures, and treats for dogs and cats. Here's our full selection:", link: { href: "/product-category/pets", label: "Shop Pet Products" } },
+  { test: /\btopical|cream|balm|lotion|salve\b/i, text: "Our topicals are great for localized relief — CBD creams, balms, and salves. Check them out:", link: { href: "/product-category/topicals", label: "Shop Topicals" } },
+  { test: /\btincture|\boil drop|\bdrops\b/i, text: "Tinctures are one of our most popular categories — fast-acting and easy to dose. Here's our full selection:", link: { href: "/product-category/tinctures", label: "Shop Tinctures" } },
+  { test: /\bpouch(es)?\b/i, text: "CBD pouches are a discreet, smoke-free option. Browse our selection:", link: { href: "/product-category/cbd-pouches", label: "Shop CBD Pouches" } },
+  { test: /\bbeverage|\bdrink|\bsoda|\bseltzer\b/i, text: "We've got a great lineup of hemp-infused beverages. Check them out:", link: { href: "/product-category/infused-beverages", label: "Shop Infused Beverages" } },
+  { test: /\bgumm(y|ies)|\bedible(s)?|\bchew(s)?\b/i, text: "Our edibles and gummies come in a range of potencies and flavors. Take a look:", link: { href: "/product-category/edibles-gummies", label: "Shop Edibles & Gummies" } },
+  { test: /\bflower|\bpre-?roll|\bjoint|\bbud\b/i, text: "We carry premium smokable hemp flower and pre-rolls. Browse our selection:", link: { href: "/product-category/smokable-hemp-flower", label: "Shop Smokable Hemp Flower" } },
+  { test: /\bvape|\bcart(ridge)?s?\b|\bdisposable|\bpen\b/i, text: "Looking for vapes or cartridges? Here's what we currently have in stock:", link: { href: "/shop?search=vape", label: "Search Vapes" } },
+  { test: /\bcapsule|\bpill\b/i, text: "We carry CBD capsules for easy, consistent dosing. Here's what's available:", link: { href: "/shop?search=capsule", label: "Search Capsules" } },
+  { test: /\bthca\b/i, text: "THCA is one of our top categories! Here's everything we currently carry:", link: { href: "/shop?search=thca", label: "Search THCA Products" } },
+  { test: /\bdelta[\s-]?8\b|\bd8\b/i, text: "We carry a wide range of Delta 8 products. Here's what's available:", link: { href: "/shop?search=delta 8", label: "Search Delta 8" } },
+  { test: /\bdelta[\s-]?9\b|\bd9\b/i, text: "Here are our Delta 9 products currently in stock:", link: { href: "/shop?search=delta 9", label: "Search Delta 9" } },
+  { test: /\bcbg\b/i, text: "Here's what we have in CBG products:", link: { href: "/shop?search=cbg", label: "Search CBG Products" } },
+  { test: /\bcbn\b/i, text: "Here's what we have in CBN products, great for sleep support:", link: { href: "/shop?search=cbn", label: "Search CBN Products" } },
+];
 
 function getTime() {
   return new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 }
 
-function findAnswer(text: string): string | null {
+function findAnswer(text: string): Answer | null {
   const lower = text.toLowerCase();
-  if (/hour|open|close|time/i.test(lower)) return QUICK_REPLIES[0].answer;
-  if (/where|location|address|direction|find you/i.test(lower)) return QUICK_REPLIES[1].answer;
-  if (/call|phone|number|contact/i.test(lower)) return QUICK_REPLIES[2].answer;
-  if (/ship|deliver|free shipping/i.test(lower)) return QUICK_REPLIES[3].answer;
-  if (/return|refund|exchange/i.test(lower)) return QUICK_REPLIES[4].answer;
-  if (/product|cbd|gumm|tincture|flower|vape|delta|topical|pet/i.test(lower)) return QUICK_REPLIES[5].answer;
-  if (/thc|legal|drug test/i.test(lower)) return "All our hemp-derived products contain ≤0.3% Delta-9 THC and are federally legal under the 2018 Farm Bill. Full Spectrum products have trace THC — choose Broad Spectrum or Isolate for zero THC.";
-  if (/price|cost|cheap|expensive|discount|coupon|sale/i.test(lower)) return "We offer competitive pricing on all products. Subscribe to our newsletter for exclusive deals! We also have in-store promotions and bundle discounts. Follow us @HempAndBarrel for the latest offers.";
-  if (/age|21|old enough/i.test(lower)) return "You must be 21 years or older to purchase from Hemp & Barrel, both online and in-store. Age verification is required at checkout.";
-  if (/sleep|insomnia|rest/i.test(lower)) return "For sleep support, we recommend CBD gummies with melatonin, Full Spectrum tinctures taken 30 min before bed, or our CBN products. Our staff can help find the right strength for you!";
-  if (/pain|sore|ache|inflammation/i.test(lower)) return "For pain and inflammation, CBD topicals work great for localized relief. Full Spectrum tinctures and high-potency gummies are popular for full-body support. Visit us for personalized recommendations!";
-  if (/anxiety|stress|relax|calm/i.test(lower)) return "CBD is widely used for stress and anxiety support. We recommend starting with a mid-potency tincture (500-1000mg) or our calming gummies. Effects are typically felt within 15-45 minutes.";
-  if (/hi|hello|hey|sup|what's up/i.test(lower)) return "Hey there! 😊 Welcome to Hemp & Barrel. How can I help you today? You can ask about our products, store hours, shipping, or anything else!";
-  if (/thank|thanks|thx/i.test(lower)) return "You're welcome! 😊 Is there anything else I can help with? We're always here for you.";
-  if (/bye|goodbye|see ya/i.test(lower)) return "Goodbye! Thanks for chatting with us. Visit us anytime at 800 N Polk St, Pineville, NC. Have a great day! 🌿";
+  if (/hour|open|close|time/i.test(lower)) return { text: QUICK_REPLIES[0].answer };
+  if (/where|location|address|direction|find you/i.test(lower)) return { text: QUICK_REPLIES[1].answer };
+  if (/call|phone|number|contact/i.test(lower)) return { text: QUICK_REPLIES[2].answer };
+  if (/ship|deliver|free shipping/i.test(lower)) return { text: QUICK_REPLIES[3].answer };
+  if (/return|refund|exchange/i.test(lower)) return { text: QUICK_REPLIES[4].answer };
+  for (const topic of PRODUCT_TOPICS) {
+    if (topic.test.test(lower)) return { text: topic.text, link: topic.link };
+  }
+  if (/product|cbd/i.test(lower)) return { text: QUICK_REPLIES[5].answer, link: QUICK_REPLIES[5].link };
+  if (/thc|legal|drug test/i.test(lower)) return { text: "All our hemp-derived products contain ≤0.3% Delta-9 THC and are federally legal under the 2018 Farm Bill. Full Spectrum products have trace THC — choose Broad Spectrum or Isolate for zero THC." };
+  if (/price|cost|cheap|expensive|discount|coupon|sale/i.test(lower)) return { text: "We offer competitive pricing on all products. Subscribe to our newsletter for exclusive deals! We also have in-store promotions and bundle discounts. Follow us @HempAndBarrel for the latest offers." };
+  if (/age|21|old enough/i.test(lower)) return { text: "You must be 21 years or older to purchase from Hemp & Barrel, both online and in-store. Age verification is required at checkout." };
+  if (/sleep|insomnia|rest/i.test(lower)) return { text: "For sleep support, we recommend CBD gummies with melatonin, Full Spectrum tinctures taken 30 min before bed, or our CBN products. Our staff can help find the right strength for you!", link: { href: "/shop?search=sleep", label: "Search Sleep Products" } };
+  if (/pain|sore|ache|inflammation/i.test(lower)) return { text: "For pain and inflammation, CBD topicals work great for localized relief. Full Spectrum tinctures and high-potency gummies are popular for full-body support.", link: { href: "/product-category/topicals", label: "Shop Topicals" } };
+  if (/anxiety|stress|relax|calm/i.test(lower)) return { text: "CBD is widely used for stress and anxiety support. We recommend starting with a mid-potency tincture (500-1000mg) or our calming gummies. Effects are typically felt within 15-45 minutes.", link: { href: "/product-category/tinctures", label: "Shop Tinctures" } };
+  if (/hi|hello|hey|sup|what's up/i.test(lower)) return { text: "Hey there! 😊 Welcome to Hemp & Barrel. How can I help you today? You can ask about our products, store hours, shipping, or anything else!" };
+  if (/thank|thanks|thx/i.test(lower)) return { text: "You're welcome! 😊 Is there anything else I can help with? We're always here for you." };
+  if (/bye|goodbye|see ya/i.test(lower)) return { text: "Goodbye! Thanks for chatting with us. Visit us anytime at 800 N Polk St, Pineville, NC. Have a great day! 🌿" };
   return null;
 }
 
@@ -71,10 +105,10 @@ export default function ChatBot() {
     return () => clearTimeout(timer);
   }, [promptDismissed, open]);
 
-  const addBotReply = (text: string) => {
+  const addBotReply = (text: string, link?: ReplyLink) => {
     setTyping(true);
     setTimeout(() => {
-      setMessages(prev => [...prev, { id: Date.now(), role: "bot", text, time: getTime() }]);
+      setMessages(prev => [...prev, { id: Date.now(), role: "bot", text, time: getTime(), link }]);
       setTyping(false);
     }, 600 + Math.random() * 800);
   };
@@ -89,7 +123,7 @@ export default function ChatBot() {
 
     const answer = findAnswer(text);
     if (answer) {
-      addBotReply(answer);
+      addBotReply(answer.text, answer.link);
     } else {
       addBotReply("Thanks for your question! For the best answer, please reach out to our team at (980) 326-4367 or visit us at 800 N Polk St, Pineville, NC. We're happy to help! 🌿");
     }
@@ -100,7 +134,7 @@ export default function ChatBot() {
       ...prev,
       { id: Date.now(), role: "user", text: qr.label, time: getTime() },
     ]);
-    addBotReply(qr.answer);
+    addBotReply(qr.answer, qr.link);
   };
 
   return (
@@ -176,6 +210,15 @@ export default function ChatBot() {
                   }`}>
                     {msg.text}
                   </div>
+                  {msg.link && (
+                    <Link
+                      href={msg.link.href}
+                      className="mt-1.5 inline-flex items-center gap-1 bg-[#1A9248]/10 hover:bg-[#1A9248]/20 text-[#1A9248] text-[12px] font-semibold px-3 py-1.5 rounded-full transition-colors"
+                    >
+                      {msg.link.label}
+                      <ChevronRight className="w-3 h-3" />
+                    </Link>
+                  )}
                   <p className={`text-[16.5px] text-gray-400 mt-1 ${msg.role === "user" ? "text-right" : ""}`}>{msg.time}</p>
                 </div>
               </div>

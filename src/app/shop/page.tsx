@@ -180,6 +180,10 @@ export default async function ShopPage({
   if (category)    apiParams.set("category", category);
   if (searchTerms) apiParams.set("search", searchTerms);
   if (brand)       apiParams.set("brand", brand);
+  if (instock) {
+    apiParams.set("instock", "1");            // custom /hemp/v1/products endpoint
+    apiParams.set("stock_status", "instock"); // standard /wc/store/v1/products endpoint
+  }
 
   // Separate params for pagination URLs — preserves instock/category/brand as URL params
   // so the toggle and filters survive page navigation

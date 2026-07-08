@@ -210,7 +210,10 @@ export default async function CategoryPage({
   if (searchTerms) apiParams.set("search", searchTerms);
   if (brand)       apiParams.set("brand", brand);
   if (maxPrice)    apiParams.set("max_price", maxPrice);
-  if (instock)     apiParams.set("instock", "1");
+  if (instock) {
+    apiParams.set("instock", "1");        // custom /hemp/v1/products endpoint
+    apiParams.set("stock_status", "instock"); // standard /wc/store/v1/products endpoint
+  }
 
   const { products: rawProducts, total: rawTotal, pages } = useCustom
     ? await fetchCustomProducts(apiParams)
