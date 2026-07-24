@@ -18,16 +18,16 @@ const HEMP_LEAF = (
 );
 
 const CATEGORIES = [
-  { label: "Smokable Hemp Flower", href: "/product-category/smokable-hemp-flower", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/smokables.jpg" },
-  { label: "Edibles & Gummies", href: "/product-category/edibles-gummies", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/edibles-image.jpg" },
-  { label: "Infused Beverages", href: "/product-category/infused-beverages", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/beverages.jpg" },
-  { label: "CBD Tinctures", href: "/product-category/tinctures", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/tincture.jpg" },
-  { label: "Topicals", href: "/product-category/topicals", image: "https://hempandbarrel.com/wp-content/uploads/2024/04/Topicals-Category-Photo.png" },
-  { label: "CBD Pouches", href: "/product-category/cbd-pouches", image: "https://hempandbarrel.com/wp-content/uploads/2024/04/cbd-pouches2.png" },
-  { label: "Pet Products", href: "/product-category/pets", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/pets.jpg" },
-  { label: "Vapes", href: "/product-category/vapes", image: "https://hempandbarrel.com/wp-content/uploads/2021/06/CBD-Vape-Cartridge.jpg" },
-  { label: "Merchandise", href: "/product-category/merchandise", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/view-all.jpg" },
-  { label: "Subscriptions", href: "/product-category/subitems", image: "https://hempandbarrel.com/wp-content/uploads/2023/02/tincture.jpg" },
+  { label: "Smokable Hemp Flower", href: "/product-category/smokable-hemp-flower", image: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/smokables.jpg" },
+  { label: "Edibles & Gummies", href: "/product-category/edibles-gummies", image: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/edibles-image.jpg" },
+  { label: "Infused Beverages", href: "/product-category/infused-beverages", image: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/beverages.jpg" },
+  { label: "CBD Tinctures", href: "/product-category/tinctures", image: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/tincture.jpg" },
+  { label: "Topicals", href: "/product-category/topicals", image: "https://wp.hempandbarrel.com/wp-content/uploads/2024/04/Topicals-Category-Photo.png" },
+  { label: "CBD Pouches", href: "/product-category/cbd-pouches", image: "https://wp.hempandbarrel.com/wp-content/uploads/2024/04/cbd-pouches2.png" },
+  { label: "Pet Products", href: "/product-category/pets", image: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/pets.jpg" },
+  { label: "Vapes", href: "/product-category/vapes", image: "https://wp.hempandbarrel.com/wp-content/uploads/2021/06/CBD-Vape-Cartridge.jpg" },
+  { label: "Merchandise", href: "/product-category/merchandise", image: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/view-all.jpg" },
+  { label: "Subscriptions", href: "/product-category/subitems", image: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/tincture.jpg" },
 ];
 
 const NAV_LINKS = [
@@ -147,7 +147,7 @@ export default function Header() {
           {/* Center Logo */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 flex-shrink-0 max-w-[140px] sm:max-w-none">
             <Image
-              src="https://hempandbarrel.com/wp-content/uploads/2023/02/nav-logo.svg"
+              src="https://wp.hempandbarrel.com/wp-content/uploads/2023/02/nav-logo.svg"
               alt="Hemp & Barrel"
               width={180} height={50} priority
               className={`w-auto transition-all duration-500 ${solid ? "h-[34px] sm:h-[40px]" : "h-[30px] sm:h-[38px]"} ${!solid ? "brightness-0 invert" : ""}`}

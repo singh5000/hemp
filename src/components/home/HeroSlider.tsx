@@ -22,7 +22,7 @@ const BASE_SLIDES: (Omit<SlideData, "productImg"> & { category: string })[] = [
     sub:     "Lab-tested, full-spectrum CBD oil in 10 strengths — pure, effective, and federally compliant.",
     cta:     "Shop Tinctures",
     href:    "/product-category/tinctures",
-    bg:      "https://hempandbarrel.com/wp-content/uploads/2023/02/tincture-bg-image.webp",
+    bg:      "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/tincture-bg-image.webp",
     category: "SKIP",
   },
   {
@@ -32,7 +32,7 @@ const BASE_SLIDES: (Omit<SlideData, "productImg"> & { category: string })[] = [
     sub:     "Precisely dosed, delicious gummies in every flavor. Easy, consistent, and made to enjoy.",
     cta:     "Shop Gummies",
     href:    "/product-category/edibles-gummies",
-    bg:      "https://hempandbarrel.com/wp-content/uploads/2023/02/gummy-bg-image-scaled.webp",
+    bg:      "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/gummy-bg-image-scaled.webp",
     category: "SKIP", // productImg hardcoded below
   },
   {
@@ -42,16 +42,16 @@ const BASE_SLIDES: (Omit<SlideData, "productImg"> & { category: string })[] = [
     sub:     "Hand-selected, farm-fresh hemp flower — straight from the Carolinas with lab-verified COAs.",
     cta:     "Shop Hemp Flower",
     href:    "/product-category/smokable-hemp-flower",
-    bg:      "https://hempandbarrel.com/wp-content/uploads/2024/04/Chris-Grow-for-Banner-e1712944504867.jpeg",
+    bg:      "https://wp.hempandbarrel.com/wp-content/uploads/2024/04/Chris-Grow-for-Banner-e1712944504867.jpeg",
     category: "SKIP",
   },
 ];
 
 export default async function HeroSlider() {
   const HARDCODED: Record<number, string> = {
-    1: "https://hempandbarrel.com/wp-content/uploads/2022/05/Tinctures-product.png.webp",
-    2: "https://hempandbarrel.com/wp-content/uploads/2023/02/gummies-1024x723.webp",
-    3: "https://hempandbarrel.com/wp-content/uploads/2026/06/ss.webp",
+    1: "https://wp.hempandbarrel.com/wp-content/uploads/2022/05/Tinctures-product.png.webp",
+    2: "https://wp.hempandbarrel.com/wp-content/uploads/2023/02/gummies-1024x723.webp",
+    3: "https://wp.hempandbarrel.com/wp-content/uploads/2026/06/ss.webp",
   };
 
   const productImgs = await Promise.all(

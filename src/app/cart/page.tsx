@@ -13,7 +13,7 @@ import { decodeHtmlEntities } from "@/lib/decodeHtml";
 export default function CartPage() {
   const { cart, cartLoading, removeItem, updateQty, clearCart, applyCoupon, removeCoupon } = useCart();
   const { user } = useAuth();
-  const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "https://hempandbarrel.com";
+  const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "https://wp.hempandbarrel.com";
 
   const [clearing,    setClearing]    = useState(false);
   const [couponCode,  setCouponCode]  = useState("");

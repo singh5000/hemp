@@ -25,8 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${manrope.variable} h-full`}>
       <head>
-        <link rel="preconnect" href="https://hempandbarrel.com" />
-        <link rel="dns-prefetch" href="https://hempandbarrel.com" />
+        <link rel="preconnect" href="https://wp.hempandbarrel.com" />
+        <link rel="dns-prefetch" href="https://wp.hempandbarrel.com" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="min-h-full flex flex-col bg-white text-[#3d2b1f] antialiased font-sans">

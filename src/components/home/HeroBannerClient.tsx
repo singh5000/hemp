@@ -70,7 +70,7 @@ export default function HeroBannerClient({ slides }: { slides: Slide[] }) {
   const incoming = shattering !== null ? slides[shattering] : null;
 
   return (
-    <section className="relative -mt-[72px] overflow-hidden">
+    <section className="relative md:-mt-[72px] overflow-hidden">
       <Link href={slides[current].href} aria-label={slides[current].alt} className="block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

@@ -55,7 +55,7 @@ export default function Footer() {
           <div className="md:col-span-3">
             <Link href="/" className="inline-block mb-6">
               <Image
-                src="https://hempandbarrel.com/wp-content/uploads/2023/02/footer-logo.svg"
+                src="https://wp.hempandbarrel.com/wp-content/uploads/2023/02/footer-logo.svg"
                 alt="Hemp & Barrel"
                 width={160}
                 height={70}

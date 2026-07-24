@@ -118,7 +118,7 @@ export default function CheckoutPage() {
   const nmiToken       = useRef("");
   const collectJsReady = useRef(false);
 
-  const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "https://hempandbarrel.com";
+  const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "https://wp.hempandbarrel.com";
 
   /* ── Prefill billing if logged in ── */
   useEffect(() => {
