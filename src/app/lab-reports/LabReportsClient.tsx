@@ -4,77 +4,16 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 
 type Category = "All" | "Gummies" | "Hempettes" | "CBD Flower" | "THCa Flower";
-type StrainType = "Indica" | "Sativa" | "Hybrid" | null;
 
-interface LabReport {
-  name:     string;
+export interface LabReport {
+  name: string;
   category: Exclude<Category, "All">;
-  type?:    StrainType;
-  thca?:    number;
-  terp?:    number;
-  url:      string;
-  batch?:   string;
+  strain_type: "Indica" | "Sativa" | "Hybrid" | "";
+  thca: string;
+  terpenes: string;
+  batch: string;
+  file: string | false;
 }
-
-const REPORTS: LabReport[] = [
-  /* ── Gummies ── */
-  { name: "Gummy 30mg (230277)", category: "Gummies", url: "https://hempandbarrel.com/wp-content/uploads/2024/02/230277-GUM-30-1530-CoA.pdf", batch: "230277" },
-  { name: "Gummy 750mg (91533)",  category: "Gummies", url: "https://hempandbarrel.com/wp-content/uploads/2024/02/91533-GUM-IM-0750-60-CoA.pdf",  batch: "91533"  },
-
-  /* ── Hempettes ── */
-  { name: "Hempettes Original",  category: "Hempettes", url: "https://hempandbarrel.com/wp-content/uploads/2024/02/BBL_5369_Hempettes-Original.pdf", batch: "BBL_5369" },
-  { name: "Hempettes Menthol",   category: "Hempettes", url: "https://hempandbarrel.com/wp-content/uploads/2024/02/BBL_5370_Hempettes-Menthol.pdf",  batch: "BBL_5370" },
-  { name: "Hempettes Pineapple", category: "Hempettes", url: "https://hempandbarrel.com/wp-content/uploads/2024/02/BBL_5371_Hempettes-Pineapple.pdf",batch: "BBL_5371" },
-  { name: "Hempettes Sweet",     category: "Hempettes", url: "https://hempandbarrel.com/wp-content/uploads/2024/02/BBL_5368_Hempettes-Sweet.pdf",     batch: "BBL_5368" },
-
-  /* ── CBD Flower ── */
-  { name: "Godfather OG (CBD)", category: "CBD Flower", type: "Hybrid", url: "https://hempandbarrel.com/wp-content/uploads/2026/03/GodfatherOGCBDCoa-scaled.jpg" },
-
-  /* ── THCa Flower ── */
-  { name: "Stardawg Guava",      category: "THCa Flower", type: "Hybrid",  thca: 27.809, terp: 2.113, url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Stardawg_Guava_-_THCa_27.809___Terpenes_2.113_1__25863.jpg"  },
-  { name: "Super Boof",          category: "THCa Flower", type: "Hybrid",  terp: 1.62,               url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Super_Boof_Terp_1.62__17115.jpg" },
-  { name: "Super Sonic",         category: "THCa Flower", type: "Sativa",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Super_Sonic.pdf" },
-  { name: "Trainwreck",          category: "THCa Flower", type: "Sativa",  thca: 29.544,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Trainwreck_COA_29.544_3.25.26__51486.jpg" },
-  { name: "Vampire Slayer",      category: "THCa Flower", type: "Indica",  thca: 35.492, terp: 2.045, url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Vampire_Slayer_-_THCa_35.492_-_Terpenes_2.045_-_Indica__02539.jpg" },
-  { name: "Bananaconda",         category: "THCa Flower", type: "Hybrid",  thca: 25.902, terp: 0.894, url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Bananaconda_-_THCa_25.902___Terpenes_0.894__46347.jpg" },
-  { name: "Black Ice",           category: "THCa Flower", type: "Indica",  thca: 37.035, terp: 1.470, url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Black_Ice_Living_Soil_-_THCa_37.035_-_Terpenes_1.470_-_Indica_1__37420.jpg" },
-  { name: "Black Velvet",        category: "THCa Flower", type: "Hybrid",  thca: 27.656,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Black_Velvet_COA_27.656_2.11.26_1__64473.jpg" },
-  { name: "Blue Dream",          category: "THCa Flower", type: "Sativa",  thca: 31.700, terp: 1.850, url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Blue_Dream_Living_Soil_-_THCa_31.700___Terpenes_1.850_-_Sativa_Potency__53850.jpg" },
-  { name: "Blueberry Sugar",     category: "THCa Flower", type: "Hybrid",  thca: 35.412,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Blueberry_Sugar_COA_35.412_6.4.26__37552.jpg" },
-  { name: "Blueberry Space Cake",category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/BlueberrySpaceCake-scaled.jpg" },
-  { name: "Benny Blanco",        category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/BennyBlancoCOA-scaled.jpg" },
-  { name: "Candyland",           category: "THCa Flower", type: "Sativa",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/CandylandCOA-scaled.jpg" },
-  { name: "Carolina Kush",       category: "THCa Flower", type: "Indica",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/2603NBL0509.1389-Hemp-Barrel-Carolina-Kush.pdf" },
-  { name: "Chimera",             category: "THCa Flower", type: "Hybrid",  thca: 28.693,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Chimera_COA_28.693_2.11.26_1__64971.jpg" },
-  { name: "Dante's Inferno",     category: "THCa Flower", type: "Hybrid",  thca: 26.817,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Dantes_Inferno_COA_26.817_8.11.26_1__25711.jpg" },
-  { name: "Durban Poison",       category: "THCa Flower", type: "Sativa",  thca: 27.717,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Durban_Poison_COA_27.717_11.11.26__68458.jpg" },
-  { name: "Frozen Lemon",        category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/CandylandCOA-scaled.jpg" },
-  { name: "Garlic Budder",       category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/GarlicBudderCOA.pdf" },
-  { name: "Gelato 42",           category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Gelato42COA.jpg" },
-  { name: "Godfather OG (THCa)", category: "THCa Flower", type: "Indica",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/GodfatherOGCOA-scaled.jpg" },
-  { name: "Granddaddy Purple",   category: "THCa Flower", type: "Indica",  thca: 26.375,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Granddaddy_Purple_COA_26.375_8.4.26__91338.jpg" },
-  { name: "Grape Gelato",        category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/GrapeGelatoCOA.jpg" },
-  { name: "Grape Jolly Rancher", category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/GrapeJollyRancherCOA-scaled.jpg" },
-  { name: "Green Crack",         category: "THCa Flower", type: "Sativa",  thca: 29.861,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Green_Crack_COA_29.861_2.11.26_1__30916.jpg" },
-  { name: "Halle Berry",         category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Halle_Berry.pdf" },
-  { name: "Jack Herer",          category: "THCa Flower", type: "Sativa",  thca: 29.448,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Jack_Herer_COA_29.448_5.21.26__78666.jpg" },
-  { name: "Jungle Cake",         category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/JungleCakeCOA.jpg" },
-  { name: "Laser Fuel",          category: "THCa Flower", type: "Sativa",  thca: 30.141,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Laser_Fuel_COA_30.141_1.28.26__24562.jpg" },
-  { name: "Lava Cake",           category: "THCa Flower", type: "Indica",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Indoor_-_THCa_Lava_Cake_Living_Soil_Potency_2__44830.jpg" },
-  { name: "Lemon Cherry Gelato", category: "THCa Flower", type: "Hybrid",  thca: 35.969,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Lemon_Cherry_Gelato_COA_35.969_2.11.26_1__88332.jpg" },
-  { name: "Lemon Drop",          category: "THCa Flower", type: "Sativa",  thca: 26.94,               url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Lemon_Drop_COA_26.94_4.1.26_1__71244.jpg" },
-  { name: "Mac 1",               category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Mac_1_COA.pdf" },
-  { name: "Neon Slushi",         category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/NeonSlushiCOA.jpg" },
-  { name: "OG Kush",             category: "THCa Flower", type: "Hybrid",  thca: 28.909,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/OG_Kush_COA_28.909_11.11.26__79956.jpg" },
-  { name: "Orange Creamsicle",   category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/OrangeCreamsicleCOA-scaled.jpg" },
-  { name: "Papaya",              category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/PapayaCOA-scaled.jpg" },
-  { name: "Pineapple Express",   category: "THCa Flower", type: "Sativa",  thca: 28.052,              url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Pineapple_Express_COA_28.052_3.13.26__16512.jpg" },
-  { name: "RS-11",               category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/RS_11_COA.pdf" },
-  { name: "Sex Panther",         category: "THCa Flower", type: "Hybrid",  thca: 29.875, terp: 1.820, url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Sex_Panther_Hydro_-_THCa_29.875-_Terpenes_1.820_2_1__65458.jpg" },
-  { name: "Sour Diesel",         category: "THCa Flower", type: "Sativa",  thca: 25.69,               url: "https://hempandbarrel.com/wp-content/uploads/2026/03/Sour_Diesel_COA_25.69_4.1.26__88148.jpg" },
-  { name: "Sour Joker",          category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/SourJokerCOA-scaled.jpg" },
-  { name: "Sweet Tea",           category: "THCa Flower", type: "Hybrid",                             url: "https://hempandbarrel.com/wp-content/uploads/2026/03/SweetTeaCOA.jpg" },
-];
 
 /* ── Helpers ── */
 const TYPE_STYLE: Record<string, string> = {
@@ -92,7 +31,7 @@ const CAT_STYLE: Record<string, string> = {
 
 const CATS: Category[] = ["All", "Gummies", "Hempettes", "CBD Flower", "THCa Flower"];
 
-const isPDF = (url: string) => url.endsWith(".pdf");
+const isPDF = (url: string) => url.toLowerCase().endsWith(".pdf");
 
 function ShieldIcon() {
   return (
@@ -103,26 +42,26 @@ function ShieldIcon() {
   );
 }
 
-export default function LabReportsClient() {
+export default function LabReportsClient({ reports }: { reports: LabReport[] }) {
   const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
-    return REPORTS.filter((r) => {
+    return reports.filter((r) => {
       const catMatch = activeCategory === "All" || r.category === activeCategory;
       const searchMatch = !q || r.name.toLowerCase().includes(q);
       return catMatch && searchMatch;
     });
-  }, [activeCategory, search]);
+  }, [reports, activeCategory, search]);
 
   const counts: Record<Category, number> = useMemo(() => ({
-    "All":          REPORTS.length,
-    "Gummies":      REPORTS.filter(r => r.category === "Gummies").length,
-    "Hempettes":    REPORTS.filter(r => r.category === "Hempettes").length,
-    "CBD Flower":   REPORTS.filter(r => r.category === "CBD Flower").length,
-    "THCa Flower":  REPORTS.filter(r => r.category === "THCa Flower").length,
-  }), []);
+    "All":          reports.length,
+    "Gummies":      reports.filter(r => r.category === "Gummies").length,
+    "Hempettes":    reports.filter(r => r.category === "Hempettes").length,
+    "CBD Flower":   reports.filter(r => r.category === "CBD Flower").length,
+    "THCa Flower":  reports.filter(r => r.category === "THCa Flower").length,
+  }), [reports]);
 
   return (
     <div>
@@ -189,10 +128,10 @@ export default function LabReportsClient() {
                 {/* Card header */}
                 <div className="bg-[#2a1008] px-5 pt-5 pb-4 flex items-start justify-between gap-2">
                   <h3 className="text-white font-bold text-[18px] leading-snug flex-1">{report.name}</h3>
-                  {isPDF(report.url) ? (
-                    <span className="flex-shrink-0 bg-white/10 text-white/70 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md">PDF</span>
-                  ) : (
-                    <span className="flex-shrink-0 bg-white/10 text-white/70 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md">IMG</span>
+                  {report.file && (
+                    <span className="flex-shrink-0 bg-white/10 text-white/70 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md">
+                      {isPDF(report.file) ? "PDF" : "IMG"}
+                    </span>
                   )}
                 </div>
 
@@ -203,25 +142,25 @@ export default function LabReportsClient() {
                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${CAT_STYLE[report.category]}`}>
                       {report.category}
                     </span>
-                    {report.type && (
-                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${TYPE_STYLE[report.type]}`}>
-                        {report.type}
+                    {report.strain_type && (
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${TYPE_STYLE[report.strain_type]}`}>
+                        {report.strain_type}
                       </span>
                     )}
                   </div>
 
                   {/* THCa + Terpenes stats */}
-                  {(report.thca || report.terp) && (
+                  {(report.thca || report.terpenes) && (
                     <div className="flex gap-3 mb-4">
                       {report.thca && (
                         <div className="flex-1 bg-[#f5f0eb] rounded-xl px-3 py-2.5 text-center">
-                          <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">{report.thca.toFixed(1)}%</p>
+                          <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">{Number(report.thca).toFixed(1)}%</p>
                           <p className="text-[#3d2b1f]/50 text-[16.5px] uppercase tracking-wider mt-1 font-semibold">THCa</p>
                         </div>
                       )}
-                      {report.terp && (
+                      {report.terpenes && (
                         <div className="flex-1 bg-[#f5f0eb] rounded-xl px-3 py-2.5 text-center">
-                          <p className="text-[#3d2b1f] text-[16.5px] font-bold leading-none">{report.terp.toFixed(2)}%</p>
+                          <p className="text-[#3d2b1f] text-[16.5px] font-bold leading-none">{Number(report.terpenes).toFixed(2)}%</p>
                           <p className="text-[#3d2b1f]/50 text-[16.5px] uppercase tracking-wider mt-1 font-semibold">Terpenes</p>
                         </div>
                       )}
@@ -234,20 +173,22 @@ export default function LabReportsClient() {
                   )}
 
                   {/* CTA */}
-                  <div className="mt-auto">
-                    <Link
-                      href={report.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                      </svg>
-                      View COA
-                    </Link>
-                  </div>
+                  {report.file && (
+                    <div className="mt-auto">
+                      <Link
+                        href={report.file}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full bg-[#1A9248] hover:bg-[#148038] text-white text-xs font-bold uppercase tracking-wider py-3 rounded-xl transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        View COA
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

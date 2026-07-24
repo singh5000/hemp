@@ -8,101 +8,46 @@ export const metadata: Metadata = {
     "Terms and conditions governing use of the Hemp & Barrel website. By visiting our site you agree to these terms.",
 };
 
-const SECTIONS = [
-  {
-    id: "account-terms",
-    title: "Account Terms",
-    content: `Registration grants access to pricing and order placement. Users are responsible for maintaining the security of their account and must take all steps to prevent unauthorized access. Hemp & Barrel reserves the right to refuse or cancel accounts at its discretion.`,
-  },
-  {
-    id: "acceptable-use",
-    title: "Acceptable Use",
-    content: null,
-    list: [
-      "Post or transmit unlawful, threatening, or obscene content",
-      "Transmit harmful software, viruses, or malicious code",
-      "Distribute copyrighted material without express permission",
-      "Share account credentials or access with third parties",
-    ],
-    listIntro: "Users of this website may not:",
-  },
-  {
-    id: "modification",
-    title: "Modification of These Terms & Conditions",
-    content: `Hemp & Barrel may modify these Terms & Conditions at any time without prior notice. Changes become effective immediately upon posting to the website. Your continued use of the site following any modification constitutes your acceptance of the revised terms.`,
-  },
-  {
-    id: "payment",
-    title: "Payment",
-    content: `Customers agree to pay the full purchase price and to provide a valid payment method for all purchases made through this website. All prices are listed in US dollars. Hemp & Barrel reserves the right to refuse or cancel orders where incorrect pricing has been displayed.`,
-  },
-  {
-    id: "electronic-communications",
-    title: "Electronic Communications",
-    content: `By using this website, you consent to receiving electronic communications from Hemp & Barrel. You acknowledge that all agreements, notices, disclosures, and other communications provided to you electronically satisfy any legal requirement that such communications be in writing. Submitting an order or form online constitutes a binding agreement.`,
-  },
-  {
-    id: "copyright",
-    title: "Copyright and Licences",
-    content: `All content on this website — including text, graphics, logos, images, audio clips, and software — belongs exclusively to Hemp & Barrel and is protected by applicable copyright and intellectual property laws. Users may not reproduce, distribute, publish, or create derivative works from any content on this site without prior written permission from Hemp & Barrel.`,
-  },
-  {
-    id: "licences",
-    title: "Licences",
-    content: `Hemp & Barrel grants you a limited, non-exclusive, non-transferable licence to access and use this website for personal, non-commercial purposes only. This licence does not permit modification of any content, commercial exploitation, reproduction, or redistribution of any materials found on this site.`,
-  },
-  {
-    id: "disclaimer",
-    title: "Disclaimer of Warranty / Limitation of Liability",
-    content: `This website and all content are provided "as is" without warranties of any kind, either express or implied. Hemp & Barrel disclaims all liability for any damages arising from your use of — or inability to use — this website or its content. Hemp & Barrel reserves the right to refuse or cancel any order where pricing errors have occurred.`,
-  },
-  {
-    id: "third-party",
-    title: "Third Party Links",
-    content: `This website may contain links to third-party websites. These links are provided for your convenience only. Hemp & Barrel does not endorse or take responsibility for the content, privacy practices, or accuracy of any third-party websites. Accessing linked sites is entirely at your own risk.`,
-  },
-  {
-    id: "applicable-law",
-    title: "Applicable Law",
-    content: `These Terms & Conditions shall be governed by and construed in accordance with the laws of England and Wales.`,
-  },
-  {
-    id: "disputes",
-    title: "Disputes",
-    content: `Any dispute, claim, or controversy arising out of or relating to these Terms & Conditions or the use of this website shall be resolved by binding arbitration in Charlotte, NC. By using this website, you waive the right to a jury trial or to participate in a class action lawsuit.`,
-  },
-  {
-    id: "indemnification",
-    title: "Indemnification",
-    content: `You agree to defend, indemnify, and hold harmless Hemp & Barrel and its officers, directors, employees, and agents from and against any claims, liabilities, damages, judgments, awards, losses, costs, or expenses (including reasonable attorneys' fees) arising out of or relating to your violation of these Terms & Conditions or your use of this website.`,
-  },
-  {
-    id: "other-provisions",
-    title: "Other Provisions",
-    content: `If any provision of these Terms & Conditions is found to be unenforceable or invalid, that provision shall be limited or eliminated to the minimum extent necessary so that the remaining terms remain in full force and effect. Hemp & Barrel may assign its rights and obligations under these Terms at any time without notice.`,
-  },
-];
+const TERMS_PAGE_ID = 3928;
 
-const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
+interface TermsAcf {
+  hero_eyebrow: string;
+  hero_heading: string;
+  sections: { heading: string; body: string }[];
+}
 
-async function fetchPageContent(slug: string): Promise<string> {
-  try {
-    const res = await fetch(`${WP}/wp-json/wp/v2/pages?slug=${slug}&_fields=content`, { next: { revalidate: 300 } });
-    if (!res.ok) return "";
-    const data = await res.json() as Array<{ content?: { rendered?: string } }>;
-    return data[0]?.content?.rendered ?? "";
-  } catch { return ""; }
+function heroTitle(heading: string) {
+  const parts = heading.split(/\*(.+?)\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <span key={i} className="text-[#1A9248]">{part}</span> : part
+  );
+}
+
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+async function getContent(): Promise<TermsAcf | null> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/pages/${TERMS_PAGE_ID}?acf_format=standard`,
+    { next: { revalidate: 300 } }
+  );
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.acf ?? null;
 }
 
 export default async function TermsPage() {
-  const wpContent = await fetchPageContent("terms-conditions");
+  const acf = await getContent();
+  if (!acf) return null;
+
   return (
     <>
       {/* ── Hero ── */}
       <PageBanner
         crumbs={[{ label: "Terms & Conditions" }]}
-        eyebrow="Legal"
-        title={<>Terms &amp; <span className="text-[#1A9248]">Conditions</span></>}
+        eyebrow={acf.hero_eyebrow}
+        title={heroTitle(acf.hero_heading)}
       />
 
       {/* ── Agreement notice ── */}
@@ -135,10 +80,10 @@ export default async function TermsPage() {
             <div className="sticky top-24 bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
               <p className="text-[16.5px] font-bold uppercase tracking-[0.25em] text-[#1A9248] mb-4">Contents</p>
               <nav className="space-y-0.5">
-                {SECTIONS.map((s) => (
-                  <a key={s.id} href={`#${s.id}`}
+                {acf.sections.map((s, i) => (
+                  <a key={i} href={`#${slugify(s.heading)}`}
                     className="block text-[15px] text-gray-500 hover:text-[#1A9248] py-1.5 pl-3 border-l-2 border-transparent hover:border-[#1A9248] transition-all leading-snug">
-                    {s.title}
+                    {s.heading}
                   </a>
                 ))}
               </nav>
@@ -147,32 +92,16 @@ export default async function TermsPage() {
 
           {/* ── Policy text ── */}
           <div className="flex-1 min-w-0 space-y-10">
-            {SECTIONS.map((section) => (
-              <div key={section.id} id={section.id} className="scroll-mt-24">
+            {acf.sections.map((section, i) => (
+              <div key={i} id={slugify(section.heading)} className="scroll-mt-24">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1.5 h-6 bg-[#1A9248] rounded-full flex-shrink-0" />
-                  <h2 className="text-[#2a1008] text-[28px] font-bold">{section.title}</h2>
+                  <h2 className="text-[#2a1008] text-[28px] font-bold">{section.heading}</h2>
                 </div>
-                <div className="pl-5 space-y-3">
-                  {section.content && (
-                    <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">{section.content}</p>
-                  )}
-                  {section.listIntro && (
-                    <p className="text-[#3d2b1f] text-[16.5px] leading-relaxed">{section.listIntro}</p>
-                  )}
-                  {section.list && (
-                    <ul className="space-y-2 mt-2">
-                      {section.list.map((item) => (
-                        <li key={item} className="flex items-start gap-3 text-[16px] text-[#3d2b1f]">
-                          <svg className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
-                          </svg>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                <div
+                  className="pl-5 text-[#3d2b1f] text-[16.5px] leading-relaxed [&>p]:mb-3 [&>p:last-child]:mb-0 [&_ul]:mt-2 [&_ul]:space-y-2 [&_li]:list-disc [&_li]:ml-5"
+                  dangerouslySetInnerHTML={{ __html: section.body }}
+                />
               </div>
             ))}
 

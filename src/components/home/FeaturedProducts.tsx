@@ -105,7 +105,7 @@ export default function FeaturedProducts() {
   const [canNext, setCanNext] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_WC_URL}/products?featured=true&per_page=20&stock_status=instock`)
+    fetch(`/api/wc/featured`)
       .then((r) => r.json())
       .then((data) => {
         const inStock = Array.isArray(data) ? data.filter((p: Product) => p.is_in_stock) : [];

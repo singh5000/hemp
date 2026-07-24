@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   compress: true,
   images: {
     dangerouslyAllowSVG: true,
+    dangerouslyAllowLocalIP: true, // local WP backend at localhost/127.0.0.1 during dev
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2592000,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
@@ -14,6 +15,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "hempandbarrel.com",
+        pathname: "/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "wp.hempandbarrel.com",
         pathname: "/wp-content/uploads/**",
       },
       {

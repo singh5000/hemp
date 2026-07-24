@@ -8,66 +8,61 @@ export const metadata: Metadata = {
     "Hemp & Barrel's return and refund policy. We accept returns within 30 days of purchase on unused items in original packaging. Contact us for help.",
 };
 
-const STEPS = [
-  {
-    n: "01",
-    title: "Contact Us",
-    desc: "Email customerservice@hempandbarrel.com within 30 days of your purchase date. Include your order number and reason for return.",
-  },
-  {
-    n: "02",
-    title: "Ship It Back",
-    desc: "Pack the item securely in its original packaging and ship it back to our store. Return shipping costs are the customer's responsibility.",
-  },
-  {
-    n: "03",
-    title: "Get Your Refund",
-    desc: "Once we receive and inspect the item, we'll notify you and process your refund to the original payment method within your card issuer's timeframe.",
-  },
+const RETURNS_PAGE_ID = 3914;
+
+const HIGHLIGHT_ICONS = [
+  <svg key="0" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+  </svg>,
+  <svg key="1" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+  </svg>,
+  <svg key="2" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+  </svg>,
 ];
 
-const HIGHLIGHTS = [
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-      </svg>
-    ),
-    label: "30-Day Window",
-    desc: "Request a return or refund within 30 days of purchase.",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-          d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-      </svg>
-    ),
-    label: "Original Condition",
-    desc: "Items must be unused, in original packaging with proof of purchase.",
-  },
-  {
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-      </svg>
-    ),
-    label: "Full Refund",
-    desc: "Approved returns receive a full refund to the original payment method.",
-  },
-];
+interface ReturnsAcf {
+  hero_eyebrow: string;
+  hero_heading: string;
+  hero_description: string;
+  highlights: { label: string; description: string }[];
+  sections: { heading: string; body: string }[];
+  steps: { title: string; description: string }[];
+}
 
-export default function ReturnsExchangesPage() {
+function heroTitle(heading: string) {
+  const parts = heading.split(/\*(.+?)\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <span key={i} className="text-[#1A9248]">{part}</span> : part
+  );
+}
+
+async function getContent(): Promise<ReturnsAcf | null> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/pages/${RETURNS_PAGE_ID}?acf_format=standard`,
+    { next: { revalidate: 300 } }
+  );
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.acf ?? null;
+}
+
+export default async function ReturnsExchangesPage() {
+  const acf = await getContent();
+  if (!acf) return null;
+
   return (
     <>
       {/* ── Hero ── */}
       <PageBanner
         crumbs={[{ label: "Returns & Exchanges" }]}
-        eyebrow="Customer Satisfaction"
-        title={<>Returns &amp; <span className="text-[#1A9248]">Exchanges</span></>}
-        description="Thanks for shopping at Hemp &amp; Barrel. If you are not entirely satisfied with your purchase, we are here to help."
+        eyebrow={acf.hero_eyebrow}
+        title={heroTitle(acf.hero_heading)}
+        description={acf.hero_description}
         aside={
           <div className="flex-shrink-0 flex flex-col items-center justify-center w-36 h-36 rounded-full border-4 border-[#1A9248]/30 bg-[#1A9248]/10 text-center">
             <p className="text-[#1A9248] text-[16.5px] font-bold leading-none">30</p>
@@ -80,14 +75,14 @@ export default function ReturnsExchangesPage() {
       <div className="bg-[#f5f0eb] border-b border-[#e8e0d8]">
         <div className="max-w-[1320px] mx-auto px-4 py-10">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {HIGHLIGHTS.map((h) => (
-              <div key={h.label} className="flex items-start gap-4">
+            {acf.highlights.map((h, i) => (
+              <div key={i} className="flex items-start gap-4">
                 <div className="w-12 h-12 flex-shrink-0 bg-[#1A9248]/10 text-[#1A9248] rounded-xl flex items-center justify-center">
-                  {h.icon}
+                  {HIGHLIGHT_ICONS[i % HIGHLIGHT_ICONS.length]}
                 </div>
                 <div>
                   <p className="font-bold text-[#2a1008] text-[16.5px] mb-1">{h.label}</p>
-                  <p className="text-gray-500 text-[16.5px] leading-relaxed">{h.desc}</p>
+                  <p className="text-gray-500 text-[16.5px] leading-relaxed">{h.description}</p>
                 </div>
               </div>
             ))}
@@ -101,101 +96,18 @@ export default function ReturnsExchangesPage() {
 
           {/* ── Policy sections ── */}
           <div className="flex-1 min-w-0 space-y-10">
-
-            {/* Returns */}
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-[32px] font-bold">Returns</h2>
-              </div>
-              <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4 text-[#3d2b1f] text-[15px] leading-relaxed">
-                <p className="text-[16.5px]">
-                  We take customer satisfaction very seriously. Please check your shipment carefully
-                  upon arrival to ensure it has not been damaged during shipping.
-                </p>
-                <p className="text-[16.5px]">
-                  All claims for damaged products must be made <strong className="text-[#2a1008]">within 30 days of receipt</strong> by
-                  writing to us at{" "}
-                  <a href="mailto:customerservice@hempandbarrel.com"
-                    className="text-[#1A9248] underline underline-offset-2 hover:text-[#148038] font-semibold">
-                    customerservice@hempandbarrel.com
-                  </a>. You will need to provide detailed information
-                  (including images) for any product damaged during shipping within that timeframe.
-                </p>
-                <div className="bg-[#f5f0eb] rounded-xl p-5">
-                  <p className="text-[#2a1008] font-bold text-[16.5px] mb-3">To be eligible for a return, your item must:</p>
-                  <ul className="space-y-2">
-                    {[
-                      "Be unused and in the same condition as received",
-                      "Be in the original packaging",
-                      "Include the receipt or proof of purchase",
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-[16px] text-[#3d2b1f]">
-                        <svg className="w-4 h-4 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
-                        </svg>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+            {acf.sections.map((s, i) => (
+              <div key={i}>
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
+                  <h2 className="text-[#2a1008] text-[32px] font-bold">{s.heading}</h2>
                 </div>
+                <div
+                  className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm text-[#3d2b1f] text-[16.5px] leading-relaxed [&>p]:mb-4 [&>p:last-child]:mb-0 [&_ul]:mt-2 [&_ul]:space-y-2 [&_li]:list-disc [&_li]:ml-5"
+                  dangerouslySetInnerHTML={{ __html: s.body }}
+                />
               </div>
-            </div>
-
-            {/* Refunds */}
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-[32px] font-bold">Refunds</h2>
-              </div>
-              <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4 text-[#3d2b1f] text-[15px] leading-relaxed">
-                <p className="text-[16.5px]">
-                  If you are not satisfied with our products, you may request a refund of the
-                  full purchase price within <strong className="text-[#2a1008]">30 days of the purchase date</strong>.
-                  Please submit this request by writing to{" "}
-                  <a href="mailto:customerservice@hempandbarrel.com"
-                    className="text-[#1A9248] underline underline-offset-2 hover:text-[#148038] font-semibold">
-                    customerservice@hempandbarrel.com
-                  </a>.
-                </p>
-                <p className="text-[16.5px]">
-                  Once we receive your item, we will inspect it and notify you of the status of
-                  your refund. If your return is approved, we will initiate a refund to your
-                  credit card or original method of payment.
-                </p>
-                <div className="flex items-start gap-3 bg-[#1A9248]/5 border border-[#1A9248]/20 rounded-xl p-4">
-                  <svg className="w-5 h-5 text-[#1A9248] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                  <p className="text-[16.5px] text-[#3d2b1f]">
-                    You will receive the credit within a certain number of days, depending on
-                    your card issuer's policies.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Shipping */}
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-1.5 h-7 bg-[#1A9248] rounded-full" />
-                <h2 className="text-[#2a1008] text-[32px] font-bold">Return Shipping</h2>
-              </div>
-              <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm space-y-4 text-[#3d2b1f] text-[15px] leading-relaxed">
-                <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
-                  <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                  </svg>
-                  <p className="text-[16.5px] text-amber-800 font-medium">
-                    You are responsible for paying your own return shipping costs. Shipping costs are <strong>non-refundable</strong>.
-                  </p>
-                </div>
-                <p className="text-[16.5px]">
-                  If you receive a refund, the cost of return shipping will be deducted from your refund amount.
-                  We recommend using a trackable shipping service or purchasing shipping insurance for items over $50.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* ── Sidebar ── */}
@@ -205,17 +117,17 @@ export default function ReturnsExchangesPage() {
             <div className="bg-[#2a1008] rounded-2xl p-7">
               <p className="text-[#1A9248] text-[16.5px] font-bold uppercase tracking-[0.3em] mb-5">How It Works</p>
               <div className="space-y-6">
-                {STEPS.map((step, i) => (
-                  <div key={step.n} className="flex gap-4">
+                {acf.steps.map((step, i) => (
+                  <div key={i} className="flex gap-4">
                     <div className="flex flex-col items-center">
                       <div className="w-9 h-9 rounded-full bg-[#1A9248] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">
-                        {step.n}
+                        {String(i + 1).padStart(2, "0")}
                       </div>
-                      {i < STEPS.length - 1 && <div className="w-px flex-1 bg-white/10 mt-2" />}
+                      {i < acf.steps.length - 1 && <div className="w-px flex-1 bg-white/10 mt-2" />}
                     </div>
                     <div className="pb-6">
                       <p className="text-white font-bold text-[16.5px] mb-1">{step.title}</p>
-                      <p className="text-white/50 text-[16.5px] leading-relaxed">{step.desc}</p>
+                      <p className="text-white/50 text-[16.5px] leading-relaxed">{step.description}</p>
                     </div>
                   </div>
                 ))}

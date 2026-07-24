@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import PageBanner from "@/components/layout/PageBanner";
 
@@ -13,138 +12,21 @@ const CATEGORIES = [
   { id: "in-store", label: "Visit Us" },
 ];
 
-const FAQS = [
-  // ── About CBD ──
-  {
-    id: "what-is-cbd",
-    category: "about-cbd",
-    q: "What is CBD?",
-    a: "CBD (cannabidiol) is a naturally occurring compound found in the hemp plant (Cannabis Sativa). Unlike THC, CBD is non-psychoactive, meaning it will not produce a \"high.\" Many people use CBD to support relaxation, stress relief, sleep, and overall wellness.",
-  },
-  {
-    id: "is-cbd-legal",
-    category: "about-cbd",
-    q: "Is CBD legal?",
-    a: "Yes. Following the 2018 Farm Bill, hemp-derived CBD products containing less than 0.3% Delta-9 THC are federally legal in the United States. All of our products comply with federal law and are sourced from licensed hemp farms.",
-  },
-  {
-    id: "will-cbd-get-me-high",
-    category: "about-cbd",
-    q: "Will CBD get me high?",
-    a: "No. CBD is non-psychoactive and will not produce a high. Our hemp-derived products contain 0.3% THC or less, which is far below the threshold needed to cause any intoxicating effects.",
-  },
-  {
-    id: "full-broad-isolate",
-    category: "about-cbd",
-    q: "What's the difference between Full Spectrum, Broad Spectrum, and CBD Isolate?",
-    a: "Full Spectrum contains all cannabinoids, terpenes, and trace amounts of THC (≤0.3%), providing the \"entourage effect.\" Broad Spectrum has all cannabinoids and terpenes but zero THC. CBD Isolate is pure CBD — 99%+ pure with no other cannabinoids. Full Spectrum is generally considered the most effective due to the synergy between compounds.",
-  },
-  {
-    id: "hemp-vs-marijuana",
-    category: "about-cbd",
-    q: "What's the difference between hemp and marijuana?",
-    a: "Both come from Cannabis Sativa, but hemp is legally defined as cannabis with 0.3% THC or less. Marijuana refers to cannabis plants with higher THC content. All products at Hemp & Barrel are derived from compliant hemp plants and will not get you high.",
-  },
-  {
-    id: "lab-tested",
-    category: "about-cbd",
-    q: "Are your products lab tested?",
-    a: "Absolutely. Every product we carry is third-party lab tested for potency, purity, and safety. You can view Certificates of Analysis (COAs) on our Lab Reports page. We only stock brands that meet our strict quality standards.",
-  },
-  {
-    id: "thc-content",
-    category: "about-cbd",
-    q: "Do your products contain THC?",
-    a: "Our hemp-derived CBD products contain 0.3% Delta-9 THC or less as required by federal law. We also carry Delta-8 and other minor cannabinoid products which are clearly labeled. If you need zero-THC options, look for our Broad Spectrum or Isolate products.",
-  },
+export interface Faq {
+  category: string;
+  question: string;
+  answer: string;
+}
 
-  // ── Using CBD ──
-  {
-    id: "how-much-sublingual",
-    category: "using-cbd",
-    q: "How much CBD should I take sublingually?",
-    a: "It varies by person. Most of our customers start with half a dropper and increase to a full dropper if needed. We recommend starting low and going slow — give your body 2–4 weeks to find your optimal dose before adjusting.",
-  },
-  {
-    id: "how-long-to-work",
-    category: "using-cbd",
-    q: "How long does CBD take to work?",
-    a: "It depends on the method. Sublingual tinctures: 15–45 minutes. Vaping/inhaling: 5–15 minutes. Edibles/gummies: 45–90 minutes. Topicals: 15–30 minutes locally. Results can also vary based on your body weight, metabolism, and the condition you're addressing.",
-  },
-  {
-    id: "best-way-to-take",
-    category: "using-cbd",
-    q: "What's the best way to take CBD?",
-    a: "It depends on your goals. For fast relief, vaping or sublingual tinctures work best. For long-lasting effects, edibles and gummies are ideal. For localized relief (muscle soreness, joint pain), topicals are excellent. Our knowledgeable staff can help you choose the right product for your needs — stop in or give us a call!",
-  },
-  {
-    id: "cbd-for-pets",
-    category: "using-cbd",
-    q: "Can I give CBD to my pets?",
-    a: "Yes! We carry a dedicated line of CBD products formulated specifically for pets. CBD may help pets with anxiety, joint discomfort, and general wellness. Always use pet-specific products and consult your veterinarian before starting a CBD regimen for your animal.",
-  },
-  {
-    id: "will-fail-drug-test",
-    category: "using-cbd",
-    q: "Will CBD cause me to fail a drug test?",
-    a: "Standard drug tests screen for THC metabolites, not CBD itself. While Full Spectrum products contain trace THC (≤0.3%), they could potentially trigger a positive result with heavy use. If you have upcoming drug testing, we recommend choosing Broad Spectrum or Isolate products, which contain zero THC.",
-  },
-
-  // ── Orders & Shipping ──
-  {
-    id: "ship-nationwide",
-    category: "orders",
-    q: "Do you ship nationwide?",
-    a: "Yes! We ship hemp-derived CBD products to all 50 states. Orders are processed within 1–2 business days and typically arrive within 3–7 business days via USPS or UPS. Expedited shipping options are available at checkout.",
-  },
-  {
-    id: "return-policy",
-    category: "orders",
-    q: "What is your return policy?",
-    a: "We want you to be 100% satisfied with your purchase. If you're not happy with a product, please contact us within 30 days of purchase. Unopened products in original condition may be returned or exchanged. For quality issues, please reach out and we'll make it right.",
-  },
-  {
-    id: "payment-methods",
-    category: "orders",
-    q: "What payment methods do you accept?",
-    a: "We accept all major credit and debit cards (Visa, Mastercard, Discover, American Express), cash (in-store), and other payment methods available at checkout. Our checkout is fully encrypted and secure.",
-  },
-  {
-    id: "discounts",
-    category: "orders",
-    q: "Do you offer discounts or loyalty programs?",
-    a: "Yes! Subscribe to our newsletter for exclusive deals and new product announcements. We also offer in-store promotions, seasonal sales, and bundle deals. Follow us on Instagram @HempAndBarrel to stay up to date on the latest offers.",
-  },
-  {
-    id: "minimum-age",
-    category: "orders",
-    q: "Is there a minimum age to purchase?",
-    a: "Yes. You must be 21 years of age or older to purchase CBD and hemp products from Hemp & Barrel, both online and in-store. Age verification is required at checkout and at our physical location.",
-  },
-
-  // ── Visit Us ──
-  {
-    id: "store-location",
-    category: "in-store",
-    q: "Where is Hemp & Barrel located?",
-    a: "We are located at 800 N Polk Street, Pineville, NC 28134 — just south of Charlotte. We're easy to find with plenty of parking. Click \"Get Directions\" to open Google Maps.",
-  },
-  {
-    id: "store-hours",
-    category: "in-store",
-    q: "What are your store hours?",
-    a: "Monday – Saturday: 10:00 AM – 8:00 PM\nSunday: 12:00 PM – 4:00 PM\n\nHoliday hours may vary. Follow us on social media for any schedule updates.",
-  },
-  {
-    id: "staff-help",
-    category: "in-store",
-    q: "Can your staff help me find the right product?",
-    a: "Absolutely! Our knowledgeable team is trained in cannabinoid science and wellness. Whether you're new to CBD or an experienced user looking to try something new, we'll guide you to the right product for your needs, budget, and lifestyle. No pressure — just expert advice.",
-  },
-];
+function heroTitle(heading: string) {
+  const parts = heading.split(/\*(.+?)\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <span key={i} className="text-[#1A9248]">{part}</span> : part
+  );
+}
 
 function FaqItem({ faq, isOpen, onToggle }: {
-  faq: typeof FAQS[0];
+  faq: Faq;
   isOpen: boolean;
   onToggle: () => void;
 }) {
@@ -159,7 +41,7 @@ function FaqItem({ faq, isOpen, onToggle }: {
         <span className={`font-bold text-xl leading-snug transition-colors ${
           isOpen ? "text-[#1A9248]" : "text-[#3d2b1f] group-hover:text-[#1A9248]"
         }`}>
-          {faq.q}
+          {faq.question}
         </span>
         <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
           isOpen ? "bg-[#1A9248] rotate-45" : "bg-gray-100 group-hover:bg-[#1A9248]/10"
@@ -175,7 +57,7 @@ function FaqItem({ faq, isOpen, onToggle }: {
         <div className="px-6 pb-5">
           <div className="w-10 h-0.5 bg-[#1A9248] mb-4 rounded-full" />
           <p className="text-gray-600 leading-relaxed text-[16.5px] whitespace-pre-line">
-            {faq.a}
+            {faq.answer}
           </p>
         </div>
       )}
@@ -183,24 +65,29 @@ function FaqItem({ faq, isOpen, onToggle }: {
   );
 }
 
-export default function FaqsClient() {
+export default function FaqsClient({ eyebrow, heading, description, faqs }: {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  faqs: Faq[];
+}) {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [openItems, setOpenItems] = useState<Set<string>>(new Set());
+  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
 
   const filtered = activeCategory === "all"
-    ? FAQS
-    : FAQS.filter((f) => f.category === activeCategory);
+    ? faqs
+    : faqs.filter((f) => f.category === activeCategory);
 
-  const toggle = (id: string) => {
+  const toggle = (i: number) => {
     setOpenItems((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
       return next;
     });
   };
 
-  const expandAll = () => setOpenItems(new Set(filtered.map((f) => f.id)));
+  const expandAll = () => setOpenItems(new Set(filtered.map((_, i) => i)));
   const collapseAll = () => setOpenItems(new Set());
 
   return (
@@ -208,9 +95,9 @@ export default function FaqsClient() {
       {/* Hero */}
       <PageBanner
         align="center"
-        eyebrow="Got Questions?"
-        title={<>Frequently Asked <span className="text-[#1A9248]">Questions</span></>}
-        description="Everything you need to know about CBD, our products, shipping, and visiting our store."
+        eyebrow={eyebrow}
+        title={heroTitle(heading)}
+        description={description}
         cta={
           <AnimatedButton href="/contact" variant="outline" size="sm">
             Can&apos;t find your answer? Contact us
@@ -239,7 +126,7 @@ export default function FaqsClient() {
                   <span className={`ml-1.5 text-xs px-1.5 py-0.5 rounded-full ${
                     activeCategory === cat.id ? "bg-white/20 text-white" : "bg-gray-100 text-gray-500"
                   }`}>
-                    {FAQS.filter((f) => f.category === cat.id).length}
+                    {faqs.filter((f) => f.category === cat.id).length}
                   </span>
                 )}
               </button>
@@ -264,12 +151,12 @@ export default function FaqsClient() {
 
           {/* FAQ Items */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-x-5 items-start">
-            {filtered.map((faq) => (
+            {filtered.map((faq, i) => (
               <FaqItem
-                key={faq.id}
+                key={i}
                 faq={faq}
-                isOpen={openItems.has(faq.id)}
-                onToggle={() => toggle(faq.id)}
+                isOpen={openItems.has(i)}
+                onToggle={() => toggle(i)}
               />
             ))}
           </div>

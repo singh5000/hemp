@@ -52,11 +52,20 @@ const INFO_CARDS = [
   },
 ];
 
-const WP = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? "";
-
 const RECAPTCHA_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
-export default function ContactClient() {
+function heroTitle(heading: string) {
+  const parts = heading.split(/\*(.+?)\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <span key={i} className="text-[#1A9248]">{part}</span> : part
+  );
+}
+
+export default function ContactClient({ eyebrow, heading, description }: {
+  eyebrow: string;
+  heading: string;
+  description: string;
+}) {
   const [form, setForm] = useState({ firstName: "", lastName: "", email: "", message: "" });
   const [honey, setHoney] = useState("");
   const [loadedAt] = useState(Date.now());
@@ -93,7 +102,7 @@ export default function ContactClient() {
     setErrMsg("");
     try {
       const recaptchaToken = await getRecaptchaToken();
-      const res = await fetch(`${WP}/wp-json/hemp/v1/contact`, {
+      const res = await fetch(`/api/hemp/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, recaptchaToken }),
@@ -116,9 +125,9 @@ export default function ContactClient() {
       <PageBanner
         align="center"
         crumbs={[{ label: "Contact" }]}
-        eyebrow="We'd Love to Hear From You"
-        title={<>Get In <span className="text-[#1A9248]">Touch</span></>}
-        description="Questions about our products? Need expert CBD advice? We're here and happy to help."
+        eyebrow={eyebrow}
+        title={heroTitle(heading)}
+        description={description}
       />
 
       {/* ── INFO CARDS ── */}

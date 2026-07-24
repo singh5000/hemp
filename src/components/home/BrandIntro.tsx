@@ -3,13 +3,37 @@ import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import { Leaf, ShieldCheck, ArrowUpRight, Sparkles } from "lucide-react";
 
-const STATS = [
-  { value: "500+", label: "Products" },
-  { value: "3rd-Party", label: "Lab Tested" },
-  { value: "2019", label: "Est. in NC" },
-];
+const HOME_PAGE_ID = 38;
 
-export default function BrandIntro() {
+interface BrandAcf {
+  brand_image: string | false;
+  brand_heading: string;
+  brand_body: string;
+  brand_stats: { value: string; label: string }[];
+}
+
+async function getBrandContent(): Promise<BrandAcf | null> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/pages/${HOME_PAGE_ID}?acf_format=standard`,
+    { next: { revalidate: 300 } }
+  );
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.acf ?? null;
+}
+
+/* Renders *highlighted text* wrapped in green, rest in the normal heading color */
+function renderHeading(heading: string) {
+  const parts = heading.split(/\*(.+?)\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <span key={i} className="text-[#1A9248]">{part}</span> : part
+  );
+}
+
+export default async function BrandIntro() {
+  const acf = await getBrandContent();
+  if (!acf) return null;
+
   return (
     <section className="bg-[#f5f0eb] relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
@@ -26,15 +50,17 @@ export default function BrandIntro() {
               {/* Glow */}
               <div className="absolute inset-3 bg-[#1A9248]/15 rounded-full blur-3xl" />
 
-              <div className="relative w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden shadow-2xl shadow-black/10 ring-1 ring-black/5">
-                <Image
-                  src="https://images.pexels.com/photos/7668051/pexels-photo-7668051.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Hemp & Barrel hemp-derived gummies"
-                  fill
-                  sizes="(max-width: 768px) 280px, 320px"
-                  className="object-cover"
-                />
-              </div>
+              {acf.brand_image && (
+                <div className="relative w-[280px] h-[280px] md:w-[320px] md:h-[320px] rounded-full overflow-hidden shadow-2xl shadow-black/10 ring-1 ring-black/5">
+                  <Image
+                    src={acf.brand_image}
+                    alt="Hemp & Barrel hemp-derived gummies"
+                    fill
+                    sizes="(max-width: 768px) 280px, 320px"
+                    className="object-cover"
+                  />
+                </div>
+              )}
 
               {/* Floating badge */}
               <div className="absolute top-2 left-0 flex items-center gap-1.5 bg-white rounded-full pl-2 pr-3 py-1.5 shadow-lg">
@@ -64,15 +90,11 @@ export default function BrandIntro() {
             </div>
 
             <h2 className="text-[36px] md:text-[3rem] font-black text-[#2a1008] leading-[1.1] mb-6">
-              Hemp &amp; Barrel — Charlotte &amp; Pineville&apos;s Trusted{" "}
-              <span className="text-[#1A9248]">THCA, Delta 8/9 &amp; CBD</span> Shop
+              {renderHeading(acf.brand_heading)}
             </h2>
 
             <p className="text-[#5a4a3f] text-[16.5px] md:text-lg leading-[1.9] mb-8 max-w-[640px]">
-              From THCA flower and Delta 8/9 gummies to tinctures, topicals, and hemp beverages —
-              every product we carry is third-party lab tested and ≤0.3% Delta-9 compliant. We&apos;re
-              a true seed-to-shelf, locally owned operation based right here in North Carolina, and
-              we&apos;ve scoured the state to bring you the best hemp shopping experience anywhere.
+              {acf.brand_body}
             </p>
 
             <div className="flex items-center gap-3 mb-9">
@@ -83,8 +105,8 @@ export default function BrandIntro() {
             </div>
 
             <div className="flex flex-wrap gap-8">
-              {STATS.map((s) => (
-                <div key={s.label}>
+              {acf.brand_stats.map((s, i) => (
+                <div key={i}>
                   <p className="text-[28px] font-black text-[#1A9248] leading-none mb-1.5">{s.value}</p>
                   <p className="text-[13px] font-bold text-gray-400 uppercase tracking-wider">{s.label}</p>
                 </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import FaqsClient from "./FaqsClient";
+import FaqsClient, { Faq } from "./FaqsClient";
 
 export const metadata: Metadata = {
   title: "FAQs About Hemp, CBD & THC Products | Hemp & Barrel",
@@ -12,6 +12,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function FaqsPage() {
-  return <FaqsClient />;
+const FAQS_PAGE_ID = 3907;
+
+interface FaqsAcf {
+  hero_eyebrow: string;
+  hero_heading: string;
+  hero_description: string;
+  questions: Faq[];
+}
+
+async function getContent(): Promise<FaqsAcf | null> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/pages/${FAQS_PAGE_ID}?acf_format=standard`,
+    { next: { revalidate: 300 } }
+  );
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.acf ?? null;
+}
+
+export default async function FaqsPage() {
+  const acf = await getContent();
+  if (!acf) return null;
+  return (
+    <FaqsClient
+      eyebrow={acf.hero_eyebrow}
+      heading={acf.hero_heading}
+      description={acf.hero_description}
+      faqs={acf.questions}
+    />
+  );
 }

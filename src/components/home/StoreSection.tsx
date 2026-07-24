@@ -1,9 +1,40 @@
-"use client";
 import Image from "next/image";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import { MapPin, Clock, Phone, Star, ChevronRight } from "lucide-react";
 
-export default function StoreSection() {
+const HOME_PAGE_ID = 38;
+
+interface StoreAcf {
+  store_image: string | false;
+  store_quote: string;
+  store_address: string;
+  store_hours: string;
+  store_phone: string;
+}
+
+async function getStoreContent(): Promise<StoreAcf | null> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/pages/${HOME_PAGE_ID}?acf_format=standard`,
+    { next: { revalidate: 300 } }
+  );
+  if (!res.ok) return null;
+  const data = await res.json();
+  return data.acf ?? null;
+}
+
+export default async function StoreSection() {
+  const acf = await getStoreContent();
+  if (!acf) return null;
+
+  const phoneDigits = acf.store_phone.replace(/[^0-9]/g, "");
+  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(acf.store_address)}`;
+
+  const rows = [
+    { icon: MapPin, label: "FIND US", text: acf.store_address, href: mapsHref, color: "bg-[#1A9248]" },
+    { icon: Clock, label: "STORE HOURS", text: acf.store_hours, color: "bg-[#2a1008]" },
+    { icon: Phone, label: "CALL US", text: acf.store_phone, href: `tel:${phoneDigits}`, color: "bg-[#1A9248]" },
+  ];
+
   return (
     <section className="bg-[#f8f6f3]">
       <div className="max-w-[1320px] mx-auto px-4 py-20">
@@ -26,13 +57,15 @@ export default function StoreSection() {
 
             {/* Image — takes 3 cols */}
             <div className="relative lg:col-span-3 min-h-[350px] lg:min-h-[520px] group">
-              <Image
-                src="https://images.unsplash.com/photo-1604660664082-3cac347079b0?w=1200&q=80"
-                alt="Hemp & Barrel Store"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                sizes="(max-width: 1024px) 100vw, 60vw"
-              />
+              {acf.store_image && (
+                <Image
+                  src={acf.store_image}
+                  alt="Hemp & Barrel Store"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-white/20" />
 
               {/* Badges on image */}
@@ -72,7 +105,7 @@ export default function StoreSection() {
               <div className="relative mb-6">
                 <span className="absolute -left-2 -top-2 text-5xl font-serif text-[#1A9248]/15 leading-none">&ldquo;</span>
                 <p className="text-[#2a1008] text-[16.5px] leading-[1.85] font-medium pl-6">
-                  Charlotte NC&apos;s most trusted THCA &amp; hemp store — premium THCA flower, gummies, Delta 8, tinctures, vapes, CBD &amp; hemp beverages. All third-party lab-tested.
+                  {acf.store_quote}
                 </p>
               </div>
 
@@ -81,11 +114,7 @@ export default function StoreSection() {
 
               {/* Modern info grid */}
               <div className="grid grid-cols-1 gap-1 mb-8">
-                {[
-                  { icon: MapPin, label: "FIND US", text: "800 N Polk St, Pineville, NC 28134", href: "https://goo.gl/maps/ZGKaUsQ9k6sGLywh7", color: "bg-[#1A9248]" },
-                  { icon: Clock, label: "STORE HOURS", text: "Mon–Sat 10AM–8PM • Sun 12–4PM", color: "bg-[#2a1008]" },
-                  { icon: Phone, label: "CALL US", text: "(980) 326-4367", href: "tel:9803264367", color: "bg-[#1A9248]" },
-                ].map((row) => {
+                {rows.map((row) => {
                   const inner = (
                     <div className="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 hover:border-[#1A9248]/20 hover:shadow-md hover:shadow-[#1A9248]/5 transition-all duration-300 group/row">
                       <div className={`w-11 h-11 rounded-xl ${row.color} flex items-center justify-center flex-shrink-0 group-hover/row:scale-110 transition-transform`}>
@@ -108,7 +137,7 @@ export default function StoreSection() {
 
               {/* CTA */}
               <div className="flex items-center gap-3 flex-wrap">
-                <AnimatedButton href="https://goo.gl/maps/ZGKaUsQ9k6sGLywh7" external>
+                <AnimatedButton href={mapsHref} external>
                   Get Directions
                 </AnimatedButton>
                 <AnimatedButton href="/shop" variant="outline" size="sm">

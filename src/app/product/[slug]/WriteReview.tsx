@@ -22,7 +22,7 @@ export default function WriteReview({ productId, productName }: { productId: num
     setStatus("sending");
     setErrMsg("");
     try {
-      const res = await fetch(`${WP}/wp-json/hemp/v1/review`, {
+      const res = await fetch(`/api/hemp/review`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId, rating, name, email, review }),

@@ -65,7 +65,7 @@ export default function ProductForm({ productId, productName, hasOptions, isInSt
     if (!notifyEmail) return;
     setNotifyState("sending");
     try {
-      const res = await fetch(`${WP}/wp-json/hemp/v1/notify-restock`, {
+      const res = await fetch(`/api/hemp/notify-restock`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: notifyEmail, productId, productName }),

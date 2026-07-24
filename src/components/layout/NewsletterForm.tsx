@@ -43,7 +43,7 @@ export default function NewsletterForm({ variant = "dark" }: { variant?: "dark" 
         }
       }
 
-      const res = await fetch(`${WP}/wp-json/hemp/v1/newsletter`, {
+      const res = await fetch(`/api/hemp/newsletter`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, recaptchaToken }),

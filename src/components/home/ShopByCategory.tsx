@@ -2,54 +2,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { Flame, Candy, CupSoda, Package, Droplet, Sparkles, PawPrint, ArrowRight } from "lucide-react";
 
-const categories = [
-  {
-    name: "Smokable Hemp Flower",
-    href: "/product-category/smokable-hemp-flower",
-    image: "https://hempandbarrel.com/wp-content/uploads/2023/02/smokables.jpg",
-    icon: Flame,
-    tag: "Most Popular",
-    span: "md:col-span-2 md:row-span-2",
-  },
-  {
-    name: "Edibles & Gummies",
-    href: "/product-category/edibles-gummies",
-    image: "https://hempandbarrel.com/wp-content/uploads/2023/02/edibles-image.jpg",
-    icon: Candy,
-  },
-  {
-    name: "Infused Beverages",
-    href: "/product-category/infused-beverages",
-    image: "https://hempandbarrel.com/wp-content/uploads/2023/02/beverages.jpg",
-    icon: CupSoda,
-  },
-  {
-    name: "CBD Pouches",
-    href: "/product-category/cbd-pouches",
-    image: "https://hempandbarrel.com/wp-content/uploads/2024/04/cbd-pouches2.png",
-    icon: Package,
-  },
-  {
-    name: "Tinctures",
-    href: "/product-category/tinctures",
-    image: "https://hempandbarrel.com/wp-content/uploads/2023/02/tincture.jpg",
-    icon: Droplet,
-  },
-  {
-    name: "Topicals",
-    href: "/product-category/topicals",
-    image: "https://hempandbarrel.com/wp-content/uploads/2024/04/Topicals-Category-Photo.png",
-    icon: Sparkles,
-  },
-  {
-    name: "Pet Products",
-    href: "/product-category/pets",
-    image: "https://hempandbarrel.com/wp-content/uploads/2023/02/pets.jpg",
-    icon: PawPrint,
-  },
-];
+const HOME_PAGE_ID = 38;
 
-export default function ShopByCategory() {
+const CATEGORY_ICONS = [Flame, Candy, CupSoda, Package, Droplet, Sparkles, PawPrint];
+
+interface CategoryAcf {
+  image: string | false;
+  name: string;
+  link: string;
+}
+
+async function getCategories(): Promise<CategoryAcf[]> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/wp/v2/pages/${HOME_PAGE_ID}?acf_format=standard`,
+    { next: { revalidate: 300 } }
+  );
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.acf?.categories ?? [];
+}
+
+export default async function ShopByCategory() {
+  const categories = await getCategories();
+  if (categories.length === 0) return null;
+
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-[1320px] mx-auto px-4">
@@ -63,24 +39,28 @@ export default function ShopByCategory() {
           <h2 className="text-[36px] md:text-5xl font-black text-[#2a1008]">Shop By Category</h2>
         </div>
 
-        {/* Bento grid */}
+        {/* Bento grid — first tile is the hero (larger, tagged), rest are standard */}
         <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-3 gap-3.5 md:gap-5 md:auto-rows-[225px]">
-          {categories.map((cat) => {
-            const Icon = cat.icon;
+          {categories.map((cat, i) => {
+            const Icon = CATEGORY_ICONS[i % CATEGORY_ICONS.length];
+            const isHero = i === 0;
+            const span = isHero ? "md:col-span-2 md:row-span-2" : "";
             return (
               <Link
-                key={cat.href}
-                href={cat.href}
-                className={`relative rounded-2xl md:rounded-3xl overflow-hidden group ring-1 ring-black/5 shadow-md shadow-black/5 hover:shadow-2xl hover:shadow-[#1A9248]/15 hover:-translate-y-1 transition-all duration-500 aspect-[4/3] md:aspect-auto ${cat.span ?? ""}`}
+                key={cat.link}
+                href={cat.link}
+                className={`relative rounded-2xl md:rounded-3xl overflow-hidden group ring-1 ring-black/5 shadow-md shadow-black/5 hover:shadow-2xl hover:shadow-[#1A9248]/15 hover:-translate-y-1 transition-all duration-500 aspect-[4/3] md:aspect-auto ${span}`}
               >
                 {/* Background Image */}
-                <Image
-                  src={cat.image}
-                  alt={cat.name}
-                  fill
-                  className="object-cover saturate-[0.92] transition-transform duration-700 ease-out group-hover:scale-110"
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
+                {cat.image && (
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    className="object-cover saturate-[0.92] transition-transform duration-700 ease-out group-hover:scale-110"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                )}
 
                 {/* Brand color-grade wash for cohesion across mixed photo tones */}
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1A9248]/10 via-transparent to-[#2a1008]/20 mix-blend-multiply" />
@@ -92,24 +72,24 @@ export default function ShopByCategory() {
                 <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-white/10 pointer-events-none" />
 
                 {/* Tag pill (hero only) */}
-                {cat.tag && (
+                {isHero && (
                   <span className="absolute top-4 left-4 md:top-5 md:left-5 bg-[#1A9248] text-white text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full shadow-lg shadow-black/20">
-                    {cat.tag}
+                    Most Popular
                   </span>
                 )}
 
                 {/* Icon badge */}
-                <div className={`absolute ${cat.tag ? "top-4 right-4 md:top-5 md:right-5" : "top-3.5 left-3.5"} w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-[#1A9248] group-hover:border-[#1A9248] transition-all duration-300`}>
+                <div className={`absolute ${isHero ? "top-4 right-4 md:top-5 md:right-5" : "top-3.5 left-3.5"} w-9 h-9 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-[#1A9248] group-hover:border-[#1A9248] transition-all duration-300`}>
                   <Icon className="w-4 h-4 text-white" />
                 </div>
 
                 {/* Category name */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 flex items-end justify-between gap-2">
                   <div>
-                    <span className={`block text-white font-black uppercase leading-tight tracking-wide drop-shadow-md ${cat.span ? "text-[26px] md:text-[32px]" : "text-[15px] md:text-[17px]"}`}>
+                    <span className={`block text-white font-black uppercase leading-tight tracking-wide drop-shadow-md ${isHero ? "text-[26px] md:text-[32px]" : "text-[15px] md:text-[17px]"}`}>
                       {cat.name}
                     </span>
-                    <span className={`flex items-center gap-1 text-[#7ee6a3] text-[12px] font-bold uppercase tracking-wider mt-1.5 transition-all duration-300 ${cat.span ? "opacity-100" : "opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0"}`}>
+                    <span className={`flex items-center gap-1 text-[#7ee6a3] text-[12px] font-bold uppercase tracking-wider mt-1.5 transition-all duration-300 ${isHero ? "opacity-100" : "opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0"}`}>
                       Shop Now
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                     </span>
