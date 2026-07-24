@@ -124,7 +124,7 @@ export default function Header() {
         style={solid ? undefined : { filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.95))" }}>
         <div
           className={`w-full flex items-center justify-between transition-all duration-500 ${solid ? "h-[58px]" : "h-[72px]"}`}
-          style={{ paddingLeft: 80, paddingRight: 80 }}
+          style={{ paddingLeft: "clamp(16px, 5vw, 80px)", paddingRight: "clamp(16px, 5vw, 80px)" }}
         >
 
           {/* Left Nav */}
@@ -145,7 +145,7 @@ export default function Header() {
           </nav>
 
           {/* Center Logo */}
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 flex-shrink-0 max-w-[140px] sm:max-w-none">
+          <Link href="/" className="flex-shrink-0 max-w-[120px] sm:max-w-[140px] lg:max-w-none">
             <Image
               src="https://wp.hempandbarrel.com/wp-content/uploads/2023/02/nav-logo.svg"
               alt="Hemp & Barrel"
